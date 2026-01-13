@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap"
+    rel="stylesheet" />
+  <title>Legends & Bonk</title>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-xl">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="./index.html"><img src="./image/logo_l_and_b.png" alt="Logo" width="70" height="70"
+          class="d-inline-block align-text-middle" />
+        Legends & Bonk</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="./index.html">Accueil</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./regles.html">Règles</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Personnages
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="./personnages/regles_creation.html">Les règles de création</a></li>
+              <li><a class="dropdown-item" href="./personnages/classes.html">Les classes</a></li>
+              <li><a class="dropdown-item" href="./personnages/races.html">Les races</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="./personnages/aides_creation.html">Les aides de création</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Équipement
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="./equipement/armes.html">Les armes</a></li>
+              <li><a class="dropdown-item" href="./equipement/armures.html">Les armures</a></li>
+              <li><a class="dropdown-item" href="./equipement/potions.html">Les potions</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="./equipement/prix.html">Les feuilles de prix</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Magie
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="./magie/tartos.html">Les cartes de tarots</a></li>
+              <li><a class="dropdown-item" href="./magie/livre_magie.html">Le grand livre de la magie</a></li>
+              <li><a class="dropdown-item" href="./magie/grimoire_sanguinolent.html">Le grimoire sanguinolent</a></li>
+            </ul>
+          </li>
+        </ul>
+        <ul class="navbar-nav mb-2 mb-lg-0 d-flex flex-row justify-content-center">
+          <li class="nav-item">
+            <a href="./add_on.html" class="btn btn-outline-light me-2" role="button">Add-on</a>
+          </li>
+          <li class="nav-item">
+            <a href="./logiciel.html" class="btn btn-outline-light me-2" role="button">Logiciel</a>
+          </li>
+          <li class="nav-item">
+            <a href="./taverne_des_mj/tarvene_mj.html" class="btn btn-outline-light" role="button">La taverne des MJ</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <script>
+    document.querySelectorAll('.navbar .dropdown-toggle').forEach(function (toggle) {
+      toggle.addEventListener('click', function () {
+        var navbarCollapse = document.getElementById('navbarSupportedContent');
+        if (window.getComputedStyle(navbarCollapse).display === 'none') {
+          var bsCollapse = new bootstrap.Collapse(navbarCollapse, {
+            show: true
+          });
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>
