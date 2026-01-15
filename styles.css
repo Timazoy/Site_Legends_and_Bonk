@@ -2,6 +2,9 @@ html, body {
   font-family: "Cormorant Garamond", serif;
   font-size: 20px;
   font-weight: 600;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .navbar {
@@ -19,4 +22,12 @@ html, body {
 
 .navbar-toggler-icon {
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='white' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='m4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+footer {
+  margin-top: auto;
+  background-color: #281b07;
+  color: white;
+  text-align: center;
+  padding: 10px;
 } 
