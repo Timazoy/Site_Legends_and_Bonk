@@ -88,9 +88,169 @@
       </div>
     </div>
   </nav>
+
   <main>
+    <div style="width: 80%; margin: 0 auto; margin-top: 20px;">
+      <div class="row g-2">
+        <div class="col-12 col-sm-6 col-md-4">
+          <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+          <label class="btn btn-outline-dark w-100" for="btnradio1">Générateur objets aléatoire</label>
+        </div>
+
+        <div class="col-12 col-sm-6 col-md-4">
+          <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+          <label class="btn btn-outline-dark w-100" for="btnradio2">Enchantements</label>
+        </div>
+
+        <div class="col-12 col-sm-6 col-md-4">
+          <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+          <label class="btn btn-outline-dark w-100" for="btnradio3">Calculateur dégâts</label>
+        </div>
+
+        <div class="col-12 col-sm-6 col-md-4">
+          <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off">
+          <label class="btn btn-outline-dark w-100" for="btnradio4">Roue de la fortune</label>
+        </div>
+
+        <div class="col-12 col-sm-6 col-md-4">
+          <input type="radio" class="btn-check" name="btnradio" id="btnradio5" autocomplete="off">
+          <label class="btn btn-outline-dark w-100" for="btnradio5">Nombre aléatoire borné</label>
+        </div>
+
+        <div class="col-12 col-sm-6 col-md-4">
+          <input type="radio" class="btn-check" name="btnradio" id="btnradio6" autocomplete="off">
+          <label class="btn btn-outline-dark w-100" for="btnradio6">Calculateur %</label>
+        </div>
+      </div>
+    </div>
+
+    <div style="width: 80%; margin: 20px auto; display: flex; justify-content: center;">
+      <div style="width: 100%;">
+        <!-- Card 1 -->
+        <div id="card1" class="card" style="display: none;">
+          <div class="card-body">
+            <div class="container text-center">
+              <div class="row align-items-start">
+                <div class="col">
+                  <div class="card">
+                    <div class="card-header">
+                      <h3>Les armes :</h3>
+
+                      <!-- Vertically centered modal -->
+                      <!-- Button trigger modal -->
+                      <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal"
+                        data-bs-target="#armeModal"
+                        style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                        fonctionnement
+                      </button>
+
+                      <!-- Modal -->
+                      <div class="modal fade" id="armeModal" tabindex="-1" aria-labelledby="armeModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h1 class="modal-title fs-5" id="armeModalLabel">Le générateur d'armes</h1>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                              Ici le texte du modal expliquant le fonctionnement du générateur d'armes.
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card-body">
+                      <select class="form-select" aria-label="GC">
+                        <option selected>Grande catégorie</option>
+                        <option value="acd">Arme courte distance</option>
+                        <option value="amd">Arme moyenne distance</option>
+                        <option value="ald">Arme longue distance</option>
+                        <option value="bat">Bâton magique</option>
+                        <option value="bou">Bouclier</option>
+                        <option value="ani">Objets animal</option>
+                      </select>
+
+                      <select class="form-select" aria-label="PC" style="margin-top: 10px;">
+                        <option selected>Petite catégorie</option>
+                        <option value="cl">Classique</option>
+                        <option value="pa">Petite arme</option>
+                        <option value="la">Arme de lancer</option>
+                        <option value="lo">Arme lourde</option>
+                      </select>
+
+                      <select class="form-select" aria-label="CS" style="margin-top: 10px;">
+                        <option selected>Catégorie spéciale</option>
+                        <option value="ta">Talismans</option>
+                        <option value="ma">Arme magique</option>
+                        <option value="mu">Arme musicale</option>
+                        <option value="me">Arme medicale</option>
+                      </select>
+
+                      <button type="button" class="btn"
+                        style="margin-top: 10px; background-color: #7a0808; color: white;">Généré</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  One of three columns
+                </div>
+                <div class="col">
+                  One of three columns
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div id="card2" class="card" style="display: none;">
+          <div class="card-body">
+            <h5 class="card-title">Enchantements</h5>
+            <p class="card-text">Contenu des enchantements</p>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div id="card3" class="card" style="display: none;">
+          <div class="card-body">
+            <h5 class="card-title">Calculateur dégâts</h5>
+            <p class="card-text">Contenu du calculateur de dégâts</p>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div id="card4" class="card" style="display: none;">
+          <div class="card-body">
+            <h5 class="card-title">Roue de la fortune</h5>
+            <p class="card-text">Contenu de la roue de la fortune</p>
+          </div>
+        </div>
+
+        <!-- Card 5 -->
+        <div id="card5" class="card" style="display: none;">
+          <div class="card-body">
+            <h5 class="card-title">Nombre aléatoire borné</h5>
+            <p class="card-text">Contenu du générateur de nombre aléatoire</p>
+          </div>
+        </div>
+
+        <!-- Card 6 -->
+        <div id="card6" class="card" style="display: none;">
+          <div class="card-body">
+            <h5 class="card-title">Calculateur %</h5>
+            <p class="card-text">Contenu du calculateur de pourcentage</p>
+          </div>
+        </div>
+      </div>
+    </div>
 
   </main>
+
   <footer
     style="background-image: url(./image/Illustration_sans_titre.png);background-size:contain; background-repeat: no-repeat; background-position: center;">
 
@@ -118,6 +278,29 @@
   <!-- Script pour logiciel-->
   <script src="./logiciel.js"></script>
   <script>
+    // Gestion de l'affichage des cards au clic sur les boutons
+    const radioButtons = document.querySelectorAll('input[name="btnradio"]');
+
+    radioButtons.forEach((radio, index) => {
+      radio.addEventListener('change', function () {
+        if (this.checked) {
+          const cardNumber = index + 1;
+          // Cacher toutes les cards
+          for (let i = 1; i <= 6; i++) {
+            const card = document.getElementById('card' + i);
+            if (card) card.style.display = 'none';
+          }
+          // Afficher la card sélectionnée
+          const selectedCard = document.getElementById('card' + cardNumber);
+          if (selectedCard) selectedCard.style.display = 'block';
+        }
+      });
+    });
+
+    // Afficher la première card par défaut
+    const firstCard = document.getElementById('card1');
+    if (firstCard) firstCard.style.display = 'block';
+
     document.querySelectorAll('.navbar .dropdown-toggle').forEach(function (toggle) {
       toggle.addEventListener('click', function () {
         var navbarCollapse = document.getElementById('navbarSupportedContent');

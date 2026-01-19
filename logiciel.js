@@ -23,7 +23,7 @@ const lo = "lo" //arme loudre
 //Catégories spéciales
 const ta = "ta" //talismans
 const ma = "ma" //arme magique
-const mu = "mu"   //musicals
+const mu = "mu" //musicals
 const me = "me" //medicals
 
 //catégories armures et objets divers
@@ -399,4 +399,184 @@ function getArmes(GrandeCategorie, PetiteCategorie, CatégorieSpéciales, Raret�
     }
   }
   return "Aucune arme trouvée avec ces critères ou la rareté " + rarfinal[0];
+}
+
+armures = {
+  //Armures légères
+  "Casque léger": ["ale", "c", "sr"],
+  "Cuirasse légère": ["ale", "c", "sr"],
+  "Jambière légère": ["ale", "c", "r"],
+  "Le chèche du désert": ["ale", "c", "sr"],
+  "Cape du désert": ["ale", "c", "sr"],
+  "Jupe du désert": ["ale", "c", "sr"],
+  "Cape magique discrète": ["ale", "c", "se"],
+  //Armures moyennes
+  "Casque": ["amo", "sc", "e"],
+  "Cuirasse": ["amo", "sc", "e"],
+  "Jambière": ["amo", "sc", "sr"],
+  "Casque isolant": ["amo", "c", "e"],
+  "Cuirasse isolante": ["amo", "c", "e"],
+  "Jambière isolante": ["amo", "c", "sr"],
+  //Armures lourdes
+  "Casque lourd": ["alo", "c", "se"],
+  "Cuirasse lourde": ["alo", "c", "se"],
+  "Jambière lourde": ["alo", "c", "se"],
+  "Casque à cornes de fourrure": ["alo", "sc", "e"],
+  "Plastron de fourrure": ["alo", "sc", "e"],
+  "Jambière de fourrure": ["alo", "sc", "e"],
+  "Casque berserker": ["alo", "sc", "e"],
+  "Plastron berserker": ["alo", "sc", "e"],
+  "Jambière berserker": ["alo", "sc", "e"]
+}
+
+getArmures = function (Categorie, RaretéMin, RaretéMax) {
+  rar = {
+    c: 1,
+    sc: 2,
+    r: 3,
+    sr: 4,
+    e: 5,
+    se: 6
+  };
+
+  it = 0
+
+  rarfinal = loot(RaretéMin, RaretéMax)
+
+  while (it < 100000) {
+    n = rand(0, Object.keys(armures).length - 1);
+    choix = Object.keys(armures)[n];
+    if (armures[choix][0] == Categorie) {
+
+
+      if
+        (rar[armures[choix][1]] <= rar[rarfinal[0]] && rar[armures[choix][2]] >= rar[rarfinal[0]]) {
+        //Check si rareté générée est compatible avec l’arme
+        return [choix, rarfinal]; //Loot ou trouve une autre arme qui correspond
+      }
+    }
+    it += 1
+  }
+  return "Aucune armures trouvée avec ces critères ou la rareté " + rarfinal[0];
+}
+
+potions = ["Potion de guérison",
+  "Potion d'annulation de statut",
+  "Potion de saignement",
+  "Potion d'invisibilité",
+  "Potion de lecture de pensée",
+  "Potion de respiration aquatique",
+  "Potion de résistance",
+  "Philtre d'amour",
+  "Potion de vol",
+  "Potion de perce armure",
+  "Potion de sommeil angélique",
+  "Potion de langage animal",
+  "Potion de mana",
+  "Potion de force",
+  "Potion de vitesse",
+  "Potion de téléportation",
+  "Potion d'inversion",
+  "Potion d'action",
+  "Potion de sous action",
+  "Potion de résistance élémentaire",
+  "Potion de résistance au feu",
+  "Potion de résistance à la glace",
+  "Potion de résistance à la foudre",
+  "Potion de résistance à l'empoisonnement",
+  "Potion de résistance à la terre",
+  "Potion de résistance aux plantes",
+  "Potion de résistance à l'eau",
+  "Potion de résistance au vent",
+  "Potion de poison",
+  "Potion magique vierge"]
+
+function getPotion() {
+  n = rand(0, potions.length - 1);
+  if (potions[n] == "Potion magique vierge") {
+    return potions[n];
+  }
+  else {
+    taille = rand(1, 100);
+    if (taille <= 80) {
+      return "Petite " + potions[n];
+    }
+    else if (taille <= 95) {
+      return "Moyenne " + potions[n];
+    }
+    else {
+      return "Grande " + potions[n];
+    }
+  }
+}
+
+flèches = {
+  "Flèche": [70, 3, 8],
+  "Tête large": [30, 1, 5],
+  "Grosse flèche": [15, 1, 2],
+  "Flèche de lumière": [8, 1, 1],
+  "Flèche de feu": [20, 1, 3],
+  "Flèche fumigène": [30, 1, 5],
+  "Flèche empoisonnée": [25, 1, 4],
+  "Flèche de glace": [20, 1, 3],
+  "Flèche de foudre": [20, 1, 3],
+  "Flèche de vent": [20, 1, 3],
+  "Flèche d'eau": [20, 1, 3],
+  "Flèche végétale": [20, 1, 3],
+  "Flèche de terre": [20, 1, 3],
+  "Flèche de folie": [25, 1, 4],
+  "Flèche explosive": [20, 1, 3],
+  "Flèche perçante": [20, 1, 3],
+  "Flèche saignante": [15, 1, 2],
+  "Flèche d'amour": [10, 1, 1],
+  "Flèche de lenteur": [25, 1, 4]
+}
+
+function getFlèches() {
+  result = {};
+
+
+
+  for (let i = 0; i < Object.keys(flèches).length; i++) {
+    let choix = Object.keys(flèches)[i];
+    let n = rand(1, 100);
+
+    if (n <= flèches[choix][0]) {
+      nombre = rand(flèches[choix][1], flèches[choix][2]);
+      result[choix] = nombre;
+    }
+  }
+  return result;
+}
+
+// Calcul de dégâts
+function calcDmg(type, dmx, pct = 0, eta = 0) {
+  let r;
+  if (type == "fle") {
+    const dmi = Math.floor((dmx / 3) * 2);
+    r = dmi + Math.floor(Math.random() * (dmx - dmi + 1)); // random entre 0 et (dmx - dmi) inclus
+  }
+  else {
+    const dmi = Math.floor(dmx / 2);
+    r = dmi + Math.floor(Math.random() * (dmi + 1)); // random entre 0 et dmi inclus
+    if (dmx % 2 === 1) {
+      r += Math.floor(Math.random() * 2); // 0 ou 1
+    }
+  }
+
+  const f = r + (pct / 100) * r; // Application du pourcentage bonus
+
+  // Test de l'effet de statut
+  let rep = "";
+  if (eta !== 0) {
+    const e = rand(1, 100); // 0 à 100
+    rep = e <= eta ? "Statut réussi" : "Statut échoué";
+  }
+
+  return [Math.floor(f), rep];
+}
+
+// Calculateur pourcentage
+function calculPourcent(nb, pour) {
+  return Math.floor(pour * nb / 100)
 }
