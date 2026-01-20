@@ -59,6 +59,24 @@ footer {
   align-items: flex-start;
 }
 
+/* Ensure columns' cards stretch to equal height - always */
+.row.align-items-start > .col {
+  display: flex;
+  flex-direction: column;
+}
+
+.row.align-items-start > .col > .card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.row.align-items-start > .col > .card .card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
 /* Responsive cards sizing */
 @media (min-width: 992px) {
   .row.align-items-start {
@@ -88,3 +106,14 @@ footer {
     width: 100%;
   }
 } 
+
+/* Push the "Généré" button to the bottom of each card */
+.row.align-items-start > .col > .card .card-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.row.align-items-start > .col > .card .card-body .btn {
+  margin-top: auto;
+  align-self: center;
+}
