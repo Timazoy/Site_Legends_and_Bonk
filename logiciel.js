@@ -379,8 +379,8 @@ function getArmes(GrandeCategorie, PetiteCategorie, CatégorieSpéciales, Raret�
           }
         }
       }
+      it += 1;
     }
-    it += 1
   }
 
 
@@ -395,10 +395,10 @@ function getArmes(GrandeCategorie, PetiteCategorie, CatégorieSpéciales, Raret�
           return [choix, rarfinal]; //Loot ou trouve une autre arme qui correspond
         }
       }
-      it += 1
+      it += 1;
     }
   }
-  return "Aucune arme trouvée avec ces critères ou la rareté " + rarfinal[0];
+  return { error: "Aucune arme trouvée avec ces critères ou la rareté " + rarfinal[0] };
 }
 
 armures = {
