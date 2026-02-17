@@ -99,7 +99,7 @@
 
         <div class="col-12 col-sm-6 col-md-4">
           <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-          <label class="btn btn-outline-dark w-100" for="btnradio2">Calculateur dégâts</label>
+          <label class="btn btn-outline-dark w-100" for="btnradio2">Divers</label>
         </div>
 
         <div class="col-12 col-sm-6 col-md-4">
@@ -229,10 +229,10 @@
                     </div>
                   </div>
                 </div>
-                <div class="col">
+                <div class="col-12 col-md-6 armures-responsive-margin">
                   <div class="card">
                     <div class="card-header">
-                      <h3>Les armures :</h3>
+                      <h3>Les armures & objets :</h3>
 
                       <!-- Vertically centered modal -->
                       <!-- Button trigger modal -->
@@ -300,6 +300,65 @@
                       <button type="button" class="btn"
                         style="margin-top: 10px; background-color: #7a0808; color: white;" data-bs-toggle="modal"
                         data-bs-target="#armuregenModal">Généré</button>
+                      <hr>
+                      <div class="container text-center">
+                        <div class="row align-items-start">
+
+                          <div class="col">
+                            <button type="button" class="btn"
+                              style="margin-top: 10px; background-color: #7a0808; color: white;" data-bs-toggle="modal"
+                              data-bs-target="#flechesgenModal">Flèches</button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="flechesgenModal" tabindex="-1"
+                              aria-labelledby="flechesgenModalLabel" aria-hidden="true">
+                              <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="flechesgenModalLabel">Les flèches générées</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                      aria-label="Close"></button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <!-- Contenu des flèches générées grâce à la fonction getFlèches-->
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                      data-bs-dismiss="modal">Fermer</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col">
+                            <button type="button" class="btn"
+                              style="margin-top: 10px; background-color: #7a0808; color: white;" data-bs-toggle="modal"
+                              data-bs-target="#potiongenModal">Potion</button>
+                          </div>
+
+                          <!-- Modal -->
+                          <div class="modal fade" id="potiongenModal" tabindex="-1"
+                            aria-labelledby="potiongenModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h1 class="modal-title fs-5" id="potiongenModalLabel">La potion généré</h1>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                  <!-- Contenu de la potion générées grâce à la fonction getFlèches-->
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary"
+                                    data-bs-dismiss="modal">Fermer</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
 
                     <!-- Modal -->
@@ -320,37 +379,53 @@
                         </div>
                       </div>
                     </div>
+
                   </div>
                 </div>
 
               </div>
+
               <div class="col">
                 <div class="card" style="margin-top: 10px;">
                   <div class="card-header">
-                    <h3>Les objets :</h3>
+                    <h3>Rareté et enchantements :</h3>
                   </div>
                   <div class="card-body">
-
                     <div class="container text-center">
-                      <div class="row align-items-start">
+                      <div class="row g-2">
+                        <div class="col-12 col-sm-6 col-md-5"><select class="form-select" aria-label="rarminloot">
+                            <option selected>Rareté minimun</option>
+                            <option value="c">C</option>
+                            <option value="sc">SC</option>
+                            <option value="r">R</option>
+                            <option value="sr">SR</option>
+                            <option value="e">E</option>
+                            <option value="se">SE</option>
+                          </select></div>
+                        <div class="col-12 col-sm-6 col-md-5"><select class="form-select" aria-label="rarmaxloot">
+                            <option selected>Rareté maximun</option>
+                            <option value="c">C</option>
+                            <option value="sc">SC</option>
+                            <option value="r">R</option>
+                            <option value="sr">SR</option>
+                            <option value="e">E</option>
+                            <option value="se">SE</option>
+                          </select></div>
+                        <div class="col-12 col-md-2"><button type="button" class="btn w-100"
+                            style="background-color: #7a0808; color: white;" data-bs-toggle="modal"
+                            data-bs-target="#lootModal">Généré</button>
 
-                        <div class="col">
-                          <button type="button" class="btn"
-                            style="margin-top: 10px; background-color: #7a0808; color: white;" data-bs-toggle="modal"
-                            data-bs-target="#flechesgenModal">Généré flèches</button>
-
-                          <!-- Modal -->
-                          <div class="modal fade" id="flechesgenModal" tabindex="-1"
-                            aria-labelledby="flechesgenModalLabel" aria-hidden="true">
+                          <div class="modal fade" id="lootModal" tabindex="-1" aria-labelledby="lootModalLabel"
+                            aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered">
                               <div class="modal-content">
                                 <div class="modal-header">
-                                  <h1 class="modal-title fs-5" id="flechesgenModalLabel">Les flèches générées</h1>
+                                  <h1 class="modal-title fs-5" id="lootModalLabel">Le loot généré</h1>
                                   <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                  <!-- Contenu des flèches générées grâce à la fonction getFlèches-->
+                                  <!-- Contenu de l'arme générée grâce à la fonction getArme-->
                                 </div>
                                 <div class="modal-footer">
                                   <button type="button" class="btn btn-secondary"
@@ -360,83 +435,53 @@
                             </div>
                           </div>
                         </div>
+                      </div>
+                    </div>
 
-                        <div class="col">
-                          <button type="button" class="btn"
-                            style="margin-top: 10px; background-color: #7a0808; color: white;" data-bs-toggle="modal"
-                            data-bs-target="#potiongenModal">Généré potion</button>
-                        </div>
 
-                        <!-- Modal -->
-                        <div class="modal fade" id="potiongenModal" tabindex="-1" aria-labelledby="potiongenModalLabel"
-                          aria-hidden="true">
-                          <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                              <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="potiongenModalLabel">La potion généré</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                  aria-label="Close"></button>
-                              </div>
-                              <div class="modal-body">
-                                <!-- Contenu de la potion générées grâce à la fonction getFlèches-->
-                              </div>
-                              <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                    <hr>
+                    <div class="container">
+                      <div class="row g-2">
+                        <div class="col-12 col-md-10"><select class="form-select" aria-label="rarminench">
+                            <option selected>Rareté choisie</option>
+                            <option value="c">C</option>
+                            <option value="sc">SC</option>
+                            <option value="r">R</option>
+                            <option value="sr">SR</option>
+                            <option value="e">E</option>
+                            <option value="se">SE</option>
+                          </select></div>
+                        <div class="col-12 col-md-2"><button type="button" class="btn w-100"
+                            style="background-color: #7a0808; color: white;" data-bs-toggle="modal"
+                            data-bs-target="#enchModal">Généré</button>
+
+                          <div class="modal fade" id="enchModal" tabindex="-1" aria-labelledby="enchModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h1 class="modal-title fs-5" id="enchModalLabel">L'enchantement généré</h1>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                  <!-- Contenu de l'arme générée grâce à la fonction getArme-->
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary"
+                                    data-bs-dismiss="modal">Fermer</button>
+                                </div>
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
 
 
 
 
-                </div>
-              </div>
-              <div class="col">
-                <div class="card" style="margin-top: 10px;">
-                  <div class="card-header">
-                    <h3>Les enchantements :</h3>
-                  </div>
-                  <div class="card-body">
 
-
-
-
-                    <select class="form-select" aria-label="rarminench" style="margin-top: 10px;">
-                      <option selected>Rareté choisie</option>
-                      <option value="c">C</option>
-                      <option value="sc">SC</option>
-                      <option value="r">R</option>
-                      <option value="sr">SR</option>
-                      <option value="e">E</option>
-                      <option value="se">SE</option>
-                    </select>
-
-
-
-                    <button type="button" class="btn" style="margin-top: 10px; background-color: #7a0808; color: white;"
-                      data-bs-toggle="modal" data-bs-target="#enchModal">Généré</button>
-
-                    <div class="modal fade" id="enchModal" tabindex="-1" aria-labelledby="enchModalLabel"
-                      aria-hidden="true">
-                      <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="enchModalLabel">L'enchantement généré</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                          </div>
-                          <div class="modal-body">
-                            <!-- Contenu de l'arme générée grâce à la fonction getArme-->
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
 
 
 
@@ -454,33 +499,164 @@
       <div style="width: 100%;">
         <div id="card2" class="card" style="display: none;">
           <div class="card-body">
-            <div class="col">
-              <div class="card" style="margin-top: 10px;">
-                <div class="card-header">
-                  <h3>Les objets :</h3>
+            <div class="container text-center">
+
+
+              <div class="col">
+                <div class="card">
+                  <div class="card-header">
+                    <h3>Calculateur de dégât :</h3>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal"
+                      data-bs-target="#degatsModal"
+                      style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                      fonctionnement
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="degatsModal" tabindex="-1" aria-labelledby="degatsModalLabel"
+                      aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="degatsModalLabel">Le calculateur de dégâts</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            Ici le texte du modal expliquant le fonctionnement du calculateur de dégâts.
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <div class="container text-center">
+                      <div class="row g-2">
+                        <div class="col-12 col-sm-6 col-md-6">
+                          <div class="input-group flex-nowrap">
+
+                            <input type="text" class="form-control" placeholder="Dégâts maximun" aria-label="dgmax"
+                              aria-describedby="addon-wrapping">
+                          </div>
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-6">
+                          <div class="input-group flex-nowrap">
+
+                            <input type="text" class="form-control" placeholder="Pourcentage en plus"
+                              aria-label="pourcentplus" aria-describedby="addon-wrapping">
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                    <div class="container" style="margin-top: 10px;">
+                      <div class="row g-2">
+                        <div class="col-12 col-sm-6 col-md-6">
+                          <div class="input-group flex-nowrap">
+
+                            <input type="text" class="form-control" placeholder="Chance en % d'effet"
+                              aria-label="dgeffet" aria-describedby="addon-wrapping">
+                          </div>
+                        </div>
+                        <div class="col-12 col-md-3"><button type="button" class="btn w-100"
+                            style="background-color: #7a0808; color: white;" data-bs-toggle="modal"
+                            data-bs-target="#dgflecheModal">Flèche</button>
+
+                          <div class="modal fade" id="dgflecheModal" tabindex="-1" aria-labelledby="dgflecheModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h1 class="modal-title fs-5" id="dgflecheModalLabel">Les dégâts infligés par la flèche
+                                  </h1>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                  <!-- Contenu de l'arme générée grâce à la fonction getArme-->
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary"
+                                    data-bs-dismiss="modal">Fermer</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-12 col-md-3"><button type="button" class="btn w-100"
+                            style="background-color: #7a0808; color: white;" data-bs-toggle="modal"
+                            data-bs-target="#declaModal">Classique</button>
+
+                          <div class="modal fade" id="declaModal" tabindex="-1" aria-labelledby="declaModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h1 class="modal-title fs-5" id="declaModalLabel">Les dégâts infligés</h1>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                  <!-- Contenu de l'arme générée grâce à la fonction getArme-->
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary"
+                                    data-bs-dismiss="modal">Fermer</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+
+
+
+
+
+
                 </div>
-                <div class="card-body">
 
-                  <div class="container text-center">
-                    <div class="row align-items-start">
+                <div class="card" style="margin-top: 10px;">
+                  <div class="card-header">
+                    <h3>Calculateur de pourcent :</h3>
+                  </div>
+                  <div class="card-body">
+                    <div class="row g-2">
+                      <div class="col-12 col-sm-6 col-md-5">
+                        <div class="input-group flex-nowrap">
 
-                      <div class="col">
-                        <button type="button" class="btn"
-                          style="margin-top: 10px; background-color: #7a0808; color: white;" data-bs-toggle="modal"
-                          data-bs-target="#flechesgenModal">Généré flèches</button>
+                          <input type="text" class="form-control" placeholder="Nombre" aria-label="nombrepourcent"
+                            aria-describedby="addon-wrapping">
+                        </div>
+                      </div>
+                      <div class="col-12 col-sm-6 col-md-5">
+                        <div class="input-group flex-nowrap">
 
-                        <!-- Modal -->
-                        <div class="modal fade" id="flechesgenModal" tabindex="-1"
-                          aria-labelledby="flechesgenModalLabel" aria-hidden="true">
+                          <input type="text" class="form-control" placeholder="Pourcent" aria-label="pourcent"
+                            aria-describedby="addon-wrapping">
+                        </div>
+                      </div>
+                      <div class="col-12 col-md-2"><button type="button" class="btn w-100"
+                          style="background-color: #7a0808; color: white;" data-bs-toggle="modal"
+                          data-bs-target="#pourcentModal">Calcul</button>
+
+                        <div class="modal fade" id="pourcentModal" tabindex="-1" aria-labelledby="pourcentModalLabel"
+                          aria-hidden="true">
                           <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
                               <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="flechesgenModalLabel">Les flèches générées</h1>
+                                <h1 class="modal-title fs-5" id="pourcentModalLabel">Résultat du calcul</h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                   aria-label="Close"></button>
                               </div>
                               <div class="modal-body">
-                                <!-- Contenu des flèches générées grâce à la fonction getFlèches-->
+                                <!-- Contenu de l'arme générée grâce à la fonction getArme-->
                               </div>
                               <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
@@ -489,44 +665,117 @@
                           </div>
                         </div>
                       </div>
+                    </div>
+                  </div>
 
-                      <div class="col">
-                        <button type="button" class="btn"
-                          style="margin-top: 10px; background-color: #7a0808; color: white;" data-bs-toggle="modal"
-                          data-bs-target="#potiongenModal">Généré potion</button>
+
+
+
+
+
+
+
+                </div>
+                <div class="card" style="margin-top: 10px;">
+                  <div class="card-header">
+                    <h3>Aléatoire borné :</h3>
+                  </div>
+                  <div class="card-body">
+                    <div class="row g-2">
+                      <div class="col-12 col-sm-6 col-md-5">
+                        <div class="input-group flex-nowrap">
+
+                          <input type="text" class="form-control" placeholder="Minimun" aria-label="minrandom"
+                            aria-describedby="addon-wrapping">
+                        </div>
                       </div>
+                      <div class="col-12 col-sm-6 col-md-5">
+                        <div class="input-group flex-nowrap">
 
-                      <!-- Modal -->
-                      <div class="modal fade" id="potiongenModal" tabindex="-1" aria-labelledby="potiongenModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h1 class="modal-title fs-5" id="potiongenModalLabel">La potion généré</h1>
-                              <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                              <!-- Contenu de la potion générées grâce à la fonction getFlèches-->
-                            </div>
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                          <input type="text" class="form-control" placeholder="Maximum" aria-label="maxrandom"
+                            aria-describedby="addon-wrapping">
+                        </div>
+                      </div>
+                      <div class="col-12 col-md-2"><button type="button" class="btn w-100"
+                          style="background-color: #7a0808; color: white;" data-bs-toggle="modal"
+                          data-bs-target="#randomModal">Généré</button>
+
+                        <div class="modal fade" id="randomModal" tabindex="-1" aria-labelledby="randomModalLabel"
+                          aria-hidden="true">
+                          <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="randomModalLabel">Résultat de l'aléatoire</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                  aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body">
+                                <!-- Contenu de l'arme générée grâce à la fonction getArme-->
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
+                    <hr>
+                    <div class="row g-2">
+
+                      <div class="col-12 col-md-2">
+                        <button type="button" class="btn w-100" style="background-color: #7a0808; color: white;"
+                          data-bs-toggle="modal" data-bs-target="#randomModal">D4</button>
+
+
+                      </div>
+                      <div class="col-12 col-md-2">
+                        <button type="button" class="btn w-100" style="background-color: #7a0808; color: white;"
+                          data-bs-toggle="modal" data-bs-target="#randomModal">D6</button>
+
+
+                      </div>
+                      <div class="col-12 col-md-2">
+                        <button type="button" class="btn w-100" style="background-color: #7a0808; color: white;"
+                          data-bs-toggle="modal" data-bs-target="#randomModal">D8</button>
+
+
+                      </div>
+                      <div class="col-12 col-md-2">
+                        <button type="button" class="btn w-100" style="background-color: #7a0808; color: white;"
+                          data-bs-toggle="modal" data-bs-target="#randomModal">D10</button>
+
+
+                      </div>
+                      <div class="col-12 col-md-2">
+                        <button type="button" class="btn w-100" style="background-color: #7a0808; color: white;"
+                          data-bs-toggle="modal" data-bs-target="#randomModal">D12</button>
+
+
+                      </div>
+                      <div class="col-12 col-md-2">
+                        <button type="button" class="btn w-100" style="background-color: #7a0808; color: white;"
+                          data-bs-toggle="modal" data-bs-target="#randomModal">D20</button>
+
+
+                      </div>
+                    </div>
                   </div>
+
+
+
+
+
+
+
+
                 </div>
-
-
-
-
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
     </div>
 
     <!-- Card 3 -->
@@ -722,6 +971,25 @@
       }
     });
 
+    // --- LOOT ---
+    document.addEventListener('DOMContentLoaded', function () {
+      const btnGenerateLoot = document.querySelector('button[data-bs-target="#lootModal"]');
+      if (btnGenerateLoot) {
+        btnGenerateLoot.addEventListener('click', function () {
+          const rarMin = document.querySelector('select[aria-label="rarminloot"]').value;
+          const rarMax = document.querySelector('select[aria-label="rarmaxloot"]').value;
+
+          if (rarMin !== 'Rareté minimun' && rarMax !== 'Rareté maximun') {
+            const result = loot(rarMin, rarMax);
+            const modalBody = document.querySelector('#lootModal .modal-body');
+            modalBody.innerHTML = `<strong>Rareté :</strong> ${result[0]}<br><strong>Enchantement :</strong> ${result[1]}`;
+          } else {
+            alert('Veuillez sélectionner les rarétés minimum et maximum');
+          }
+        });
+      }
+    });
+
     // --- ENCHANTEMENTS ---
     document.addEventListener('DOMContentLoaded', function () {
       const btnGenerateEnch = document.querySelector('div.col:last-child button[data-bs-target="#enchModal"]');
@@ -738,6 +1006,135 @@
           }
         });
       }
+    });
+
+    // --- CALCULATEUR DE DÉGÂTS (Flèche) ---
+    document.addEventListener('DOMContentLoaded', function () {
+      const btnDmgFleche = document.querySelector('button[data-bs-target="#dgflecheModal"]');
+      if (btnDmgFleche) {
+        btnDmgFleche.addEventListener('click', function () {
+          const dmgMax = parseFloat(document.querySelector('input[aria-label="dgmax"]').value);
+          const pourcentPlus = parseFloat(document.querySelector('input[aria-label="pourcentplus"]').value) || 0;
+          const dgeffet = parseFloat(document.querySelector('input[aria-label="dgeffet"]').value) || 0;
+
+          if (isNaN(dmgMax) || dmgMax <= 0) {
+            alert('Veuillez entrer un nombre de dégâts valide');
+            return;
+          }
+
+          const result = calcDmg('fle', dmgMax, pourcentPlus, dgeffet);
+          const modalBody = document.querySelector('#dgflecheModal .modal-body');
+          const statusText = result[1] ? `<br><strong>Effet :</strong> ${result[1]}` : '';
+          modalBody.innerHTML = `<strong>Dégâts infligés :</strong> ${result[0]}${statusText}`;
+        });
+      }
+    });
+
+    // --- CALCULATEUR DE DÉGÂTS (Classique) ---
+    document.addEventListener('DOMContentLoaded', function () {
+      const btnDmgClassique = document.querySelector('button[data-bs-target="#declaModal"]');
+      if (btnDmgClassique) {
+        btnDmgClassique.addEventListener('click', function () {
+          const dmgMax = parseFloat(document.querySelector('input[aria-label="dgmax"]').value);
+          const pourcentPlus = parseFloat(document.querySelector('input[aria-label="pourcentplus"]').value) || 0;
+          const dgeffet = parseFloat(document.querySelector('input[aria-label="dgeffet"]').value) || 0;
+
+          if (isNaN(dmgMax) || dmgMax <= 0) {
+            alert('Veuillez entrer un nombre de dégâts valide');
+            return;
+          }
+
+          const result = calcDmg('normal', dmgMax, pourcentPlus, dgeffet);
+          const modalBody = document.querySelector('#declaModal .modal-body');
+          const statusText = result[1] ? `<br><strong>Effet :</strong> ${result[1]}` : '';
+          modalBody.innerHTML = `<strong>Dégâts infligés :</strong> ${result[0]}${statusText}`;
+        });
+      }
+    });
+
+    // --- CALCULATEUR DE POURCENTAGE ---
+    document.addEventListener('DOMContentLoaded', function () {
+      const btnPourcent = document.querySelector('button[data-bs-target="#pourcentModal"]');
+      if (btnPourcent) {
+        btnPourcent.addEventListener('click', function () {
+          const nombre = parseFloat(document.querySelector('input[aria-label="nombrepourcent"]').value);
+          const pourcent = parseFloat(document.querySelector('input[aria-label="pourcent"]').value);
+
+          if (isNaN(nombre) || isNaN(pourcent)) {
+            alert('Veuillez entrer des nombres valides');
+            return;
+          }
+
+          const result = calculPourcent(nombre, pourcent);
+          const modalBody = document.querySelector('#pourcentModal .modal-body');
+          modalBody.innerHTML = `<strong>Résultat :</strong> ${pourcent}% de ${nombre} = ${result}`;
+        });
+      }
+    });
+
+    // --- ALÉATOIRE BORNÉ ---
+    document.addEventListener('DOMContentLoaded', function () {
+      const allRandomButtons = document.querySelectorAll('button[data-bs-target="#randomModal"]');
+      let btnGeneree = null;
+      allRandomButtons.forEach(btn => {
+        if (btn.textContent.trim() === 'Généré') {
+          btnGeneree = btn;
+        }
+      });
+
+      if (btnGeneree) {
+        btnGeneree.addEventListener('click', function () {
+          setTimeout(function () {
+            const minInput = document.querySelector('input[aria-label="minrandom"]');
+            const maxInput = document.querySelector('input[aria-label="maxrandom"]');
+
+            const min = parseInt(minInput.value);
+            const max = parseInt(maxInput.value);
+
+            if (isNaN(min) || isNaN(max) || min > max) {
+              alert('Veuillez entrer des nombres valides avec minimum ≤ maximum');
+              return;
+            }
+
+            const result = rand(min, max);
+            const modalBody = document.querySelector('#randomModal .modal-body');
+            modalBody.innerHTML = `<strong>Résultat :</strong> ${result}`;
+          }, 100);
+        });
+      }
+    });
+
+    // --- DÉS (D4, D6, D8, D10, D12, D20) ---
+    document.addEventListener('DOMContentLoaded', function () {
+      const diceButtons = {
+        'D4': 4,
+        'D6': 6,
+        'D8': 8,
+        'D10': 10,
+        'D12': 12,
+        'D20': 20
+      };
+
+      const allButtons = document.querySelectorAll('button[data-bs-target="#randomModal"]');
+      allButtons.forEach(btn => {
+        const buttonText = btn.textContent.trim();
+
+        for (const [diceName, maxValue] of Object.entries(diceButtons)) {
+          if (buttonText === diceName) {
+            btn.addEventListener('click', function () {
+              let result;
+              if (diceName === 'D10') {
+                result = rand(0, 9);
+              } else {
+                result = rand(1, maxValue);
+              }
+              const modalBody = document.querySelector('#randomModal .modal-body');
+              modalBody.innerHTML = `<strong>Résultat du ${diceName} :</strong> ${result}`;
+            });
+            break;
+          }
+        }
+      });
     });
   </script>
 </body>
