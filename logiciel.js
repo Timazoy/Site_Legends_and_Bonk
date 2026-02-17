@@ -706,10 +706,15 @@ class WheelOfFortune {
     this.spinButton.disabled = true;
     this.resultContainer.style.display = 'none';
 
+    // Position de départ aléatoire
+    const randomStartPosition = Math.random() * 360;
+    this.currentRotation = randomStartPosition;
+    this.drawWheel();
+
     // Nombre de tours (6 à 9)
     const numTurns = Math.floor(Math.random() * 4) + 6; // 6-9
     const randomOffset = Math.random() * 360;
-    const targetRotation = numTurns * 360 + randomOffset;
+    const targetRotation = randomStartPosition + numTurns * 360 + randomOffset;
 
     // Durée de l'animation (3 à 4 secondes pour faire fluide)
     const duration = 3000 + Math.random() * 1000;
