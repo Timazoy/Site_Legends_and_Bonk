@@ -778,16 +778,54 @@
     </div>
     </div>
 
-    <!-- Card 3 -->
-    <div id="card3" class="card" style="display: none;">
-      <div class="card-body">
-        <h5 class="card-title">Calculateur dégâts</h5>
-        <p class="card-text">Contenu du calculateur de dégâts</p>
+    <!-- Card 3 - Roue de la Fortune -->
+    <div style="width: 80%; margin: 0px auto; display: flex; justify-content: center;">
+      <div style="width: 100%;">
+        <div id="card3" class="card" style="display: none;">
+          <div class="card-body">
+            <div class="container mt-4">
+              <div class="row justify-content-center">
+                <div class="col-md-12">
+                  <div
+                    style="display: flex; gap: 40px; justify-content: center; align-items: flex-start; flex-wrap: wrap;">
+
+                    <!-- Roue avec flèche -->
+                    <div style="position: relative; display: inline-block;">
+                      <!-- Canvas pour la roue -->
+                      <canvas id="wheelCanvas" width="500" height="500"
+                        style="max-width: 100%; height: auto; border-radius: 50%; display: block;"></canvas>
+
+                      <!-- Flèche indicatrice (à droite) -->
+                      <div class="wheel-arrow-right"></div>
+                    </div>
+
+                    <!-- Légende des options -->
+                    <div id="legendContainer"
+                      style="background-color: #f9f9f9; padding: 20px; border-radius: 8px; border-left: 4px solid #7a0808; max-width: 250px;">
+                      <h6 style="margin-bottom: 15px; font-weight: bold; color: #7a0808;">Légende</h6>
+                      <div id="legendList"></div>
+                    </div>
+                  </div>
+
+                  <!-- Bouton pour lancer -->
+                  <div style="margin-top: 30px; text-align: center;">
+                    <button id="spinButton" type="button" class="btn"
+                      style="background-color: #7a0808; color: white; font-size: 1.2em; padding: 12px 30px;">
+                      Lancer la roue
+                    </button>
+                  </div>
+
+                  <!-- Affichage du résultat -->
+                  <div id="resultContainer" style="margin-top: 30px; display: none; text-align: center;">
+                    <h4>Résultat : <span id="resultName"
+                        style="color: #7a0808; font-weight: bold; font-size: 1.5em;"></span></h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-
-
-    </div>
     </div>
 
   </main>

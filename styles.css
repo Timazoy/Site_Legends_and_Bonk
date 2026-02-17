@@ -144,3 +144,32 @@ footer {
     flex-direction: column;
   }
 }
+
+/* ===== ROUE DE LA FORTUNE ===== */
+.wheel-arrow-right {
+  position: absolute;
+  right: -2.5%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-top: min(15px, 2vw) solid transparent;
+  border-bottom: min(15px, 2vw) solid transparent;
+  border-right: min(30px, 4vw) solid #7a0808;
+  z-index: 10;
+}
+
+#wheelCanvas {
+  filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.3));
+}
+
+#spinButton:hover {
+  background-color: #5a0606 !important;
+  transform: scale(1.05);
+  transition: all 0.3s ease;
+}
+
+#spinButton:disabled {
+  background-color: #999 !important;
+  cursor: not-allowed;
+}

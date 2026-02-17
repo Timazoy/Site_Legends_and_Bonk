@@ -580,3 +580,205 @@ function calcDmg(type, dmx, pct = 0, eta = 0) {
 function calculPourcent(nb, pour) {
   return Math.floor(pour * nb / 100)
 }
+
+// ============================================================
+// ========== ROUE DE LA FORTUNE ==========
+// ============================================================
+
+class WheelOfFortune {
+  constructor() {
+    // Configuration des 10 options (à éditer ici)
+    this.options = [
+      { name: "Paradis", weight: 1, color: "#f5f1dd" },
+      { name: "Enfer", weight: 1, color: "#5b0f0f" },
+      { name: "Rareté +1", weight: 3, color: "#4a6f8c" },
+      { name: "Statistique +1", weight: 5, color: "#b89a3e" },
+      { name: "Malediction", weight: 5, color: "#3f2a4f" },
+      { name: "Dés de chance", weight: 7, color: "#2f5a3a" },
+      { name: "Arme aléatoire", weight: 15, color: "#4a5258" },
+      { name: "Armure aléatoire", weight: 15, color: "#5a3b27" },
+      { name: "Long repos", weight: 18, color: "#a07a86" },
+      { name: "1200 MC", weight: 30, color: "#c36f2c" }
+    ];
+
+    this.isSpinning = false;
+    this.currentRotation = 0;
+    this.canvas = document.getElementById('wheelCanvas');
+    this.ctx = this.canvas.getContext('2d');
+    this.spinButton = document.getElementById('spinButton');
+    this.resultContainer = document.getElementById('resultContainer');
+    this.resultName = document.getElementById('resultName');
+
+    this.init();
+  }
+
+  init() {
+    this.drawWheel();
+    this.updateLegend();
+    this.spinButton.addEventListener('click', () => this.spin());
+  }
+
+  updateLegend() {
+    const legendList = document.getElementById('legendList');
+    legendList.innerHTML = '';
+
+    this.options.forEach(option => {
+      const item = document.createElement('div');
+      item.style.cssText = 'display: flex; align-items: center; margin-bottom: 10px; font-size: 0.9em;';
+
+      const colorBox = document.createElement('div');
+      colorBox.style.cssText = `width: 20px; height: 20px; background-color: ${option.color}; border: 1px solid #ccc; border-radius: 3px; margin-right: 10px; flex-shrink: 0;`;
+
+      const label = document.createElement('span');
+      label.textContent = `${option.name} (${option.weight}%)`;
+      label.style.cssText = 'color: #333;';
+
+      item.appendChild(colorBox);
+      item.appendChild(label);
+      legendList.appendChild(item);
+    });
+  }
+
+  drawWheel() {
+    const width = this.canvas.width;
+    const height = this.canvas.height;
+    const radius = Math.min(width, height) / 2 - 10;
+    const centerX = width / 2;
+    const centerY = height / 2;
+
+    // Effacer le canvas
+    this.ctx.clearRect(0, 0, width, height);
+
+    // Sauvegarder l'état du contexte
+    this.ctx.save();
+    this.ctx.translate(centerX, centerY);
+    this.ctx.rotate((this.currentRotation * Math.PI) / 180);
+
+    // Calculer le total des poids
+    const totalWeight = this.options.reduce((sum, opt) => sum + opt.weight, 0);
+    const validTotal = totalWeight > 0 ? totalWeight : 100;
+
+    let currentAngle = 0;
+
+    // Dessiner chaque section
+    this.options.forEach((option, index) => {
+      const sliceAngle = (option.weight / validTotal) * 360;
+      const startAngle = currentAngle;
+      const endAngle = currentAngle + sliceAngle;
+
+      // Dessiner la section
+      this.ctx.beginPath();
+      this.ctx.moveTo(0, 0);
+      this.ctx.arc(0, 0, radius, (startAngle * Math.PI) / 180, (endAngle * Math.PI) / 180);
+      this.ctx.closePath();
+      this.ctx.fillStyle = option.color;
+      this.ctx.fill();
+      this.ctx.strokeStyle = '#fff';
+      this.ctx.lineWidth = 3;
+      this.ctx.stroke();
+
+      currentAngle = endAngle;
+    });
+
+    // Restaurer l'état du contexte
+    this.ctx.restore();
+
+    // Dessiner le cercle du centre
+    this.ctx.beginPath();
+    this.ctx.arc(centerX, centerY, 30, 0, 2 * Math.PI);
+    this.ctx.fillStyle = '#7a0808';
+    this.ctx.fill();
+    this.ctx.strokeStyle = '#fff';
+    this.ctx.lineWidth = 2;
+    this.ctx.stroke();
+
+    this.ctx.fillStyle = '#fff';
+    this.ctx.font = 'bold 20px Arial';
+    this.ctx.textAlign = 'center';
+    this.ctx.textBaseline = 'middle';
+    this.ctx.fillText('', centerX, centerY);
+  }
+
+  spin() {
+    if (this.isSpinning) return;
+
+    this.isSpinning = true;
+    this.spinButton.disabled = true;
+    this.resultContainer.style.display = 'none';
+
+    // Nombre de tours (6 à 9)
+    const numTurns = Math.floor(Math.random() * 4) + 6; // 6-9
+    const randomOffset = Math.random() * 360;
+    const targetRotation = numTurns * 360 + randomOffset;
+
+    // Durée de l'animation (3 à 4 secondes pour faire fluide)
+    const duration = 3000 + Math.random() * 1000;
+    const startTime = Date.now();
+
+    const animate = () => {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+
+      // Ease-out effect (ralentissement en fin)
+      const easeProgress = 1 - Math.pow(1 - progress, 3);
+
+      this.currentRotation = targetRotation * easeProgress;
+      this.drawWheel();
+
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      } else {
+        this.currentRotation = targetRotation;
+        this.drawWheel();
+        this.showWinner();
+        this.isSpinning = false;
+        this.spinButton.disabled = false;
+      }
+    };
+
+    animate();
+  }
+
+  showWinner() {
+    // Normaliser la rotation entre 0 et 360
+    const normalizedRotation = ((360 - (this.currentRotation % 360)) + 360) % 360;
+
+    // Calculer le total des poids
+    const totalWeight = this.options.reduce((sum, opt) => sum + opt.weight, 0);
+    const validTotal = totalWeight > 0 ? totalWeight : 100;
+
+    let currentAngle = 0;
+    let winner = null;
+
+    for (let option of this.options) {
+      const sliceAngle = (option.weight / validTotal) * 360;
+      const startAngle = currentAngle;
+      const endAngle = currentAngle + sliceAngle;
+
+      // Vérifier si l'angle du gagnant est dans cette tranche
+      // La flèche est à droite (0 degré), donc on regarde l'angle normalisé
+      if (normalizedRotation >= startAngle && normalizedRotation < endAngle) {
+        winner = option;
+        break;
+      }
+
+      currentAngle = endAngle;
+    }
+
+    if (winner) {
+      this.resultName.textContent = winner.name;
+      this.resultContainer.style.display = 'block';
+    }
+  }
+}
+
+// Initialiser la roue quand le DOM est prêt
+document.addEventListener('DOMContentLoaded', function () {
+  const wheelContainer = document.getElementById('card3');
+  if (wheelContainer) {
+    // Vérifier que le canvas existe
+    if (document.getElementById('wheelCanvas')) {
+      new WheelOfFortune();
+    }
+  }
+});
