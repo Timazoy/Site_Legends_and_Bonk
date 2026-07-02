@@ -1,0 +1,1451 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=IM+Fell+English+SC&family=IM+Fell+English:ital@0;1&display=swap"
+    rel="stylesheet" />
+  <title>Le Grand Livre de la Magie — Legends & Bonk</title>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
+
+  <style>
+    /* ================= SCÈNE DU GRIMOIRE ================= */
+    .grimoire-section {
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(80, 55, 20, .35), transparent 70%),
+        linear-gradient(180deg, #1d1408, #241a0b 40%, #1a1206);
+      padding: 26px 0 40px 0;
+      overflow: hidden;
+    }
+
+    .grimoire-titre {
+      font-family: "IM Fell English SC", serif;
+      color: #d8b96a;
+      text-align: center;
+      font-size: 2.3rem;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, .8);
+      margin-bottom: 4px;
+    }
+
+    .grimoire-sous-titre {
+      font-family: "IM Fell English", serif;
+      font-style: italic;
+      color: #a8905e;
+      text-align: center;
+      font-size: 1.05rem;
+      margin-bottom: 14px;
+    }
+
+    /* --------- Barre de recherche --------- */
+    .recherche-sort {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 18px;
+    }
+
+    .recherche-sort input {
+      width: min(420px, 88vw);
+      background: linear-gradient(180deg, #efe2bd, #e2d0a2);
+      border: 2px solid #6b501f;
+      border-radius: 3px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, .5), inset 0 0 14px rgba(90, 60, 20, .25);
+      font-family: "IM Fell English", serif;
+      font-style: italic;
+      color: #3b2a15;
+      font-size: 1.05rem;
+      padding: 6px 14px;
+      outline: none;
+    }
+
+    .recherche-sort input::placeholder { color: #8a7148; }
+    .recherche-sort input:focus { border-color: #b8912f; box-shadow: 0 0 0 3px rgba(184, 145, 47, .35); }
+
+    /* --------- Mise à l'échelle --------- */
+    .book-scene {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      position: relative;
+    }
+
+    .book-scale {
+      transform-origin: top center;
+      position: relative;
+    }
+
+    .book-wrap {
+      width: 1120px;
+      height: 780px;
+      position: relative;
+      perspective: 2800px;
+    }
+
+    /* ================= LE LIVRE ================= */
+    .book {
+      position: absolute;
+      inset: 0;
+      transform-style: preserve-3d;
+      transition: transform .9s ease;
+    }
+
+    .book.ferme-avant { transform: translateX(-25%); }
+    .book.ferme-arriere { transform: translateX(25%); }
+
+    /* ombre portée du livre */
+    .book::before {
+      content: "";
+      position: absolute;
+      left: 2%;
+      right: 2%;
+      bottom: -26px;
+      height: 46px;
+      background: radial-gradient(ellipse at center, rgba(0, 0, 0, .65), transparent 70%);
+      z-index: 0;
+    }
+
+    .sheet {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 560px;
+      height: 780px;
+      transform-style: preserve-3d;
+      transform-origin: left center;
+      transition: transform 1s cubic-bezier(.35, .1, .25, 1);
+    }
+
+    .sheet.flipped { transform: rotateY(-180deg); }
+
+    .page {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      overflow: hidden;
+      border-radius: 2px 10px 10px 2px;
+    }
+
+    .page.back {
+      transform: rotateY(180deg);
+      border-radius: 10px 2px 2px 10px;
+    }
+
+    /* --------- Parchemin --------- */
+    .parchemin {
+      background:
+        url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3'/><feColorMatrix type='saturate' values='0'/></filter><rect width='140' height='140' filter='url(%23n)' opacity='0.055'/></svg>"),
+        radial-gradient(ellipse at 18% 12%, rgba(122, 86, 38, .13), transparent 46%),
+        radial-gradient(ellipse at 84% 86%, rgba(110, 74, 32, .16), transparent 42%),
+        radial-gradient(ellipse at 70% 25%, rgba(133, 94, 40, .09), transparent 38%),
+        radial-gradient(ellipse at 50% 45%, rgba(255, 250, 232, .55), transparent 65%),
+        linear-gradient(105deg, #e6d5aa, #f1e4c0 32%, #e9dab2 64%, #e0cfa2);
+      box-shadow: inset 0 0 60px rgba(96, 66, 26, .38), inset 0 0 8px rgba(80, 52, 18, .28);
+      color: #3a2915;
+    }
+
+    /* taches d'usure */
+    .parchemin::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 82% 14%, rgba(101, 67, 24, .10) 0 26px, transparent 42px),
+        radial-gradient(circle at 12% 78%, rgba(90, 58, 20, .12) 0 18px, transparent 34px),
+        radial-gradient(circle at 55% 96%, rgba(101, 67, 24, .08) 0 30px, transparent 48px);
+      filter: blur(1px);
+    }
+
+    /* ombre côté reliure */
+    .page.front .parchemin-ombre,
+    .page.front::after {
+      content: "";
+      position: absolute;
+      top: 0; bottom: 0; left: 0;
+      width: 70px;
+      background: linear-gradient(90deg, rgba(60, 38, 12, .38), rgba(60, 38, 12, .12) 45%, transparent);
+      pointer-events: none;
+    }
+
+    .page.back::after {
+      content: "";
+      position: absolute;
+      top: 0; bottom: 0; right: 0;
+      width: 70px;
+      background: linear-gradient(-90deg, rgba(60, 38, 12, .38), rgba(60, 38, 12, .12) 45%, transparent);
+      pointer-events: none;
+    }
+
+    /* --------- Couverture cuir --------- */
+    .cuir {
+      background:
+        url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.55' numOctaves='4'/><feColorMatrix type='saturate' values='0'/></filter><rect width='160' height='160' filter='url(%23n)' opacity='0.12'/></svg>"),
+        radial-gradient(ellipse at 50% 40%, rgba(120, 75, 28, .35), transparent 75%),
+        linear-gradient(120deg, #2c1b09, #402611 45%, #2a1a09 90%);
+      box-shadow: inset 0 0 90px rgba(0, 0, 0, .75), inset 0 0 12px rgba(0, 0, 0, .6);
+      color: #d8b96a;
+    }
+
+    .couverture-cadre {
+      position: absolute;
+      inset: 24px;
+      border: 3px double #9a7a33;
+      border-radius: 4px;
+      box-shadow: 0 0 12px rgba(216, 185, 106, .18), inset 0 0 12px rgba(216, 185, 106, .12);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 30px;
+    }
+
+    .couverture-coin {
+      position: absolute;
+      font-size: 26px;
+      color: #b8912f;
+      text-shadow: 0 0 6px rgba(216, 185, 106, .5);
+      line-height: 1;
+    }
+
+    .coin-hg { top: 8px; left: 10px; }
+    .coin-hd { top: 8px; right: 10px; }
+    .coin-bg { bottom: 8px; left: 10px; }
+    .coin-bd { bottom: 8px; right: 10px; }
+
+    .couverture-titre {
+      font-family: "IM Fell English SC", serif;
+      font-size: 58px;
+      line-height: 1.12;
+      text-shadow: 0 2px 3px rgba(0, 0, 0, .9), 0 0 18px rgba(216, 185, 106, .25);
+      margin: 18px 0;
+    }
+
+    .couverture-orne {
+      font-size: 30px;
+      color: #b8912f;
+      letter-spacing: 12px;
+    }
+
+    .couverture-marque {
+      font-family: "IM Fell English", serif;
+      font-style: italic;
+      font-size: 20px;
+      color: #a8905e;
+      margin-top: 26px;
+    }
+
+    .couverture-hint {
+      position: absolute;
+      bottom: 40px;
+      left: 0; right: 0;
+      text-align: center;
+      font-family: "IM Fell English", serif;
+      font-style: italic;
+      font-size: 16px;
+      color: rgba(216, 185, 106, .65);
+      animation: pulse-hint 2.4s ease-in-out infinite;
+    }
+
+    @keyframes pulse-hint {
+      0%, 100% { opacity: .45; }
+      50% { opacity: 1; }
+    }
+
+    /* --------- Contenu des pages --------- */
+    .page-inner {
+      position: relative;
+      height: 660px;
+      margin: 44px 52px 0 52px;
+      overflow: hidden;
+      font-family: "Cormorant Garamond", serif;
+    }
+
+    .page-num {
+      position: absolute;
+      bottom: 26px;
+      left: 0; right: 0;
+      text-align: center;
+      font-family: "IM Fell English", serif;
+      font-style: italic;
+      font-size: 15px;
+      color: #6d5325;
+    }
+
+    .blk { padding-bottom: 14px; }
+
+    .fam-titre {
+      font-family: "IM Fell English SC", serif;
+      font-size: 33px;
+      text-align: center;
+      line-height: 1.15;
+      padding-top: 2px;
+      text-shadow: 0 1px 0 rgba(255, 245, 220, .6);
+    }
+
+    .fam-orne {
+      text-align: center;
+      font-size: 19px;
+      letter-spacing: 9px;
+      margin-top: 2px;
+      opacity: .85;
+    }
+
+    .fam-suite {
+      font-family: "IM Fell English", serif;
+      font-style: italic;
+      font-size: 15px;
+      text-align: center;
+      color: #7a5f2c;
+      padding-bottom: 10px;
+    }
+
+    .sec-titre {
+      font-family: "IM Fell English SC", serif;
+      font-size: 21.5px;
+      border-bottom: 1px solid currentColor;
+      padding-bottom: 1px;
+      margin-bottom: 6px;
+    }
+
+    .sec-intro {
+      font-size: 16px;
+      font-style: italic;
+      color: #57401f;
+      line-height: 1.3;
+      margin-bottom: 6px;
+    }
+
+    .sort { position: relative; }
+
+    .sort-entete {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+    }
+
+    .sort-nom {
+      font-weight: 700;
+      font-size: 19px;
+      font-variant: small-caps;
+      letter-spacing: .4px;
+      color: #33240f;
+    }
+
+    .sort-cout {
+      font-family: "IM Fell English", serif;
+      font-size: 15px;
+      color: #7c1f14;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .sort-desc {
+      font-size: 16.5px;
+      line-height: 1.32;
+      color: #46331a;
+    }
+
+    .sort-desc p { margin: 0; }
+
+    .sort.sort-hit {
+      background: rgba(216, 172, 60, .35);
+      outline: 2px solid rgba(155, 108, 16, .65);
+      outline-offset: 3px;
+      border-radius: 3px;
+      transition: background 1.2s ease, outline-color 1.2s ease;
+    }
+
+    /* grilles élémentaires */
+    .grille {
+      display: grid;
+      gap: 2px;
+      justify-content: center;
+      margin: 7px 0 3px 0;
+    }
+
+    .grille-foudre { grid-template-columns: repeat(5, 40px); }
+    .grille-vent { grid-template-columns: repeat(5, 52px); }
+
+    .grille .case {
+      height: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13.5px;
+      font-weight: 700;
+      border: 1px solid rgba(90, 62, 22, .55);
+      background: rgba(255, 248, 228, .45);
+      color: #4a3315;
+    }
+
+    .grille .case.vide { border: none; background: transparent; }
+    .grille .case.centre { background: rgba(158, 43, 37, .28); border-color: #7c1f14; }
+
+    .grille-legende {
+      text-align: center;
+      font-size: 13.5px;
+      font-style: italic;
+      color: #6d5325;
+      margin-bottom: 4px;
+    }
+
+    /* --------- Sommaire --------- */
+    .sommaire-titre {
+      font-family: "IM Fell English SC", serif;
+      font-size: 38px;
+      text-align: center;
+      color: #4a3315;
+      padding-top: 20px;
+    }
+
+    .sommaire-intro {
+      font-family: "IM Fell English", serif;
+      font-style: italic;
+      font-size: 16px;
+      text-align: center;
+      color: #6d5325;
+      padding: 4px 10px 22px 10px;
+      line-height: 1.35;
+    }
+
+    .sommaire-ligne {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      font-size: 21px;
+      padding: 7px 4px;
+      cursor: pointer;
+      color: #3a2915;
+      text-decoration: none;
+    }
+
+    .sommaire-ligne:hover .sommaire-nom { color: #7c1f14; }
+
+    .sommaire-nom {
+      font-variant: small-caps;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .sommaire-points {
+      flex: 1;
+      border-bottom: 2px dotted rgba(90, 62, 22, .55);
+      transform: translateY(-4px);
+    }
+
+    .sommaire-page {
+      font-family: "IM Fell English", serif;
+      font-size: 17px;
+      color: #6d5325;
+    }
+
+    .sommaire-pastille {
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      align-self: center;
+      box-shadow: inset 0 0 3px rgba(0, 0, 0, .4);
+    }
+
+    /* --------- Pages de garde --------- */
+    .garde-contenu {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 60px;
+      font-family: "IM Fell English", serif;
+      font-style: italic;
+      color: #6d5325;
+      font-size: 19px;
+      line-height: 1.6;
+    }
+
+    .garde-orne { font-size: 30px; letter-spacing: 10px; margin: 18px 0; font-style: normal; }
+
+    /* --------- Marque-pages --------- */
+    .bookmarks {
+      position: absolute;
+      top: 52px;
+      right: -34px;
+      width: 34px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      z-index: 0;
+      transition: opacity .5s ease;
+    }
+
+    .book.ferme-avant .bookmarks,
+    .book.ferme-arriere .bookmarks { opacity: 0; pointer-events: none; }
+
+    .bookmark {
+      width: 58px;
+      height: 78px;
+      margin-left: -24px;
+      border: none;
+      clip-path: polygon(0 0, 100% 0, 88% 50%, 100% 100%, 0 100%);
+      writing-mode: vertical-rl;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Cormorant Garamond", serif;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 1px;
+      color: rgba(255, 248, 230, .95);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, .55);
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, .3);
+      cursor: pointer;
+      transition: transform .25s ease;
+      padding: 0;
+    }
+
+    .bookmark:hover { transform: translateX(7px); }
+
+    /* --------- Flèches de navigation --------- */
+    .nav-fleche {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      border: 2px solid #6b501f;
+      background: linear-gradient(180deg, #efe2bd, #dcc998);
+      color: #4a3315;
+      font-size: 30px;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, .55);
+      transition: transform .2s ease, opacity .3s ease;
+      z-index: 20;
+      user-select: none;
+      padding: 0 0 4px 0;
+    }
+
+    .nav-fleche:hover { transform: translateY(-50%) scale(1.12); }
+    .nav-fleche:disabled { opacity: .25; cursor: default; transform: translateY(-50%); }
+    .fleche-gauche { left: -76px; }
+    .fleche-droite { right: -76px; }
+
+    .grimoire-aide {
+      text-align: center;
+      font-family: "IM Fell English", serif;
+      font-style: italic;
+      color: #8a7148;
+      font-size: .95rem;
+      margin-top: 30px;
+    }
+
+    /* coin de page cliquable (indice visuel) */
+    .coin-corne {
+      position: absolute;
+      bottom: 0;
+      width: 46px;
+      height: 46px;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity .3s ease;
+    }
+
+    .page:hover .coin-corne { opacity: 1; }
+
+    .page.front .coin-corne {
+      right: 0;
+      background: linear-gradient(315deg, rgba(70, 46, 14, .30) 0 50%, transparent 50%);
+    }
+
+    .page.back .coin-corne {
+      left: 0;
+      background: linear-gradient(45deg, rgba(70, 46, 14, .30) 0 50%, transparent 50%);
+    }
+
+    @media (max-width: 768px) {
+      .grimoire-titre { font-size: 1.5rem; }
+      .fleche-gauche { left: 4px; }
+      .fleche-droite { right: 4px; }
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-xl">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="../index.html"><img src="../image/logo_l_and_b.png" alt="Logo" width="70" height="70"
+          class="d-inline-block align-text-middle" />
+        Legends & Bonk</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="../index.html">Accueil</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../regles.html">Règles</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Personnages
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="../personnages/regles_creation.html">Les règles de création</a></li>
+              <li><a class="dropdown-item" href="../personnages/classes.html">Les classes</a></li>
+              <li><a class="dropdown-item" href="../personnages/races.html">Les races</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="../personnages/aides_creation.html">Les aides de création</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Équipement
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="../equipement/armes.html">Les armes</a></li>
+              <li><a class="dropdown-item" href="../equipement/armures.html">Les armures</a></li>
+              <li><a class="dropdown-item" href="../equipement/potions.html">Les potions</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="../equipement/prix.html">Les feuilles de prix</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Magie
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="../magie/tartos.html">Les cartes de tarots</a></li>
+              <li><a class="dropdown-item active" href="../magie/livre_magie.html">Le grand livre de la magie</a></li>
+              <li><a class="dropdown-item" href="../magie/grimoire_sanguinolent.html">Le grimoire sanguinolent</a></li>
+            </ul>
+          </li>
+        </ul>
+        <ul class="navbar-nav mb-2 mb-lg-0 d-flex flex-row justify-content-center">
+          <li class="nav-item">
+            <a href="../add_on.html" class="btn btn-outline-light me-2" role="button">Add-on</a>
+          </li>
+          <li class="nav-item">
+            <a href="../logiciel.html" class="btn btn-outline-light me-2" role="button">Logiciel</a>
+          </li>
+          <li class="nav-item">
+            <a href="../taverne_des_mj/tarvene_mj.html" class="btn btn-outline-light" role="button">La taverne des MJ</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Contenu de la page -->
+  <main>
+    <div class="grimoire-section">
+      <h1 class="grimoire-titre">Le Grand Livre de la Magie</h1>
+      <p class="grimoire-sous-titre">Tous les sortilèges connus des mages de Legends & Bonk</p>
+
+      <div class="recherche-sort">
+        <input type="text" id="rechercheSort" list="listeSorts" placeholder="✦ Chercher un sort…" autocomplete="off" />
+        <datalist id="listeSorts"></datalist>
+      </div>
+
+      <div class="book-scene">
+        <div class="book-scale" id="bookScale">
+          <div class="book-wrap">
+            <div class="book ferme-avant" id="book">
+              <div class="bookmarks" id="bookmarks"></div>
+              <!-- feuilles générées en JS -->
+            </div>
+            <button class="nav-fleche fleche-gauche" id="flechePrec" aria-label="Page précédente">‹</button>
+            <button class="nav-fleche fleche-droite" id="flecheSuiv" aria-label="Page suivante">›</button>
+          </div>
+        </div>
+      </div>
+
+      <p class="grimoire-aide" id="aideNav">Cliquez sur la couverture pour ouvrir le grimoire</p>
+    </div>
+  </main>
+
+  <footer
+    style="background-image: url(../image/dragon_footer.png);background-size:contain; background-repeat: no-repeat; background-position: center;">
+
+    <div class="container text-center">
+      <div class="row align-items-start">
+        <div class="col">
+          <a href="https://www.instagram.com/legends_bonk?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+            target="_blank" style="text-decoration: none; color: white;"><img
+              src="../image/instagram-brands-solid-full.svg" alt="Instagram" width="50" height="50"
+              class="d-inline-block align-text-middle" />legends_bonk</a>
+        </div>
+
+        <div class="col">
+          <a href="../contact.html" target="_blank" style="text-decoration: none; color: white;"><img
+              src="../image/envelope-regular-full.svg" alt="Enveloppe" width="50" height="50"
+              class="d-inline-block align-text-middle" />Contact</a>
+        </div>
+      </div>
+    </div>
+
+    © 2026 Legends & Bonk
+
+  </footer>
+
+  <script>
+    document.querySelectorAll('.navbar .dropdown-toggle').forEach(function (toggle) {
+      toggle.addEventListener('click', function () {
+        var navbarCollapse = document.getElementById('navbarSupportedContent');
+        if (window.getComputedStyle(navbarCollapse).display === 'none') {
+          var bsCollapse = new bootstrap.Collapse(navbarCollapse, {
+            show: true
+          });
+        }
+      });
+    });
+  </script>
+
+  <script>
+    /* ==================================================================
+       DONNÉES : les familles de magie du Grand Livre
+       ================================================================== */
+    const FAMILLES = [
+      {
+        id: "soutien", nom: "Famille de Soutien", court: "Soutien", couleur: "#9c7c1e",
+        sections: [
+          {
+            titre: "Sous-famille de lumière", sorts: [
+              { nom: "Bénédiction de moine", cout: "PM (10)", desc: ["Suppression des effets."] },
+              { nom: "Bénédiction d'évêque", cout: "PM (20)", desc: ["Suppression des effets + 15 PV."] },
+              { nom: "Bénédiction d'archevêque", cout: "PM (30)", desc: ["Suppression des effets + 30 PV."] }
+            ]
+          },
+          {
+            titre: "Sous-famille de guérison", sorts: [
+              { nom: "Soin mineur", cout: "PM (20)", desc: ["Restore 15% des PV max."] },
+              { nom: "Soin moyen", cout: "PM (30)", desc: ["Restore 25% des PV max."] },
+              { nom: "Soin grand", cout: "PM (60)", desc: ["Restore 50% des PV max."] },
+              { nom: "Soin majeur", cout: "PM (90)", desc: ["Restore 75% des PV max."] }
+            ]
+          },
+          {
+            sorts: [
+              { nom: "Transfert de dégâts", cout: "PM = dégâts transférés", desc: ["Ce sort peut être lancé en réaction quand un allié est sur le point de prendre un coup, il sert à transférer les dégâts qu'il allait prendre au lanceur. Le sort coûtera autant de PM que de points de dégâts transférés."] },
+              { nom: "Trompe la mort", cout: "PM (20)", desc: ["Invincible pendant 2T mais incapacité et immobilisé pendant cela."] },
+              { nom: "Plume", cout: "PM (10)", desc: ["Supprime totalement les dégâts de chute une fois."] }
+            ]
+          }
+        ]
+      },
+      {
+        id: "action", nom: "Famille d'Action", court: "Action", couleur: "#b35f1d",
+        sections: [
+          {
+            titre: "Sous-famille d'adrénaline", sorts: [
+              { nom: "Petite dose d'adrénaline", cout: "PM (35)", desc: ["Une action de plus maintenant mais au tour suivant impossibilité de faire une action."] },
+              { nom: "Dose d'adrénaline", cout: "PM (55)", desc: ["Une action de plus pendant 2T mais au tour d'après impossibilité de faire une action."] },
+              { nom: "Piqûre d'adrénaline", cout: "PM (75)", desc: ["Une action de plus pendant 3T mais au tour d'après impossibilité de faire une action."] }
+            ]
+          },
+          {
+            sorts: [
+              { nom: "Empressement", cout: "PM (15)", desc: ["Une action de plus au tour d'après mais consomme l'action de ce tour."] },
+              { nom: "Chloroforme", cout: "PM (50)", desc: ["L'adversaire est incapacité et immobilisé pendant 3T ou à la première prise de dégâts."] }
+            ]
+          }
+        ]
+      },
+      {
+        id: "resistance", nom: "Famille de Résistance", court: "Résist.", couleur: "#5a6b7d",
+        sections: [
+          {
+            titre: "Sous-famille de protection", sorts: [
+              { nom: "Protection mineure", cout: "PM (25)", desc: ["Reçoit -20% de dégâts pendant 3T."] },
+              { nom: "Protection moyenne", cout: "PM (45)", desc: ["Reçoit -35% de dégâts pendant 3T."] },
+              { nom: "Protection majeure", cout: "PM (100)", desc: ["Reçoit -50% de dégâts pendant 3T."] },
+              { nom: "Protection exceptionnelle", cout: "PM (120)", desc: ["Reçoit -40% de dégâts pendant 5T."] }
+            ]
+          },
+          {
+            titre: "Sous-famille d'armure", sorts: [
+              { nom: "Plaque de fer", cout: "PM (40)", desc: ["Confère des PA à hauteur de 25% des PV max."] },
+              { nom: "Plaque de titane", cout: "PM (60)", desc: ["Confère des PA à hauteur de 40% des PV max."] },
+              { nom: "Plaque d'adamantine", cout: "PM (80)", desc: ["Confère des PA à hauteur de 55% des PV max."] }
+            ]
+          },
+          {
+            titre: "Sous-famille de perceur", sorts: [
+              { nom: "Perce armure légère", cout: "PM (75)", desc: ["Attaque en ignorant les PA pendant 1T."] },
+              { nom: "Perce armure forte", cout: "PM (95)", desc: ["Attaque en ignorant les PA pendant 2T."] }
+            ]
+          }
+        ]
+      },
+      {
+        id: "deplacement", nom: "Famille de Déplacement", court: "Déplac.", couleur: "#2f7a6e",
+        sections: [
+          {
+            titre: "Sous-famille de lévitation", sorts: [
+              { nom: "Lévitation légère", cout: "PM (20)", desc: ["Lévite de 3 cases pendant 3T."] },
+              { nom: "Lévitation moyenne", cout: "PM (30)", desc: ["Lévite de 3 cases pendant 4T."] },
+              { nom: "Lévitation forte", cout: "PM (40)", desc: ["Lévite de 3 cases pendant 5T."] }
+            ]
+          },
+          {
+            titre: "Sous-famille de téléportation", sorts: [
+              { nom: "Téléportation petite", cout: "PM (20)", desc: ["Vous téléporte ou téléporte un allié à portée de toucher sur une distance max de 10 cases."] },
+              { nom: "Téléportation moyenne", cout: "PM (30)", desc: ["Vous téléporte ou téléporte un allié à portée de toucher sur une distance max de 15 cases."] },
+              { nom: "Téléportation longue", cout: "PM (40)", desc: ["Vous téléporte ou téléporte un allié à portée de toucher sur une distance max de 20 cases."] }
+            ]
+          },
+          {
+            titre: "Sous-famille de projection",
+            intro: "Prend un objet d'un certain poids et le projette rapidement en ligne droite.",
+            sorts: [
+              { nom: "Projection de 30 kg", cout: "PM (30)", desc: ["Envoie l'objet à une distance de 30 cases."] },
+              { nom: "Projection de 70 kg", cout: "PM (40)", desc: ["Envoie l'objet à une distance de 20 cases."] },
+              { nom: "Projection de 150 kg", cout: "PM (50)", desc: ["Envoie l'objet à une distance de 10 cases."] }
+            ]
+          }
+        ]
+      },
+      {
+        id: "furtivite", nom: "Famille de Furtivité", court: "Furtiv.", couleur: "#46386e",
+        sections: [
+          {
+            titre: "Sous-famille de l'invisibilité", sorts: [
+              { nom: "Invisibilité légère", cout: "PM (20)", desc: ["Durée de 1T."] },
+              { nom: "Invisibilité moyenne", cout: "PM (30)", desc: ["Durée de 2T."] },
+              { nom: "Invisibilité forte", cout: "PM (40)", desc: ["Durée de 3T."] }
+            ]
+          },
+          {
+            titre: "Sous-famille de fumigène", sorts: [
+              { nom: "Fumigène", cout: "PM (25)", desc: ["Fait apparaître une boule de fumée de 4 de large, rendant impossible la vision à travers et la compliquant à l'intérieur même. La fumée dure 6T à moins qu'elle ne soit dissipée par un vent fort ou une aura de vent."] },
+              { nom: "Fumigène empoisonné", cout: "PM (40)", desc: ["Fait apparaître une boule de fumée empoisonnée de 3 de large, rendant impossible la vision à travers et la compliquant à l'intérieur même. Toute personne à l'intérieur a l'effet empoisonné. La fumée dure 6T à moins qu'elle ne soit dissipée par un vent fort ou une aura de vent."] }
+            ]
+          }
+        ]
+      },
+      {
+        id: "esprit", nom: "Famille d'Esprit", court: "Esprit", couleur: "#8a4a7d",
+        sections: [
+          {
+            titre: "Sous-famille du lecteur", sorts: [
+              { nom: "Lecture de pensées embrumées", cout: "PM (30)", desc: ["Permet de lire les pensées de la cible mais les pensées ne seront pas perçues clairement."] },
+              { nom: "Lecture de pensées précise", cout: "PM (50)", desc: ["Permet de lire les pensées de la cible."] }
+            ]
+          },
+          {
+            titre: "Sous-famille de l'amour", sorts: [
+              { nom: "Crush", cout: "PM (40)", desc: ["Rend la cible amoureuse du lanceur, ¼ chance de s'appliquer."] },
+              { nom: "Sentiments", cout: "PM (60)", desc: ["Rend la cible amoureuse du lanceur, ½ chance de s'appliquer."] },
+              { nom: "Amoureux", cout: "PM (80)", desc: ["Rend la cible amoureuse du lanceur, ¾ chances de s'appliquer."] },
+              { nom: "Coup de foudre", cout: "PM (120)", desc: ["Rend la cible amoureuse du lanceur."] }
+            ]
+          },
+          {
+            sorts: [
+              { nom: "Tranquillité d'esprit", cout: "PM (30)", desc: ["Augmente beaucoup la perception, +5 au dés."] }
+            ]
+          }
+        ]
+      },
+      {
+        id: "attaque", nom: "Famille d'Attaque", court: "Attaque", couleur: "#9e2b25",
+        sections: [
+          {
+            sorts: [
+              { nom: "Projection magique", cout: "PM (10)", desc: ["Lance des projectiles magiques simples qui font 3D4 de dégâts."] }
+            ]
+          },
+          {
+            titre: "Sous-famille du feu", sorts: [
+              { nom: "Petite boule de feu", cout: "PM (40)", desc: ["Dégâts 3D8 + effet brûlé.", "Zone de 2."] },
+              { nom: "Grosse boule de feu", cout: "PM (60)", desc: ["Dégâts 3D10 + effet brûlé.", "Zone de 3."] },
+              { nom: "Arcane de feux", cout: "PM (80)", desc: ["Dégâts 3D12 + effet brûlé + effet faiblesse de 20% pendant 1T.", "Zone de 3."] }
+            ]
+          },
+          {
+            titre: "Sous-famille de l'eau", sorts: [
+              { nom: "Écume", cout: "PM (40)", desc: ["Dégâts 3D8 + effet de détrempé.", "Zone de 2."] },
+              { nom: "Vague", cout: "PM (60)", desc: ["Dégâts 3D10 + effet de détrempé.", "Zone de 3."] },
+              { nom: "Tsunami", cout: "PM (80)", desc: ["Dégâts 3D12 + effet de détrempé + repousse de 8 cases.", "Zone de 3."] }
+            ]
+          },
+          {
+            titre: "Sous-famille du poison", sorts: [
+              { nom: "Poison faible", cout: "PM (40)", desc: ["Dégâts 3D6 + effet empoisonné."] },
+              { nom: "Poison", cout: "PM (60)", desc: ["Dégâts 3D6 + effet empoisonné + (50% de chance de se faire 25% des dégâts de son attaque → 50% de chance de se faire 33% des dégâts de son attaque)."] },
+              { nom: "Poison fort", cout: "PM (80)", desc: ["Dégâts 3D6 + effet empoisonné ++ (50% de chance de se faire ¼ des dégâts de son attaque → 50% de chance de se faire 45% des dégâts de son attaque)."] }
+            ]
+          },
+          {
+            titre: "Sous-famille de glace", sorts: [
+              { nom: "Chute de neige", cout: "PM (40)", desc: ["Dégâts 3D8 + effet congelé.", "Zone de 2."] },
+              { nom: "Tempête de neige", cout: "PM (60)", desc: ["Dégâts 3D10 + effet congelé.", "Zone de 3."] },
+              { nom: "Blizzard", cout: "PM (80)", desc: ["Dégâts 3D12 + effet congelé + effet engourdi pendant 3T.", "Zone de 3."] }
+            ]
+          },
+          {
+            titre: "Sous-famille de foudre", sorts: [
+              { nom: "Eclair", cout: "PM (40)", desc: ["Dégâts 3D8 + effet foudroyé.", "Zone de 2."] },
+              { nom: "Foudre", cout: "PM (60)", desc: ["Dégâts 3D10 + effet foudroyé.", "Zone de 3."] },
+              { nom: "Tonnerre", cout: "PM (80)", desc: ["Dégâts 3D12 + effet foudroyé + effet désarmer.", "Zone de 3."] }
+            ]
+          },
+          {
+            titre: "Sous-famille d'explosion", sorts: [
+              { nom: "Grenade", cout: "PM (50)", desc: ["Dégâts 2D10 + ⅓ de chance d'appliquer l'effet brûlé.", "Zone de 2."] },
+              { nom: "Lance grenade", cout: "PM (50) × nb d'explosions", desc: [] },
+              { nom: "FGM-148 Javelin", cout: "PM (80)", desc: ["Dégâts 4D10 + ⅓ de chance d'appliquer l'effet brûlé.", "Zone de 3."] },
+              { nom: "Pluie de missiles", cout: "PM (80) × nb d'explosions", desc: [] },
+              { nom: "Fat Man", cout: "PM (110) + 2 TDSA", desc: ["Dégâts 6D10 + ⅓ de chance d'appliquer l'effet brûlé.", "Zone de 4."] }
+            ]
+          },
+          {
+            titre: "Sous-famille des végétaux", sorts: [
+              { nom: "Attaque de l'ortie", cout: "PM (40)", desc: ["Dégâts 3D8 + effet lacéré.", "Zone de 2."] },
+              { nom: "Attaque des ronces", cout: "PM (60)", desc: ["Dégâts 3D10 + effet lacéré.", "Zone de 3."] },
+              { nom: "Attaque des pyracanthas", cout: "PM (80)", desc: ["Dégâts 3D12 + effet lacéré + effet engourdi pendant 3T.", "Zone de 3."] }
+            ]
+          },
+          {
+            titre: "Sous-famille de terre", sorts: [
+              { nom: "Secousse", cout: "PM (40)", desc: ["Dégâts 3D8 + effet enlisé.", "Zone de 2."] },
+              { nom: "Séisme", cout: "PM (60)", desc: ["Dégâts 3D10 + effet enlisé.", "Zone de 3."] },
+              { nom: "Epicentre", cout: "PM (80)", desc: ["Dégâts 4D12 + effet enlisé + effet incapacité.", "Zone de 3."] }
+            ]
+          },
+          {
+            titre: "Sous-famille du vent", sorts: [
+              { nom: "Sirocco", cout: "PM (40)", desc: ["Dégâts 3D8 + effet éjecté.", "Zone de 3x4."] },
+              { nom: "Tornade", cout: "PM (60)", desc: ["Dégâts 3D10 + effet éjecté.", "Zone de 3x5."] },
+              { nom: "Typhon", cout: "PM (80)", desc: ["Dégâts 3D12 + effet éjecté + effet engourdi pendant 3T.", "Zone de 3x5."] }
+            ]
+          },
+          {
+            sorts: [
+              { nom: "Mad men", cout: "PM (30)", desc: ["Dégâts 3D6 + effet fou."] }
+            ]
+          }
+        ]
+      },
+      {
+        id: "creation", nom: "Famille de Création", court: "Création", couleur: "#47702f",
+        sections: [
+          {
+            titre: "Sous-famille des objets", sorts: [
+              { nom: "Création de nourriture", cout: "PM (60) [1 par CR]", desc: ["Permet de créer 1 à 4 rations de survie magiques selon le résultat d'un D4, étant magiques elles doivent être consommées immédiatement."] },
+              { nom: "Apparition d'objet", cout: "", desc: ["Fait apparaître un objet basique, il faut cependant avoir déjà vu cet objet et savoir les matériaux qui le composent."] },
+              { nom: "— Apparition d'un petit objet", cout: "PM (20)", desc: ["Jusqu'à 10 kg."] },
+              { nom: "— Apparition d'un objet moyen", cout: "PM (35)", desc: ["Jusqu'à 25 kg."] },
+              { nom: "— Apparition d'un gros objet", cout: "PM (45)", desc: ["Jusqu'à 50 kg."] },
+              { nom: "Apparition d'arme temporaire", cout: "", desc: ["Fait apparaître une arme dans votre main jusqu'à la fin du combat, vous pouvez choisir la catégorie mais la sous-catégorie et la rareté sont aléatoires."] },
+              { nom: "— Arme de courte distance", cout: "PM (80)", desc: [] },
+              { nom: "— Arme de mi-distance", cout: "PM (100)", desc: [] },
+              { nom: "— Arme de longue distance", cout: "PM (90)", desc: [] },
+              { nom: "Flèches", cout: "PM (40)", desc: ["Fait apparaître des flèches, elles seront aléatoires en quantité et en variété. Utilisable jusqu'à la fin du combat."] }
+            ]
+          },
+          {
+            titre: "Sous-famille des golems",
+            intro: "Permet de créer un golem qui sera votre allié pendant un combat, vous lui assignez un ordre à la création et il le suivra à la lettre. Cependant il agira seul après sa création, vous n'aurez pas de contrôle sur lui.",
+            sorts: [
+              { nom: "Changement d'ordre", cout: "Consomme une SA", desc: ["Permet de changer l'ordre donné au golem."] },
+              { nom: "Création d'un golem", cout: "PM (50) + 2 TDSA", desc: ["PV : 50 — Dégâts : 25 — Vitesse : 5"] },
+              { nom: "Création d'un golem guerrier", cout: "PM (80) + 3 TDSA", desc: ["PV : 50 — Dégâts : 40 — Vitesse : 5"] },
+              { nom: "Création d'un golem général", cout: "PM (110) + 4 TDSA", desc: ["PV : 110 — PA : 50 — Dégâts : 60 — Vitesse : 8"] },
+              { nom: "Création d'un golem royal", cout: "PM (140) + 5 TDSA", desc: ["PV : 150 — PA : 100 — Dégâts : 80 — Vitesse : 10"] }
+            ]
+          },
+          {
+            titre: "Sous-famille des barricades",
+            intro: "Les barricades sont des murs particuliers : ce sont des murs de 2 de haut d'un côté et un escalier pour pouvoir attaquer avec +1 de portée nécessaire pour toucher.",
+            sorts: [
+              { nom: "Barricade", cout: "PM (30)", desc: ["30 PV et une barricade de 3 cases de long."] },
+              { nom: "Grande Barricade", cout: "PM (40)", desc: ["40 PV et une barricade de 5 cases de long."] },
+              { nom: "La muraille de Barricade", cout: "PM (60)", desc: ["80 PV et une barricade de 7 cases de long et 3 de haut (+2 au lieu de +1 de portée)."] }
+            ]
+          },
+          {
+            titre: "Sous-famille des élémentaires",
+            intro: "Tous les sorts élémentaires coûtent PM (25), chaque élément peut être utilisé une fois par CR. Les sorts de création élémentaires peuvent aussi être lancés en réaction dans une zone de 5 autour de soi pour se défendre d'une attaque élémentaire vous ciblant. Il est aussi possible de le faire quand un allié est ciblé. Le choix de l'élément est important. Ils peuvent aussi être appliqués aux armes magiques pour PM (40), puis consomment PM (5) par tour.",
+            sorts: [
+              {
+                nom: "Eaux", cout: "PM (25)", desc: [
+                  "Créer une boule d'eau — Zone : 2 cases de rayon autour de la cible.",
+                  "Effet : si une entité reste dans la boule d'eau pendant 2T elle commencera à suffoquer, ce qui causera la perte de 33% (arrondi au supérieur) de ses PV par T. La boule d'eau disparaîtra quand plus personne ne sera dedans.",
+                  "Effet sur les armes magiques : ⅓ de chance d'appliquer l'effet détrempé."
+                ]
+              },
+              {
+                nom: "Glace", cout: "PM (25)", desc: [
+                  "Créer un bloc de glace — Zone : 1 case de rayon autour de la cible.",
+                  "Effet : applique l'effet congelé à la cible et a 75% de chance de s'appliquer au reste de la zone.",
+                  "Effet sur les armes magiques : ⅓ de chance d'appliquer l'effet congelé."
+                ]
+              },
+              {
+                nom: "Feu", cout: "PM (25)", desc: [
+                  "Créer une flamme à l'impact — Zone : 1 case de rayon autour de la cible.",
+                  "Effet : applique l'effet brûlé à la cible et a 75% de chance de s'appliquer au reste de la zone.",
+                  "Effet sur les armes magiques : ⅓ de chance d'appliquer l'effet brûlé."
+                ]
+              },
+              {
+                nom: "Foudre", cout: "PM (25)", desc: [
+                  "Créer un orage — Zone : 3 cases de rayon autour de la cible.",
+                  "Effet : applique l'effet foudroyé pour la cible et a des chances de l'appliquer qui varient en fonction de la case où se trouvent les autres entités.",
+                  { grid: "foudre", legende: "Chance d'appliquer l'effet électrifié selon la case" },
+                  "Effet sur les armes magiques : ⅓ de chance d'appliquer l'effet foudroyé."
+                ]
+              },
+              {
+                nom: "Végétaux", cout: "PM (25)", desc: [
+                  "Créer des végétaux — Zone : 4 cases de rayon autour de la cible.",
+                  "Effet : la personne ciblée voit ses déplacements passer à 1 tant qu'elle est dans les végétaux, chaque entité dedans perd 5% de PV (basé sur les PV max) à chaque tour.",
+                  "Effet sur les armes magiques : ⅓ de chance d'appliquer l'effet lacéré."
+                ]
+              },
+              {
+                nom: "Terre", cout: "PM (25)", desc: [
+                  "Créer un mur de roche — Dimensions : 5 cases de large, 3 de haut et 1 de long.",
+                  "Effet : à la création le mur va avancer de 5 cases. Il possède 100 PV et reste jusqu'à la fin du combat. Ensuite il peut, contre une sous-action du lanceur, être avancé ou reculé de 5 cases.",
+                  "Effet sur les armes magiques : ⅓ de chance d'appliquer l'effet enlisé."
+                ]
+              },
+              {
+                nom: "Vent", cout: "PM (25)", desc: [
+                  "Créer une rafale de vent — Zone : 5 cases de long et 3 de large.",
+                  "Effet : applique l'effet éjecté pour la cible et a des chances de l'appliquer qui varient en fonction de la case où se trouvent les autres entités.",
+                  "80% de chance d'appliquer l'effet déstabilisé 1 case derrière, 60% à 2 cases, 40% à 3 cases, 20% à 4 cases.",
+                  { grid: "vent", legende: "Puissance de la rafale selon la distance" },
+                  "Effet sur les armes magiques : ⅓ de chance d'appliquer l'effet éjecté."
+                ]
+              },
+              {
+                nom: "Explosion", cout: "PM (25)", desc: [
+                  "Créer une explosion — Zone : 1 case de rayon autour de la cible.",
+                  "Effet : fait 2D8 de dégâts à la cible et les entités autour prennent 50% des dégâts.",
+                  "Effet sur les armes magiques : ⅓ de chance de faire une explosion qui fait 2D8 dans une zone de 1 autour de la cible."
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ];
+
+    /* ==================================================================
+       CONSTRUCTION DU LIVRE
+       (lancée une fois les polices chargées, car la pagination
+        dépend de la hauteur réelle du texte)
+       ================================================================== */
+    function construireGrimoire() {
+    const HAUTEUR_CONTENU = 660;
+
+    function esc(s) {
+      return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+
+    function slug(s) {
+      return s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+    }
+
+    function grilleHTML(spec) {
+      if (spec.grid === "foudre") {
+        const rows = [
+          [null, null, "1/3", null, null],
+          [null, "2/3", "2/3", "2/3", null],
+          ["1/3", "2/3", "3/3", "2/3", "1/3"],
+          [null, "2/3", "2/3", "2/3", null],
+          [null, null, "1/3", null, null]
+        ];
+        const cases = rows.flat().map(v =>
+          v === null ? '<div class="case vide"></div>'
+            : '<div class="case' + (v === "3/3" ? " centre" : "") + '">' + v + "</div>"
+        ).join("");
+        return '<div class="grille grille-foudre">' + cases + '</div><div class="grille-legende">' + esc(spec.legende) + "</div>";
+      }
+      if (spec.grid === "vent") {
+        const cases = ["1/5", "2/5", "3/5", "4/5", "5/5"].map((v, i) =>
+          '<div class="case' + (i === 4 ? " centre" : "") + '">' + v + "</div>"
+        ).join("");
+        return '<div class="grille grille-vent">' + cases + '</div><div class="grille-legende">' + esc(spec.legende) + "</div>";
+      }
+      return "";
+    }
+
+    function sortHTML(sort, fam) {
+      const lignes = sort.desc.map(d =>
+        typeof d === "string" ? "<p>" + esc(d) + "</p>" : grilleHTML(d)
+      ).join("");
+      return '<div class="blk sort" id="sort-' + slug(fam.id + "-" + sort.nom) + '">'
+        + '<div class="sort-entete"><span class="sort-nom">' + esc(sort.nom) + "</span>"
+        + (sort.cout ? '<span class="sort-cout">' + esc(sort.cout) + "</span>" : "")
+        + "</div>"
+        + (lignes ? '<div class="sort-desc">' + lignes + "</div>" : "")
+        + "</div>";
+    }
+
+    // Découpe une famille en blocs mesurables
+    function blocsFamille(fam) {
+      const blocs = [];
+      blocs.push({
+        html: '<div class="blk"><div class="fam-titre" style="color:' + fam.couleur + '">' + esc(fam.nom)
+          + '</div><div class="fam-orne" style="color:' + fam.couleur + '">✦ ❦ ✦</div></div>',
+        garderAvecSuivant: true, estTitreFamille: true
+      });
+      fam.sections.forEach(sec => {
+        if (sec.titre) {
+          blocs.push({
+            html: '<div class="blk"><div class="sec-titre" style="color:' + fam.couleur + '">' + esc(sec.titre) + " :</div>"
+              + (sec.intro ? '<div class="sec-intro">' + esc(sec.intro) + "</div>" : "")
+              + "</div>",
+            garderAvecSuivant: true
+          });
+        }
+        sec.sorts.forEach(sort => {
+          blocs.push({ html: sortHTML(sort, fam), sort: sort, fam: fam });
+        });
+      });
+      return blocs;
+    }
+
+    // Mesure la hauteur réelle d'un bloc dans un gabarit caché
+    // (les classes .blk, .sort-nom, etc. sont globales et s'y appliquent)
+    const mesureur = document.createElement("div");
+    mesureur.style.cssText = "position:absolute;visibility:hidden;left:-9999px;top:0;width:456px;display:flow-root;font-family:'Cormorant Garamond',serif;";
+
+    function mesurer(html) {
+      mesureur.innerHTML = html;
+      return mesureur.offsetHeight;
+    }
+
+    // Répartit les blocs d'une famille sur autant de pages que nécessaire
+    function paginerFamille(fam) {
+      const blocs = blocsFamille(fam);
+      blocs.forEach(b => { b.h = mesurer(b.html); });
+      const pages = [];
+      let cur = [], curH = 0;
+      for (let i = 0; i < blocs.length; i++) {
+        const b = blocs[i];
+        let besoin = b.h;
+        // un titre de section ne doit pas rester orphelin en bas de page
+        if (b.garderAvecSuivant && blocs[i + 1]) besoin += blocs[i + 1].h;
+        if (cur.length && curH + besoin > HAUTEUR_CONTENU) {
+          pages.push(cur); cur = []; curH = 0;
+        }
+        cur.push(b); curH += b.h;
+      }
+      if (cur.length) pages.push(cur);
+      return pages;
+    }
+
+    /* ---------- Assemblage des pages ---------- */
+    const book = document.getElementById("book");
+    document.body.appendChild(mesureur);
+
+    const pagesContenu = [];   // { html, fam } — la page 0 sera le sommaire
+    const indexSorts = [];     // { nom, page, id, fam }
+    pagesContenu.push(null);   // réservé au sommaire
+
+    FAMILLES.forEach(fam => {
+      const pagesFam = paginerFamille(fam);
+      fam.premierePage = pagesContenu.length; // index 0-based ; n° affiché = index + 1
+      pagesFam.forEach((blocs, pi) => {
+        const suite = pi > 0 ? '<div class="fam-suite">' + esc(fam.nom) + " (suite) ✦</div>" : "";
+        pagesContenu.push({ html: suite + blocs.map(b => b.html).join(""), fam: fam });
+        blocs.forEach(b => {
+          if (b.sort) {
+            indexSorts.push({
+              nom: b.sort.nom.replace(/^— /, ""),
+              page: pagesContenu.length - 1,
+              id: "sort-" + slug(fam.id + "-" + b.sort.nom),
+              fam: fam
+            });
+          }
+        });
+      });
+    });
+
+    document.body.removeChild(mesureur);
+
+    // Sommaire (page 0)
+    const sommaireHTML =
+      '<div class="sommaire-titre">Sommaire</div>'
+      + '<div class="sommaire-intro">Ici sont consignées les huit grandes familles de la magie,<br>telles que les mages les enseignent depuis des générations.</div>'
+      + FAMILLES.map(fam =>
+        '<a class="sommaire-ligne" data-page="' + fam.premierePage + '">'
+        + '<span class="sommaire-pastille" style="background:' + fam.couleur + '"></span>'
+        + '<span class="sommaire-nom">' + esc(fam.nom) + "</span>"
+        + '<span class="sommaire-points"></span>'
+        + '<span class="sommaire-page">' + (fam.premierePage + 1) + "</span>"
+        + "</a>").join("");
+    pagesContenu[0] = { html: sommaireHTML, fam: null };
+
+    // Nombre pair de pages pour remplir les feuilles
+    if (pagesContenu.length % 2 === 1) {
+      pagesContenu.push({
+        html: '<div class="garde-contenu"><div class="garde-orne">❦</div>'
+          + "Ici s'achèvent les sortilèges connus.<br>D'autres pages restent à écrire…"
+          + '<div class="garde-orne">✦ ✦ ✦</div></div>',
+        fam: null, garde: true
+      });
+    }
+
+    /* ---------- Création des feuilles (recto / verso) ---------- */
+    function pageFace(classe, contenu) {
+      const d = document.createElement("div");
+      d.className = "page " + classe;
+      d.innerHTML = contenu;
+      return d;
+    }
+
+    function contenuPage(idx) {
+      const p = pagesContenu[idx];
+      if (p.garde) return '<div class="parchemin" style="position:absolute;inset:0">' + p.html + "</div>";
+      return '<div class="parchemin" style="position:absolute;inset:0">'
+        + '<div class="page-inner">' + p.html + "</div>"
+        + '<div class="page-num">— ' + (idx + 1) + " —</div>"
+        + '<div class="coin-corne"></div>'
+        + "</div>";
+    }
+
+    const sheets = [];
+
+    // Feuille 0 : couverture
+    const couverture = document.createElement("div");
+    couverture.className = "sheet";
+    couverture.appendChild(pageFace("front cuir",
+      '<span class="couverture-coin coin-hg">✦</span><span class="couverture-coin coin-hd">✦</span>'
+      + '<span class="couverture-coin coin-bg">✦</span><span class="couverture-coin coin-bd">✦</span>'
+      + '<div class="couverture-cadre">'
+      + '<div class="couverture-orne">☽ ✦ ☾</div>'
+      + '<div class="couverture-titre">Grand Livre<br>de la<br>Magie</div>'
+      + '<div class="couverture-orne">❦</div>'
+      + '<div class="couverture-marque">Legends & Bonk</div>'
+      + "</div>"
+      + '<div class="couverture-hint">— Cliquez pour ouvrir —</div>'));
+    couverture.appendChild(pageFace("back parchemin",
+      '<div class="garde-contenu"><div class="garde-orne">✦</div>'
+      + "Ce grimoire recense les arcanes<br>transmis aux aventuriers<br>de Legends & Bonk."
+      + '<div class="garde-orne">❦</div>'
+      + "<span style=\"font-size:15px\">Que celui qui tourne ces pages<br>en fasse bon usage.</span></div>"));
+    sheets.push(couverture);
+
+    // Feuilles de contenu
+    for (let i = 0; i < pagesContenu.length; i += 2) {
+      const s = document.createElement("div");
+      s.className = "sheet";
+      s.appendChild(pageFace("front", contenuPage(i)));
+      s.appendChild(pageFace("back", contenuPage(i + 1)));
+      sheets.push(s);
+    }
+
+    // Feuille finale : quatrième de couverture
+    const dos = document.createElement("div");
+    dos.className = "sheet";
+    dos.appendChild(pageFace("front parchemin",
+      '<div class="garde-contenu"><div class="garde-orne">✦ ❦ ✦</div>'
+      + "Fin du Grand Livre de la Magie</div>"));
+    dos.appendChild(pageFace("back cuir",
+      '<div class="couverture-cadre"><div class="couverture-orne">❦</div>'
+      + '<div class="couverture-marque">Legends & Bonk</div></div>'));
+    sheets.push(dos);
+
+    sheets.forEach(s => book.appendChild(s));
+    const NB_FEUILLES = sheets.length;
+
+    /* ==================================================================
+       MÉCANIQUE DU LIVRE
+       ================================================================== */
+    let feuillesTournees = 0;
+    let zTimer = null;
+    const aideNav = document.getElementById("aideNav");
+    const flechePrec = document.getElementById("flechePrec");
+    const flecheSuiv = document.getElementById("flecheSuiv");
+
+    function majZ() {
+      sheets.forEach((s, i) => {
+        s.style.zIndex = s.classList.contains("flipped") ? i + 1 : NB_FEUILLES - i + 1;
+      });
+    }
+
+    function majEtat() {
+      book.classList.toggle("ferme-avant", feuillesTournees === 0);
+      book.classList.toggle("ferme-arriere", feuillesTournees === NB_FEUILLES);
+      flechePrec.disabled = feuillesTournees === 0;
+      flecheSuiv.disabled = feuillesTournees === NB_FEUILLES;
+      aideNav.textContent = feuillesTournees === 0
+        ? "Cliquez sur la couverture pour ouvrir le grimoire"
+        : "Tournez les pages : clic sur la page, flèches ← →, molette, marque-pages ou sommaire";
+    }
+
+    function allerAFeuille(cible) {
+      cible = Math.max(0, Math.min(NB_FEUILLES, cible));
+      if (cible === feuillesTournees) return;
+      const dir = cible > feuillesTournees ? 1 : -1;
+      let ordre = 0;
+      while (feuillesTournees !== cible) {
+        const s = dir > 0 ? sheets[feuillesTournees] : sheets[feuillesTournees - 1];
+        const o = ordre++;
+        setTimeout(() => {
+          s.style.zIndex = 500 + o;
+          s.classList.toggle("flipped", dir > 0);
+        }, o * 110);
+        feuillesTournees += dir;
+      }
+      clearTimeout(zTimer);
+      zTimer = setTimeout(majZ, ordre * 110 + 1050);
+      majEtat();
+    }
+
+    // index de page (0-based) -> nombre de feuilles à tourner pour la voir :
+    // pages paires = recto (côté droit), pages impaires = verso (côté gauche)
+    function allerAPage(i) {
+      allerAFeuille(i % 2 === 0 ? i / 2 + 1 : (i + 3) / 2);
+    }
+
+    majZ();
+    majEtat();
+
+    /* ---------- Clics sur les pages ---------- */
+    book.addEventListener("click", e => {
+      const lien = e.target.closest("[data-page]");
+      if (lien) {
+        allerAPage(parseInt(lien.dataset.page, 10));
+        return;
+      }
+      const page = e.target.closest(".page");
+      if (!page) return;
+      const sheet = page.parentElement;
+      const idx = sheets.indexOf(sheet);
+      if (page.classList.contains("front") && idx === feuillesTournees) {
+        allerAFeuille(feuillesTournees + 1);
+      } else if (page.classList.contains("back") && idx === feuillesTournees - 1) {
+        allerAFeuille(feuillesTournees - 1);
+      }
+    });
+
+    flechePrec.addEventListener("click", () => allerAFeuille(feuillesTournees - 1));
+    flecheSuiv.addEventListener("click", () => allerAFeuille(feuillesTournees + 1));
+
+    /* ---------- Clavier ---------- */
+    document.addEventListener("keydown", e => {
+      if (e.target.tagName === "INPUT") return;
+      if (e.key === "ArrowRight" || e.key === "PageDown") { e.preventDefault(); allerAFeuille(feuillesTournees + 1); }
+      if (e.key === "ArrowLeft" || e.key === "PageUp") { e.preventDefault(); allerAFeuille(feuillesTournees - 1); }
+    });
+
+    /* ---------- Molette ---------- */
+    let derniereMolette = 0;
+    document.querySelector(".book-scene").addEventListener("wheel", e => {
+      e.preventDefault();
+      const t = Date.now();
+      if (t - derniereMolette < 450) return;
+      derniereMolette = t;
+      allerAFeuille(feuillesTournees + (e.deltaY > 0 ? 1 : -1));
+    }, { passive: false });
+
+    /* ---------- Marque-pages ---------- */
+    const conteneurBookmarks = document.getElementById("bookmarks");
+    FAMILLES.forEach(fam => {
+      const b = document.createElement("button");
+      b.className = "bookmark";
+      b.style.background = "linear-gradient(90deg, " + fam.couleur + ", " + fam.couleur + "cc)";
+      b.textContent = fam.court;
+      b.title = fam.nom + " — page " + (fam.premierePage + 1);
+      b.addEventListener("click", e => {
+        e.stopPropagation();
+        allerAPage(fam.premierePage);
+      });
+      conteneurBookmarks.appendChild(b);
+    });
+
+    /* ---------- Recherche de sort ---------- */
+    const champ = document.getElementById("rechercheSort");
+    const datalist = document.getElementById("listeSorts");
+    indexSorts.forEach(s => {
+      const o = document.createElement("option");
+      o.value = s.nom;
+      datalist.appendChild(o);
+    });
+
+    function normaliser(s) {
+      return s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().trim();
+    }
+
+    let surbrillanceTimer = null;
+    function chercherSort() {
+      const q = normaliser(champ.value);
+      if (!q) return;
+      const hit = indexSorts.find(s => normaliser(s.nom) === q)
+        || indexSorts.find(s => normaliser(s.nom).includes(q));
+      if (!hit) return;
+      allerAPage(hit.page);
+      document.querySelectorAll(".sort-hit").forEach(el => el.classList.remove("sort-hit"));
+      const el = document.getElementById(hit.id);
+      if (el) {
+        clearTimeout(surbrillanceTimer);
+        // attendre la fin du feuilletage avant d'allumer la surbrillance
+        surbrillanceTimer = setTimeout(() => {
+          el.classList.add("sort-hit");
+          setTimeout(() => el.classList.remove("sort-hit"), 3500);
+        }, 600);
+      }
+    }
+
+    champ.addEventListener("change", chercherSort);
+    champ.addEventListener("keydown", e => { if (e.key === "Enter") chercherSort(); });
+
+    /* ---------- Mise à l'échelle responsive ---------- */
+    const bookScale = document.getElementById("bookScale");
+    function rescale() {
+      const dispo = document.querySelector(".grimoire-section").clientWidth;
+      const marge = window.innerWidth > 900 ? 180 : 20; // place pour les flèches
+      const scale = Math.min(1, (dispo - marge) / 1120);
+      bookScale.style.transform = "scale(" + scale + ")";
+      bookScale.style.height = Math.ceil(780 * scale + 40) + "px";
+      bookScale.style.width = Math.ceil(1120 * scale) + "px";
+    }
+    window.addEventListener("resize", rescale);
+    rescale();
+
+    // Ouverture directe via l'URL : livre_magie.html#p=5 ouvre à la page 5
+    const m = location.hash.match(/^#p=(\d+)/);
+    if (m) {
+      const p = Math.min(pagesContenu.length - 1, Math.max(0, parseInt(m[1], 10) - 1));
+      allerAPage(p);
+    }
+    } // fin construireGrimoire
+
+    // La pagination mesure du texte : il faut que les polices soient prêtes
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(construireGrimoire);
+    } else {
+      construireGrimoire();
+    }
+  </script>
+</body>
+
+</html>
