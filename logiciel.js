@@ -1,44 +1,25 @@
-// --- Raretés ---
-const c = "c";
-const sc = "sc";
-const r = "r";
-const sr = "sr";
-const e = "e";
-const se = "se";
+"use strict";
 
-//Grande catégories armes
-const acd = "acd" //arme courte distance
-const amd = "amd" //arme moyenne distance
-const ald = "ald" //arme longue distance
-const bou = "bou" //bouclier
-const bat = "bat" //bâton magique
-const ani = "ani" //Objet animal
+/* Codes utilisés dans les dictionnaires ci-dessous :
+   Raretés          c, sc, r, sr, e, se (de la plus commune à la plus rare)
+   Grandes cat.     acd/amd/ald (courte/moyenne/longue distance),
+                    bou (bouclier), bat (bâton magique), ani (objet animal)
+   Petites cat.     cl (classique), pa (petite arme), la (lancer), lo (lourde)
+   Cat. spéciales   ta (talisman), ma (magique), mu (musicale), me (médicale)
+   Armures          ale/amo/alo (légère/moyenne/lourde)
+   Divers           fle (flèches), pot (potion)
+   "x" = non renseigné / indifférent */
 
-//petites catégories armes
-const cl = "cl" //arme classique
-const pa = "pa" //petite arme
-const la = "la" //arme de lancer
-const lo = "lo" //arme loudre
-
-//Catégories spéciales
-const ta = "ta" //talismans
-const ma = "ma" //arme magique
-const mu = "mu" //musicals
-const me = "me" //medicals
-
-//catégories armures et objets divers
-const ale = "ale" //armure légère
-const amo = "amo" //armure moyenne
-const alo = "alo" //armure lourde
-const fle = "fle" //flèches
-const pot = "pot" //potion
-
-// Foonction random entre deux entier compris
+// Fonction random entre deux entiers compris
 function rand(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 // --- Génération d'enchantements ---
+const enchants = ["Vent", "Foudre", "Feu", "Force", /*liste des enchantements dispo*/
+  "Agilité", "Temps", "Résistance",
+  "Vitesse", "Illusion"];
+
 function ench(rar) {
   let enchfinal = "";
   let nombreEnch = 0;
@@ -71,10 +52,7 @@ function ench(rar) {
   }
 
   for (let i = 0; i < nombreEnch; i++) {
-    let n = rand(1, 8);
-    let enchants = ["Vent", "Foudre", "Feu", "Force", /*liste des enchantements dispo*/
-      "Agilité", "Temps", "Résistance",
-      "Vitesse", "Illusion"];
+    let n = rand(0, enchants.length - 1);
     if (i == 1) {
       enchfinal += " & "
     }
@@ -190,8 +168,18 @@ function E() {
 
 //SE n'existe pas car il suffit d'appeler "SE",ench("se").
 
+// rang de chaque rareté, de la plus commune à la plus rare
+const rangRarete = { c: 1, sc: 2, r: 3, sr: 4, e: 5, se: 6 };
+
 //fonction pour faire un random entre une rareté min et max.
 function loot(minrar, maxrar) {
+  // min au-dessus de max : les fonctions C/SC/R/SR ne couvriraient aucun cas
+  // et renverraient une rareté undefined, on préfère le dire clairement.
+  if (!rangRarete[minrar] || !rangRarete[maxrar]) return { error: "Rareté inconnue" };
+  if (rangRarete[minrar] > rangRarete[maxrar]) {
+    return { error: "La rareté minimum doit être inférieure ou égale à la rareté maximum" };
+  }
+
   if (minrar === maxrar) return [maxrar, ench(maxrar)];
 
   if (minrar === "c") return C(maxrar);
@@ -352,56 +340,30 @@ const armes = {
 }
 
 function getArmes(GrandeCategorie, PetiteCategorie, CatégorieSpéciales, RaretéMin, RaretéMax) {
-  rar = {
-    c: 1,
-    sc: 2,
-    r: 3,
-    sr: 4,
-    e: 5,
-    se: 6
-  };
+  const rar = rangRarete;
 
-  it = 0
+  const rarfinal = loot(RaretéMin, RaretéMax);
+  if (rarfinal.error) return rarfinal;
 
-  rarfinal = loot(RaretéMin, RaretéMax)
+  // On garde toutes les armes de la catégorie demandée dont la fourchette de
+  // rareté ([3] à [4]) accepte la rareté tirée, puis on en choisit une au hasard.
+  const compatibles = Object.keys(armes).filter(function (nom) {
+    const a = armes[nom];
+    const bonneCategorie = CatégorieSpéciales == "x"
+      ? a[0] == GrandeCategorie && (a[1] == PetiteCategorie || PetiteCategorie == "x")
+      : a[2] == CatégorieSpéciales;
+    return bonneCategorie
+      && rar[a[3]] <= rar[rarfinal[0]] && rar[a[4]] >= rar[rarfinal[0]];
+  });
 
-  if (CatégorieSpéciales == "x") {
-    while (it < 100000) {
-      n = rand(0, Object.keys(armes).length - 1);
-      choix = Object.keys(armes)[n];
-      if (armes[choix][0] == GrandeCategorie) {
-        if (armes[choix][1] == PetiteCategorie || PetiteCategorie == "x") {
-
-          if
-            (rar[armes[choix][3]] <= rar[rarfinal[0]] && rar[armes[choix][4]] >= rar[rarfinal[0]]) {
-            //Check si rareté générée est compatible avec l’arme
-            return [choix, rarfinal]; //Loot ou trouve une autre arme qui correspond
-          }
-        }
-      }
-      it += 1;
-    }
+  if (compatibles.length === 0) {
+    return { error: "Aucune arme trouvée avec ces critères ou la rareté " + rarfinal[0] };
   }
 
-
-  else {
-    while (it < 100000) {
-      n = rand(0, Object.keys(armes).length - 1);
-      choix = Object.keys(armes)[n];
-      if (armes[choix][2] == CatégorieSpéciales) {
-        if
-          (rar[armes[choix][3]] <= rar[rarfinal[0]] && rar[armes[choix][4]] >= rar[rarfinal[0]]) {
-          //Check si rareté générée est compatible avec l’arme
-          return [choix, rarfinal]; //Loot ou trouve une autre arme qui correspond
-        }
-      }
-      it += 1;
-    }
-  }
-  return { error: "Aucune arme trouvée avec ces critères ou la rareté " + rarfinal[0] };
+  return [compatibles[rand(0, compatibles.length - 1)], rarfinal];
 }
 
-armures = {
+const armures = {
   //Armures légères
   "Casque léger": ["ale", "c", "sr"],
   "Cuirasse légère": ["ale", "c", "sr"],
@@ -429,38 +391,27 @@ armures = {
   "Jambière berserker": ["alo", "sc", "e"]
 }
 
-getArmures = function (Categorie, RaretéMin, RaretéMax) {
-  rar = {
-    c: 1,
-    sc: 2,
-    r: 3,
-    sr: 4,
-    e: 5,
-    se: 6
-  };
+function getArmures(Categorie, RaretéMin, RaretéMax) {
+  const rar = rangRarete;
 
-  it = 0
+  const rarfinal = loot(RaretéMin, RaretéMax);
+  if (rarfinal.error) return rarfinal;
 
-  rarfinal = loot(RaretéMin, RaretéMax)
+  // Même principe que getArmes : on filtre puis on tire au hasard.
+  const compatibles = Object.keys(armures).filter(function (nom) {
+    const a = armures[nom];
+    return a[0] == Categorie
+      && rar[a[1]] <= rar[rarfinal[0]] && rar[a[2]] >= rar[rarfinal[0]];
+  });
 
-  while (it < 100000) {
-    n = rand(0, Object.keys(armures).length - 1);
-    choix = Object.keys(armures)[n];
-    if (armures[choix][0] == Categorie) {
-
-
-      if
-        (rar[armures[choix][1]] <= rar[rarfinal[0]] && rar[armures[choix][2]] >= rar[rarfinal[0]]) {
-        //Check si rareté générée est compatible avec l’arme
-        return [choix, rarfinal]; //Loot ou trouve une autre arme qui correspond
-      }
-    }
-    it += 1
+  if (compatibles.length === 0) {
+    return { error: "Aucune armure trouvée avec ces critères ou la rareté " + rarfinal[0] };
   }
-  return "Aucune armures trouvée avec ces critères ou la rareté " + rarfinal[0];
+
+  return [compatibles[rand(0, compatibles.length - 1)], rarfinal];
 }
 
-potions = ["Potion de guérison",
+const potions = ["Potion de guérison",
   "Potion d'annulation de statut",
   "Potion de saignement",
   "Potion d'invisibilité",
@@ -492,12 +443,12 @@ potions = ["Potion de guérison",
   "Potion magique vierge"]
 
 function getPotion() {
-  n = rand(0, potions.length - 1);
+  const n = rand(0, potions.length - 1);
   if (potions[n] == "Potion magique vierge") {
     return potions[n];
   }
   else {
-    taille = rand(1, 100);
+    const taille = rand(1, 100);
     if (taille <= 80) {
       return "Petite " + potions[n];
     }
@@ -510,7 +461,7 @@ function getPotion() {
   }
 }
 
-flèches = {
+const flèches = {
   "Flèche": [70, 3, 8],
   "Tête large": [30, 1, 5],
   "Grosse flèche": [15, 1, 2],
@@ -533,7 +484,7 @@ flèches = {
 }
 
 function getFlèches() {
-  result = {};
+  const result = {};
 
 
 
@@ -542,7 +493,7 @@ function getFlèches() {
     let n = rand(1, 100);
 
     if (n <= flèches[choix][0]) {
-      nombre = rand(flèches[choix][1], flèches[choix][2]);
+      const nombre = rand(flèches[choix][1], flèches[choix][2]);
       result[choix] = nombre;
     }
   }

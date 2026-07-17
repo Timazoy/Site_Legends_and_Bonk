@@ -84,17 +84,17 @@
                     </div>
                     <div class="card-body">
                       <select class="form-select" aria-label="GC">
-                        <option selected>Grande catégorie</option>
+                        <option value="" selected>Grande catégorie</option>
                         <option value="acd">Arme courte distance</option>
                         <option value="amd">Arme moyenne distance</option>
                         <option value="ald">Arme longue distance</option>
                         <option value="bat">Bâton magique</option>
                         <option value="bou">Bouclier</option>
-                        <option value="ani">Objets animal</option>
+                        <option value="ani">Objet animal</option>
                       </select>
 
                       <select class="form-select" aria-label="PC" style="margin-top: 10px;">
-                        <option selected>Petite catégorie</option>
+                        <option value="" selected>Petite catégorie</option>
                         <option value="cl">Classique</option>
                         <option value="pa">Petite arme</option>
                         <option value="la">Arme de lancer</option>
@@ -102,18 +102,18 @@
                       </select>
 
                       <select class="form-select" aria-label="CS" style="margin-top: 10px;">
-                        <option selected>Catégorie spéciale</option>
+                        <option value="" selected>Catégorie spéciale</option>
                         <option value="ta">Talismans</option>
                         <option value="ma">Arme magique</option>
                         <option value="mu">Arme musicale</option>
-                        <option value="me">Arme medicale</option>
+                        <option value="me">Arme médicale</option>
                       </select>
 
                       <div class="container text-center">
                         <div class="row align-items-start">
                           <div class="col">
                             <select class="form-select" aria-label="rarminarme" style="margin-top: 10px;">
-                              <option selected>Rareté minimum</option>
+                              <option value="" selected>Rareté minimum</option>
                               <option value="c">C</option>
                               <option value="sc">SC</option>
                               <option value="r">R</option>
@@ -124,7 +124,7 @@
                           </div>
                           <div class="col">
                             <select class="form-select" aria-label="rarmaxarme" style="margin-top: 10px;">
-                              <option selected>Rareté maximun</option>
+                              <option value="" selected>Rareté maximum</option>
                               <option value="c">C</option>
                               <option value="sc">SC</option>
                               <option value="r">R</option>
@@ -138,7 +138,7 @@
 
                       <button type="button" class="btn"
                         style="margin-top: 10px; background-color: #7a0808; color: white;" data-bs-toggle="modal"
-                        data-bs-target="#armegenModal">Généré</button>
+                        data-bs-target="#armegenModal">Générer</button>
                     </div>
 
                     <!-- Modal -->
@@ -196,8 +196,8 @@
                     </div>
                     <div class="card-body">
                       <select class="form-select" aria-label="CA">
-                        <option selected>Catégorie</option>
-                        <option value="ale">Armure légére</option>
+                        <option value="" selected>Catégorie</option>
+                        <option value="ale">Armure légère</option>
                         <option value="amo">Armure moyenne</option>
                         <option value="alo">Armure lourde</option>
                       </select>
@@ -206,7 +206,7 @@
                         <div class="row align-items-start">
                           <div class="col">
                             <select class="form-select" aria-label="rarminarmure" style="margin-top: 10px;">
-                              <option selected>Rareté minimum</option>
+                              <option value="" selected>Rareté minimum</option>
                               <option value="c">C</option>
                               <option value="sc">SC</option>
                               <option value="r">R</option>
@@ -217,7 +217,7 @@
                           </div>
                           <div class="col">
                             <select class="form-select" aria-label="rarmaxarmure" style="margin-top: 10px;">
-                              <option selected>Rareté maximun</option>
+                              <option value="" selected>Rareté maximum</option>
                               <option value="c">C</option>
                               <option value="sc">SC</option>
                               <option value="r">R</option>
@@ -231,7 +231,7 @@
 
                       <button type="button" class="btn"
                         style="margin-top: 10px; background-color: #7a0808; color: white;" data-bs-toggle="modal"
-                        data-bs-target="#armuregenModal">Généré</button>
+                        data-bs-target="#armuregenModal">Générer</button>
                       <hr>
                       <div class="container text-center">
                         <div class="row align-items-start">
@@ -326,7 +326,7 @@
                     <div class="container text-center">
                       <div class="row g-2">
                         <div class="col-12 col-sm-6 col-md-5"><select class="form-select" aria-label="rarminloot">
-                            <option selected>Rareté minimun</option>
+                            <option value="" selected>Rareté minimum</option>
                             <option value="c">C</option>
                             <option value="sc">SC</option>
                             <option value="r">R</option>
@@ -335,7 +335,7 @@
                             <option value="se">SE</option>
                           </select></div>
                         <div class="col-12 col-sm-6 col-md-5"><select class="form-select" aria-label="rarmaxloot">
-                            <option selected>Rareté maximun</option>
+                            <option value="" selected>Rareté maximum</option>
                             <option value="c">C</option>
                             <option value="sc">SC</option>
                             <option value="r">R</option>
@@ -345,7 +345,7 @@
                           </select></div>
                         <div class="col-12 col-md-2"><button type="button" class="btn w-100"
                             style="background-color: #7a0808; color: white;" data-bs-toggle="modal"
-                            data-bs-target="#lootModal">Généré</button>
+                            data-bs-target="#lootModal">Générer</button>
 
                           <div class="modal fade" id="lootModal" tabindex="-1" aria-labelledby="lootModalLabel"
                             aria-hidden="true">
@@ -375,7 +375,7 @@
                     <div class="container">
                       <div class="row g-2">
                         <div class="col-12 col-md-10"><select class="form-select" aria-label="rarminench">
-                            <option selected>Rareté choisie</option>
+                            <option value="" selected>Rareté choisie</option>
                             <option value="c">C</option>
                             <option value="sc">SC</option>
                             <option value="r">R</option>
@@ -385,7 +385,7 @@
                           </select></div>
                         <div class="col-12 col-md-2"><button type="button" class="btn w-100"
                             style="background-color: #7a0808; color: white;" data-bs-toggle="modal"
-                            data-bs-target="#enchModal">Généré</button>
+                            data-bs-target="#enchModal">Générer</button>
 
                           <div class="modal fade" id="enchModal" tabindex="-1" aria-labelledby="enchModalLabel"
                             aria-hidden="true">
@@ -576,7 +576,7 @@
                       </div>
                       <div class="col-12 col-md-2"><button type="button" class="btn w-100"
                           style="background-color: #7a0808; color: white;" data-bs-toggle="modal"
-                          data-bs-target="#pourcentModal">Calcul</button>
+                          data-bs-target="#pourcentModal">Calculer</button>
 
                         <div class="modal fade" id="pourcentModal" tabindex="-1" aria-labelledby="pourcentModalLabel"
                           aria-hidden="true">
@@ -628,9 +628,9 @@
                             aria-describedby="addon-wrapping">
                         </div>
                       </div>
-                      <div class="col-12 col-md-2"><button type="button" class="btn w-100"
+                      <div class="col-12 col-md-2"><button type="button" id="btnRandomBorne" class="btn w-100"
                           style="background-color: #7a0808; color: white;" data-bs-toggle="modal"
-                          data-bs-target="#randomModal">Généré</button>
+                          data-bs-target="#randomModal">Générer</button>
 
                         <div class="modal fade" id="randomModal" tabindex="-1" aria-labelledby="randomModalLabel"
                           aria-hidden="true">
@@ -653,43 +653,31 @@
                       </div>
                     </div>
                     <hr>
+                    <!-- data-de : nombre de faces, lu par le JS (le libellé reste libre) -->
                     <div class="row g-2">
-
                       <div class="col-12 col-md-2">
                         <button type="button" class="btn w-100" style="background-color: #7a0808; color: white;"
-                          data-bs-toggle="modal" data-bs-target="#randomModal">D4</button>
-
-
+                          data-de="4" data-bs-toggle="modal" data-bs-target="#randomModal">D4</button>
                       </div>
                       <div class="col-12 col-md-2">
                         <button type="button" class="btn w-100" style="background-color: #7a0808; color: white;"
-                          data-bs-toggle="modal" data-bs-target="#randomModal">D6</button>
-
-
+                          data-de="6" data-bs-toggle="modal" data-bs-target="#randomModal">D6</button>
                       </div>
                       <div class="col-12 col-md-2">
                         <button type="button" class="btn w-100" style="background-color: #7a0808; color: white;"
-                          data-bs-toggle="modal" data-bs-target="#randomModal">D8</button>
-
-
+                          data-de="8" data-bs-toggle="modal" data-bs-target="#randomModal">D8</button>
                       </div>
                       <div class="col-12 col-md-2">
                         <button type="button" class="btn w-100" style="background-color: #7a0808; color: white;"
-                          data-bs-toggle="modal" data-bs-target="#randomModal">D10</button>
-
-
+                          data-de="10" data-bs-toggle="modal" data-bs-target="#randomModal">D10</button>
                       </div>
                       <div class="col-12 col-md-2">
                         <button type="button" class="btn w-100" style="background-color: #7a0808; color: white;"
-                          data-bs-toggle="modal" data-bs-target="#randomModal">D12</button>
-
-
+                          data-de="12" data-bs-toggle="modal" data-bs-target="#randomModal">D12</button>
                       </div>
                       <div class="col-12 col-md-2">
                         <button type="button" class="btn w-100" style="background-color: #7a0808; color: white;"
-                          data-bs-toggle="modal" data-bs-target="#randomModal">D20</button>
-
-
+                          data-de="20" data-bs-toggle="modal" data-bs-target="#randomModal">D20</button>
                       </div>
                     </div>
                   </div>
@@ -803,19 +791,19 @@
           const rarMax = document.querySelector('select[aria-label="rarmaxarme"]').value;
 
           // Vérifier que les rarétés sont sélectionnées
-          if (rarMin === 'Rareté minimum' || rarMax === 'Rareté maximun') {
+          if (!rarMin || !rarMax) {
             alert('Veuillez sélectionner les rarétés minimum et maximum');
             return;
           }
 
           // Vérifier qu'on a une grande catégorie OU une catégorie spéciale
-          if ((GC === 'Grande catégorie' || GC === '') && (CS === 'Catégorie spéciale' || CS === '')) {
+          if (!GC && !CS) {
             alert('Veuillez sélectionner soit une grande catégorie, soit une catégorie spéciale');
             return;
           }
 
           // Si catégorie spéciale est choisie, l'utiliser
-          if (CS !== 'Catégorie spéciale' && CS !== '') {
+          if (CS) {
             const result = getArmes('x', 'x', CS, rarMin, rarMax);
             const modalBody = document.querySelector('#armegenModal .modal-body');
             if (Array.isArray(result)) {
@@ -825,8 +813,8 @@
             }
           }
           // Sinon utiliser grande catégorie (et optionnellement petite catégorie)
-          else if (GC !== 'Grande catégorie' && GC !== '') {
-            const pc = (PC !== 'Petite catégorie' && PC !== '') ? PC : 'x';
+          else if (GC) {
+            const pc = PC || 'x';
             const result = getArmes(GC, pc, 'x', rarMin, rarMax);
             const modalBody = document.querySelector('#armegenModal .modal-body');
             if (Array.isArray(result)) {
@@ -849,14 +837,14 @@
             const rarMin = document.querySelector('select[aria-label="rarminarmure"]').value;
             const rarMax = document.querySelector('select[aria-label="rarmaxarmure"]').value;
 
-            if (cat !== 'Catégorie' && rarMin !== 'Rareté minimum' && rarMax !== 'Rareté maximun') {
+            if (cat && rarMin && rarMax) {
               const result = getArmures(cat, rarMin, rarMax);
               const modals = document.querySelectorAll('#armuregenModal .modal-body');
               modals.forEach(modalBody => {
                 if (Array.isArray(result)) {
                   modalBody.innerHTML = `<strong>Armure :</strong> ${result[0]}<br><strong>Rareté :</strong> ${result[1][0]}<br><strong>Enchantement :</strong> ${result[1][1]}`;
                 } else {
-                  modalBody.innerHTML = `<strong>Erreur :</strong> ${result}`;
+                  modalBody.innerHTML = `<strong>Erreur :</strong> ${result.error}`;
                 }
               });
             } else {
@@ -915,10 +903,12 @@
           const rarMin = document.querySelector('select[aria-label="rarminloot"]').value;
           const rarMax = document.querySelector('select[aria-label="rarmaxloot"]').value;
 
-          if (rarMin !== 'Rareté minimun' && rarMax !== 'Rareté maximun') {
+          if (rarMin && rarMax) {
             const result = loot(rarMin, rarMax);
             const modalBody = document.querySelector('#lootModal .modal-body');
-            modalBody.innerHTML = `<strong>Rareté :</strong> ${result[0]}<br><strong>Enchantement :</strong> ${result[1]}`;
+            modalBody.innerHTML = result.error
+              ? `<strong>Erreur :</strong> ${result.error}`
+              : `<strong>Rareté :</strong> ${result[0]}<br><strong>Enchantement :</strong> ${result[1]}`;
           } else {
             alert('Veuillez sélectionner les rarétés minimum et maximum');
           }
@@ -933,7 +923,7 @@
         btnGenerateEnch.addEventListener('click', function () {
           const rarChoisie = document.querySelector('select[aria-label="rarminench"]').value;
 
-          if (rarChoisie !== 'Rareté choisie') {
+          if (rarChoisie) {
             const result = ench(rarChoisie);
             const modalBody = document.querySelector('#enchModal .modal-body');
             modalBody.innerHTML = `<strong>Enchantement :</strong> ${result}`;
@@ -1010,66 +1000,34 @@
 
     // --- ALÉATOIRE BORNÉ ---
     document.addEventListener('DOMContentLoaded', function () {
-      const allRandomButtons = document.querySelectorAll('button[data-bs-target="#randomModal"]');
-      let btnGeneree = null;
-      allRandomButtons.forEach(btn => {
-        if (btn.textContent.trim() === 'Généré') {
-          btnGeneree = btn;
-        }
-      });
+      const btnRandomBorne = document.getElementById('btnRandomBorne');
+      if (btnRandomBorne) {
+        btnRandomBorne.addEventListener('click', function () {
+          const min = parseInt(document.querySelector('input[aria-label="minrandom"]').value);
+          const max = parseInt(document.querySelector('input[aria-label="maxrandom"]').value);
 
-      if (btnGeneree) {
-        btnGeneree.addEventListener('click', function () {
-          setTimeout(function () {
-            const minInput = document.querySelector('input[aria-label="minrandom"]');
-            const maxInput = document.querySelector('input[aria-label="maxrandom"]');
+          if (isNaN(min) || isNaN(max) || min > max) {
+            alert('Veuillez entrer des nombres valides avec minimum ≤ maximum');
+            return;
+          }
 
-            const min = parseInt(minInput.value);
-            const max = parseInt(maxInput.value);
-
-            if (isNaN(min) || isNaN(max) || min > max) {
-              alert('Veuillez entrer des nombres valides avec minimum ≤ maximum');
-              return;
-            }
-
-            const result = rand(min, max);
-            const modalBody = document.querySelector('#randomModal .modal-body');
-            modalBody.innerHTML = `<strong>Résultat :</strong> ${result}`;
-          }, 100);
+          const result = rand(min, max);
+          const modalBody = document.querySelector('#randomModal .modal-body');
+          modalBody.innerHTML = `<strong>Résultat :</strong> ${result}`;
         });
       }
     });
 
     // --- DÉS (D4, D6, D8, D10, D12, D20) ---
     document.addEventListener('DOMContentLoaded', function () {
-      const diceButtons = {
-        'D4': 4,
-        'D6': 6,
-        'D8': 8,
-        'D10': 10,
-        'D12': 12,
-        'D20': 20
-      };
-
-      const allButtons = document.querySelectorAll('button[data-bs-target="#randomModal"]');
-      allButtons.forEach(btn => {
-        const buttonText = btn.textContent.trim();
-
-        for (const [diceName, maxValue] of Object.entries(diceButtons)) {
-          if (buttonText === diceName) {
-            btn.addEventListener('click', function () {
-              let result;
-              if (diceName === 'D10') {
-                result = rand(0, 9);
-              } else {
-                result = rand(1, maxValue);
-              }
-              const modalBody = document.querySelector('#randomModal .modal-body');
-              modalBody.innerHTML = `<strong>Résultat du ${diceName} :</strong> ${result}`;
-            });
-            break;
-          }
-        }
+      document.querySelectorAll('button[data-de]').forEach(btn => {
+        const faces = parseInt(btn.dataset.de, 10);
+        btn.addEventListener('click', function () {
+          // le D10 est numéroté de 0 à 9, les autres de 1 à N
+          const result = faces === 10 ? rand(0, 9) : rand(1, faces);
+          const modalBody = document.querySelector('#randomModal .modal-body');
+          modalBody.innerHTML = `<strong>Résultat du D${faces} :</strong> ${result}`;
+        });
       });
     });
   </script>
