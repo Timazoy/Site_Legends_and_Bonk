@@ -31,6 +31,10 @@ main{
 footer {
   margin-top: auto;
   background-color: #281b07;
+  background-image: url("image/dragon_footer.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
   color: white;
   text-align: center;
   padding: 10px;

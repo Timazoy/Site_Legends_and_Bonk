@@ -1,0 +1,73 @@
+<!-- Navbar commune du site — chargée par commun.js sur chaque page.
+     Les chemins sont écrits depuis la racine du site : commun.js ajoute
+     tout seul le préfixe (./ ou ../) et pose la classe "active". -->
+<nav class="navbar navbar-expand-xl">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="index.html"><img src="image/logo_l_and_b.png" alt="Logo" width="70" height="70"
+        class="d-inline-block align-text-middle" />
+      Legends & Bonk</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="index.html">Accueil</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="regles.html">Règles</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Personnages
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="personnages/regles_creation.html">Les règles de création</a></li>
+            <li><a class="dropdown-item" href="personnages/classes.html">Les classes</a></li>
+            <li><a class="dropdown-item" href="personnages/races.html">Les races</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item" href="personnages/aides_creation.html">Les aides de création</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Équipement
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="equipement/armes.html">Les armes</a></li>
+            <li><a class="dropdown-item" href="equipement/armures.html">Les armures</a></li>
+            <li><a class="dropdown-item" href="equipement/potions.html">Les potions</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item" href="equipement/prix.html">Les feuilles de prix</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Magie
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="magie/tartos.html">Les cartes de tarots</a></li>
+            <li><a class="dropdown-item" href="magie/livre_magie.html">Le grand livre de la magie</a></li>
+            <li><a class="dropdown-item" href="magie/grimoire_sanguinolent.html">Le grimoire sanguinolent</a></li>
+          </ul>
+        </li>
+      </ul>
+      <ul class="navbar-nav mb-2 mb-lg-0 d-flex flex-row justify-content-center">
+        <li class="nav-item">
+          <a href="add_on.html" class="btn btn-outline-light me-2" role="button">Add-on</a>
+        </li>
+        <li class="nav-item">
+          <a href="logiciel.html" class="btn btn-outline-light me-2" role="button">Logiciel</a>
+        </li>
+        <li class="nav-item">
+          <a href="taverne_des_mj/taverne_mj.html" class="btn btn-outline-light" role="button">La taverne des MJ</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

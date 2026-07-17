@@ -19,26 +19,31 @@
   <style>
     /* ================= SCÈNE DU GRIMOIRE ================= */
     .grimoire-section {
-      background:
-        radial-gradient(ellipse at 50% 0%, rgba(80, 55, 20, .35), transparent 70%),
-        linear-gradient(180deg, #1d1408, #241a0b 40%, #1a1206);
+      /* géométrie des pages — pilotée par le JS selon la taille d'écran */
+      --page-w: 560px;
+      --page-h: 780px;
+      --page-mx: 52px;
+      --page-mt: 44px;
+      --page-inner-h: 660px;
+      --gutter: 70px;
+
+      background: #fff;
       padding: 26px 0 40px 0;
       overflow: hidden;
     }
 
     .grimoire-titre {
       font-family: "IM Fell English SC", serif;
-      color: #d8b96a;
+      color: #281b07;
       text-align: center;
       font-size: 2.3rem;
-      text-shadow: 0 2px 8px rgba(0, 0, 0, .8);
       margin-bottom: 4px;
     }
 
     .grimoire-sous-titre {
       font-family: "IM Fell English", serif;
       font-style: italic;
-      color: #a8905e;
+      color: #6d5325;
       text-align: center;
       font-size: 1.05rem;
       margin-bottom: 14px;
@@ -56,7 +61,7 @@
       background: linear-gradient(180deg, #efe2bd, #e2d0a2);
       border: 2px solid #6b501f;
       border-radius: 3px;
-      box-shadow: 0 3px 10px rgba(0, 0, 0, .5), inset 0 0 14px rgba(90, 60, 20, .25);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, .18), inset 0 0 14px rgba(90, 60, 20, .25);
       font-family: "IM Fell English", serif;
       font-style: italic;
       color: #3b2a15;
@@ -70,20 +75,27 @@
 
     /* --------- Mise à l'échelle --------- */
     .book-scene {
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
       position: relative;
+    }
+
+    /* fenêtre d'affichage : en mobile elle ne laisse voir qu'une page du livre */
+    .book-viewport {
+      position: relative;
+      margin: 0 auto;
+      z-index: 1;
     }
 
     .book-scale {
-      transform-origin: top center;
-      position: relative;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform-origin: top left;
+      transition: transform .45s ease;
     }
 
     .book-wrap {
-      width: 1120px;
-      height: 780px;
+      width: calc(var(--page-w) * 2);
+      height: var(--page-h);
       position: relative;
       perspective: 2800px;
     }
@@ -107,7 +119,7 @@
       right: 2%;
       bottom: -26px;
       height: 46px;
-      background: radial-gradient(ellipse at center, rgba(0, 0, 0, .65), transparent 70%);
+      background: radial-gradient(ellipse at center, rgba(0, 0, 0, .45), transparent 70%);
       z-index: 0;
     }
 
@@ -115,8 +127,8 @@
       position: absolute;
       top: 0;
       right: 0;
-      width: 560px;
-      height: 780px;
+      width: var(--page-w);
+      height: var(--page-h);
       transform-style: preserve-3d;
       transform-origin: left center;
       transition: transform 1s cubic-bezier(.35, .1, .25, 1);
@@ -170,7 +182,7 @@
       content: "";
       position: absolute;
       top: 0; bottom: 0; left: 0;
-      width: 70px;
+      width: var(--gutter);
       background: linear-gradient(90deg, rgba(60, 38, 12, .38), rgba(60, 38, 12, .12) 45%, transparent);
       pointer-events: none;
     }
@@ -179,7 +191,7 @@
       content: "";
       position: absolute;
       top: 0; bottom: 0; right: 0;
-      width: 70px;
+      width: var(--gutter);
       background: linear-gradient(-90deg, rgba(60, 38, 12, .38), rgba(60, 38, 12, .12) 45%, transparent);
       pointer-events: none;
     }
@@ -263,8 +275,8 @@
     /* --------- Contenu des pages --------- */
     .page-inner {
       position: relative;
-      height: 660px;
-      margin: 44px 52px 0 52px;
+      height: var(--page-inner-h);
+      margin: var(--page-mt) var(--page-mx) 0 var(--page-mx);
       overflow: hidden;
       font-family: "Cormorant Garamond", serif;
     }
@@ -517,6 +529,32 @@
 
     .bookmark:hover { transform: translateX(7px); }
 
+    /* marque-pages en barre horizontale sous le livre (mobile) */
+    .bookmarks-bar { display: none; }
+
+    .bookmarks-bar .bookmarks {
+      position: static;
+      width: auto;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 6px;
+      opacity: 1;
+    }
+
+    .bookmarks-bar .bookmark {
+      width: auto;
+      height: auto;
+      margin-left: 0;
+      padding: 5px 12px;
+      clip-path: none;
+      border-radius: 4px;
+      writing-mode: horizontal-tb;
+      font-size: 12px;
+    }
+
+    .bookmarks-bar .bookmark:hover { transform: none; }
+
     /* --------- Flèches de navigation --------- */
     .nav-fleche {
       position: absolute;
@@ -534,25 +572,28 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, .55);
+      box-shadow: 0 3px 9px rgba(0, 0, 0, .35);
       transition: transform .2s ease, opacity .3s ease;
-      z-index: 20;
+      z-index: 30;
       user-select: none;
       padding: 0 0 4px 0;
     }
 
     .nav-fleche:hover { transform: translateY(-50%) scale(1.12); }
     .nav-fleche:disabled { opacity: .25; cursor: default; transform: translateY(-50%); }
-    .fleche-gauche { left: -76px; }
-    .fleche-droite { right: -76px; }
+
+    /* position de repli : le JS les recale sur les bords du livre selon l'échelle */
+    .fleche-gauche { left: 6px; }
+    .fleche-droite { right: 6px; }
 
     .grimoire-aide {
       text-align: center;
       font-family: "IM Fell English", serif;
       font-style: italic;
-      color: #8a7148;
+      color: #7a6340;
       font-size: .95rem;
       margin-top: 30px;
+      padding: 0 12px;
     }
 
     /* coin de page cliquable (indice visuel) */
@@ -578,85 +619,44 @@
       background: linear-gradient(45deg, rgba(70, 46, 14, .30) 0 50%, transparent 50%);
     }
 
-    @media (max-width: 768px) {
-      .grimoire-titre { font-size: 1.5rem; }
-      .fleche-gauche { left: 4px; }
-      .fleche-droite { right: 4px; }
+    /* ================= MOBILE : livre en page unique ================= */
+    @media (max-width: 899.98px) {
+      .grimoire-section { padding: 16px 0 28px 0; }
+      .book-viewport { overflow: hidden; }
+      .grimoire-titre { font-size: 1.6rem; padding: 0 12px; }
+      .grimoire-sous-titre { font-size: .95rem; padding: 0 14px; }
+      .recherche-sort { margin-bottom: 14px; }
+
+      .bookmarks-bar { display: flex; justify-content: center; margin: 18px auto 0; padding: 0 10px; }
+
+      .nav-fleche { width: 44px; height: 44px; font-size: 24px; }
+
+      .couverture-cadre { inset: 14px; padding: 16px; }
+      .couverture-titre { font-size: 34px; margin: 10px 0; }
+      .couverture-orne { font-size: 21px; letter-spacing: 8px; }
+      .couverture-marque { font-size: 15px; margin-top: 16px; }
+      .couverture-hint { bottom: 22px; font-size: 13px; }
+      .couverture-coin { font-size: 18px; }
+
+      .garde-contenu { padding: 26px; font-size: 16px; }
+      .garde-orne { font-size: 24px; margin: 12px 0; }
+
+      .sommaire-titre { font-size: 30px; padding-top: 8px; }
+      .sommaire-intro { font-size: 14px; padding-bottom: 12px; }
+      .sommaire-ligne { font-size: 17px; padding: 5px 2px; }
+      .sommaire-page { font-size: 15px; }
+
+      .fam-titre { font-size: 26px; }
+      .fam-orne { font-size: 16px; letter-spacing: 7px; }
+      .sec-titre { font-size: 19px; }
+
+      .grimoire-aide { margin-top: 20px; font-size: .85rem; }
     }
   </style>
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-xl">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="../index.html"><img src="../image/logo_l_and_b.png" alt="Logo" width="70" height="70"
-          class="d-inline-block align-text-middle" />
-        Legends & Bonk</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link" href="../index.html">Accueil</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="../regles.html">Règles</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Personnages
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="../personnages/regles_creation.html">Les règles de création</a></li>
-              <li><a class="dropdown-item" href="../personnages/classes.html">Les classes</a></li>
-              <li><a class="dropdown-item" href="../personnages/races.html">Les races</a></li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-              <li><a class="dropdown-item" href="../personnages/aides_creation.html">Les aides de création</a></li>
-            </ul>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Équipement
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="../equipement/armes.html">Les armes</a></li>
-              <li><a class="dropdown-item" href="../equipement/armures.html">Les armures</a></li>
-              <li><a class="dropdown-item" href="../equipement/potions.html">Les potions</a></li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-              <li><a class="dropdown-item" href="../equipement/prix.html">Les feuilles de prix</a></li>
-            </ul>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Magie
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="../magie/tartos.html">Les cartes de tarots</a></li>
-              <li><a class="dropdown-item active" href="../magie/livre_magie.html">Le grand livre de la magie</a></li>
-              <li><a class="dropdown-item" href="../magie/grimoire_sanguinolent.html">Le grimoire sanguinolent</a></li>
-            </ul>
-          </li>
-        </ul>
-        <ul class="navbar-nav mb-2 mb-lg-0 d-flex flex-row justify-content-center">
-          <li class="nav-item">
-            <a href="../add_on.html" class="btn btn-outline-light me-2" role="button">Add-on</a>
-          </li>
-          <li class="nav-item">
-            <a href="../logiciel.html" class="btn btn-outline-light me-2" role="button">Logiciel</a>
-          </li>
-          <li class="nav-item">
-            <a href="../taverne_des_mj/tarvene_mj.html" class="btn btn-outline-light" role="button">La taverne des MJ</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+  <script src="../commun.js"></script>
 
   <!-- Contenu de la page -->
   <main>
@@ -670,58 +670,24 @@
       </div>
 
       <div class="book-scene">
-        <div class="book-scale" id="bookScale">
-          <div class="book-wrap">
-            <div class="book ferme-avant" id="book">
-              <div class="bookmarks" id="bookmarks"></div>
-              <!-- feuilles générées en JS -->
+        <div class="book-viewport" id="bookViewport">
+          <div class="book-scale" id="bookScale">
+            <div class="book-wrap">
+              <div class="book ferme-avant" id="book">
+                <!-- feuilles et marque-pages générés en JS -->
+              </div>
             </div>
-            <button class="nav-fleche fleche-gauche" id="flechePrec" aria-label="Page précédente">‹</button>
-            <button class="nav-fleche fleche-droite" id="flecheSuiv" aria-label="Page suivante">›</button>
           </div>
         </div>
+        <button class="nav-fleche fleche-gauche" id="flechePrec" aria-label="Page précédente">‹</button>
+        <button class="nav-fleche fleche-droite" id="flecheSuiv" aria-label="Page suivante">›</button>
       </div>
+
+      <div class="bookmarks-bar" id="bookmarksBar"></div>
 
       <p class="grimoire-aide" id="aideNav">Cliquez sur la couverture pour ouvrir le grimoire</p>
     </div>
   </main>
-
-  <footer
-    style="background-image: url(../image/dragon_footer.png);background-size:contain; background-repeat: no-repeat; background-position: center;">
-
-    <div class="container text-center">
-      <div class="row align-items-start">
-        <div class="col">
-          <a href="https://www.instagram.com/legends_bonk?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
-            target="_blank" style="text-decoration: none; color: white;"><img
-              src="../image/instagram-brands-solid-full.svg" alt="Instagram" width="50" height="50"
-              class="d-inline-block align-text-middle" />legends_bonk</a>
-        </div>
-
-        <div class="col">
-          <a href="../contact.html" target="_blank" style="text-decoration: none; color: white;"><img
-              src="../image/envelope-regular-full.svg" alt="Enveloppe" width="50" height="50"
-              class="d-inline-block align-text-middle" />Contact</a>
-        </div>
-      </div>
-    </div>
-
-    © 2026 Legends & Bonk
-
-  </footer>
-
-  <script>
-    document.querySelectorAll('.navbar .dropdown-toggle').forEach(function (toggle) {
-      toggle.addEventListener('click', function () {
-        var navbarCollapse = document.getElementById('navbarSupportedContent');
-        if (window.getComputedStyle(navbarCollapse).display === 'none') {
-          var bsCollapse = new bootstrap.Collapse(navbarCollapse, {
-            show: true
-          });
-        }
-      });
-    });
-  </script>
 
   <script>
     /* ==================================================================
@@ -1056,13 +1022,47 @@
     ];
 
     /* ==================================================================
+       GÉOMÉTRIE
+       Deux formats de page : grand écran = double page,
+       mobile = page unique (le texte garde sa taille, seule la page rétrécit).
+       ================================================================== */
+    const SEUIL_MOBILE = 900;
+    const GEO_BUREAU = { w: 560, h: 780, mx: 52, mt: 44, innerH: 660, gutter: 70 };
+    const GEO_MOBILE = { w: 400, h: 620, mx: 26, mt: 28, innerH: 520, gutter: 40 };
+
+    /* ==================================================================
+       ÉTAT DU GRIMOIRE
+       ================================================================== */
+    let geo = GEO_BUREAU;
+    let modeMobile = false;
+    let echelle = 1;
+    let sheets = [];
+    let nbFeuilles = 0;
+    let feuillesTournees = 0;
+    let cote = "droite";          // mobile : moitié du livre affichée à l'écran
+    let pagesContenu = [];        // { html, fam } — la page 0 est le sommaire
+    let indexSorts = [];          // { nom, page, id, fam }
+    let zTimer = null;
+    let surbrillanceTimer = null;
+    let resizeTimer = null;
+
+    const section = document.querySelector(".grimoire-section");
+    const scene = document.querySelector(".book-scene");
+    const book = document.getElementById("book");
+    const bookScale = document.getElementById("bookScale");
+    const bookViewport = document.getElementById("bookViewport");
+    const barreBookmarks = document.getElementById("bookmarksBar");
+    const aideNav = document.getElementById("aideNav");
+    const flechePrec = document.getElementById("flechePrec");
+    const flecheSuiv = document.getElementById("flecheSuiv");
+    const champ = document.getElementById("rechercheSort");
+    const datalist = document.getElementById("listeSorts");
+
+    /* ==================================================================
        CONSTRUCTION DU LIVRE
        (lancée une fois les polices chargées, car la pagination
         dépend de la hauteur réelle du texte)
        ================================================================== */
-    function construireGrimoire() {
-    const HAUTEUR_CONTENU = 660;
-
     function esc(s) {
       return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
     }
@@ -1134,7 +1134,6 @@
     // Mesure la hauteur réelle d'un bloc dans un gabarit caché
     // (les classes .blk, .sort-nom, etc. sont globales et s'y appliquent)
     const mesureur = document.createElement("div");
-    mesureur.style.cssText = "position:absolute;visibility:hidden;left:-9999px;top:0;width:456px;display:flow-root;font-family:'Cormorant Garamond',serif;";
 
     function mesurer(html) {
       mesureur.innerHTML = html;
@@ -1152,7 +1151,7 @@
         let besoin = b.h;
         // un titre de section ne doit pas rester orphelin en bas de page
         if (b.garderAvecSuivant && blocs[i + 1]) besoin += blocs[i + 1].h;
-        if (cur.length && curH + besoin > HAUTEUR_CONTENU) {
+        if (cur.length && curH + besoin > geo.innerH) {
           pages.push(cur); cur = []; curH = 0;
         }
         cur.push(b); curH += b.h;
@@ -1162,55 +1161,58 @@
     }
 
     /* ---------- Assemblage des pages ---------- */
-    const book = document.getElementById("book");
-    document.body.appendChild(mesureur);
+    function paginerLivre() {
+      mesureur.style.cssText = "position:absolute;visibility:hidden;left:-9999px;top:0;display:flow-root;"
+        + "font-family:'Cormorant Garamond',serif;width:" + (geo.w - geo.mx * 2) + "px;";
+      document.body.appendChild(mesureur);
 
-    const pagesContenu = [];   // { html, fam } — la page 0 sera le sommaire
-    const indexSorts = [];     // { nom, page, id, fam }
-    pagesContenu.push(null);   // réservé au sommaire
+      pagesContenu = [null];   // la page 0 est réservée au sommaire
+      indexSorts = [];
 
-    FAMILLES.forEach(fam => {
-      const pagesFam = paginerFamille(fam);
-      fam.premierePage = pagesContenu.length; // index 0-based ; n° affiché = index + 1
-      pagesFam.forEach((blocs, pi) => {
-        const suite = pi > 0 ? '<div class="fam-suite">' + esc(fam.nom) + " (suite) ✦</div>" : "";
-        pagesContenu.push({ html: suite + blocs.map(b => b.html).join(""), fam: fam });
-        blocs.forEach(b => {
-          if (b.sort) {
-            indexSorts.push({
-              nom: b.sort.nom.replace(/^— /, ""),
-              page: pagesContenu.length - 1,
-              id: "sort-" + slug(fam.id + "-" + b.sort.nom),
-              fam: fam
-            });
-          }
+      FAMILLES.forEach(fam => {
+        const pagesFam = paginerFamille(fam);
+        fam.premierePage = pagesContenu.length; // index 0-based ; n° affiché = index + 1
+        pagesFam.forEach((blocs, pi) => {
+          const suite = pi > 0 ? '<div class="fam-suite">' + esc(fam.nom) + " (suite) ✦</div>" : "";
+          pagesContenu.push({ html: suite + blocs.map(b => b.html).join(""), fam: fam });
+          blocs.forEach(b => {
+            if (b.sort) {
+              indexSorts.push({
+                nom: b.sort.nom.replace(/^— /, ""),
+                page: pagesContenu.length - 1,
+                id: "sort-" + slug(fam.id + "-" + b.sort.nom),
+                fam: fam
+              });
+            }
+          });
         });
       });
-    });
 
-    document.body.removeChild(mesureur);
+      document.body.removeChild(mesureur);
 
-    // Sommaire (page 0)
-    const sommaireHTML =
-      '<div class="sommaire-titre">Sommaire</div>'
-      + '<div class="sommaire-intro">Ici sont consignées les huit grandes familles de la magie,<br>telles que les mages les enseignent depuis des générations.</div>'
-      + FAMILLES.map(fam =>
-        '<a class="sommaire-ligne" data-page="' + fam.premierePage + '">'
-        + '<span class="sommaire-pastille" style="background:' + fam.couleur + '"></span>'
-        + '<span class="sommaire-nom">' + esc(fam.nom) + "</span>"
-        + '<span class="sommaire-points"></span>'
-        + '<span class="sommaire-page">' + (fam.premierePage + 1) + "</span>"
-        + "</a>").join("");
-    pagesContenu[0] = { html: sommaireHTML, fam: null };
+      // Sommaire (page 0)
+      pagesContenu[0] = {
+        html: '<div class="sommaire-titre">Sommaire</div>'
+          + '<div class="sommaire-intro">Ici sont consignées les huit grandes familles de la magie,<br>telles que les mages les enseignent depuis des générations.</div>'
+          + FAMILLES.map(fam =>
+            '<a class="sommaire-ligne" data-page="' + fam.premierePage + '">'
+            + '<span class="sommaire-pastille" style="background:' + fam.couleur + '"></span>'
+            + '<span class="sommaire-nom">' + esc(fam.nom) + "</span>"
+            + '<span class="sommaire-points"></span>'
+            + '<span class="sommaire-page">' + (fam.premierePage + 1) + "</span>"
+            + "</a>").join(""),
+        fam: null
+      };
 
-    // Nombre pair de pages pour remplir les feuilles
-    if (pagesContenu.length % 2 === 1) {
-      pagesContenu.push({
-        html: '<div class="garde-contenu"><div class="garde-orne">❦</div>'
-          + "Ici s'achèvent les sortilèges connus.<br>D'autres pages restent à écrire…"
-          + '<div class="garde-orne">✦ ✦ ✦</div></div>',
-        fam: null, garde: true
-      });
+      // Nombre pair de pages pour remplir les feuilles
+      if (pagesContenu.length % 2 === 1) {
+        pagesContenu.push({
+          html: '<div class="garde-contenu"><div class="garde-orne">❦</div>'
+            + "Ici s'achèvent les sortilèges connus.<br>D'autres pages restent à écrire…"
+            + '<div class="garde-orne">✦ ✦ ✦</div></div>',
+          fam: null, garde: true
+        });
+      }
     }
 
     /* ---------- Création des feuilles (recto / verso) ---------- */
@@ -1231,7 +1233,8 @@
         + "</div>";
     }
 
-    const sheets = [];
+    function construireFeuilles() {
+    sheets = [];
 
     // Feuille 0 : couverture
     const couverture = document.createElement("div");
@@ -1245,7 +1248,7 @@
       + '<div class="couverture-orne">❦</div>'
       + '<div class="couverture-marque">Legends & Bonk</div>'
       + "</div>"
-      + '<div class="couverture-hint">— Cliquez pour ouvrir —</div>'));
+      + '<div class="couverture-hint">— ' + (modeMobile ? "Touchez" : "Cliquez") + ' pour ouvrir —</div>'));
     couverture.appendChild(pageFace("back parchemin",
       '<div class="garde-contenu"><div class="garde-orne">✦</div>'
       + "Ce grimoire recense les arcanes<br>transmis aux aventuriers<br>de Legends & Bonk."
@@ -1274,35 +1277,67 @@
     sheets.push(dos);
 
     sheets.forEach(s => book.appendChild(s));
-    const NB_FEUILLES = sheets.length;
+    nbFeuilles = sheets.length;
+    } // fin construireFeuilles
 
     /* ==================================================================
        MÉCANIQUE DU LIVRE
        ================================================================== */
-    let feuillesTournees = 0;
-    let zTimer = null;
-    const aideNav = document.getElementById("aideNav");
-    const flechePrec = document.getElementById("flechePrec");
-    const flecheSuiv = document.getElementById("flecheSuiv");
-
     function majZ() {
       sheets.forEach((s, i) => {
-        s.style.zIndex = s.classList.contains("flipped") ? i + 1 : NB_FEUILLES - i + 1;
+        s.style.zIndex = s.classList.contains("flipped") ? i + 1 : nbFeuilles - i + 1;
       });
     }
 
     function majEtat() {
       book.classList.toggle("ferme-avant", feuillesTournees === 0);
-      book.classList.toggle("ferme-arriere", feuillesTournees === NB_FEUILLES);
+      book.classList.toggle("ferme-arriere", feuillesTournees === nbFeuilles);
       flechePrec.disabled = feuillesTournees === 0;
-      flecheSuiv.disabled = feuillesTournees === NB_FEUILLES;
+      flecheSuiv.disabled = feuillesTournees === nbFeuilles;
       aideNav.textContent = feuillesTournees === 0
-        ? "Cliquez sur la couverture pour ouvrir le grimoire"
-        : "Tournez les pages : clic sur la page, flèches ← →, molette, marque-pages ou sommaire";
+        ? (modeMobile
+          ? "Touchez la couverture pour ouvrir le grimoire"
+          : "Cliquez sur la couverture pour ouvrir le grimoire")
+        : (modeMobile
+          ? "Touchez la page pour avancer, la flèche ‹ pour revenir, ou utilisez les marque-pages et le sommaire"
+          : "Tournez les pages : clic sur la page, flèches ← →, molette, marque-pages ou sommaire");
+      majPan();
+    }
+
+    /* Mobile : le livre ne montre qu'une page à la fois, on fait glisser
+       la double page pour amener la bonne moitié devant l'écran. */
+    function majPan() {
+      let tx = 0;
+      if (modeMobile) {
+        if (feuillesTournees === 0 || feuillesTournees === nbFeuilles) tx = -geo.w / 2;
+        else tx = cote === "droite" ? -geo.w : 0;
+      }
+      bookScale.style.transform = "translateX(" + (tx * echelle) + "px) scale(" + echelle + ")";
+    }
+
+    function avancer() {
+      if (!modeMobile) { allerAFeuille(feuillesTournees + 1); return; }
+      if (feuillesTournees === nbFeuilles) return;
+      if (feuillesTournees === 0) { cote = "gauche"; allerAFeuille(1); return; }
+      if (cote === "gauche") { cote = "droite"; majPan(); return; }
+      cote = "gauche";
+      allerAFeuille(feuillesTournees + 1);
+    }
+
+    function reculer() {
+      if (!modeMobile) { allerAFeuille(feuillesTournees - 1); return; }
+      if (feuillesTournees === 0) return;
+      if (feuillesTournees === nbFeuilles || cote === "gauche") {
+        cote = "droite";
+        allerAFeuille(feuillesTournees - 1);
+        return;
+      }
+      cote = "gauche";
+      majPan();
     }
 
     function allerAFeuille(cible) {
-      cible = Math.max(0, Math.min(NB_FEUILLES, cible));
+      cible = Math.max(0, Math.min(nbFeuilles, cible));
       if (cible === feuillesTournees) return;
       const dir = cible > feuillesTournees ? 1 : -1;
       let ordre = 0;
@@ -1323,11 +1358,17 @@
     // index de page (0-based) -> nombre de feuilles à tourner pour la voir :
     // pages paires = recto (côté droit), pages impaires = verso (côté gauche)
     function allerAPage(i) {
-      allerAFeuille(i % 2 === 0 ? i / 2 + 1 : (i + 3) / 2);
+      if (i % 2 === 0) { cote = "droite"; allerAFeuille(i / 2 + 1); }
+      else { cote = "gauche"; allerAFeuille((i + 3) / 2); }
+      majPan();
     }
 
-    majZ();
-    majEtat();
+    // Page de contenu actuellement sous les yeux (pour la retrouver après reconstruction)
+    function pageCourante() {
+      if (feuillesTournees <= 0 || feuillesTournees >= nbFeuilles) return null;
+      const i = (modeMobile && cote === "gauche") ? 2 * feuillesTournees - 3 : 2 * (feuillesTournees - 1);
+      return Math.max(0, Math.min(pagesContenu.length - 1, i));
+    }
 
     /* ---------- Clics sur les pages ---------- */
     book.addEventListener("click", e => {
@@ -1338,64 +1379,72 @@
       }
       const page = e.target.closest(".page");
       if (!page) return;
+      // mobile : une seule page à l'écran, la toucher avance ; on recule avec la flèche
+      if (modeMobile) { avancer(); return; }
       const sheet = page.parentElement;
       const idx = sheets.indexOf(sheet);
       if (page.classList.contains("front") && idx === feuillesTournees) {
-        allerAFeuille(feuillesTournees + 1);
+        avancer();
       } else if (page.classList.contains("back") && idx === feuillesTournees - 1) {
-        allerAFeuille(feuillesTournees - 1);
+        reculer();
       }
     });
 
-    flechePrec.addEventListener("click", () => allerAFeuille(feuillesTournees - 1));
-    flecheSuiv.addEventListener("click", () => allerAFeuille(feuillesTournees + 1));
+    flechePrec.addEventListener("click", reculer);
+    flecheSuiv.addEventListener("click", avancer);
 
     /* ---------- Clavier ---------- */
     document.addEventListener("keydown", e => {
       if (e.target.tagName === "INPUT") return;
-      if (e.key === "ArrowRight" || e.key === "PageDown") { e.preventDefault(); allerAFeuille(feuillesTournees + 1); }
-      if (e.key === "ArrowLeft" || e.key === "PageUp") { e.preventDefault(); allerAFeuille(feuillesTournees - 1); }
+      if (e.key === "ArrowRight" || e.key === "PageDown") { e.preventDefault(); avancer(); }
+      if (e.key === "ArrowLeft" || e.key === "PageUp") { e.preventDefault(); reculer(); }
     });
 
     /* ---------- Molette ---------- */
     let derniereMolette = 0;
-    document.querySelector(".book-scene").addEventListener("wheel", e => {
+    scene.addEventListener("wheel", e => {
       e.preventDefault();
       const t = Date.now();
       if (t - derniereMolette < 450) return;
       derniereMolette = t;
-      allerAFeuille(feuillesTournees + (e.deltaY > 0 ? 1 : -1));
+      if (e.deltaY > 0) avancer(); else reculer();
     }, { passive: false });
 
-    /* ---------- Marque-pages ---------- */
-    const conteneurBookmarks = document.getElementById("bookmarks");
-    FAMILLES.forEach(fam => {
-      const b = document.createElement("button");
-      b.className = "bookmark";
-      b.style.background = "linear-gradient(90deg, " + fam.couleur + ", " + fam.couleur + "cc)";
-      b.textContent = fam.court;
-      b.title = fam.nom + " — page " + (fam.premierePage + 1);
-      b.addEventListener("click", e => {
-        e.stopPropagation();
-        allerAPage(fam.premierePage);
+    /* ---------- Marque-pages ----------
+       Grand écran : onglets sur la tranche du livre.
+       Mobile : barre horizontale sous le livre (la tranche serait hors écran). */
+    function construireBookmarks() {
+      const conteneur = document.createElement("div");
+      conteneur.className = "bookmarks";
+      FAMILLES.forEach(fam => {
+        const b = document.createElement("button");
+        b.className = "bookmark";
+        b.style.background = "linear-gradient(90deg, " + fam.couleur + ", " + fam.couleur + "cc)";
+        b.textContent = fam.court;
+        b.title = fam.nom + " — page " + (fam.premierePage + 1);
+        b.addEventListener("click", e => {
+          e.stopPropagation();
+          allerAPage(fam.premierePage);
+        });
+        conteneur.appendChild(b);
       });
-      conteneurBookmarks.appendChild(b);
-    });
+      if (modeMobile) barreBookmarks.appendChild(conteneur);
+      else book.appendChild(conteneur);
+    }
 
     /* ---------- Recherche de sort ---------- */
-    const champ = document.getElementById("rechercheSort");
-    const datalist = document.getElementById("listeSorts");
-    indexSorts.forEach(s => {
-      const o = document.createElement("option");
-      o.value = s.nom;
-      datalist.appendChild(o);
-    });
+    function construireDatalist() {
+      indexSorts.forEach(s => {
+        const o = document.createElement("option");
+        o.value = s.nom;
+        datalist.appendChild(o);
+      });
+    }
 
     function normaliser(s) {
       return s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().trim();
     }
 
-    let surbrillanceTimer = null;
     function chercherSort() {
       const q = normaliser(champ.value);
       if (!q) return;
@@ -1418,32 +1467,83 @@
     champ.addEventListener("change", chercherSort);
     champ.addEventListener("keydown", e => { if (e.key === "Enter") chercherSort(); });
 
-    /* ---------- Mise à l'échelle responsive ---------- */
-    const bookScale = document.getElementById("bookScale");
+    /* ---------- Mise à l'échelle ---------- */
     function rescale() {
-      const dispo = document.querySelector(".grimoire-section").clientWidth;
-      const marge = window.innerWidth > 900 ? 180 : 20; // place pour les flèches
-      const scale = Math.min(1, (dispo - marge) / 1120);
-      bookScale.style.transform = "scale(" + scale + ")";
-      bookScale.style.height = Math.ceil(780 * scale + 40) + "px";
-      bookScale.style.width = Math.ceil(1120 * scale) + "px";
+      const dispo = section.clientWidth;
+      if (modeMobile) {
+        // une seule page doit tenir dans la largeur, sans dépasser en hauteur
+        const parLargeur = (dispo - 12) / geo.w;
+        const parHauteur = (window.innerHeight - 230) / geo.h;
+        echelle = Math.max(.45, Math.min(1, parLargeur, parHauteur));
+        bookViewport.style.width = Math.ceil(geo.w * echelle) + "px";
+        flechePrec.style.left = "6px";
+        flecheSuiv.style.right = "6px";
+      } else {
+        echelle = Math.min(1, (dispo - 180) / (geo.w * 2));
+        bookViewport.style.width = Math.ceil(geo.w * 2 * echelle) + "px";
+        // les flèches restent collées au livre quelle que soit l'échelle
+        const ecart = Math.round(geo.w * echelle) + 76;
+        flechePrec.style.left = "calc(50% - " + ecart + "px)";
+        flecheSuiv.style.right = "calc(50% - " + ecart + "px)";
+      }
+      bookViewport.style.height = Math.ceil(geo.h * echelle + 40) + "px";
+      majPan();
     }
-    window.addEventListener("resize", rescale);
-    rescale();
 
-    // Ouverture directe via l'URL : livre_magie.html#p=5 ouvre à la page 5
-    const m = location.hash.match(/^#p=(\d+)/);
-    if (m) {
-      const p = Math.min(pagesContenu.length - 1, Math.max(0, parseInt(m[1], 10) - 1));
-      allerAPage(p);
+    /* ---------- (Re)construction complète ---------- */
+    function construireGrimoire(idFamille) {
+      modeMobile = window.innerWidth < SEUIL_MOBILE;
+      geo = modeMobile ? GEO_MOBILE : GEO_BUREAU;
+      section.style.setProperty("--page-w", geo.w + "px");
+      section.style.setProperty("--page-h", geo.h + "px");
+      section.style.setProperty("--page-mx", geo.mx + "px");
+      section.style.setProperty("--page-mt", geo.mt + "px");
+      section.style.setProperty("--page-inner-h", geo.innerH + "px");
+      section.style.setProperty("--gutter", geo.gutter + "px");
+
+      clearTimeout(zTimer);
+      book.innerHTML = "";
+      book.className = "book ferme-avant";
+      barreBookmarks.innerHTML = "";
+      datalist.innerHTML = "";
+      feuillesTournees = 0;
+      cote = "droite";
+
+      paginerLivre();
+      construireFeuilles();
+      construireBookmarks();
+      construireDatalist();
+      majZ();
+      majEtat();
+      rescale();
+
+      // la pagination change avec le format : on retrouve la famille, pas le n° de page
+      const fam = idFamille && FAMILLES.find(f => f.id === idFamille);
+      if (fam) allerAPage(fam.premierePage);
     }
-    } // fin construireGrimoire
+
+    /* ---------- Redimensionnement ---------- */
+    window.addEventListener("resize", () => {
+      if ((window.innerWidth < SEUIL_MOBILE) === modeMobile) { rescale(); return; }
+      // on passe d'un format à l'autre : il faut repaginer
+      const i = pageCourante();
+      const fam = i == null ? null : pagesContenu[i].fam;
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => construireGrimoire(fam && fam.id), 150);
+    });
+
+    function demarrer() {
+      // Ouverture directe via l'URL : livre_magie.html#p=5 ouvre à la page 5
+      const m = location.hash.match(/^#p=(\d+)/);
+      construireGrimoire();
+      if (m) allerAPage(Math.min(pagesContenu.length - 1, Math.max(0, parseInt(m[1], 10) - 1)));
+    }
 
     // La pagination mesure du texte : il faut que les polices soient prêtes
     if (document.fonts && document.fonts.ready) {
-      document.fonts.ready.then(construireGrimoire);
+      document.fonts.ready.then(demarrer);
     } else {
-      construireGrimoire();
+      demarrer();
     }
   </script>
 </body>
