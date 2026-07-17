@@ -137,8 +137,7 @@
                       </div>
 
                       <button type="button" class="btn"
-                        style="margin-top: 10px; background-color: #7a0808; color: white;" data-bs-toggle="modal"
-                        data-bs-target="#armegenModal">Générer</button>
+                        style="margin-top: 10px; background-color: #7a0808; color: white;" id="btnArme">Générer</button>
                     </div>
 
                     <!-- Modal -->
@@ -230,16 +229,14 @@
                       </div>
 
                       <button type="button" class="btn"
-                        style="margin-top: 10px; background-color: #7a0808; color: white;" data-bs-toggle="modal"
-                        data-bs-target="#armuregenModal">Générer</button>
+                        style="margin-top: 10px; background-color: #7a0808; color: white;" id="btnArmure">Générer</button>
                       <hr>
                       <div class="container text-center">
                         <div class="row align-items-start">
 
                           <div class="col">
                             <button type="button" class="btn"
-                              style="margin-top: 10px; background-color: #7a0808; color: white;" data-bs-toggle="modal"
-                              data-bs-target="#flechesgenModal">Flèches</button>
+                              style="margin-top: 10px; background-color: #7a0808; color: white;" id="btnFleches">Flèches</button>
 
                             <!-- Modal -->
                             <div class="modal fade" id="flechesgenModal" tabindex="-1"
@@ -265,8 +262,7 @@
 
                           <div class="col">
                             <button type="button" class="btn"
-                              style="margin-top: 10px; background-color: #7a0808; color: white;" data-bs-toggle="modal"
-                              data-bs-target="#potiongenModal">Potion</button>
+                              style="margin-top: 10px; background-color: #7a0808; color: white;" id="btnPotion">Potion</button>
                           </div>
 
                           <!-- Modal -->
@@ -344,8 +340,7 @@
                             <option value="se">SE</option>
                           </select></div>
                         <div class="col-12 col-md-2"><button type="button" class="btn w-100"
-                            style="background-color: #7a0808; color: white;" data-bs-toggle="modal"
-                            data-bs-target="#lootModal">Générer</button>
+                            style="background-color: #7a0808; color: white;" id="btnLoot">Générer</button>
 
                           <div class="modal fade" id="lootModal" tabindex="-1" aria-labelledby="lootModalLabel"
                             aria-hidden="true">
@@ -384,8 +379,7 @@
                             <option value="se">SE</option>
                           </select></div>
                         <div class="col-12 col-md-2"><button type="button" class="btn w-100"
-                            style="background-color: #7a0808; color: white;" data-bs-toggle="modal"
-                            data-bs-target="#enchModal">Générer</button>
+                            style="background-color: #7a0808; color: white;" id="btnEnch">Générer</button>
 
                           <div class="modal fade" id="enchModal" tabindex="-1" aria-labelledby="enchModalLabel"
                             aria-hidden="true">
@@ -493,8 +487,7 @@
                           </div>
                         </div>
                         <div class="col-12 col-md-3"><button type="button" class="btn w-100"
-                            style="background-color: #7a0808; color: white;" data-bs-toggle="modal"
-                            data-bs-target="#dgflecheModal">Flèche</button>
+                            style="background-color: #7a0808; color: white;" id="btnDmgFleche">Flèche</button>
 
                           <div class="modal fade" id="dgflecheModal" tabindex="-1" aria-labelledby="dgflecheModalLabel"
                             aria-hidden="true">
@@ -518,8 +511,7 @@
                           </div>
                         </div>
                         <div class="col-12 col-md-3"><button type="button" class="btn w-100"
-                            style="background-color: #7a0808; color: white;" data-bs-toggle="modal"
-                            data-bs-target="#declaModal">Classique</button>
+                            style="background-color: #7a0808; color: white;" id="btnDmgClassique">Classique</button>
 
                           <div class="modal fade" id="declaModal" tabindex="-1" aria-labelledby="declaModalLabel"
                             aria-hidden="true">
@@ -575,8 +567,7 @@
                         </div>
                       </div>
                       <div class="col-12 col-md-2"><button type="button" class="btn w-100"
-                          style="background-color: #7a0808; color: white;" data-bs-toggle="modal"
-                          data-bs-target="#pourcentModal">Calculer</button>
+                          style="background-color: #7a0808; color: white;" id="btnPourcent">Calculer</button>
 
                         <div class="modal fade" id="pourcentModal" tabindex="-1" aria-labelledby="pourcentModalLabel"
                           aria-hidden="true">
@@ -629,8 +620,7 @@
                         </div>
                       </div>
                       <div class="col-12 col-md-2"><button type="button" id="btnRandomBorne" class="btn w-100"
-                          style="background-color: #7a0808; color: white;" data-bs-toggle="modal"
-                          data-bs-target="#randomModal">Générer</button>
+                          style="background-color: #7a0808; color: white;">Générer</button>
 
                         <div class="modal fade" id="randomModal" tabindex="-1" aria-labelledby="randomModalLabel"
                           aria-hidden="true">
@@ -657,27 +647,27 @@
                     <div class="row g-2">
                       <div class="col-12 col-md-2">
                         <button type="button" class="btn w-100" style="background-color: #7a0808; color: white;"
-                          data-de="4" data-bs-toggle="modal" data-bs-target="#randomModal">D4</button>
+                          data-de="4">D4</button>
                       </div>
                       <div class="col-12 col-md-2">
                         <button type="button" class="btn w-100" style="background-color: #7a0808; color: white;"
-                          data-de="6" data-bs-toggle="modal" data-bs-target="#randomModal">D6</button>
+                          data-de="6">D6</button>
                       </div>
                       <div class="col-12 col-md-2">
                         <button type="button" class="btn w-100" style="background-color: #7a0808; color: white;"
-                          data-de="8" data-bs-toggle="modal" data-bs-target="#randomModal">D8</button>
+                          data-de="8">D8</button>
                       </div>
                       <div class="col-12 col-md-2">
                         <button type="button" class="btn w-100" style="background-color: #7a0808; color: white;"
-                          data-de="10" data-bs-toggle="modal" data-bs-target="#randomModal">D10</button>
+                          data-de="10">D10</button>
                       </div>
                       <div class="col-12 col-md-2">
                         <button type="button" class="btn w-100" style="background-color: #7a0808; color: white;"
-                          data-de="12" data-bs-toggle="modal" data-bs-target="#randomModal">D12</button>
+                          data-de="12">D12</button>
                       </div>
                       <div class="col-12 col-md-2">
                         <button type="button" class="btn w-100" style="background-color: #7a0808; color: white;"
-                          data-de="20" data-bs-toggle="modal" data-bs-target="#randomModal">D20</button>
+                          data-de="20">D20</button>
                       </div>
                     </div>
                   </div>
@@ -751,286 +741,10 @@
   </main>
   <div style="margin-top: 20px;"></div>
 
-  <!-- Script pour logiciel-->
+  <!-- Scripts : logiciel.js = regles du jeu, logiciel-ui.js = interface.
+       Ils doivent rester en fin de body (le DOM doit exister). -->
   <script src="./logiciel.js"></script>
-  <script>
-    // Gestion de l'affichage des cards au clic sur les boutons
-    const radioButtons = document.querySelectorAll('input[name="btnradio"]');
-
-    radioButtons.forEach((radio, index) => {
-      radio.addEventListener('change', function () {
-        if (this.checked) {
-          const cardNumber = index + 1;
-          // Cacher toutes les cards
-          for (let i = 1; i <= 6; i++) {
-            const card = document.getElementById('card' + i);
-            if (card) card.style.display = 'none';
-          }
-          // Afficher la card sélectionnée
-          const selectedCard = document.getElementById('card' + cardNumber);
-          if (selectedCard) selectedCard.style.display = 'block';
-        }
-      });
-    });
-
-    // Afficher la première card par défaut
-    const firstCard = document.getElementById('card1');
-    if (firstCard) firstCard.style.display = 'block';
-
-    // === LIER LES FONCTIONS AUX INTERFACES ===
-
-    // --- ARMES ---
-    document.addEventListener('DOMContentLoaded', function () {
-      const btnGenerateArme = document.querySelector('button[data-bs-target="#armegenModal"]');
-      if (btnGenerateArme) {
-        btnGenerateArme.addEventListener('click', function () {
-          const GC = document.querySelector('select[aria-label="GC"]').value;
-          const PC = document.querySelector('select[aria-label="PC"]').value;
-          const CS = document.querySelector('select[aria-label="CS"]').value;
-          const rarMin = document.querySelector('select[aria-label="rarminarme"]').value;
-          const rarMax = document.querySelector('select[aria-label="rarmaxarme"]').value;
-
-          // Vérifier que les rarétés sont sélectionnées
-          if (!rarMin || !rarMax) {
-            alert('Veuillez sélectionner les rarétés minimum et maximum');
-            return;
-          }
-
-          // Vérifier qu'on a une grande catégorie OU une catégorie spéciale
-          if (!GC && !CS) {
-            alert('Veuillez sélectionner soit une grande catégorie, soit une catégorie spéciale');
-            return;
-          }
-
-          // Si catégorie spéciale est choisie, l'utiliser
-          if (CS) {
-            const result = getArmes('x', 'x', CS, rarMin, rarMax);
-            const modalBody = document.querySelector('#armegenModal .modal-body');
-            if (Array.isArray(result)) {
-              modalBody.innerHTML = `<strong>Arme :</strong> ${result[0]}<br><strong>Rareté :</strong> ${result[1][0]}<br><strong>Enchantement :</strong> ${result[1][1]}`;
-            } else if (result.error) {
-              modalBody.innerHTML = `<strong>Erreur :</strong> ${result.error}`;
-            }
-          }
-          // Sinon utiliser grande catégorie (et optionnellement petite catégorie)
-          else if (GC) {
-            const pc = PC || 'x';
-            const result = getArmes(GC, pc, 'x', rarMin, rarMax);
-            const modalBody = document.querySelector('#armegenModal .modal-body');
-            if (Array.isArray(result)) {
-              modalBody.innerHTML = `<strong>Arme :</strong> ${result[0]}<br><strong>Rareté :</strong> ${result[1][0]}<br><strong>Enchantement :</strong> ${result[1][1]}`;
-            } else if (result.error) {
-              modalBody.innerHTML = `<strong>Erreur :</strong> ${result.error}`;
-            }
-          }
-        });
-      }
-    });
-
-    // --- ARMURES ---
-    document.addEventListener('DOMContentLoaded', function () {
-      const btnGenerateArmure = document.querySelectorAll('button[data-bs-target="#armuregenModal"]');
-      if (btnGenerateArmure.length > 0) {
-        btnGenerateArmure.forEach(btn => {
-          btn.addEventListener('click', function () {
-            const cat = document.querySelector('select[aria-label="CA"]').value;
-            const rarMin = document.querySelector('select[aria-label="rarminarmure"]').value;
-            const rarMax = document.querySelector('select[aria-label="rarmaxarmure"]').value;
-
-            if (cat && rarMin && rarMax) {
-              const result = getArmures(cat, rarMin, rarMax);
-              const modals = document.querySelectorAll('#armuregenModal .modal-body');
-              modals.forEach(modalBody => {
-                if (Array.isArray(result)) {
-                  modalBody.innerHTML = `<strong>Armure :</strong> ${result[0]}<br><strong>Rareté :</strong> ${result[1][0]}<br><strong>Enchantement :</strong> ${result[1][1]}`;
-                } else {
-                  modalBody.innerHTML = `<strong>Erreur :</strong> ${result.error}`;
-                }
-              });
-            } else {
-              alert('Veuillez sélectionner une catégorie et les rarétés min/max');
-            }
-          });
-        });
-      }
-    });
-
-    // --- POTIONS ---
-    document.addEventListener('DOMContentLoaded', function () {
-      const btnGeneratePotion = document.querySelectorAll('button[data-bs-target="#potiongenModal"]');
-      if (btnGeneratePotion.length > 0) {
-        btnGeneratePotion.forEach(btn => {
-          btn.addEventListener('click', function () {
-            const result = getPotion();
-            const modals = document.querySelectorAll('#potiongenModal .modal-body');
-            modals.forEach(modalBody => {
-              modalBody.innerHTML = `<strong>Potion :</strong> ${result}`;
-            });
-          });
-        });
-      }
-    });
-
-    // --- FLÈCHES ---
-    document.addEventListener('DOMContentLoaded', function () {
-      const btnGenerateFlèches = document.querySelectorAll('button[data-bs-target="#flechesgenModal"]');
-      if (btnGenerateFlèches.length > 0) {
-        btnGenerateFlèches.forEach(btn => {
-          btn.addEventListener('click', function () {
-            const result = getFlèches();
-            const modals = document.querySelectorAll('#flechesgenModal .modal-body');
-            modals.forEach(modalBody => {
-              let content = '<strong>Flèches générées :</strong><br>';
-              if (Object.keys(result).length === 0) {
-                content += 'Aucune flèche générée';
-              } else {
-                for (let fleche in result) {
-                  content += `${fleche}: ${result[fleche]}<br>`;
-                }
-              }
-              modalBody.innerHTML = content;
-            });
-          });
-        });
-      }
-    });
-
-    // --- LOOT ---
-    document.addEventListener('DOMContentLoaded', function () {
-      const btnGenerateLoot = document.querySelector('button[data-bs-target="#lootModal"]');
-      if (btnGenerateLoot) {
-        btnGenerateLoot.addEventListener('click', function () {
-          const rarMin = document.querySelector('select[aria-label="rarminloot"]').value;
-          const rarMax = document.querySelector('select[aria-label="rarmaxloot"]').value;
-
-          if (rarMin && rarMax) {
-            const result = loot(rarMin, rarMax);
-            const modalBody = document.querySelector('#lootModal .modal-body');
-            modalBody.innerHTML = result.error
-              ? `<strong>Erreur :</strong> ${result.error}`
-              : `<strong>Rareté :</strong> ${result[0]}<br><strong>Enchantement :</strong> ${result[1]}`;
-          } else {
-            alert('Veuillez sélectionner les rarétés minimum et maximum');
-          }
-        });
-      }
-    });
-
-    // --- ENCHANTEMENTS ---
-    document.addEventListener('DOMContentLoaded', function () {
-      const btnGenerateEnch = document.querySelector('div.col:last-child button[data-bs-target="#enchModal"]');
-      if (btnGenerateEnch) {
-        btnGenerateEnch.addEventListener('click', function () {
-          const rarChoisie = document.querySelector('select[aria-label="rarminench"]').value;
-
-          if (rarChoisie) {
-            const result = ench(rarChoisie);
-            const modalBody = document.querySelector('#enchModal .modal-body');
-            modalBody.innerHTML = `<strong>Enchantement :</strong> ${result}`;
-          } else {
-            alert('Veuillez sélectionner une rareté');
-          }
-        });
-      }
-    });
-
-    // --- CALCULATEUR DE DÉGÂTS (Flèche) ---
-    document.addEventListener('DOMContentLoaded', function () {
-      const btnDmgFleche = document.querySelector('button[data-bs-target="#dgflecheModal"]');
-      if (btnDmgFleche) {
-        btnDmgFleche.addEventListener('click', function () {
-          const dmgMax = parseFloat(document.querySelector('input[aria-label="dgmax"]').value);
-          const pourcentPlus = parseFloat(document.querySelector('input[aria-label="pourcentplus"]').value) || 0;
-          const dgeffet = parseFloat(document.querySelector('input[aria-label="dgeffet"]').value) || 0;
-
-          if (isNaN(dmgMax) || dmgMax <= 0) {
-            alert('Veuillez entrer un nombre de dégâts valide');
-            return;
-          }
-
-          const result = calcDmg('fle', dmgMax, pourcentPlus, dgeffet);
-          const modalBody = document.querySelector('#dgflecheModal .modal-body');
-          const statusText = result[1] ? `<br><strong>Effet :</strong> ${result[1]}` : '';
-          modalBody.innerHTML = `<strong>Dégâts infligés :</strong> ${result[0]}${statusText}`;
-        });
-      }
-    });
-
-    // --- CALCULATEUR DE DÉGÂTS (Classique) ---
-    document.addEventListener('DOMContentLoaded', function () {
-      const btnDmgClassique = document.querySelector('button[data-bs-target="#declaModal"]');
-      if (btnDmgClassique) {
-        btnDmgClassique.addEventListener('click', function () {
-          const dmgMax = parseFloat(document.querySelector('input[aria-label="dgmax"]').value);
-          const pourcentPlus = parseFloat(document.querySelector('input[aria-label="pourcentplus"]').value) || 0;
-          const dgeffet = parseFloat(document.querySelector('input[aria-label="dgeffet"]').value) || 0;
-
-          if (isNaN(dmgMax) || dmgMax <= 0) {
-            alert('Veuillez entrer un nombre de dégâts valide');
-            return;
-          }
-
-          const result = calcDmg('normal', dmgMax, pourcentPlus, dgeffet);
-          const modalBody = document.querySelector('#declaModal .modal-body');
-          const statusText = result[1] ? `<br><strong>Effet :</strong> ${result[1]}` : '';
-          modalBody.innerHTML = `<strong>Dégâts infligés :</strong> ${result[0]}${statusText}`;
-        });
-      }
-    });
-
-    // --- CALCULATEUR DE POURCENTAGE ---
-    document.addEventListener('DOMContentLoaded', function () {
-      const btnPourcent = document.querySelector('button[data-bs-target="#pourcentModal"]');
-      if (btnPourcent) {
-        btnPourcent.addEventListener('click', function () {
-          const nombre = parseFloat(document.querySelector('input[aria-label="nombrepourcent"]').value);
-          const pourcent = parseFloat(document.querySelector('input[aria-label="pourcent"]').value);
-
-          if (isNaN(nombre) || isNaN(pourcent)) {
-            alert('Veuillez entrer des nombres valides');
-            return;
-          }
-
-          const result = calculPourcent(nombre, pourcent);
-          const modalBody = document.querySelector('#pourcentModal .modal-body');
-          modalBody.innerHTML = `<strong>Résultat :</strong> ${pourcent}% de ${nombre} = ${result}`;
-        });
-      }
-    });
-
-    // --- ALÉATOIRE BORNÉ ---
-    document.addEventListener('DOMContentLoaded', function () {
-      const btnRandomBorne = document.getElementById('btnRandomBorne');
-      if (btnRandomBorne) {
-        btnRandomBorne.addEventListener('click', function () {
-          const min = parseInt(document.querySelector('input[aria-label="minrandom"]').value);
-          const max = parseInt(document.querySelector('input[aria-label="maxrandom"]').value);
-
-          if (isNaN(min) || isNaN(max) || min > max) {
-            alert('Veuillez entrer des nombres valides avec minimum ≤ maximum');
-            return;
-          }
-
-          const result = rand(min, max);
-          const modalBody = document.querySelector('#randomModal .modal-body');
-          modalBody.innerHTML = `<strong>Résultat :</strong> ${result}`;
-        });
-      }
-    });
-
-    // --- DÉS (D4, D6, D8, D10, D12, D20) ---
-    document.addEventListener('DOMContentLoaded', function () {
-      document.querySelectorAll('button[data-de]').forEach(btn => {
-        const faces = parseInt(btn.dataset.de, 10);
-        btn.addEventListener('click', function () {
-          // le D10 est numéroté de 0 à 9, les autres de 1 à N
-          const result = faces === 10 ? rand(0, 9) : rand(1, faces);
-          const modalBody = document.querySelector('#randomModal .modal-body');
-          modalBody.innerHTML = `<strong>Résultat du D${faces} :</strong> ${result}`;
-        });
-      });
-    });
-  </script>
+  <script src="./logiciel-ui.js"></script>
 </body>
 
 </html>
