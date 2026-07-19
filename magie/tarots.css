@@ -1,0 +1,576 @@
+/* ================= PAGE DES TAROTS ================= */
+.tarot-section {
+  /* largeur d'une carte — tout le reste en découle (ratio du dos : 800×1206) */
+  --carte-w: clamp(150px, 17vw, 220px);
+  --carte-ratio: 800 / 1206;
+
+  background: #fff;
+  padding: 26px 0 40px 0;
+  overflow: hidden;
+}
+
+.tarot-titre {
+  font-family: "IM Fell English SC", serif;
+  color: #281b07;
+  text-align: center;
+  font-size: 2.3rem;
+  margin-bottom: 4px;
+}
+
+.tarot-sous-titre {
+  font-family: "IM Fell English", serif;
+  font-style: italic;
+  color: #6d5325;
+  text-align: center;
+  font-size: 1.05rem;
+  margin-bottom: 18px;
+}
+
+/* ================= LA TABLE DE TIRAGE ================= */
+.table-tirage {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 34px 30px 26px 30px;
+  border-radius: 14px;
+  border: 2px solid #b8912f;
+  outline: 6px solid #281b07;
+  background:
+    radial-gradient(ellipse at 50% 30%, rgba(184, 145, 47, .10), transparent 65%),
+    radial-gradient(ellipse at center, #451410 0%, #2c0a08 55%, #1b0504 100%);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, .45), inset 0 0 60px rgba(0, 0, 0, .55);
+
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  grid-template-areas:
+    "paquet carte texte"
+    "aide   aide  aide";
+  gap: 26px 34px;
+  align-items: start;
+  justify-items: center;
+}
+
+.table-aide {
+  grid-area: aide;
+  font-family: "IM Fell English", serif;
+  font-style: italic;
+  color: #cfa96b;
+  text-align: center;
+  font-size: 1.05rem;
+  margin: 0;
+}
+
+/* --------- Le paquet --------- */
+.zone-paquet {
+  grid-area: paquet;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.paquet {
+  position: relative;
+  width: var(--carte-w);
+  aspect-ratio: var(--carte-ratio);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  /* petite marge pour que les cartes du dessous de la pile restent visibles */
+  margin: 0 8px 8px 0;
+}
+
+/* cartes du dessous de la pile */
+.paquet::before,
+.paquet::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  background: #efe6d5;
+  border: 1px solid #7a6a4a;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, .5);
+}
+
+.paquet::before { transform: translate(8px, 8px) rotate(1.6deg); }
+.paquet::after { transform: translate(4px, 4px) rotate(-1deg); }
+
+.paquet-carte {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, .55);
+  transition: transform .25s ease, box-shadow .25s ease;
+  z-index: 1;
+}
+
+.paquet-carte img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.paquet:hover .paquet-carte {
+  transform: translateY(-6px) rotate(-1.2deg);
+  box-shadow: 0 12px 22px rgba(0, 0, 0, .6);
+}
+
+/* paquet vide : plus que le contour en pointillés */
+.paquet.vide::before,
+.paquet.vide::after,
+.paquet.vide .paquet-carte {
+  display: none;
+}
+
+.paquet.vide {
+  border: 2px dashed #8a6a35;
+  border-radius: 10px;
+}
+
+.paquet .paquet-vide-texte {
+  display: none;
+  position: absolute;
+  inset: 0;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 12px;
+  font-family: "IM Fell English", serif;
+  font-style: italic;
+  color: #cfa96b;
+  font-size: 1rem;
+}
+
+.paquet.vide .paquet-vide-texte { display: flex; }
+
+.compteur {
+  font-family: "IM Fell English", serif;
+  color: #e2d0a2;
+  font-size: 1rem;
+  margin: 0;
+}
+
+.btn-remelanger {
+  font-family: "IM Fell English", serif;
+  font-size: .95rem;
+  color: #e2d0a2;
+  background: rgba(0, 0, 0, .3);
+  border: 1px solid #8a6a35;
+  border-radius: 6px;
+  padding: 4px 14px;
+  cursor: pointer;
+  transition: background .2s ease, color .2s ease;
+}
+
+.btn-remelanger:hover {
+  background: #b8912f;
+  color: #281b07;
+}
+
+/* --------- La carte tirée --------- */
+.zone-carte {
+  grid-area: carte;
+  width: var(--carte-w);
+  aspect-ratio: var(--carte-ratio);
+  position: relative;
+}
+
+/* emplacement vide avant la première pioche */
+.zone-carte::before {
+  content: "✦";
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed rgba(184, 145, 47, .45);
+  border-radius: 10px;
+  color: rgba(184, 145, 47, .45);
+  font-size: 2rem;
+}
+
+.carte-scene {
+  position: absolute;
+  inset: 0;
+  perspective: 1400px;
+  opacity: 0;
+  transform: translateX(-40%) rotate(-5deg);
+  transition: opacity .4s ease, transform .4s ease;
+  pointer-events: none;
+}
+
+/* la carte glisse depuis le paquet lors de la première pioche */
+.carte-scene.en-place {
+  opacity: 1;
+  transform: none;
+}
+
+.carte-3d {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transition: transform .7s cubic-bezier(.35, .1, .25, 1);
+}
+
+.carte-3d.retournee { transform: rotateY(180deg); }
+
+.face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #1a1208;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, .55);
+}
+
+.face-dos img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.face-avant { transform: rotateY(180deg); }
+
+/* --------- Habillage de carte commun ---------
+   Le même pour les 22 cartes (carte tirée, zoom, minis de la galerie) :
+   l'illustration occupe toute la carte (léger rognage si le ratio diffère)
+   et le titre est en surimpression sur un voile sombre en bas. Les cartes
+   sans illustration gardent exactement le même format sur fond parchemin. */
+.carte-cadre {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  overflow: hidden;
+  background: linear-gradient(160deg, #efe2bd, #d8c48e);
+}
+
+.carte-fenetre {
+  position: absolute;
+  inset: 0;
+}
+
+.carte-fenetre img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.carte-cadre.sans-image .carte-fenetre img { display: none; }
+
+/* carte sans illustration : ornement centré sur le parchemin */
+.carte-vide {
+  display: none;
+  position: absolute;
+  inset: 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  text-align: center;
+  padding: 8px;
+}
+
+.carte-cadre.sans-image .carte-vide { display: flex; }
+
+.carte-vide .vide-orne {
+  font-size: 2rem;
+  color: rgba(107, 80, 31, .5);
+  line-height: 1;
+}
+
+.carte-vide .vide-note {
+  font-family: "IM Fell English", serif;
+  font-style: italic;
+  font-size: .85rem;
+  color: #8a7148;
+}
+
+/* titre en surimpression sur le bas de la carte */
+.carte-banniere {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  font-family: "IM Fell English SC", serif;
+  font-size: .95rem;
+  color: #efe2bd;
+  text-align: center;
+  line-height: 1.15;
+  padding: 22px 6px 6px 6px;
+  background: linear-gradient(180deg, transparent, rgba(26, 18, 8, .88) 75%);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, .6);
+}
+
+/* loupe qui apparaît au survol de la carte tirée */
+.carte-scene.en-place { cursor: zoom-in; pointer-events: auto; }
+
+.loupe {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  z-index: 2;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(26, 18, 8, .78);
+  border: 1px solid #b8912f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  opacity: 0;
+  transition: opacity .25s ease;
+  pointer-events: none;
+}
+
+.carte-scene.en-place:hover .loupe { opacity: 1; }
+
+/* --------- Le panneau de texte --------- */
+.zone-texte {
+  grid-area: texte;
+  justify-self: stretch;
+  align-self: stretch;
+  display: flex;
+}
+
+.panneau-texte {
+  flex: 1;
+  background: linear-gradient(170deg, #efe2bd, #e2d0a2);
+  border: 2px solid #6b501f;
+  border-radius: 6px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, .45), inset 0 0 18px rgba(90, 60, 20, .22);
+  padding: 18px 22px;
+  color: #3b2a15;
+
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity .5s ease, transform .5s ease;
+}
+
+.panneau-texte.visible {
+  opacity: 1;
+  transform: none;
+}
+
+.panneau-texte h2 {
+  font-family: "IM Fell English SC", serif;
+  font-size: 1.7rem;
+  color: #7a0808;
+  text-align: center;
+  margin: 0 0 4px 0;
+}
+
+.panneau-texte .panneau-num {
+  display: block;
+  font-family: "IM Fell English", serif;
+  font-style: italic;
+  font-size: 1rem;
+  color: #8a7148;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.panneau-texte .niveau + .niveau {
+  border-top: 1px solid rgba(107, 80, 31, .4);
+  margin-top: 10px;
+  padding-top: 10px;
+}
+
+.panneau-texte .niveau h3 {
+  font-family: "IM Fell English SC", serif;
+  font-size: 1.1rem;
+  color: #281b07;
+  margin: 0 0 2px 0;
+}
+
+.panneau-texte .niveau p {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.05rem;
+  margin: 0;
+}
+
+/* ================= LA GALERIE DES ARCANES ================= */
+.galerie-titre {
+  font-family: "IM Fell English SC", serif;
+  color: #281b07;
+  text-align: center;
+  font-size: 1.7rem;
+  margin: 40px 0 2px 0;
+}
+
+.galerie-aide {
+  font-family: "IM Fell English", serif;
+  font-style: italic;
+  color: #6d5325;
+  text-align: center;
+  font-size: .95rem;
+  margin-bottom: 16px;
+}
+
+/* flex centré, 8 cartes par rangée : 22 cartes = 8 + 8 + 6,
+   la dernière rangée incomplète reste au milieu */
+.galerie {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 16px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+}
+
+.mini {
+  position: relative;
+  width: calc((100% - 7 * 14px) / 8);
+  aspect-ratio: var(--carte-ratio);
+  border: none;
+  padding: 0;
+  border-radius: 10px;
+  overflow: hidden;
+  background: linear-gradient(160deg, #efe2bd, #d8c48e);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, .3);
+  cursor: pointer;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.mini:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, .4);
+}
+
+/* le mini reprend l'habillage commun, en plus petit */
+.mini .carte-banniere {
+  font-size: .68rem;
+  padding: 14px 3px 4px 3px;
+}
+
+.mini .carte-vide .vide-orne { font-size: 1.3rem; }
+.mini .carte-vide .vide-note { display: none; }
+
+/* carte déjà tirée du paquet */
+.mini.tiree img { filter: sepia(.5) brightness(.75); }
+
+.mini.tiree::after {
+  content: "tirée";
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: #7a0808;
+  color: #efe2bd;
+  font-family: "IM Fell English", serif;
+  font-style: italic;
+  font-size: .68rem;
+  padding: 1px 7px;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .4);
+}
+
+/* ================= ZOOM PLEIN ÉCRAN ================= */
+.zoom-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(12, 5, 3, .92);
+  cursor: zoom-out;
+}
+
+.zoom-overlay.ouvert {
+  display: flex;
+  animation: zoom-fondu .25s ease;
+}
+
+@keyframes zoom-fondu { from { opacity: 0; } }
+
+.zoom-carte {
+  position: relative;
+  /* 132vw ≈ 88vw de large convertis en hauteur (ratio 800/1206) */
+  height: min(92vh, 132vw);
+  aspect-ratio: var(--carte-ratio);
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, .8);
+  animation: zoom-arrivee .25s ease;
+}
+
+@keyframes zoom-arrivee { from { transform: scale(.92); } }
+
+.zoom-carte .carte-banniere {
+  font-size: 1.4rem;
+  padding: 46px 10px 12px 10px;
+}
+.zoom-carte .carte-vide .vide-orne { font-size: 3.5rem; }
+.zoom-carte .carte-vide .vide-note { font-size: 1.2rem; }
+
+.zoom-fermer {
+  position: absolute;
+  top: 18px;
+  right: 22px;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 1px solid #8a6a35;
+  background: rgba(26, 18, 8, .7);
+  color: #e2d0a2;
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background .2s ease, color .2s ease;
+}
+
+.zoom-fermer:hover {
+  background: #b8912f;
+  color: #281b07;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 860px) {
+  .tarot-section { --carte-w: clamp(140px, 38vw, 190px); }
+
+  .table-tirage {
+    margin: 0 12px;
+    padding: 24px 16px 20px 16px;
+    grid-template-columns: auto auto;
+    grid-template-areas:
+      "paquet carte"
+      "texte  texte"
+      "aide   aide";
+    justify-content: center;
+    gap: 20px;
+  }
+
+  /* 4 par rangée : 22 = 5 rangées de 4 + 2 centrées (jamais de carte seule) */
+  .galerie {
+    gap: 10px;
+  }
+
+  .mini {
+    width: calc((100% - 3 * 10px) / 4);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .carte-scene,
+  .carte-3d,
+  .panneau-texte,
+  .paquet-carte,
+  .mini {
+    transition-duration: .01s;
+  }
+
+  .zoom-overlay.ouvert,
+  .zoom-carte {
+    animation-duration: .01s;
+  }
+}
