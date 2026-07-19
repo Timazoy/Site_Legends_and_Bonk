@@ -183,7 +183,7 @@ const LIVRE = {
   gardeAvant: '<div class="garde-orne">✦</div>'
     + "Ce grimoire recense les arcanes<br>de la magie sanguine,<br>que le mage paie de son propre sang."
     + '<div class="garde-orne">❦</div>'
-    + '<span style="font-size:15px">Chaque sort porte deux prix en PV :<br>le premier pour les mages Mono,<br>le second pour les mages Bi.</span>',
+    + '<span class="garde-note">Chaque sort porte deux prix en PV :<br>le premier pour les mages <b>Mono</b>,<br>le second pour les mages <b>Bi</b>.</span>',
   sommaireIntro: "Ici sont consignées les voies de la magie sanguine,<br>réservées à ceux qui osent en payer le prix.",
   gardeFin: '<div class="garde-orne">❦</div>'
     + "Ici s'achèvent les pactes de sang.<br>D'autres pages restent à écrire…"
