@@ -7,8 +7,8 @@
 
    Même structure que sorts.js (familles → sections → sorts).
    Particularité de la magie sanguine : les sorts se paient en PV,
-   avec deux prix « PV mono ⁄ bi » — le premier pour les mages Mono,
-   le second pour les mages Bi (expliqué sur la page de garde).
+   avec deux prix « PV mono ⁄ bi » — le premier pour les hématomanciens
+   Mono, le second pour les Bi (expliqué sur la page de garde).
 
    ⚠ Ne pas écrire de HTML dans les textes : ils sont échappés
    automatiquement.
@@ -181,10 +181,10 @@ const LIVRE = {
   familles: FAMILLES,
   couvertureTitre: "Grimoire<br>Sanguinolent",
   gardeAvant: '<div class="garde-orne">✦</div>'
-    + "Ce grimoire recense les arcanes<br>de la magie sanguine,<br>que le mage paie de son propre sang."
+    + "Ce grimoire recense les arcanes<br>de la magie sanguine,<br>que l'hématomancien paie<br>de son propre sang."
     + '<div class="garde-orne">❦</div>'
-    + '<span class="garde-note">Chaque sort porte deux prix en PV :<br>le premier pour les mages <b>Mono</b>,<br>le second pour les mages <b>Bi</b>.</span>',
-  sommaireIntro: "Ici sont consignées les voies de la magie sanguine,<br>réservées à ceux qui osent en payer le prix.",
+    + '<span class="garde-note">Chaque sort porte deux prix en PV :<br>le premier pour les hématomanciens <b>Mono</b>,<br>le second pour les hématomanciens <b>Bi</b>.</span>',
+  sommaireIntro: "Ici sont consignées les voies de l'hématomancie,<br>réservées à ceux qui osent en payer le prix.",
   gardeFin: '<div class="garde-orne">❦</div>'
     + "Ici s'achèvent les pactes de sang.<br>D'autres pages restent à écrire…"
     + '<div class="garde-orne">✦ ✦ ✦</div>',
