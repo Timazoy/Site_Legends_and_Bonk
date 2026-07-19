@@ -363,3 +363,22 @@ const FAMILLES = [
     ]
   }
 ];
+
+/* ==================================================================
+   TEXTES DU LIVRE (couverture, pages de garde, sommaire)
+   Le moteur partagé (livre-moteur.js) lit cet objet pour habiller
+   le livre ; le grimoire sanguinolent a le sien dans sorts_sanguine.js.
+   ================================================================== */
+const LIVRE = {
+  familles: FAMILLES,
+  couvertureTitre: "Grand Livre<br>de la<br>Magie",
+  gardeAvant: '<div class="garde-orne">✦</div>'
+    + "Ce grimoire recense les arcanes<br>transmis aux aventuriers<br>de Legends & Bonk."
+    + '<div class="garde-orne">❦</div>'
+    + '<span style="font-size:15px">Que celui qui tourne ces pages<br>en fasse bon usage.</span>',
+  sommaireIntro: "Ici sont consignées les huit grandes familles de la magie,<br>telles que les mages les enseignent depuis des générations.",
+  gardeFin: '<div class="garde-orne">❦</div>'
+    + "Ici s'achèvent les sortilèges connus.<br>D'autres pages restent à écrire…"
+    + '<div class="garde-orne">✦ ✦ ✦</div>',
+  pageFin: '<div class="garde-orne">✦ ❦ ✦</div>Fin du Grand Livre de la Magie'
+};
