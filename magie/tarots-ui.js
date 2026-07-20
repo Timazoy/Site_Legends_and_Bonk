@@ -91,38 +91,35 @@
     });
   }
 
-  // Retourne la carte demandée : glisse depuis le paquet la première fois,
-  // sinon repasse par le dos avant de révéler la nouvelle face.
+  // Rejoue à chaque pioche l'animation complète : la carte repart au paquet
+  // (dos visible, sans transition), puis glisse jusqu'à sa place et se
+  // retourne pour révéler la nouvelle face.
   function reveler(idx) {
     animEnCours = true;
     panneau.classList.remove("visible");
 
-    const terminer = () => {
+    // remise à zéro instantanée : dos visible, carte au niveau du paquet
+    scene.style.transition = "none";
+    carte3d.style.transition = "none";
+    scene.classList.remove("en-place");
+    carte3d.classList.remove("retournee");
+
+    setFace(idx);
+
+    // on fige cet état initial avant de réactiver les transitions
+    void scene.offsetWidth;
+    scene.style.transition = "";
+    carte3d.style.transition = "";
+
+    // glisse, puis retournement, puis apparition des effets
+    scene.classList.add("en-place");
+    setTimeout(() => {
+      carte3d.classList.add("retournee");
       setTimeout(() => {
         panneau.classList.add("visible");
         animEnCours = false;
       }, DUREE_FLIP);
-    };
-
-    if (!scene.classList.contains("en-place")) {
-      setFace(idx);
-      scene.classList.add("en-place");
-      setTimeout(() => {
-        carte3d.classList.add("retournee");
-        terminer();
-      }, DUREE_GLISSE);
-    } else if (carte3d.classList.contains("retournee")) {
-      carte3d.classList.remove("retournee");
-      setTimeout(() => {
-        setFace(idx);
-        carte3d.classList.add("retournee");
-        terminer();
-      }, DUREE_FLIP);
-    } else {
-      setFace(idx);
-      carte3d.classList.add("retournee");
-      terminer();
-    }
+    }, DUREE_GLISSE);
   }
 
   /* ---------- Galerie ---------- */
