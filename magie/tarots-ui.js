@@ -4,8 +4,9 @@
 
 (() => {
   // Durées synchronisées avec tarots.css
-  const DUREE_GLISSE = 420; // arrivée de la carte depuis le paquet
-  const DUREE_FLIP = 720;   // rotation de la carte
+  const DUREE_GLISSE = 420;  // arrivée de la carte depuis le paquet
+  const DUREE_FLIP = 720;    // rotation de la carte
+  const DUREE_MELANGE = 600; // battage du paquet au remélange
 
   const paquetBtn = document.getElementById("paquet");
   const compteur = document.getElementById("compteur");
@@ -36,7 +37,9 @@
 
   /* ---------- Paquet ---------- */
 
-  function melangerPaquet() {
+  // anime = true pour jouer le battage et renvoyer la carte affichée au
+  // paquet (remélange déclenché par l'utilisateur) ; false au démarrage.
+  function melangerPaquet(anime) {
     pioche = TAROTS.map((_, i) => i);
     for (let i = pioche.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -45,6 +48,32 @@
     tirees.clear();
     majPaquet();
     majGalerie();
+    if (anime) {
+      nettoyerCarte();
+      lancerBattage();
+    }
+  }
+
+  // Renvoie la carte affichée vers le paquet et efface le panneau d'effets.
+  function nettoyerCarte() {
+    panneau.classList.remove("visible");
+    scene.classList.remove("en-place"); // glisse/fond vers le paquet
+    scene.tabIndex = -1;
+    carteAffichee = null;
+    // une fois invisible, on remet le dos pour la prochaine pioche
+    setTimeout(() => carte3d.classList.remove("retournee"), DUREE_GLISSE);
+  }
+
+  // Joue l'animation de battage sur le paquet.
+  function lancerBattage() {
+    animEnCours = true;
+    paquetBtn.classList.remove("melange");
+    void paquetBtn.offsetWidth; // permet de rejouer l'animation
+    paquetBtn.classList.add("melange");
+    setTimeout(() => {
+      paquetBtn.classList.remove("melange");
+      animEnCours = false;
+    }, DUREE_MELANGE);
   }
 
   function majPaquet() {
@@ -177,7 +206,7 @@
     if (animEnCours) return;
 
     if (pioche.length === 0) {
-      melangerPaquet();
+      melangerPaquet(true);
       aide.textContent = "Le paquet a été remélangé — cliquez pour piocher";
       return;
     }
@@ -194,7 +223,7 @@
 
   remelangerBtn.addEventListener("click", () => {
     if (animEnCours) return;
-    melangerPaquet();
+    melangerPaquet(true);
     aide.textContent = "Le paquet a été remélangé — cliquez pour piocher";
   });
 
