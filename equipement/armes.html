@@ -29,18 +29,23 @@
 
   <style>
     :root {
+      /* chrome clair (fond blanc du site) */
       --parch: #f4ecd8; --parch2: #e9dcbd; --ink: #2b2116; --line: #c9b892;
-      --bordeaux: #7a0808; --brun: #281b07;
+      --bordeaux: #7a0808; --brun: #281b07; --muted: #6b5a3a;
     }
-    .eq-wrap { max-width: 1100px; margin: 0 auto; padding: 0 12px 60px; }
+    /* le fond reste celui du site (blanc) — pas d'override de body */
+    .eq-wrap { max-width: 1120px; margin: 0 auto; padding: 0 12px 60px; color: var(--ink); }
     h1.eq-title { text-align: center; font-weight: 700; letter-spacing: .5px; margin: 18px 0 2px; color: var(--brun); }
-    .eq-sub { text-align: center; color: #6b5a3a; font-style: italic; margin-bottom: 20px; }
+    .eq-sub { text-align: center; color: var(--muted); font-style: italic; margin-bottom: 18px; }
 
+    /* ---- barre de filtres (claire) ---- */
     .eq-filters {
-      position: sticky; top: 0; z-index: 20; background: rgba(244,236,216,.97); backdrop-filter: blur(3px);
-      border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; margin-bottom: 24px;
+      position: sticky; top: 8px; z-index: 20; background: rgba(255,255,255,.96); backdrop-filter: blur(4px);
+      border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; margin-bottom: 14px;
       box-shadow: 0 3px 10px rgba(0,0,0,.08);
+      transition: transform .28s ease, opacity .28s ease;
     }
+    .eq-filters.eq-hidden { transform: translateY(-140%); opacity: 0; pointer-events: none; }
     .eq-search {
       width: 100%; font-family: inherit; font-weight: 600; font-size: 20px; padding: 8px 14px;
       border: 1px solid var(--line); border-radius: 8px; background: #fffdf6; color: var(--ink);
@@ -54,8 +59,18 @@
     .eq-cat:hover { border-color: var(--bordeaux); }
     .eq-cat.active { background: var(--bordeaux); color: #fff; border-color: var(--bordeaux); }
     .eq-cat:focus-visible { outline: 2px solid var(--bordeaux); outline-offset: 2px; }
-    .eq-count { text-align: center; color: #8a795a; font-size: 16px; margin: -12px 0 18px; }
 
+    /* ---- légende des raretés (sur fond clair) ---- */
+    .eq-legend {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 16px;
+      margin: 0 0 12px; font-size: 14px; color: var(--muted);
+    }
+    .eq-legend span { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+    .eq-legend i { width: 11px; height: 11px; border-radius: 3px; transform: rotate(45deg); display: inline-block;
+      box-shadow: 0 0 7px var(--g), inset 0 0 0 1px rgba(0,0,0,.22); }
+    .eq-count { text-align: center; color: #8a795a; font-size: 16px; margin: 0 0 18px; }
+
+    /* ---- séparateurs de catégorie ---- */
     .cat-sep { border: none; border-top: 2px solid var(--line); margin: 34px 0 0; opacity: .8; }
     .cat-header {
       text-align: center; font-weight: 700; font-size: 30px; color: var(--brun);
@@ -67,78 +82,171 @@
     }
     .subcat-header {
       font-weight: 700; font-size: 21px; color: var(--bordeaux); font-style: italic;
-      margin: 22px 0 10px; padding-left: 4px;
+      margin: 22px 0 12px; padding-left: 4px;
     }
-    .eq-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(175px, 1fr)); gap: 16px; }
-    .eq-grid + .subcat-header { margin-top: 26px; }
-    .eq-tile {
-      background: linear-gradient(160deg, var(--parch), var(--parch2)); border: 1px solid var(--line);
-      border-radius: 12px; padding: 11px; cursor: pointer; text-align: center; display: flex; flex-direction: column;
-      transition: transform .12s, box-shadow .12s;
+    /* descriptions optionnelles sous les (sous-)catégories (armes-textes.js) */
+    .cat-desc {
+      text-align: center; color: var(--muted); font-size: 16px; line-height: 1.4;
+      max-width: 680px; margin: 4px auto 8px;
     }
-    .eq-tile:hover { transform: translateY(-3px); box-shadow: 0 8px 18px rgba(0,0,0,.16); }
-    .eq-tile:focus-visible { outline: 2px solid var(--bordeaux); outline-offset: 2px; }
-    .eq-thumb {
-      height: 118px; border-radius: 8px; overflow: hidden; background: #fffdf6; display: flex;
-      align-items: center; justify-content: center; border: 1px solid var(--line); margin-bottom: 9px;
+    .subcat-desc {
+      color: var(--muted); font-size: 15px; font-style: italic; line-height: 1.4;
+      max-width: 760px; margin: 2px 0 12px; padding-left: 4px;
     }
-    .eq-thumb img { max-width: 100%; max-height: 100%; object-fit: contain; }
-    .eq-thumb.placeholder { color: #b9a06a; font-size: 46px; }
-    .eq-tile-name { font-weight: 700; font-size: 18px; line-height: 1.1; color: var(--brun); }
-    .eq-tile-cat { font-size: 14px; color: #9a875f; font-style: italic; margin-top: 2px; }
-    .eq-dots { display: flex; gap: 4px; justify-content: center; margin-top: 7px; min-height: 11px; }
-    .eq-dot { width: 11px; height: 11px; border-radius: 50%; border: 1px solid rgba(0,0,0,.28); }
+    .subcat-header + .subcat-desc { margin-top: -6px; }
 
+    /* ---- grille de cartes ---- */
+    .eq-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(176px, 1fr)); gap: 18px; }
+    .eq-grid + .subcat-header { margin-top: 26px; }
+
+    /* ===== CARTE (loot sombre sur page claire) ===== */
+    .eq-tile {
+      --rl: #6f6552; --rg: #b8b0a0; --rgl: rgba(0,0,0,.35); --tint: rgba(255,255,255,.05);
+      position: relative; overflow: hidden; cursor: pointer;
+      background: linear-gradient(165deg, #241d14 0%, #16110b 100%);
+      border: 2px solid var(--rl); border-radius: 14px;
+      display: flex; flex-direction: column;
+      box-shadow: 0 4px 12px rgba(30,20,8,.3);
+      transition: transform .14s ease, box-shadow .14s ease;
+    }
+    .eq-tile::before {
+      content: ""; position: absolute; inset: 3px; border: 1px solid rgba(255,255,255,.08);
+      border-radius: 10px; pointer-events: none; z-index: 3;
+    }
+    .eq-tile:hover, .eq-tile:focus-visible {
+      transform: translateY(-4px); box-shadow: 0 0 20px var(--rgl), 0 10px 22px rgba(30,20,8,.35);
+      border-color: var(--rg);
+    }
+    .eq-tile:focus-visible { outline: none; }
+
+    .card-ribbon {
+      position: absolute; top: 13px; right: -31px; z-index: 4; width: 118px;
+      transform: rotate(45deg); text-align: center;
+      background: var(--rl); color: #14100c; font-weight: 800; font-size: 12px; letter-spacing: 1px;
+      padding: 3px 0; box-shadow: 0 2px 6px rgba(0,0,0,.5);
+    }
+
+    .card-art {
+      position: relative; height: 134px; margin: 12px 12px 0;
+      display: flex; align-items: center; justify-content: center;
+      background: radial-gradient(circle at 50% 46%, var(--tint) 0%, transparent 70%);
+      border-radius: 8px;
+    }
+    .card-art img {
+      max-width: 84%; max-height: 122px; object-fit: contain;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,.6));
+    }
+    .card-art.placeholder { color: var(--rg); font-size: 46px; }
+
+    .card-foot { margin-top: auto; text-align: center; }
+    .card-name {
+      padding: 9px 9px 2px; font-weight: 700; font-size: 17px; line-height: 1.1; color: #f0e7d0;
+      border-top: 2px solid var(--rl);
+      background: linear-gradient(#211b12, #191309);
+    }
+    .card-cat { font-size: 13px; color: #a1937a; font-style: italic; background: #191309; padding: 0 8px; }
+    .card-gems {
+      display: flex; gap: 5px; justify-content: center; align-items: center;
+      padding: 7px 0 10px; min-height: 12px; background: linear-gradient(#191309, #130e08);
+    }
+    .gem {
+      width: 11px; height: 11px; transform: rotate(45deg); border-radius: 2px;
+      box-shadow: 0 0 6px var(--g), inset 0 0 0 1px rgba(255,255,255,.45);
+    }
+
+    /* ===== FICHE (sombre sur page claire) ===== */
     .eq-fiche {
-      background: linear-gradient(160deg, var(--parch), var(--parch2)); border: 1px solid var(--line);
-      border-radius: 16px; padding: 24px 28px; box-shadow: 0 10px 30px rgba(0,0,0,.14); position: relative;
+      --rl: #6f6552; --rgl: rgba(0,0,0,.35); --tint: rgba(255,255,255,.05);
+      background: linear-gradient(160deg, #201b14, #17130d); border: 1px solid #2a2318;
+      border-radius: 16px; padding: 24px 28px; box-shadow: 0 12px 32px rgba(30,20,8,.35);
+      position: relative; overflow: hidden;
+    }
+    .eq-fiche::after {
+      content: ""; position: absolute; top: 0; left: 0; right: 0; height: 5px; background: var(--rl);
+      box-shadow: 0 0 16px var(--rl);
     }
     .eq-fiche::before {
-      content: ""; position: absolute; inset: 8px; border: 1px solid rgba(122,8,8,.18);
+      content: ""; position: absolute; inset: 8px; border: 1px solid rgba(255,255,255,.06);
       border-radius: 10px; pointer-events: none;
     }
     .eq-back {
-      display: inline-block; margin-bottom: 14px; cursor: pointer; color: var(--bordeaux);
+      display: inline-block; margin-bottom: 14px; cursor: pointer; color: #d8b24a;
       font-weight: 700; font-size: 18px; background: none; border: none; font-family: inherit;
     }
     .eq-back:hover { text-decoration: underline; }
-    .eq-back:focus-visible { outline: 2px solid var(--bordeaux); outline-offset: 2px; }
+    .eq-back:focus-visible { outline: 2px solid #d8b24a; outline-offset: 2px; }
     .fiche-grid { display: grid; grid-template-columns: 1fr; gap: 22px; }
-    @media (min-width: 820px) { .fiche-grid { grid-template-columns: 1fr minmax(290px, 42%); } }
-    .fiche-name { font-size: 38px; font-weight: 700; color: var(--brun); line-height: 1.02; margin: 0; text-wrap: balance; }
+    @media (min-width: 820px) { .fiche-grid { grid-template-columns: 1fr minmax(300px, 44%); } }
+    .fiche-name { font-size: 38px; font-weight: 700; color: #f0e7d0; line-height: 1.02; margin: 0; text-wrap: balance; }
     .fiche-cat {
-      font-style: italic; color: var(--bordeaux); font-size: 20px; margin: 6px 0 2px; padding-bottom: 12px;
-      border-bottom: 2px solid rgba(122,8,8,.35);
+      font-style: italic; color: #d8b24a; font-size: 20px; margin: 6px 0 2px; padding-bottom: 12px;
+      border-bottom: 1px solid #3a3327;
     }
-    .fiche-flavor { font-style: italic; font-size: 21px; color: #5a4a2c; margin: 15px 0 8px; }
-    .fiche-effects { font-size: 20px; margin-top: 6px; }
+    .rar-badge {
+      display: inline-block; margin: 12px 0 2px; padding: 4px 14px; border-radius: 999px;
+      color: #14100c; font-weight: 800; font-size: 15px; letter-spacing: .4px;
+      box-shadow: 0 0 14px var(--rgl);
+    }
+    .fiche-flavor { font-style: italic; font-size: 21px; color: #c9bd9f; margin: 15px 0 8px; }
+    .fiche-portee {
+      display: inline-flex; align-items: center; gap: 12px; margin: 14px 0 4px;
+      padding: 7px 16px; border-radius: 10px;
+      background: rgba(216,178,74,.10); border: 1px solid rgba(216,178,74,.45);
+    }
+    .fiche-portee .lbl { font-size: 13px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: #d8b24a; }
+    .fiche-portee .sepv { width: 1px; height: 18px; background: rgba(216,178,74,.5); }
+    .fiche-portee .val { font-size: 21px; font-weight: 700; color: #f0e7d0; font-variant-numeric: tabular-nums; }
+    .fiche-effects { font-size: 20px; margin-top: 6px; color: #ece3cd; }
     .fiche-effects p { margin: 0 0 5px; }
+
     .fiche-illu {
-      background: #fffdf6; border: 1px solid var(--line); border-radius: 12px; padding: 14px;
-      display: flex; flex-direction: column; align-items: center; align-self: start; gap: 12px;
+      position: relative; overflow: hidden; align-self: start;
+      background: linear-gradient(165deg, #241d14, #16110b);
+      border: 2px solid var(--rl); border-radius: 14px; padding: 20px 18px 18px;
+      display: flex; flex-direction: column; align-items: center; gap: 12px;
+      box-shadow: 0 0 22px var(--rgl), 0 10px 24px rgba(30,20,8,.35);
     }
-    .fiche-illu img { max-width: 100%; max-height: 330px; object-fit: contain; border-radius: 6px; }
-    .fiche-illu.multi img { max-height: 250px; }
-    .fiche-illu.multi img + img { border-top: 1px dashed var(--line); padding-top: 12px; }
-    .fiche-illu.placeholder { min-height: 220px; justify-content: center; color: #b9a06a; font-size: 76px; }
-    .fiche-illu figcaption { font-style: italic; color: #7a6a48; font-size: 16px; text-align: center; }
+    .fiche-illu::before {
+      content: ""; position: absolute; inset: 4px; border: 1px solid rgba(255,255,255,.08);
+      border-radius: 10px; pointer-events: none;
+    }
+    .fiche-illu .illu-ribbon {
+      position: absolute; top: 14px; right: -32px; width: 122px; z-index: 2;
+      transform: rotate(45deg); text-align: center;
+      background: var(--rl); color: #14100c; font-weight: 800; font-size: 12px; letter-spacing: 1px;
+      padding: 3px 0; box-shadow: 0 2px 6px rgba(0,0,0,.5);
+    }
+    .fiche-illu .illu-stage {
+      width: 100%; display: flex; flex-direction: column; align-items: center; gap: 12px;
+      background: radial-gradient(circle at 50% 42%, var(--tint) 0%, transparent 72%); border-radius: 8px; padding: 6px 0;
+    }
+    .fiche-illu img {
+      max-width: 100%; max-height: 330px; object-fit: contain;
+      filter: drop-shadow(0 8px 12px rgba(0,0,0,.65));
+    }
+    .fiche-illu.multi img { max-height: 240px; }
+    .fiche-illu.multi img + img { margin-top: 6px; }
+    .fiche-illu.placeholder .illu-stage { min-height: 220px; justify-content: center; color: #a1937a; font-size: 76px; }
+    .fiche-illu figcaption { font-style: italic; color: #a1937a; font-size: 16px; text-align: center; }
 
     .paliers { width: 100%; border-collapse: collapse; margin-top: 18px; }
-    .paliers caption { caption-side: top; text-align: left; font-weight: 700; font-size: 19px; color: var(--brun); padding-bottom: 6px; }
-    .paliers td { padding: 7px 10px; border-bottom: 1px solid rgba(201,184,146,.7); font-size: 19px; vertical-align: top; }
+    .paliers caption { caption-side: top; text-align: left; font-weight: 700; font-size: 19px; color: #f0e7d0; padding-bottom: 6px; }
+    .paliers td { padding: 7px 10px; border-bottom: 1px solid #3a3327; font-size: 19px; vertical-align: top; }
     .paliers tr:last-child td { border-bottom: none; }
     .pal-rare { white-space: nowrap; width: 1%; }
     .pal-pill {
-      display: inline-block; font-weight: 700; font-size: 14px; padding: 2px 9px; border-radius: 999px;
-      min-width: 32px; text-align: center; font-variant-numeric: tabular-nums;
+      display: inline-block; font-weight: 800; font-size: 14px; padding: 2px 9px; border-radius: 999px;
+      min-width: 32px; text-align: center; font-variant-numeric: tabular-nums; color: #14100c;
+      box-shadow: 0 0 8px var(--gl);
     }
     .pal-val { font-weight: 700; }
-    .single-dmg { font-size: 23px; font-weight: 700; color: var(--brun); margin-top: 8px; }
-    .eq-empty { grid-column: 1/-1; text-align: center; color: #6b5a3a; padding: 30px 0; }
+    .single-dmg { font-size: 23px; font-weight: 700; color: #f0e7d0; margin-top: 8px; }
+    .eq-empty { grid-column: 1/-1; text-align: center; color: var(--muted); padding: 30px 0; }
     @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
     @media (max-width: 768px) {
       .fiche-name { font-size: 30px; }
       h1.eq-title { font-size: 1.6rem; }
+      .eq-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; }
     }
   </style>
 </head>
@@ -156,6 +264,7 @@
           <input id="recherche" class="eq-search" type="search" placeholder="Rechercher une arme…" autocomplete="off" aria-label="Rechercher une arme" />
           <div id="cats" class="eq-cats"></div>
         </div>
+        <div id="legende" class="eq-legend" aria-hidden="true"></div>
         <p id="compte" class="eq-count"></p>
         <div id="grille"></div>
       </div>
@@ -165,37 +274,46 @@
   </main>
 
   <script src="armes-data.js"></script>
+  <script src="armes-textes.js"></script>
   <script>
     (function () {
       var DB = window.EQUIP_ARMES || { raretes: {}, categoriesOrdre: [], objets: [] };
       var IMG_BASE = "../image-db/equipement/armes/";
       var RAR = DB.raretes;
 
-      // couleur de texte lisible (assombrie si trop claire) + texte du pill (blanc/noir)
-      function hexToRgb(h) { return [parseInt(h.slice(1,3),16), parseInt(h.slice(3,5),16), parseInt(h.slice(5,7),16)]; }
-      function lum(h) { var c = hexToRgb(h).map(function(v){ v/=255; return v<=.03928 ? v/12.92 : Math.pow((v+.055)/1.055,2.4); }); return .2126*c[0]+.7152*c[1]+.0722*c[2]; }
-      function texteLisible(h) {
-        var l = lum(h);
-        if (l < 0.4) return h;
-        var f = 0.45, rgb = hexToRgb(h).map(function(v){ return Math.round(v*f); });
-        return "#" + rgb.map(function(v){ return ("0"+v.toString(16)).slice(-2); }).join("");
-      }
-      function pillTexte(h) { return lum(h) > 0.55 ? "#1a1a1a" : "#ffffff"; }
+      var RANK = { C: 0, SC: 1, R: 2, SR: 3, E: 4, SE: 5 };
 
-      // pré-calcul des styles de rareté
-      Object.keys(RAR).forEach(function (k) {
-        RAR[k].texte = texteLisible(RAR[k].couleur);
-        RAR[k].pillTxt = pillTexte(RAR[k].couleur);
-      });
+      // couleurs de rareté éclatantes (cartes sombres)
+      var FRAME = {
+        C:  { line: "#9a9484", gem: "#c4bda9", glow: "rgba(196,189,169,.4)" },
+        SC: { line: "#5b93ff", gem: "#7db0ff", glow: "rgba(91,147,255,.6)" },
+        R:  { line: "#57c23a", gem: "#7ee05a", glow: "rgba(87,194,58,.6)" },
+        SR: { line: "#28e070", gem: "#57ff97", glow: "rgba(40,224,112,.65)" },
+        E:  { line: "#b45cff", gem: "#cd8bff", glow: "rgba(180,92,255,.65)" },
+        SE: { line: "#ff53d6", gem: "#ff86e4", glow: "rgba(255,83,214,.65)" }
+      };
+      var NEUTRAL = { line: "#6f6552", gem: "#b8b0a0", glow: "rgba(0,0,0,.35)" };
 
       var esc = function (s) { var d = document.createElement("div"); d.textContent = s == null ? "" : s; return d.innerHTML; };
       var norm = function (s) { return s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase(); };
       var slug = function (s) { return norm(s).replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""); };
 
-      var OBJETS = DB.objets;
-      OBJETS.forEach(function (o) { o._slug = slug(o.nom); });
+      // textes éditables à la main (descriptions de catégories / sous-catégories)
+      var TEXTES = window.EQUIP_ARMES_TEXTES || {};
+      var T_CATS = TEXTES.categories || {};
+      var T_SUBS = TEXTES.sousCategories || {};
 
-      // catégories présentes, dans l'ordre défini
+      var OBJETS = DB.objets;
+      OBJETS.forEach(function (o) {
+        o._slug = slug(o.nom);
+        var top = null, best = -1;
+        (o.tiers || []).forEach(function (t) {
+          if (RANK[t] != null && RANK[t] > best) { best = RANK[t]; top = t; }
+        });
+        o._top = top;
+        o._frame = (top && FRAME[top]) ? FRAME[top] : NEUTRAL;
+      });
+
       var presentes = {};
       OBJETS.forEach(function (o) { presentes[o.categorie] = true; });
       var CATS = ["Toutes"].concat(DB.categoriesOrdre.filter(function (c) { return presentes[c]; }));
@@ -203,22 +321,33 @@
 
       var $ = function (id) { return document.getElementById(id); };
 
-      function dots(o) {
-        return '<div class="eq-dots">' + (o.tiers || []).map(function (t) {
-          var r = RAR[t]; if (!r) return "";
-          return '<span class="eq-dot" style="background:' + r.couleur + '" title="' + esc(r.nom) + '"></span>';
+      function frameVars(f) {
+        return "--rl:" + f.line + ";--rg:" + f.gem + ";--rgl:" + f.glow + ";--tint:" + f.glow;
+      }
+      function gems(o) {
+        return '<div class="card-gems">' + (o.tiers || []).map(function (t) {
+          var r = RAR[t], f = FRAME[t]; if (!r) return "";
+          return '<span class="gem" style="background:' + (f ? f.gem : r.couleur) + ';--g:' + (f ? f.glow : 'transparent') + '" title="' + esc(r.nom) + '"></span>';
         }).join("") + '</div>';
       }
-      function thumb(o) {
+      function art(o, cls) {
         if (o.images && o.images.length) {
-          return '<div class="eq-thumb"><img src="' + IMG_BASE + encodeURIComponent(o.images[0]) + '" alt="' + esc(o.nom) + '" loading="lazy"></div>';
+          return '<div class="' + cls + '"><img src="' + IMG_BASE + encodeURIComponent(o.images[0]) + '" alt="' + esc(o.nom) + '" loading="lazy"></div>';
         }
-        return '<div class="eq-thumb placeholder">⚔️</div>';
+        return '<div class="' + cls + ' placeholder">⚔️</div>';
       }
 
       function renderCats() {
         $("cats").innerHTML = CATS.map(function (c) {
           return '<button class="eq-cat' + (c === catActive ? " active" : "") + '" data-cat="' + esc(c) + '">' + esc(c) + '</button>';
+        }).join("");
+      }
+
+      function renderLegende() {
+        var ordre = ["C","SC","R","SR","E","SE"];
+        $("legende").innerHTML = ordre.map(function (t) {
+          var r = RAR[t], f = FRAME[t]; if (!r) return "";
+          return '<span><i style="background:' + f.gem + ';--g:' + f.glow + '"></i>' + esc(r.nom) + '</span>';
         }).join("");
       }
 
@@ -230,14 +359,20 @@
       }
 
       function tileHTML(o) {
-        return '<div class="eq-tile" tabindex="0" role="button" data-slug="' + o._slug + '">' +
-          thumb(o) +
-          '<div class="eq-tile-name">' + esc(o.nom) + '</div>' +
-          '<div class="eq-tile-cat">' + esc(o.categorie) + '</div>' +
-          dots(o) + '</div>';
+        var ribbon = o._top ? '<div class="card-ribbon">' + o._top + '</div>' : '';
+        return '<div class="eq-tile" tabindex="0" role="button" data-slug="' + o._slug + '" style="' + frameVars(o._frame) + '">' +
+          ribbon +
+          art(o, "card-art") +
+          '<div class="card-foot">' +
+            '<div class="card-name">' + esc(o.nom) + '</div>' +
+            '<div class="card-cat">' + esc(o.categorie) + '</div>' +
+            gems(o) +
+          '</div>' +
+          '</div>';
       }
 
       var SUBS = DB.sousCategoriesOrdre || [];
+      var NOSUB = "";
 
       function renderGrille() {
         var list = filtrer();
@@ -250,18 +385,21 @@
 
         var html = cats.map(function (c, ci) {
           var sep = ci > 0 ? '<hr class="cat-sep">' : '';
-          var entete = '<h2 class="cat-header">' + esc(c) + '</h2>';
+          var entete = '<h2 class="cat-header">' + esc(c) + '</h2>' +
+            (T_CATS[c] ? '<p class="cat-desc">' + esc(T_CATS[c]) + '</p>' : '');
 
-          // regroupement par sous-catégorie
           var bySub = {};
-          byCat[c].forEach(function (o) { var s = o.sousCategorie || " "; (bySub[s] = bySub[s] || []).push(o); });
-          var reelles = Object.keys(bySub).some(function (s) { return s !== " "; });
+          byCat[c].forEach(function (o) { var s = o.sousCategorie || NOSUB; (bySub[s] = bySub[s] || []).push(o); });
+          var reelles = Object.keys(bySub).some(function (s) { return s !== NOSUB; });
           var ordre = [];
-          if (bySub[" "]) ordre.push(" ");
+          if (bySub[NOSUB]) ordre.push(NOSUB);
           SUBS.forEach(function (s) { if (bySub[s]) ordre.push(s); });
 
           var corps = ordre.map(function (s) {
-            var sh = (s !== " " && reelles) ? '<h3 class="subcat-header">' + esc(s) + '</h3>' : '';
+            var d = (T_SUBS[c] || {})[s];
+            var sh = (s !== NOSUB && reelles)
+              ? '<h3 class="subcat-header">' + esc(s) + '</h3>' + (d ? '<p class="subcat-desc">' + esc(d) + '</p>' : '')
+              : '';
             return sh + '<div class="eq-grid">' + bySub[s].map(tileHTML).join("") + '</div>';
           }).join("");
 
@@ -275,41 +413,53 @@
         var flavor = o.flavor ? '<p class="fiche-flavor">« ' + esc(o.flavor) + ' »</p>' : "";
         var effets = (o.effets && o.effets.length)
           ? '<div class="fiche-effects">' + o.effets.map(function (e) { return '<p>' + esc(e) + '</p>'; }).join("") + '</div>' : "";
+        var portee = o.portee
+          ? '<div class="fiche-portee"><span class="lbl">Portée</span><span class="sepv"></span><span class="val">' + esc(o.portee) + '</span></div>' : "";
+
+        var badge = o._top && RAR[o._top]
+          ? '<div><span class="rar-badge" style="background:' + o._frame.gem + ';--rgl:' + o._frame.glow + '">' + esc(RAR[o._top].nom) + '</span></div>' : "";
 
         var corps = "";
         var tiersAvecVal = (o.tiers || []).filter(function (t) { return o.paliers && o.paliers[t]; });
         if (tiersAvecVal.length) {
           var lignes = tiersAvecVal.map(function (t) {
-            var r = RAR[t];
-            return '<tr><td class="pal-rare"><span class="pal-pill" style="background:' + r.couleur + ';color:' + r.pillTxt + '">' + t + '</span></td>' +
-              '<td class="pal-val" style="color:' + r.texte + '">' + esc(o.paliers[t]) + '</td></tr>';
+            var r = RAR[t], f = FRAME[t] || { gem: r.couleur, glow: "transparent" };
+            return '<tr><td class="pal-rare"><span class="pal-pill" style="background:' + f.gem + ';--gl:' + f.glow + '">' + t + '</span></td>' +
+              '<td class="pal-val" style="color:' + f.gem + '">' + esc(o.paliers[t]) + '</td></tr>';
           }).join("");
           corps = '<table class="paliers"><caption>Par rareté</caption><tbody>' + lignes + '</tbody></table>';
         } else if (o.degatUnique) {
           corps = '<p class="single-dmg">' + esc(o.degatUnique) + '</p>';
         }
 
+        var ribbon = o._top ? '<div class="illu-ribbon">' + o._top + '</div>' : '';
         var illu;
         if (o.images && o.images.length) {
           var imgs = o.images.map(function (im) {
             return '<img src="' + IMG_BASE + encodeURIComponent(im) + '" alt="' + esc(o.nom) + '">';
           }).join("");
-          illu = '<figure class="fiche-illu' + (o.images.length > 1 ? ' multi' : '') + '">' + imgs +
+          illu = '<figure class="fiche-illu' + (o.images.length > 1 ? ' multi' : '') + '" style="' + frameVars(o._frame) + '">' +
+            ribbon + '<div class="illu-stage">' + imgs + '</div>' +
             '<figcaption>' + esc(o.nom) + '</figcaption></figure>';
         } else {
-          illu = '<figure class="fiche-illu placeholder">⚔️<figcaption>Illustration à venir</figcaption></figure>';
+          illu = '<figure class="fiche-illu placeholder" style="' + frameVars(o._frame) + '">' + ribbon +
+            '<div class="illu-stage">⚔️</div><figcaption>Illustration à venir</figcaption></figure>';
         }
 
-        return '<div class="eq-fiche">' +
+        return '<div class="eq-fiche" style="' + frameVars(o._frame) + '">' +
           '<button class="eq-back" type="button">← Retour au catalogue</button>' +
           '<div class="fiche-grid"><div>' +
           '<h2 class="fiche-name">' + esc(o.nom) + '</h2>' +
           '<p class="fiche-cat">' + esc(o.categorie) + (o.sousCategorie ? ' · ' + esc(o.sousCategorie) : '') + '</p>' +
-          flavor + effets + corps +
+          badge + flavor + portee + effets + corps +
           '</div>' + illu + '</div></div>';
       }
 
+      var catScroll = 0;  // position de scroll du catalogue, mémorisée avant d'ouvrir une fiche
+
       function ouvrir(o, push) {
+        // navigation initiée par l'utilisateur (clic) : on retient où il en était
+        if (push !== false) catScroll = window.scrollY || window.pageYOffset || 0;
         $("vue-fiche").innerHTML = ficheHTML(o);
         $("vue-catalogue").style.display = "none";
         $("vue-fiche").style.display = "block";
@@ -319,12 +469,15 @@
       }
 
       function fermer() {
-        if (location.hash) { location.hash = ""; return; } // déclenche hashchange -> catalogue
+        if (location.hash) { location.hash = ""; return; }
         montrerCatalogue();
       }
       function montrerCatalogue() {
         $("vue-fiche").style.display = "none";
         $("vue-catalogue").style.display = "block";
+        filtres.classList.remove("eq-hidden"); lastY = catScroll;
+        // restaure la position après que le catalogue a repris sa hauteur
+        requestAnimationFrame(function () { window.scrollTo(0, catScroll); });
       }
 
       function routeDepuisHash() {
@@ -334,7 +487,19 @@
         if (o) ouvrir(o, false); else montrerCatalogue();
       }
 
-      // événements
+      // masque la barre de filtres au défilement vers le bas, la révèle vers le haut
+      var filtres = document.querySelector(".eq-filters");
+      var lastY = window.scrollY || 0;
+      window.addEventListener("scroll", function () {
+        if ($("vue-catalogue").style.display === "none") return; // pas en vue fiche
+        var y = window.scrollY || window.pageYOffset || 0;
+        if (y < 90) { filtres.classList.remove("eq-hidden"); lastY = y; return; }
+        var diff = y - lastY;
+        if (diff > 8) filtres.classList.add("eq-hidden");
+        else if (diff < -8) filtres.classList.remove("eq-hidden");
+        lastY = y;
+      }, { passive: true });
+
       $("recherche").addEventListener("input", function (e) { recherche = e.target.value; renderGrille(); });
       $("cats").addEventListener("click", function (e) {
         var b = e.target.closest(".eq-cat"); if (!b) return;
@@ -351,7 +516,7 @@
       });
       window.addEventListener("hashchange", routeDepuisHash);
 
-      renderCats(); renderGrille(); routeDepuisHash();
+      renderCats(); renderLegende(); renderGrille(); routeDepuisHash();
     })();
   </script>
 </body>

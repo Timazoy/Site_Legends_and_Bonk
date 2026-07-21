@@ -71,11 +71,10 @@ window.EQUIP_ARMES = {
     "SE": "21 - 42 dégâts"
    },
    "flavor": "Basique, simple. OG.",
-   "effets": [
-    "2 de portée."
-   ],
+   "portee": "2",
+   "effets": [],
    "images": [
-    "Epee.jpg"
+    "Epee.webp"
    ]
   },
   {
@@ -95,11 +94,12 @@ window.EQUIP_ARMES = {
     "SE": "28 - 56 dégâts"
    },
    "flavor": "Swing. Swoosh.",
+   "portee": "2",
    "effets": [
-    "2 de portée.+ 50% de dégâts à la première attaque."
+    "+ 50% de dégâts à la première attaque."
    ],
    "images": [
-    "Katana.jpg"
+    "Katana.webp"
    ]
   },
   {
@@ -119,12 +119,12 @@ window.EQUIP_ARMES = {
     "E": "12 - 24 dégâts"
    },
    "flavor": "Pour les gens raffinés.",
+   "portee": "2",
    "effets": [
-    "2 de portée.",
     "Style rapide si supérieur à 12 Vts."
    ],
    "images": [
-    "Rapiere.jpg"
+    "Rapiere.webp"
    ]
   },
   {
@@ -146,12 +146,12 @@ window.EQUIP_ARMES = {
     "SE": "35 - 70 dégâts"
    },
    "flavor": "Épée halal.",
+   "portee": "2",
    "effets": [
-    "2 de portée.",
     "Il faut minimum 14 en Force pour la manier."
    ],
    "images": [
-    "Cimeterre.jpg"
+    "Cimeterre.webp"
    ]
   },
   {
@@ -171,12 +171,12 @@ window.EQUIP_ARMES = {
     "SR": "12 - 24 dégâts"
    },
    "flavor": "Jackie Chan prime.",
+   "portee": "2",
    "effets": [
-    "2 de portée.",
     "25% de chance d’appliquer l’effet incapacité."
    ],
    "images": [
-    "Nunchaku.jpg"
+    "Nunchaku.webp"
    ]
   },
   {
@@ -196,13 +196,13 @@ window.EQUIP_ARMES = {
     "SR": "18 - 37 dégâts"
    },
    "flavor": "Salut les ptits indiens.",
+   "portee": "2",
    "effets": [
-    "2 de portée.",
     "Il faut minimum 13 en sagesse pour la manier.",
     "25% de chance d'appliquer l’effet folie."
    ],
    "images": [
-    "Tomahawk.jpg"
+    "Tomahawk.webp"
    ]
   },
   {
@@ -221,12 +221,13 @@ window.EQUIP_ARMES = {
     "SR": "14 - 28 dégâts",
     "E": "16 - 34 dégâts"
    },
-   "flavor": "2 de porter",
+   "flavor": "",
+   "portee": "2",
    "effets": [
     "Vous avec ⅛ chance de faire un parie parfait quand vous étes attaquer."
    ],
    "images": [
-    "Parapluie.jpg"
+    "Parapluie.webp"
    ]
   },
   {
@@ -241,14 +242,15 @@ window.EQUIP_ARMES = {
    ],
    "paliers": {},
    "flavor": "Cette arme peut prendre la forme de toutes les armes contre un peu de votre vie à la transformation (voir tableau) puis pour garder la nouvelle forme (2% de vie par /T).",
+   "portee": "",
    "effets": [
     "Longue portée: à la transformation -20%.",
     "Création de flèche classique: -3%.",
     "Création de flèche large: - 6%."
    ],
    "images": [
-    "Lame_de_sang.jpg",
-    "Lame_de_sang_bis1.jpg"
+    "Lame_de_sang.webp",
+    "Lame_de_sang_bis1.webp"
    ]
   },
   {
@@ -267,12 +269,13 @@ window.EQUIP_ARMES = {
     "SR": "18 à 34 dégâts",
     "E": "20 à 40 dégâts"
    },
-   "flavor": "2 de portée.",
+   "flavor": "",
+   "portee": "2",
    "effets": [
     "Dégâts +150% si l'ennemi a toute sa vie."
    ],
    "images": [
-    "Epee_daab.jpg"
+    "Epee_daab.webp"
    ]
   },
   {
@@ -291,12 +294,13 @@ window.EQUIP_ARMES = {
     "E": "17 à 34 dégâts",
     "SE": "21 à 42 dégâts"
    },
-   "flavor": "2 de portée.",
+   "flavor": "",
+   "portee": "2",
    "effets": [
     "25% de chance de désarmer."
    ],
    "images": [
-    "Khepesh.jpg"
+    "Khepesh.webp"
    ]
   },
   {
@@ -314,12 +318,12 @@ window.EQUIP_ARMES = {
     "R": "7 - 15 dégâts"
    },
    "flavor": "Ça c’est un vrai couteau!",
+   "portee": "1",
    "effets": [
-    "1 de portée.",
     "Fait 200% de dégâts en plus contre les bêtes et les non-vivants."
    ],
    "images": [
-    "Couteau_de_boucher.jpg"
+    "Couteau_de_boucher.webp"
    ]
   },
   {
@@ -337,12 +341,12 @@ window.EQUIP_ARMES = {
     "R": "7 - 15 dégâts"
    },
    "flavor": "… Blyat.",
+   "portee": "1",
    "effets": [
-    "1 de portée.",
     "15% de chance d’appliquer l’effet immobilisé."
    ],
    "images": [
-    "Marteau.jpg"
+    "Marteau.webp"
    ]
   },
   {
@@ -366,12 +370,12 @@ window.EQUIP_ARMES = {
     "SE": "14 - 28 dégâts"
    },
    "flavor": "Ça pique.",
+   "portee": "1",
    "effets": [
-    "1 de portée.",
     "Il est possible d’empoisonner la lame pour la durée d’un combat en utilisant une potion de poison dessus. Si on attaque dans le dos la dague infligée 50% de dégâts en plus. La première attaque dans le dos inflige 150% de dégâts au lieu de 50%."
    ],
    "images": [
-    "Dague.jpg"
+    "Dague.webp"
    ]
   },
   {
@@ -391,12 +395,12 @@ window.EQUIP_ARMES = {
     "E": "9 - 18 dégâts"
    },
    "flavor": "Wolverine ouuuuuu?",
+   "portee": "1",
    "effets": [
-    "1 de portée.",
     "Style rapide si supérieur à 14 Dextérité."
    ],
    "images": [
-    "Griffes.jpg"
+    "Griffes.webp"
    ]
   },
   {
@@ -420,11 +424,10 @@ window.EQUIP_ARMES = {
     "SE": "17 - 34 dégâts"
    },
    "flavor": "Pour César!!",
-   "effets": [
-    "1 de portée."
-   ],
+   "portee": "1",
+   "effets": [],
    "images": [
-    "Glaive.jpg"
+    "Glaive.webp"
    ]
   },
   {
@@ -442,11 +445,10 @@ window.EQUIP_ARMES = {
     "E": "-80% ), cette action prend 1T TDA à charger. 9 - 18 degas"
    },
    "flavor": "Mini shwik!!",
-   "effets": [
-    "1 de portée."
-   ],
+   "portee": "1",
+   "effets": [],
    "images": [
-    "Scie_a_metaux.jpg"
+    "Scie_a_metaux.webp"
    ]
   },
   {
@@ -466,12 +468,12 @@ window.EQUIP_ARMES = {
     "SR": "7 - 15 dégâts"
    },
    "flavor": "Première base.",
+   "portee": "1",
    "effets": [
-    "1 de porter",
     "Pour chaque point de force au dessus 10, à chaque attaque vous poussez la personne de 1 case, 1 dégâts en plus pour chaque 2 cases poussée (plafonné à 15 de force)."
    ],
    "images": [
-    "Battinette_en_bois.jpg"
+    "Battinette_en_bois.webp"
    ]
   },
   {
@@ -490,12 +492,13 @@ window.EQUIP_ARMES = {
     "E": "10 - 20 dégâts",
     "SE": "13 - 25 dégâts"
    },
-   "flavor": "1 de portée",
+   "flavor": "",
+   "portee": "1",
    "effets": [
     "C’est une arme de parade, vous avez ⅙ chance de de faire une ouverture de contre coup quand vous subissez une attaque. Si réussi vous allez tout de même subir les dégâts de cette attaque mais vous allez pouvoir effectuer votre prochaine attaque contre votre assaillant comme si c’était la première attaque contre lui."
    ],
    "images": [
-    "Waki_zashi.jpg"
+    "Waki_zashi.webp"
    ]
   },
   {
@@ -516,12 +519,13 @@ window.EQUIP_ARMES = {
     "SR": "26 - 52 dégâts",
     "E": "30 - 61 dégâts"
    },
-   "flavor": "1 de portée",
+   "flavor": "",
+   "portee": "1",
    "effets": [
     "Il faut minimum 15 en Force pour la manier."
    ],
    "images": [
-    "Lame_de_tungstene.png"
+    "Lame_de_tungstene.webp"
    ]
   },
   {
@@ -542,12 +546,13 @@ window.EQUIP_ARMES = {
     "SR": "11 - 22 dégâts",
     "E": "13 - 27 dégâts"
    },
-   "flavor": "1 de portée.",
+   "flavor": "",
+   "portee": "1",
    "effets": [
     "10% de chance d'appliquer perce armure."
    ],
    "images": [
-    "Katar.jpg"
+    "Katar.webp"
    ]
   },
   {
@@ -569,11 +574,10 @@ window.EQUIP_ARMES = {
     "E": "16 - 33 dégâts"
    },
    "flavor": "PasLeDictionnaire LOL!",
-   "effets": [
-    "1 de portée."
-   ],
+   "portee": "1",
+   "effets": [],
    "images": [
-    "Hachette.jpg"
+    "Hachette.webp"
    ]
   },
   {
@@ -595,12 +599,12 @@ window.EQUIP_ARMES = {
     "E": "7 - 14 dégâts"
    },
    "flavor": "Suka …",
+   "portee": "1",
    "effets": [
-    "1 de portée.",
     "Attaque 2x et elles font +200% de dégâts contre les monstres végétaux."
    ],
    "images": [
-    "Paire_de_faucille.jpg"
+    "Paire_de_faucille.webp"
    ]
   },
   {
@@ -620,8 +624,9 @@ window.EQUIP_ARMES = {
     "E": "20 - 41 dégâts"
    },
    "flavor": "Muda muda mudaaaa!!!",
+   "portee": "1",
    "effets": [
-    "1 de portée, peut être lancé à 30 de portée.",
+    "peut être lancé à 30 de portée.",
     "Le lancé perd de la précision tous les 5 cases:",
     "5 cases = 100%",
     "10 cases = 80%",
@@ -631,7 +636,7 @@ window.EQUIP_ARMES = {
     "30 cases = 1%"
    ],
    "images": [
-    "Couteau_de_lancer.jpg"
+    "Couteau_de_lancer.webp"
    ]
   },
   {
@@ -648,14 +653,15 @@ window.EQUIP_ARMES = {
     "SC": "6 - 12 dégâts",
     "R": "7 - 15 dégâts"
    },
-   "flavor": "1 de portée.",
+   "flavor": "",
+   "portee": "1",
    "effets": [
     "1/3 de chance d'appliquer l’effet de saignement avec une attaque classique et 3/4 de chance de l’appliquer quand l’arme est lancée.",
     "Si vous avez moins de 12 en dextérité alors elle peut être lancée à 5 de portée maximum.",
     "Si vous avez 12 ou plus en dextérité c’est à 10 de portée."
    ],
    "images": [
-    "Couteau_de_chasse.jpg"
+    "Couteau_de_chasse.webp"
    ]
   },
   {
@@ -675,12 +681,12 @@ window.EQUIP_ARMES = {
     "SR": "25 - 51 dégâts"
    },
    "flavor": "Attention au retour.",
+   "portee": "2",
    "effets": [
-    "2 de portée.",
     "35% de chance d’appliquer l’effet immobilisé."
    ],
    "images": [
-    "Fleaux.jpg"
+    "Fleaux.webp"
    ]
   },
   {
@@ -702,11 +708,10 @@ window.EQUIP_ARMES = {
     "E": "34 - 68 dégâts"
    },
    "flavor": "Hérisson à la brochette.",
-   "effets": [
-    "2 de portée."
-   ],
+   "portee": "2",
+   "effets": [],
    "images": [
-    "Masse_darmes.jpg"
+    "Masse_darmes.webp"
    ]
   },
   {
@@ -722,11 +727,10 @@ window.EQUIP_ARMES = {
     "SC": "19 - 38 dégâts"
    },
    "flavor": "Funny looking maracas.",
-   "effets": [
-    "2 de portée."
-   ],
+   "portee": "2",
+   "effets": [],
    "images": [
-    "Masse_en_metal.jpg"
+    "Masse_en_metal.webp"
    ]
   },
   {
@@ -746,11 +750,10 @@ window.EQUIP_ARMES = {
     "E": "-100% ), cette action prend 1T TDA à charger. 21 - 41 degas"
    },
    "flavor": "Shwik shwik!!",
-   "effets": [
-    "2 de portée."
-   ],
+   "portee": "2",
+   "effets": [],
    "images": [
-    "Grande_scie_a_metaux.jpg"
+    "Grande_scie_a_metaux.webp"
    ]
   },
   {
@@ -772,12 +775,12 @@ window.EQUIP_ARMES = {
     "E": "22 - 45 dégâts"
    },
    "flavor": "Home run!!!",
+   "portee": "1",
    "effets": [
-    "1 de portée.",
     "Pour chaque point de force au dessus 10, à chaque attaque vous poussez la personne de 1 case, 1 dégâts en plus pour chaque 2 cases poussée (plafonné à 19 de force)."
    ],
    "images": [
-    "Batte_en_bois.jpg"
+    "Batte_en_bois.webp"
    ]
   },
   {
@@ -797,11 +800,10 @@ window.EQUIP_ARMES = {
     "E": "17 - 34 dégâts"
    },
    "flavor": "Pour repousser les hérétiques.",
-   "effets": [
-    "5 de portée."
-   ],
+   "portee": "5",
+   "effets": [],
    "images": [
-    "Hallebarde.jpg"
+    "Hallebarde.webp"
    ]
   },
   {
@@ -825,13 +827,13 @@ window.EQUIP_ARMES = {
     "SE": "21 - 42 dégâts"
    },
    "flavor": "La mort vous regarde.",
+   "portee": "3",
    "effets": [
-    "3 de portée.",
     "Capable de toucher les esprits.",
     "Très efficace contre les mort-vivants et les esprits (+200% de dégâts)."
    ],
    "images": [
-    "Faux.jpg"
+    "Faux.webp"
    ]
   },
   {
@@ -851,12 +853,12 @@ window.EQUIP_ARMES = {
     "SR": "7 - 15 dégâts"
    },
    "flavor": "Bonk.",
+   "portee": "3",
    "effets": [
-    "3 de portée.",
     "Style rapide si supérieur à 11 Vts."
    ],
    "images": [
-    "Baton_de_combat.jpg"
+    "Baton_de_combat.webp"
    ]
   },
   {
@@ -876,11 +878,10 @@ window.EQUIP_ARMES = {
     "SR": "16 - 32 dégâts"
    },
    "flavor": "HAMMMERR DOWNN!",
-   "effets": [
-    "4 de portée."
-   ],
+   "portee": "4",
+   "effets": [],
    "images": [
-    "Marteau_de_combat.jpg"
+    "Marteau_de_combat.webp"
    ]
   },
   {
@@ -900,13 +901,13 @@ window.EQUIP_ARMES = {
     "SE": "18 - 36 dégâts"
    },
    "flavor": "Concentration. Vitesse. Je suis la vitesse.",
+   "portee": "4",
    "effets": [
-    "4 de portée.",
     "Pour chaque point en Vts, vous ajoutez le triple des points en% de dégâts en plus.",
     "Si la vitesse est inférieure à 14 vous avez 20% de chance d'appliquer l’effet perce armure. Et au-dessus de 14 Vts vous avez 35% de chance d'appliquer l’effet perce armure."
    ],
    "images": [
-    "Lance_de_joute.jpg"
+    "Lance_de_joute.webp"
    ]
   },
   {
@@ -930,12 +931,12 @@ window.EQUIP_ARMES = {
     "SE": "25 - 50 dégâts"
    },
    "flavor": "Mini pic.",
+   "portee": "3",
    "effets": [
-    "3 de portée.",
     "Si la force est inférieure à 10 alors +40% de dégâts."
    ],
    "images": [
-    "Aiguille.jpg"
+    "Aiguille.webp"
    ]
   },
   {
@@ -952,13 +953,14 @@ window.EQUIP_ARMES = {
     "E": "28 - 56 dégâts (60% 17 - 34)",
     "SE": "35 - 70 dégâts (60% 21 - 42)"
    },
-   "flavor": "3 de portée",
+   "flavor": "",
+   "portee": "3",
    "effets": [
     "Si la force est inférieure à 15 alors les dégâts passent à 60%.",
     "Si la force est supérieur à 18 alors vous faites 2 attaques à la première attaque effectuer contre un ennemi."
    ],
    "images": [
-    "Perche_de_sechage.jpg"
+    "Perche_de_sechage.webp"
    ]
   },
   {
@@ -977,13 +979,14 @@ window.EQUIP_ARMES = {
     "E": "19 - 38 dégâts",
     "SE": "24 - 48 dégâts"
    },
-   "flavor": "4 de portée",
+   "flavor": "",
+   "portee": "4",
    "effets": [
     "Si la force ainsi que la constitution sont supérieur à 14 alors vous avez 30% de chance de faire tomber au sol l’ennemie lors de votre attaque.",
     "Sinon les chances sont de 15%."
    ],
    "images": [
-    "La_Guisarme.jpg"
+    "La_Guisarme.webp"
    ]
   },
   {
@@ -1006,7 +1009,8 @@ window.EQUIP_ARMES = {
     "E": "20 - 40 dégâts",
     "SE": "25 - 50 dégâts"
    },
-   "flavor": "3 de portée",
+   "flavor": "",
+   "portee": "3",
    "effets": [
     "Après votre attaque, vous pouvez maintenir l’ennemi dans La Fourche-Lance. Il subit alors 80% des dégâts max de l’arme à chacun de vos tour où il est maintenu.",
     "Tant qu’il est maintenu, ni vous ni lui ne pouvez bouger ou faire d’action.",
@@ -1014,7 +1018,7 @@ window.EQUIP_ARMES = {
     "Vous pouvez aussi le relâcher quand vous le souhaitez pendant votre tour."
    ],
    "images": [
-    "Fourche_lance.jpg"
+    "Fourche_lance.webp"
    ]
   },
   {
@@ -1037,14 +1041,15 @@ window.EQUIP_ARMES = {
     "E": "9 à 18 dégâts",
     "SE": "11 à 23 dégâts"
    },
-   "flavor": "4 de portée.",
+   "flavor": "",
+   "portee": "4",
    "effets": [
     "Lors d’une attaque, il y a une chance d’infliger l’effet Assourdi à la cible directe.",
     "En plus de l’effet sur la cible, une zone de rayon 3 cases est créée autour de l’impact avec chaque partie de la zone ayant une chance d’appliquer l’effet également:",
     "Toutes les entités présentes dans ces zones peuvent être affectées."
    ],
    "images": [
-    "Sceptre_tintus.jpg"
+    "Sceptre_tintus.webp"
    ]
   },
   {
@@ -1064,13 +1069,13 @@ window.EQUIP_ARMES = {
     "SE": "21 - 42 dégâts"
    },
    "flavor": "3 trous de plus ça ne fait pas de mal.",
+   "portee": "4",
    "effets": [
-    "4 de portée.",
     "Très efficace contre les entités aquatiques(+ 200%).",
     "Il possède l’effet de loyauté."
    ],
    "images": [
-    "Trident.jpg"
+    "Trident.webp"
    ]
   },
   {
@@ -1094,12 +1099,12 @@ window.EQUIP_ARMES = {
     "SE": "28 - 56 dégâts"
    },
    "flavor": "Dans le crâne à ta mère.",
+   "portee": "4",
    "effets": [
-    "4 de portée.",
     "20% de chance d’appliquer l’effet perce armure."
    ],
    "images": [
-    "Lance.jpg"
+    "Lance.webp"
    ]
   },
   {
@@ -1119,12 +1124,12 @@ window.EQUIP_ARMES = {
     "SE": "21 - 42 dégâts"
    },
    "flavor": "La lame est bien accrochée hein?!?",
+   "portee": "3",
    "effets": [
-    "3 de portée.",
     "Style rapide si supérieur à 14 Dextérité."
    ],
    "images": [
-    "Chaine_blade.jpg"
+    "Chaine_blade.webp"
    ]
   },
   {
@@ -1148,12 +1153,13 @@ window.EQUIP_ARMES = {
     "SE": "25 à 50 dégâts"
    },
    "flavor": "4 portée.",
+   "portee": "",
    "effets": [
     "Lorsque l’arme est lancée, elle se plante dans la cible.Le porteur peut ensuite dépenser 1 action pour tenter de tirer la cible vers lui de 5 cases.Cela déclenche un duel de Constitution entre le porteur et la cible:- Si la cible perd: elle est tirée vers le porteur et subit 80% des dégâts maximum de l’arme.- Si la cible gagne: elle résiste et se libère, mais subit tout de même les dégâts maximum de l’arme.Tant que le harpon reste planté, la cible ne peut pas s’éloigner du porteur, mais peut tout de même se déplacer librement dans un rayon maximal de la corde.",
     "Récupérer le harpon (le ramener en main) coûte également 1 action."
    ],
    "images": [
-    "Harpon.jpg"
+    "Harpon.webp"
    ]
   },
   {
@@ -1175,12 +1181,12 @@ window.EQUIP_ARMES = {
     "E": "39 - 79 dégâts"
    },
    "flavor": "Guts goat.",
+   "portee": "3",
    "effets": [
-    "3 de portée.",
     "Si la force est inférieur à 16 vous aurez -2 en Vts."
    ],
    "images": [
-    "Claymore_large.jpg"
+    "Claymore_large.webp"
    ]
   },
   {
@@ -1200,11 +1206,10 @@ window.EQUIP_ARMES = {
     "SE": "45 - 90 dégâts"
    },
    "flavor": "Paslabridebus LOL!",
-   "effets": [
-    "4 de portée."
-   ],
+   "portee": "4",
+   "effets": [],
    "images": [
-    "Labrys.jpg"
+    "Labrys.webp"
    ]
   },
   {
@@ -1224,12 +1229,12 @@ window.EQUIP_ARMES = {
     "SE": "35 - 70 dégâts"
    },
    "flavor": "Double mains, double problème.",
+   "portee": "3",
    "effets": [
-    "3 de portée.",
     "Style rapide si supérieur à 16 Dextérité."
    ],
    "images": [
-    "Epee_a_deux_mains.jpg"
+    "Epee_a_deux_mains.webp"
    ]
   },
   {
@@ -1250,12 +1255,13 @@ window.EQUIP_ARMES = {
     "SR": "26 - 52 dégâts",
     "E": "31 - 63 dégâts"
    },
-   "flavor": "4 de portée.",
+   "flavor": "",
+   "portee": "4",
    "effets": [
     "10% de chance d'esquiver le coups adverse."
    ],
    "images": [
-    "Hache_de_nain.jpg"
+    "Hache_de_nain.webp"
    ]
   },
   {
@@ -1274,14 +1280,15 @@ window.EQUIP_ARMES = {
     "SR": "24 - 49 dégâts",
     "E": "29 - 59 dégâts"
    },
-   "flavor": "3 de portée",
+   "flavor": "",
+   "portee": "3",
    "effets": [
     "Si vous avez 14 ou plus en Force ainsi qu’en Dextérité alors le marteau peut lancer une flèche lors de votre attaque et ce vous pouvez le faire tous les 3 tours.",
     "Quand vous décidez de lancer une flèche vous allez effectuer deux lancés de dés de touches, un pour la flèche et un autre pour le coup de marteau mais celui-ci aura un malus de -4 en Précision.",
     "La flèches ferra +25% de dégâts mais elle ne pourra être tiré qu'à 15 de portée devant lui."
    ],
    "images": [
-    "Marteau_propulseur.jpg"
+    "Marteau_propulseur.webp"
    ]
   },
   {
@@ -1301,11 +1308,12 @@ window.EQUIP_ARMES = {
     "E": "45 à 90 dégâts"
    },
    "flavor": "3 portée.",
+   "portee": "",
    "effets": [
     "Si la Dextérité est supérieure à 16 alors la précision sera de 9, sinon elle sera à 7."
    ],
    "images": [
-    "Sang_battant.jpg"
+    "Sang_battant.webp"
    ]
   },
   {
@@ -1329,12 +1337,12 @@ window.EQUIP_ARMES = {
     "SE": "Dégâts des fléche +25%"
    },
    "flavor": "Paslejeu LOL.",
+   "portee": "35",
    "effets": [
-    "35 de portée.",
     "Style rapide (utilisant le même style de flèches) si la vitesse est minimum de 15."
    ],
    "images": [
-    "Arc.jpg"
+    "Arc.webp"
    ]
   },
   {
@@ -1358,9 +1366,10 @@ window.EQUIP_ARMES = {
     "SE": "84 flèches"
    },
    "flavor": "Coubeh.",
+   "portee": "",
    "effets": [],
    "images": [
-    "Carquoi.jpg"
+    "Carquoi.webp"
    ]
   },
   {
@@ -1382,8 +1391,8 @@ window.EQUIP_ARMES = {
     "E": "9 - 18 dégâts"
    },
    "flavor": "Moi amour sushi.",
+   "portee": "20",
    "effets": [
-    "20 de portée.",
     "On jette un d20 et en fonction du résultat plusieurs kunais peuvent être lancer:",
     "1 - 4 1 kunai lancés.",
     "5 - 11 2 kunais lancés.",
@@ -1391,7 +1400,7 @@ window.EQUIP_ARMES = {
     "18 - 20 4 kunais lancés."
    ],
    "images": [
-    "Kunais.jpg"
+    "Kunais.webp"
    ]
   },
   {
@@ -1407,12 +1416,12 @@ window.EQUIP_ARMES = {
     "SC": "6 - 12 dégâts"
    },
    "flavor": "Sacrée pendante!",
+   "portee": "20",
    "effets": [
-    "20 de portée.",
     "75% de chance d’appliquer l’effet immobilisé."
    ],
    "images": [
-    "Bolas.jpg"
+    "Bolas.webp"
    ]
   },
   {
@@ -1432,12 +1441,12 @@ window.EQUIP_ARMES = {
     "SR": "14 - 28 dégâts"
    },
    "flavor": "Un bâton qui revient.",
+   "portee": "20",
    "effets": [
-    "20 de portée.",
     "¼ chances de faire X2 dégâts."
    ],
    "images": [
-    "Boomerang.jpg"
+    "Boomerang.webp"
    ]
   },
   {
@@ -1461,11 +1470,10 @@ window.EQUIP_ARMES = {
     "SE": "24 - 48 dégâts"
    },
    "flavor": "Waka waka héhé.",
-   "effets": [
-    "20 de portée."
-   ],
+   "portee": "20",
+   "effets": [],
    "images": [
-    "Chakram.jpg"
+    "Chakram.webp"
    ]
   },
   {
@@ -1489,12 +1497,12 @@ window.EQUIP_ARMES = {
     "SE": "Tire sur 30 cases"
    },
    "flavor": "On est dans minecraft ouuuuuuuuuu?!",
+   "portee": "35",
    "effets": [
-    "35 de portée.",
     "Tire une personne."
    ],
    "images": [
-    "Canne_a_peche.jpg"
+    "Canne_a_peche.webp"
    ]
   },
   {
@@ -1514,12 +1522,12 @@ window.EQUIP_ARMES = {
     "SE": "+ 80% de dégâts des flèches"
    },
    "flavor": "Attention les doigts.",
+   "portee": "35",
    "effets": [
-    "35 de portée.",
     "Il faut minimum 12 en Dextérité et 13 en Force pour la manier."
    ],
    "images": [
-    "Arbalete.jpg"
+    "Arbalete.webp"
    ]
   },
   {
@@ -1541,13 +1549,13 @@ window.EQUIP_ARMES = {
     "SE": "31 - 62 dégâts"
    },
    "flavor": "Quelques choses à compenser.",
+   "portee": "20",
    "effets": [
-    "20 de portée.",
     "Il faut minimum 12 en Force pour la manier.",
     "¼ chances de faire X2 dégâts."
    ],
    "images": [
-    "Shuriken_geant.jpg"
+    "Shuriken_geant.webp"
    ]
   },
   {
@@ -1569,12 +1577,12 @@ window.EQUIP_ARMES = {
     "SE": "35 - 70 dégâts"
    },
    "flavor": "La cause du commerce triangulaire.",
+   "portee": "20",
    "effets": [
-    "20 de portée.",
     "Il faut minimum 13 en Force pour la manier."
    ],
    "images": [
-    "Javelot.jpg"
+    "Javelot.webp"
    ]
   },
   {
@@ -1591,12 +1599,13 @@ window.EQUIP_ARMES = {
    ],
    "paliers": {},
    "flavor": "25 portée.",
+   "portee": "",
    "effets": [
     "Lancez 1d4, pour chaque point obtenu, une pierre est projetée.",
     "Pour chaque pierre lancer leur dégâts seront réduit de 1."
    ],
    "images": [
-    "Lance_pierre.jpg"
+    "Lance_pierre.webp"
    ]
   },
   {
@@ -1617,12 +1626,13 @@ window.EQUIP_ARMES = {
     "SR": "+25% de dégâts",
     "E": "+30% de dégâts"
    },
-   "flavor": "15 de portée.",
+   "flavor": "",
+   "portee": "15",
    "effets": [
     "Alors ce que vous attaquez vous tirez un atout. Les dégâts de la carte seront égaux au nombre de l’atout (si vous tomber sur le fou vous lancer 2 autres cartes)."
    ],
    "images": [
-    "Paquet_de_carte.jpg"
+    "Paquet_de_carte.webp"
    ]
   },
   {
@@ -1642,9 +1652,10 @@ window.EQUIP_ARMES = {
     "SE": "+2 actions de barbare et vous faites 10% de dégâts en plus."
    },
    "flavor": null,
+   "portee": "",
    "effets": [],
    "images": [
-    "Corne_du_Barbare.png"
+    "Corne_du_Barbare.webp"
    ]
   },
   {
@@ -1664,9 +1675,10 @@ window.EQUIP_ARMES = {
     "SE": "+2 partitions et si vous êtes en Mono-classe alors le dé du passif du barde passe à un D8 où (1 et 2 = 1 allié; 3 et 4 = 2 alliés; 5 et 6 = 3 alliés; 7 et 8 = 4 alliés). Et si vous êtes en Bi-classes alors le dé passe à un D6 où (1 et 2 = 1 allié; 3 et 4 = 2 alliés; 5 et 6 = 3 alliés)."
    },
    "flavor": null,
+   "portee": "",
    "effets": [],
    "images": [
-    "Recueil_de_poesie_du_Barde.png"
+    "Recueil_de_poesie_du_Barde.webp"
    ]
   },
   {
@@ -1686,9 +1698,10 @@ window.EQUIP_ARMES = {
     "SE": "+2 actions de guerrier et vous donne 10% de résistance."
    },
    "flavor": null,
+   "portee": "",
    "effets": [],
    "images": [
-    "Banniere_du_Guerrier.jpg"
+    "Banniere_du_Guerrier.webp"
    ]
   },
   {
@@ -1708,9 +1721,10 @@ window.EQUIP_ARMES = {
     "SE": "+2 actions de l’archer et vous rajoute +2 de précision."
    },
    "flavor": null,
+   "portee": "",
    "effets": [],
    "images": [
-    "Longue_vue_de_lArcher.png"
+    "Longue_vue_de_lArcher.webp"
    ]
   },
   {
@@ -1730,9 +1744,10 @@ window.EQUIP_ARMES = {
     "SE": "+2 pactes et vos attaques classiques baissent les PV max de la cible de 5% à chaque attaque."
    },
    "flavor": null,
+   "portee": "",
    "effets": [],
    "images": [
-    "Dague_sacrificielle_de_lOccultiste.jpg"
+    "Dague_sacrificielle_de_lOccultiste.webp"
    ]
   },
   {
@@ -1752,9 +1767,10 @@ window.EQUIP_ARMES = {
     "SE": "+2 voeux et les effets des buff que vous utilisez sont multipliés par 1.2 ou si c’est des statistiques vous ajoutez +2 aux statistiques concerné."
    },
    "flavor": null,
+   "portee": "",
    "effets": [],
    "images": [
-    "Texte_sacre_du_Paladin.png"
+    "Texte_sacre_du_Paladin.webp"
    ]
   },
   {
@@ -1774,9 +1790,10 @@ window.EQUIP_ARMES = {
     "SE": "+2 actions de rôdeurs et son animal a des statistiques de 4 niveaux supérieurs."
    },
    "flavor": null,
+   "portee": "",
    "effets": [],
    "images": [
-    "Sifflet_de_dressage_du_Rodeur.jpg"
+    "Sifflet_de_dressage_du_Rodeur.webp"
    ]
   },
   {
@@ -1796,9 +1813,10 @@ window.EQUIP_ARMES = {
     "SE": "+2 actions de roublard et +40% de dégâts à la première attaque du combat."
    },
    "flavor": null,
+   "portee": "",
    "effets": [],
    "images": [
-    "Gant_de_velours_du_Roublard.png"
+    "Gant_de_velours_du_Roublard.webp"
    ]
   },
   {
@@ -1818,9 +1836,10 @@ window.EQUIP_ARMES = {
     "SE": "+2 actions du moine et 10% de chance d’appliquer un style rapide à l’attaque."
    },
    "flavor": null,
+   "portee": "",
    "effets": [],
    "images": [
-    "Chapelet_du_Moine.png"
+    "Chapelet_du_Moine.webp"
    ]
   },
   {
@@ -1840,9 +1859,10 @@ window.EQUIP_ARMES = {
     "SE": "+2 tirages et si les cartes sorties ne conviennent pas le cartomancien peux les remettre dans le paquet est tiré une deux nouvelles cartes, un pile ou face décidera de laquelle des deux cartes sera obligatoirement jouer."
    },
    "flavor": null,
+   "portee": "",
    "effets": [],
    "images": [
-    "Le_paquet_de_carte_du_Cartomancien.png"
+    "Le_paquet_de_carte_du_Cartomancien.webp"
    ]
   },
   {
@@ -1862,9 +1882,10 @@ window.EQUIP_ARMES = {
     "SE": "+2 décoctions et les heals que vous prodiguez seront multipliés par 1.2."
    },
    "flavor": null,
+   "portee": "",
    "effets": [],
    "images": [
-    "Herbiers_de_l_Apothicaire.png"
+    "Herbiers_de_l_Apothicaire.webp"
    ]
   },
   {
@@ -1884,9 +1905,10 @@ window.EQUIP_ARMES = {
     "SE": "+2 actions de Pneuma-chir et +4 de portée sur ces liens."
    },
    "flavor": null,
+   "portee": "",
    "effets": [],
    "images": [
-    "L_aiguille_a_coudre_du_pneuma_chir.png"
+    "L_aiguille_a_coudre_du_pneuma_chir.webp"
    ]
   },
   {
@@ -1906,9 +1928,10 @@ window.EQUIP_ARMES = {
     "SE": "+2 Offrandes et augmente les% de chance de la moisson des offrandes de 20%."
    },
    "flavor": null,
+   "portee": "",
    "effets": [],
    "images": [
-    "Couteau_d_evisceration_du_Chaman.jpg"
+    "Couteau_d_evisceration_du_Chaman.webp"
    ]
   },
   {
@@ -1932,11 +1955,10 @@ window.EQUIP_ARMES = {
     "SE": "17 - 34 dégâts"
    },
    "flavor": "Le cousin chelou du OG.",
-   "effets": [
-    "2 de portée."
-   ],
+   "portee": "2",
+   "effets": [],
    "images": [
-    "Epee_magique.jpg"
+    "Epee_magique.webp"
    ]
   },
   {
@@ -1956,12 +1978,12 @@ window.EQUIP_ARMES = {
     "SE": "39 - 78 dégâts Petite lames:"
    },
    "flavor": "Braabapbapbapppbapp.",
+   "portee": "2",
    "effets": [
-    "2 de portée.",
     "Il faut minimum 16 en Force pour la manier."
    ],
    "images": [
-    "Epee_a_dents_magique.jpg"
+    "Epee_a_dents_magique.webp"
    ]
   },
   {
@@ -1985,12 +2007,12 @@ window.EQUIP_ARMES = {
     "SE": "11 - 22 dégâts"
    },
    "flavor": "Cure dent galactique.",
+   "portee": "1",
    "effets": [
-    "1 de portée.",
     "Il est possible d’empoisonner la lame pour la durée d’un combat en utilisant une potion de poison dessus. Si on attaque dans le dos la dague infligée 50% de dégâts en plus. La première attaque dans le dos inflige 150% de dégâts au lieu de 50%."
    ],
    "images": [
-    "Dague_magique.jpg"
+    "Dague_magique.webp"
    ]
   },
   {
@@ -2014,12 +2036,12 @@ window.EQUIP_ARMES = {
     "SE": "22 - 45 dégâts"
    },
    "flavor": "Trop sophistiqué pour être jeté.",
+   "portee": "4",
    "effets": [
-    "4 de portée.",
     "20% de chance d’appliquer l’effet perce armure."
    ],
    "images": [
-    "Lance_magique.jpg"
+    "Lance_magique.webp"
    ]
   },
   {
@@ -2039,11 +2061,10 @@ window.EQUIP_ARMES = {
     "SE": "29 - 59 dégâts Bouclier:"
    },
    "flavor": "Pour les bûcherons coupe afro.",
-   "effets": [
-    "3 de portée."
-   ],
+   "portee": "3",
+   "effets": [],
    "images": [
-    "Hache_magique.jpg"
+    "Hache_magique.webp"
    ]
   },
   {
@@ -2062,12 +2083,13 @@ window.EQUIP_ARMES = {
     "R": "5D4 + 4 dégâts",
     "SR": "6D4 + 4 dégâts"
    },
-   "flavor": "15 de portée",
+   "flavor": "",
+   "portee": "15",
    "effets": [
     "Au bout de 6 attaques, l’arme nécessite 1TDA de refroidissement."
    ],
    "images": [
-    "Cracheur_energetique.jpg"
+    "Cracheur_energetique.webp"
    ]
   },
   {
@@ -2090,12 +2112,13 @@ window.EQUIP_ARMES = {
     "E": "10D8 dégâts",
     "SE": "12D8 dégâts"
    },
-   "flavor": "15 de portée",
+   "flavor": "",
+   "portee": "15",
    "effets": [
     "Au bout de 4 attaques, l’arme nécessite 1TDA de refroidissement."
    ],
    "images": [
-    "Disperseur_luminique.jpg"
+    "Disperseur_luminique.webp"
    ]
   },
   {
@@ -2115,13 +2138,14 @@ window.EQUIP_ARMES = {
     "E": "6D8 + 12 dégâts La baïonnette: 1 de portée (vert) ½ de repoussé de 1 casse et ¼ d'immobilisé. 17 dégâts"
    },
    "flavor": "Le mousquet:",
+   "portee": "",
    "effets": [
     "2-5 de portée (rouge)",
     "Minimum 14 en Force pour manier cette arme.",
     "Au bout de 2 attaques, l’arme nécessite 1TDA de refroidissement."
    ],
    "images": [
-    "La_baionnette.jpg"
+    "La_baionnette.webp"
    ]
   },
   {
@@ -2140,14 +2164,15 @@ window.EQUIP_ARMES = {
     "E": "5D20 + 25 dégâts",
     "SE": "6D20 + 25 dégâts Petite lames:"
    },
-   "flavor": "30 de portée",
+   "flavor": "",
+   "portee": "30",
    "effets": [
     "Minimum 16 en précision et 14 en Force pour manier cette arme.",
     "Divise la VTS par 2.",
     "L’attaque prend l’action et la sous action. L’arme nécessite 1TDA de refroidissement après chaque attaque."
    ],
    "images": [
-    "Lumino_desoudeur.jpg"
+    "Lumino_desoudeur.webp"
    ]
   },
   {
@@ -2166,13 +2191,14 @@ window.EQUIP_ARMES = {
     "R": "4D4 + 4 dégâts",
     "SR": "5D4 + 4 dégâts"
    },
-   "flavor": "12 de portée",
+   "flavor": "",
+   "portee": "12",
    "effets": [
     "Au bout de 8 attaques, l’arme nécessite 1TDA de refroidissement.",
     "Si cette arme est équipée sans rien dans l’autre main, elle gagne le style rapide."
    ],
    "images": [
-    "Le_mini_Cracheur.jpg"
+    "Le_mini_Cracheur.webp"
    ]
   },
   {
@@ -2196,11 +2222,12 @@ window.EQUIP_ARMES = {
     "SE": "+28% PA 1/4 contre parfait"
    },
    "flavor": "Master chief serait fier.",
+   "portee": "",
    "effets": [
     "Vous faites - 5% de dégâts."
    ],
    "images": [
-    "Bouclier_magique.jpg"
+    "Bouclier_magique.webp"
    ]
   },
   {
@@ -2224,9 +2251,10 @@ window.EQUIP_ARMES = {
     "SE": "+ 70 mana"
    },
    "flavor": "Vous ne passerez pas!!!",
+   "portee": "",
    "effets": [],
    "images": [
-    "Baton_de_magie.jpg"
+    "Baton_de_magie.webp"
    ]
   },
   {
@@ -2246,6 +2274,7 @@ window.EQUIP_ARMES = {
     "SE": "+ 56 mana"
    },
    "flavor": "I need healing!",
+   "portee": "",
    "effets": [
     "Un bâton spécialisé dans les sort de la famille de soutien et les Druides l’apprécie particulièrement:",
     "Ajoute la sous-famille de guérison au sort possible.",
@@ -2254,7 +2283,7 @@ window.EQUIP_ARMES = {
     "+ 20% de mana nécessaire pour les autres types de sorts."
    ],
    "images": [
-    "Baton_de_soutien.jpg"
+    "Baton_de_soutien.webp"
    ]
   },
   {
@@ -2274,6 +2303,7 @@ window.EQUIP_ARMES = {
     "SE": "+ 56 mana"
    },
    "flavor": "Le temps c'est de l'argent!",
+   "portee": "",
    "effets": [
     "Un bâton spécialisé dans les sort de la famille d’action:",
     "Ajoute la sous-famille d’adrénaline au sort possible.",
@@ -2282,7 +2312,7 @@ window.EQUIP_ARMES = {
     "+ 20% de mana nécessaire pour les autres types de sorts."
    ],
    "images": [
-    "Baton_daction.png"
+    "Baton_daction.webp"
    ]
   },
   {
@@ -2302,6 +2332,7 @@ window.EQUIP_ARMES = {
     "SE": "+ 56 mana"
    },
    "flavor": "Build like a tank.",
+   "portee": "",
    "effets": [
     "Un bâton spécialisé dans les sort de la famille de résistance et les Clercs l’apprécie particulièrement:",
     "Ajoute la sous-famille de protection au sort possible.",
@@ -2310,7 +2341,7 @@ window.EQUIP_ARMES = {
     "+ 20% de mana nécessaire pour les autres types de sorts."
    ],
    "images": [
-    "Baton_de_resistance.jpg"
+    "Baton_de_resistance.webp"
    ]
   },
   {
@@ -2330,6 +2361,7 @@ window.EQUIP_ARMES = {
     "SE": "+ 56 mana"
    },
    "flavor": "Tahh éliatrope.",
+   "portee": "",
    "effets": [
     "Un bâton spécialisé dans les sort de la famille de déplacement:",
     "Ajoute la sous-famille de téléportation au sort possible.",
@@ -2338,7 +2370,7 @@ window.EQUIP_ARMES = {
     "+ 20% de mana nécessaire pour les autres types de sorts."
    ],
    "images": [
-    "Baton_de_deplacement.jpg"
+    "Baton_de_deplacement.webp"
    ]
   },
   {
@@ -2358,6 +2390,7 @@ window.EQUIP_ARMES = {
     "SE": "+ 56 mana"
    },
    "flavor": "c’est quoi cette merde!",
+   "portee": "",
    "effets": [
     "Un bâton spécialisé dans les sort de la famille de furtivité:",
     "Ajoute la sous-famille de l’invisibilité au sort possible.",
@@ -2366,7 +2399,7 @@ window.EQUIP_ARMES = {
     "+ 20% de mana nécessaire pour les autres types de sorts."
    ],
    "images": [
-    "Baton_de_furtivite.png"
+    "Baton_de_furtivite.webp"
    ]
   },
   {
@@ -2386,6 +2419,7 @@ window.EQUIP_ARMES = {
     "SE": "+ 56 mana"
    },
    "flavor": "Ta prochaine phrase sera …",
+   "portee": "",
    "effets": [
     "Un bâton spécialisé dans les sort de la famille d’esprit:",
     "Ajoute la sous-famille de l’amour au sort possible.",
@@ -2394,7 +2428,7 @@ window.EQUIP_ARMES = {
     "+ 20% de mana nécessaire pour les autres types de sorts."
    ],
    "images": [
-    "Baton_de_lesprit.jpg"
+    "Baton_de_lesprit.webp"
    ]
   },
   {
@@ -2414,6 +2448,7 @@ window.EQUIP_ARMES = {
     "SE": "+ 56 mana"
    },
    "flavor": "This is fine.",
+   "portee": "",
    "effets": [
     "Un bâton spécialisé dans les sorts élémentaires du feu:",
     "Ajoute la sous-famille du feu au sort possible.",
@@ -2422,7 +2457,7 @@ window.EQUIP_ARMES = {
     "+ 20% de mana nécessaire pour les autres types de sorts."
    ],
    "images": [
-    "Baton_flamboyant.jpg"
+    "Baton_flamboyant.webp"
    ]
   },
   {
@@ -2442,6 +2477,7 @@ window.EQUIP_ARMES = {
     "SE": "+ 56 mana"
    },
    "flavor": "De la glace dans mes veines.",
+   "portee": "",
    "effets": [
     "Un bâton spécialisé dans les sorts élémentaires de glace:",
     "Ajoute la sous-famille de glace au sort possible.",
@@ -2450,7 +2486,7 @@ window.EQUIP_ARMES = {
     "+ 20% de mana nécessaire pour les autres types de sorts."
    ],
    "images": [
-    "Baton_glace.jpg"
+    "Baton_glace.webp"
    ]
   },
   {
@@ -2470,6 +2506,7 @@ window.EQUIP_ARMES = {
     "SE": "+ 56 mana"
    },
    "flavor": "Zzzap electriciti!",
+   "portee": "",
    "effets": [
     "Un bâton spécialisé dans les sorts élémentaires de foudre:",
     "Ajoute la sous-famille de foudre au sort possible.",
@@ -2478,7 +2515,7 @@ window.EQUIP_ARMES = {
     "+ 20% de mana nécessaire pour les autres types de sorts."
    ],
    "images": [
-    "Baton_foudroyant.jpg"
+    "Baton_foudroyant.webp"
    ]
   },
   {
@@ -2498,6 +2535,7 @@ window.EQUIP_ARMES = {
     "SE": "+ 56 mana"
    },
    "flavor": "Je vois des personnes mortes.",
+   "portee": "",
    "effets": [
     "Un bâton spécialisé dans les sorts élémentaires de poison et les Nécromanciens l’apprécie particulièrement:",
     "Ajoute la sous-famille du poison au sort possible.",
@@ -2506,7 +2544,7 @@ window.EQUIP_ARMES = {
     "+ 20% de mana nécessaire pour les autres types de sorts."
    ],
    "images": [
-    "Baton_empoisonne.jpg"
+    "Baton_empoisonne.webp"
    ]
   },
   {
@@ -2526,6 +2564,7 @@ window.EQUIP_ARMES = {
     "SE": "+ 56 mana"
    },
    "flavor": "Bomboclaat!",
+   "portee": "",
    "effets": [
     "Un bâton spécialisé dans les sorts élémentaires d'explosion:",
     "Ajoute la sous-famille d’explosion au sort possible.",
@@ -2534,7 +2573,7 @@ window.EQUIP_ARMES = {
     "+ 20% de mana nécessaire pour les autres types de sorts."
    ],
    "images": [
-    "Baton_explosif.jpg"
+    "Baton_explosif.webp"
    ]
   },
   {
@@ -2554,6 +2593,7 @@ window.EQUIP_ARMES = {
     "SE": "+ 56 mana"
    },
    "flavor": "Sharknado!",
+   "portee": "",
    "effets": [
     "Un bâton spécialisé dans les sort de la famille de l’eau:",
     "Ajoute la sous-famille de l’eau au sort possible.",
@@ -2562,7 +2602,7 @@ window.EQUIP_ARMES = {
     "+ 20% de mana nécessaire pour les autres types de sorts."
    ],
    "images": [
-    "Baton_aquatique.jpg"
+    "Baton_aquatique.webp"
    ]
   },
   {
@@ -2582,6 +2622,7 @@ window.EQUIP_ARMES = {
     "SE": "+ 56 mana"
    },
    "flavor": "Ici on mesure dès vent a plus de 100 km/h!",
+   "portee": "",
    "effets": [
     "Un bâton spécialisé dans les sort de la famille du vent:",
     "Ajoute la sous-famille du vent au sort possible.",
@@ -2590,7 +2631,7 @@ window.EQUIP_ARMES = {
     "+ 20% de mana nécessaire pour les autres types de sorts."
    ],
    "images": [
-    "Baton_eolien.jpg"
+    "Baton_eolien.webp"
    ]
   },
   {
@@ -2610,6 +2651,7 @@ window.EQUIP_ARMES = {
     "SE": "+ 56 mana"
    },
    "flavor": "Un bâton spécialisé dans les sort de la famille de terre:",
+   "portee": "",
    "effets": [
     "Ajoute la sous-famille de terre au sort possible.",
     "OU",
@@ -2617,7 +2659,7 @@ window.EQUIP_ARMES = {
     "+ 20% de mana nécessaire pour les autres types de sorts."
    ],
    "images": [
-    "Baton_terrestre.png"
+    "Baton_terrestre.webp"
    ]
   },
   {
@@ -2637,6 +2679,7 @@ window.EQUIP_ARMES = {
     "SE": "+ 56 mana"
    },
    "flavor": "Une branche magique!",
+   "portee": "",
    "effets": [
     "Un bâton spécialisé dans les sort de la famille de végétaux et les duides l’apprécie particulièrement:",
     "Ajoute la sous-famille de végétaux au sort possible.",
@@ -2645,7 +2688,7 @@ window.EQUIP_ARMES = {
     "+ 20% de mana nécessaire pour les autres types de sorts."
    ],
    "images": [
-    "Baton_vegetale.jpg"
+    "Baton_vegetale.webp"
    ]
   },
   {
@@ -2665,6 +2708,7 @@ window.EQUIP_ARMES = {
     "SE": "+ 56 mana"
    },
    "flavor": "7ème jour dodo.",
+   "portee": "",
    "effets": [
     "Un bâton spécialisé dans les sort de la famille de création et les bastioniste l’apprécie particulièrement:",
     "Ajoute la sous-famille des golems au sort possible.",
@@ -2673,7 +2717,7 @@ window.EQUIP_ARMES = {
     "+ 20% de mana nécessaire pour les autres types de sorts."
    ],
    "images": [
-    "Baton_de_creation.jpg"
+    "Baton_de_creation.webp"
    ]
   },
   {
@@ -2693,6 +2737,7 @@ window.EQUIP_ARMES = {
     "SE": "+ 42 PV"
    },
    "flavor": "Un bâton spécialisé dans les sort de la famille du sang et les hématomancie l’apprécie particulièrement:",
+   "portee": "",
    "effets": [
     "Ajoute la sous-famille d’aspiration du sang au sort possible.",
     "OU",
@@ -2700,7 +2745,7 @@ window.EQUIP_ARMES = {
     "+ 13% de PV nécessaire pour les autres types de sorts."
    ],
    "images": [
-    "Baton_Sanguinolent.jpg"
+    "Baton_Sanguinolent.webp"
    ]
   },
   {
@@ -2720,6 +2765,7 @@ window.EQUIP_ARMES = {
     "SE": "+ 56 mana"
    },
    "flavor": "Un bâton spécialisé dans les sort de la famille des élément oublié:",
+   "portee": "",
    "effets": [
     "Ajoute au sort possible un sort d’attaque évolutif ou une création élémentaire d’un élément oublié que vous créé.",
     "OU",
@@ -2727,7 +2773,7 @@ window.EQUIP_ARMES = {
     "+ 20% de mana nécessaire pour les autres types de sorts."
    ],
    "images": [
-    "Baton_des_elements_oubliees.jpg"
+    "Baton_des_elements_oubliees.webp"
    ]
   },
   {
@@ -2747,11 +2793,10 @@ window.EQUIP_ARMES = {
     "SE": "24 - 49 dégâts"
    },
    "flavor": "Paslestyledecombat LOL!",
-   "effets": [
-    "2 de portée."
-   ],
+   "portee": "2",
+   "effets": [],
    "images": [
-    "La_Luth_hache.jpg"
+    "La_Luth_hache.webp"
    ]
   },
   {
@@ -2775,11 +2820,10 @@ window.EQUIP_ARMES = {
     "SE": "21 - 42 dégâts"
    },
    "flavor": "Pour déterrer et zouker ta grand-mère.",
-   "effets": [
-    "3 de portée."
-   ],
+   "portee": "3",
+   "effets": [],
    "images": [
-    "Pelle_guitard.jpg"
+    "Pelle_guitard.webp"
    ]
   },
   {
@@ -2797,13 +2841,13 @@ window.EQUIP_ARMES = {
     "R": "7 - 15 dégâts"
    },
    "flavor": "Tchic tchic.",
+   "portee": "20",
    "effets": [
-    "20 de portée.",
     "Marque un adversaire en faisant du bruit.",
     "Attaque 2x."
    ],
    "images": [
-    "Maracas_piquant.jpg"
+    "Maracas_piquant.webp"
    ]
   },
   {
@@ -2823,13 +2867,13 @@ window.EQUIP_ARMES = {
     "SR": "4 - 9 dégâts"
    },
    "flavor": "Affronter mon regard.",
+   "portee": "30",
    "effets": [
-    "30 de portée.",
     "Attaque 3 fois par tour si la Vts est supérieure à 12.",
     "Attaque 4 fois par tour si la Vts est supérieure à 13."
    ],
    "images": [
-    "Pifano_sarbacane.jpg"
+    "Pifano_sarbacane.webp"
    ]
   },
   {
@@ -2847,12 +2891,12 @@ window.EQUIP_ARMES = {
     "SE": "+ 45% de dégâts des flèches"
    },
    "flavor": "Pour tirer des bangers.",
+   "portee": "35",
    "effets": [
-    "35 de portée.",
     "Il faut minimum 13 en force et 12 en Dextérité pour la manier."
    ],
    "images": [
-    "Lyree_arbalete.jpg"
+    "Lyree_arbalete.webp"
    ]
   },
   {
@@ -2875,12 +2919,13 @@ window.EQUIP_ARMES = {
     "E": "Dégâts des flèches +15%",
     "SE": "Dégâts des flèches +20% Bouclier:"
    },
-   "flavor": "30 de portée.",
+   "flavor": "",
+   "portee": "30",
    "effets": [
     "Style rapide (utilise le même style de flèche) si la vitesse est minimum de 16."
    ],
    "images": [
-    "Arc_harpe.jpg"
+    "Arc_harpe.webp"
    ]
   },
   {
@@ -2904,9 +2949,10 @@ window.EQUIP_ARMES = {
     "SE": "+28% PA 1/4 contre parfait"
    },
    "flavor": "Vous faites - 10% de dégâts.",
+   "portee": "",
    "effets": [],
    "images": [
-    "Bouclier_tambourin.jpg"
+    "Bouclier_tambourin.webp"
    ]
   },
   {
@@ -2929,10 +2975,11 @@ window.EQUIP_ARMES = {
     "E": "17 - 34 dégâts",
     "SE": "21 - 42 dégâts Mi-distance et de lancer: Il faut minimum 12 en Force pour les lancer."
    },
-   "flavor": "2 de portée.",
+   "flavor": "",
+   "portee": "2",
    "effets": [],
    "images": [
-    "LEpee_lambique.jpg"
+    "LEpee_lambique.webp"
    ]
   },
   {
@@ -2951,10 +2998,11 @@ window.EQUIP_ARMES = {
     "E": "18 - 36 dégâts",
     "SE": "22 - 45 dégâts"
    },
-   "flavor": "4 de portée.",
+   "flavor": "",
+   "portee": "4",
    "effets": [],
    "images": [
-    "Lancexactrise.jpg"
+    "Lancexactrise.webp"
    ]
   },
   {
@@ -2977,12 +3025,13 @@ window.EQUIP_ARMES = {
     "E": "Dégâts des flèches +15%",
     "SE": "Dégâts des flèches +20%"
    },
-   "flavor": "30 de portée.",
+   "flavor": "",
+   "portee": "30",
    "effets": [
     "Style rapide (utilise le même style de flèche) si la vitesse est minimum de 16."
    ],
    "images": [
-    "Arc_fruitier.jpg"
+    "Arc_fruitier.webp"
    ]
   },
   {
@@ -3005,12 +3054,13 @@ window.EQUIP_ARMES = {
     "E": "9 - 18 dégâts",
     "SE": "11 - 22 dégâts Bouclier:"
    },
-   "flavor": "20 de portée.",
+   "flavor": "",
+   "portee": "20",
    "effets": [
     "Lorsqu'elle est lancée, elle a 1/3 de chance d’appliquer l'effet empoisonné."
    ],
    "images": [
-    "Fiole_de_lancer.jpg"
+    "Fiole_de_lancer.webp"
    ]
   },
   {
@@ -3034,9 +3084,10 @@ window.EQUIP_ARMES = {
     "SE": "+28% PA 1/4 contre parfait"
    },
    "flavor": "Vous faites - 10% de dégâts.",
+   "portee": "",
    "effets": [],
    "images": [
-    "Bouclier_cucurbite.jpg"
+    "Bouclier_cucurbite.webp"
    ]
   },
   {
@@ -3056,11 +3107,12 @@ window.EQUIP_ARMES = {
     "E": "+23% PA 1/6 contre parfait"
    },
    "flavor": "Couvercle de casserole.",
+   "portee": "",
    "effets": [
     "Garde les style rapide."
    ],
    "images": [
-    "Bouclier_leger.jpg"
+    "Bouclier_leger.webp"
    ]
   },
   {
@@ -3084,11 +3136,12 @@ window.EQUIP_ARMES = {
     "SE": "+34% PA 1/4 contre parfait"
    },
    "flavor": "On se la met en joute.",
+   "portee": "",
    "effets": [
     "Vous faites - 5% de dégâts."
    ],
    "images": [
-    "Bouclier.jpg"
+    "Bouclier.webp"
    ]
   },
   {
@@ -3106,11 +3159,12 @@ window.EQUIP_ARMES = {
     "E": "+27% PA 30% de chance de réflexion"
    },
    "flavor": "Parle à ma main.",
+   "portee": "",
    "effets": [
     "Vous faites - 5% de dégâts."
    ],
    "images": [
-    "Bouclier_miroire.jpg"
+    "Bouclier_miroire.webp"
    ]
   },
   {
@@ -3130,12 +3184,13 @@ window.EQUIP_ARMES = {
     "SE": "+45% PA 1/2 contre parfait"
    },
    "flavor": "Efficace contre les casseurs.",
+   "portee": "",
    "effets": [
     "Il faut minimum 16 en Force pour le manier.",
     "Vous faites - 10% de dégâts et réduit la vitesse de 2."
    ],
    "images": [
-    "Bouclier_lourd.jpg"
+    "Bouclier_lourd.webp"
    ]
   },
   {
@@ -3153,6 +3208,7 @@ window.EQUIP_ARMES = {
     "E": "+31% PA 1/4 contre parfait"
    },
    "flavor": "Il faut minimum 16 en Force pour le manier.",
+   "portee": "",
    "effets": [
     "Vous faites - 10% de dégâts et réduit la vitesse de 2.",
     "Pour chaque attaque subie vous allez gagner 15% de dégâts en plus mais vous allez en contrepartie subir 7% de dégâts en plus aussi.",
@@ -3162,7 +3218,7 @@ window.EQUIP_ARMES = {
     "Avec 3 éléments de l’armure: Pour chaque attaque subie vous allez gagner 56% de dégâts en plus mais vous allez en contrepartie subir 18% de dégâts en plus aussi."
    ],
    "images": [
-    "Bouclier_du_berserker.jpg"
+    "Bouclier_du_berserker.webp"
    ]
   },
   {
@@ -3186,11 +3242,12 @@ window.EQUIP_ARMES = {
     "SE": "+28% PA"
    },
    "flavor": "Garde les style rapide.",
+   "portee": "",
    "effets": [
     "Le bouclier vortex peut être lancé a une portée de 15 cases. Il fera des dégâts équivalant au points d’armure donner par le bouclier vortex."
    ],
    "images": [
-    "Bouclier_vortex.jpg"
+    "Bouclier_vortex.webp"
    ]
   },
   {
@@ -3210,9 +3267,10 @@ window.EQUIP_ARMES = {
     "E": "25% de dégâts absorbés"
    },
    "flavor": "Le bouclier peut absorber un pourcentage des dégâts reçus (X% selon sa rareté). En dépensant 1 action, vous pouvez relâcher l’énergie absorbée et infliger l’équivalent des dégâts stockés sur une cible située à 1 case de portée. Tous les dégâts absorbés sont automatiquement déchargés à la fin de chaque combat.",
+   "portee": "",
    "effets": [],
    "images": [
-    "Bouclier_Absorbant.jpg"
+    "Bouclier_Absorbant.webp"
    ]
   },
   {
@@ -3236,11 +3294,12 @@ window.EQUIP_ARMES = {
     "SE": "+23% PA 1/6 contre parfait"
    },
    "flavor": "Vous faites - 5% de dégâts",
+   "portee": "",
    "effets": [
     "À chaque fois que vous subissez une attaque, l’assaillant encaisse 10 dégâts fixes et il y a 20% de chances de subir l’effet Saignement."
    ],
    "images": [
-    "Bouclier_piquant.jpg"
+    "Bouclier_piquant.webp"
    ]
   },
   {
@@ -3258,9 +3317,10 @@ window.EQUIP_ARMES = {
     "E": "+ 20% de dégâts"
    },
    "flavor": null,
+   "portee": "",
    "effets": [],
    "images": [
-    "Les_griffes_metallique.jpg"
+    "Les_griffes_metallique.webp"
    ]
   },
   {
@@ -3278,9 +3338,10 @@ window.EQUIP_ARMES = {
     "E": "+ 20% de PA"
    },
    "flavor": null,
+   "portee": "",
    "effets": [],
    "images": [
-    "La_carapace_en_metal.jpg"
+    "La_carapace_en_metal.webp"
    ]
   },
   {
@@ -3298,9 +3359,10 @@ window.EQUIP_ARMES = {
     "E": "+ 3 de VTS"
    },
    "flavor": null,
+   "portee": "",
    "effets": [],
    "images": [
-    "Les_ails_de_fer.jpg"
+    "Les_ails_de_fer.webp"
    ]
   },
   {
@@ -3318,9 +3380,10 @@ window.EQUIP_ARMES = {
     "E": "- 7,5% de dégâts ainsi que 15% de chance d’appliquer l’effet saignement."
    },
    "flavor": null,
+   "portee": "",
    "effets": [],
    "images": [
-    "Les_griffes_doree.jpg"
+    "Les_griffes_doree.webp"
    ]
   },
   {
@@ -3338,9 +3401,10 @@ window.EQUIP_ARMES = {
     "E": "- 7,5% de PV ainsi que 15% des dégâts sont renvoyés à l'ennemi."
    },
    "flavor": null,
+   "portee": "",
    "effets": [],
    "images": [
-    "La_carapace_en_or.jpg"
+    "La_carapace_en_or.webp"
    ]
   },
   {
@@ -3358,9 +3422,10 @@ window.EQUIP_ARMES = {
     "E": "- 1 de VTS ainsi qu’un second déplacement a 1/2 de distance."
    },
    "flavor": null,
+   "portee": "",
    "effets": [],
    "images": [
-    "Les_ails_dor.jpg"
+    "Les_ails_dor.webp"
    ]
   },
   {
@@ -3370,9 +3435,10 @@ window.EQUIP_ARMES = {
    "tiers": [],
    "paliers": {},
    "flavor": "Droit dans le genou.",
+   "portee": "",
    "effets": [],
    "images": [
-    "Fleche.jpg"
+    "Fleche.webp"
    ],
    "degatUnique": "10 - 15 de dégâts"
   },
@@ -3383,9 +3449,10 @@ window.EQUIP_ARMES = {
    "tiers": [],
    "paliers": {},
    "flavor": "Big ouille!",
+   "portee": "",
    "effets": [],
    "images": [
-    "Tetes_larges.jpg"
+    "Tetes_larges.webp"
    ],
    "degatUnique": "16 - 25 de dégâts"
   },
@@ -3396,11 +3463,12 @@ window.EQUIP_ARMES = {
    "tiers": [],
    "paliers": {},
    "flavor": "Giga mega ouille!!!",
+   "portee": "",
    "effets": [
     "Il faut minimum 15 en Force pour les tirer."
    ],
    "images": [
-    "Grosse_fleches.png"
+    "Grosse_fleches.webp"
    ],
    "degatUnique": "24 - 37 de dégâts."
   },
@@ -3411,9 +3479,10 @@ window.EQUIP_ARMES = {
    "tiers": [],
    "paliers": {},
    "flavor": "Et la lumière fut.",
+   "portee": "",
    "effets": [],
    "images": [
-    "Fleches_de_lumiere.jpg"
+    "Fleches_de_lumiere.webp"
    ],
    "degatUnique": "26 - 40 dégâts"
   },
@@ -3424,9 +3493,10 @@ window.EQUIP_ARMES = {
    "tiers": [],
    "paliers": {},
    "flavor": "Caliente!!!!!",
+   "portee": "",
    "effets": [],
    "images": [
-    "Fleches_de_feu.jpg"
+    "Fleches_de_feu.webp"
    ],
    "degatUnique": "10 - 15 de dégâts + effet brûlé."
   },
@@ -3437,11 +3507,12 @@ window.EQUIP_ARMES = {
    "tiers": [],
    "paliers": {},
    "flavor": "Ninja! (pasletreamer LOL!).",
+   "portee": "",
    "effets": [
     "Créé à l'impacte une zone de 5 cases remplie de fumée."
    ],
    "images": [
-    "Fleches_fumigene.jpg"
+    "Fleches_fumigene.webp"
    ]
   },
   {
@@ -3451,9 +3522,10 @@ window.EQUIP_ARMES = {
    "tiers": [],
    "paliers": {},
    "flavor": "Christophe Maé sors de là.",
+   "portee": "",
    "effets": [],
    "images": [
-    "Fleches_empoisonnees.jpg"
+    "Fleches_empoisonnees.webp"
    ],
    "degatUnique": "10 - 15 de dégâts + effet empoisonné."
   },
@@ -3464,9 +3536,10 @@ window.EQUIP_ARMES = {
    "tiers": [],
    "paliers": {},
    "flavor": "Canicule! Hmm hmm… Canicule!",
+   "portee": "",
    "effets": [],
    "images": [
-    "Fleches_de_glace.jpg"
+    "Fleches_de_glace.webp"
    ],
    "degatUnique": "10 - 15 de dégâts + effet congelé."
   },
@@ -3477,9 +3550,10 @@ window.EQUIP_ARMES = {
    "tiers": [],
    "paliers": {},
    "flavor": "Pour te foudroyer le fion.",
+   "portee": "",
    "effets": [],
    "images": [
-    "Fleches_de_foudre.jpg"
+    "Fleches_de_foudre.webp"
    ],
    "degatUnique": "10 - 15 de dégâts + effet foudroyé."
   },
@@ -3490,9 +3564,10 @@ window.EQUIP_ARMES = {
    "tiers": [],
    "paliers": {},
    "flavor": "Cui cui les ptits oiseaux!",
+   "portee": "",
    "effets": [],
    "images": [
-    "Fleches_de_vent.jpg"
+    "Fleches_de_vent.webp"
    ],
    "degatUnique": "10 - 15 de dégâts + effet éjecté."
   },
@@ -3503,9 +3578,10 @@ window.EQUIP_ARMES = {
    "tiers": [],
    "paliers": {},
    "flavor": "Ta bien bue de l’eau?",
+   "portee": "",
    "effets": [],
    "images": [
-    "Fleches_deau.jpg"
+    "Fleches_deau.webp"
    ],
    "degatUnique": "10- 15 de dégâts + effet détrempé."
   },
@@ -3516,9 +3592,10 @@ window.EQUIP_ARMES = {
    "tiers": [],
    "paliers": {},
    "flavor": "Des fleurs pour ta mère!",
+   "portee": "",
    "effets": [],
    "images": [
-    "Fleches_vegetale.jpg"
+    "Fleches_vegetale.webp"
    ],
    "degatUnique": "10 - 15 de dégâts + effet lacéré."
   },
@@ -3529,9 +3606,10 @@ window.EQUIP_ARMES = {
    "tiers": [],
    "paliers": {},
    "flavor": "Le sol c’est de la lave!",
+   "portee": "",
    "effets": [],
    "images": [
-    "Fleches_de_terre.jpg"
+    "Fleches_de_terre.webp"
    ],
    "degatUnique": "10 - 15 de dégâts + effet enlisé."
   },
@@ -3542,9 +3620,10 @@ window.EQUIP_ARMES = {
    "tiers": [],
    "paliers": {},
    "flavor": "Wankil crazy!!!",
+   "portee": "",
    "effets": [],
    "images": [
-    "Fleches_de_folie.jpg"
+    "Fleches_de_folie.webp"
    ],
    "degatUnique": "10 - 15 de dégâts + effet de folie."
   },
@@ -3555,12 +3634,13 @@ window.EQUIP_ARMES = {
    "tiers": [],
    "paliers": {},
    "flavor": "MACRON…putain…EXPLOTION!!",
+   "portee": "",
    "effets": [
     "Dégâts d'explosion 2D10 toutes les créatures dans une zone de 2 cases.",
     "1⁄3 de chance d'appliquer l’effet brûlé."
    ],
    "images": [
-    "Fleches_explosives.jpg"
+    "Fleches_explosives.webp"
    ]
   },
   {
@@ -3570,9 +3650,10 @@ window.EQUIP_ARMES = {
    "tiers": [],
    "paliers": {},
    "flavor": "big pique!",
+   "portee": "",
    "effets": [],
    "images": [
-    "Fleches_percantes.png"
+    "Fleches_percantes.webp"
    ],
    "degatUnique": "10 - 15 de dégâts + effet perce armure."
   },
@@ -3583,9 +3664,10 @@ window.EQUIP_ARMES = {
    "tiers": [],
    "paliers": {},
    "flavor": "On prend la même est on recommence.",
+   "portee": "",
    "effets": [],
    "images": [
-    "Fleches_temporelle.png"
+    "Fleches_temporelle.webp"
    ],
    "degatUnique": "6 - 10 de dégâts + effet loyal sur 8 tirs."
   },
@@ -3596,9 +3678,10 @@ window.EQUIP_ARMES = {
    "tiers": [],
    "paliers": {},
    "flavor": "C’est un hérisson le baille ou!!!",
+   "portee": "",
    "effets": [],
    "images": [
-    "Fleches_saignante.png"
+    "Fleches_saignante.webp"
    ],
    "degatUnique": "10 - 15 de dégâts + effet saignement."
   },
@@ -3609,9 +3692,10 @@ window.EQUIP_ARMES = {
    "tiers": [],
    "paliers": {},
    "flavor": "Toucher par cupidon!!!!!",
+   "portee": "",
    "effets": [],
    "images": [
-    "Fleches_damour.png"
+    "Fleches_damour.webp"
    ],
    "degatUnique": "6 - 10 de dégâts + 1/3 effet amoureux."
   },
@@ -3622,9 +3706,10 @@ window.EQUIP_ARMES = {
    "tiers": [],
    "paliers": {},
    "flavor": "Slurp! Slurp!",
+   "portee": "",
    "effets": [],
    "images": [
-    "Fleches_de_lenteur.png"
+    "Fleches_de_lenteur.webp"
    ],
    "degatUnique": "10 - 15 de dégâts + effet ralentie."
   }
