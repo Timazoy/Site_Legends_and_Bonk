@@ -304,11 +304,15 @@ function majZ() {
    recouvertes. On les masque pour que le navigateur cesse de peindre
    leur parchemin (bruit SVG, dégradés, ombres) : invisible à l'œil,
    mais c'est autant de travail en moins à chaque image.
-   On garde une marge de sécurité de chaque côté, car pendant un
-   feuilletage on aperçoit la feuille suivante sous celle qui tourne. */
+   La fenêtre visible au repos couvre TOUT ce qu'un tournant simple va
+   révéler — [N-3 … N+2] : vers l'avant afficherPlage montre jusqu'à N+2,
+   vers l'arrière jusqu'à N-3. Ainsi aucune feuille ne passe de masquée à
+   visible AU DÉMARRAGE du tournant : sa texture, déjà rasterisée au repos,
+   n'a pas à être créée à froid pile au mauvais moment. Peindre ces quelques
+   pages de plus ne coûte rien tant que le livre est immobile. */
 function majVisibilite() {
   sheets.forEach((s, i) => {
-    const proche = i >= feuillesTournees - 2 && i <= feuillesTournees + 1;
+    const proche = i >= feuillesTournees - 3 && i <= feuillesTournees + 2;
     s.style.visibility = proche ? "" : "hidden";
   });
 }
@@ -316,15 +320,15 @@ function majVisibilite() {
 /* Préchauffage des pages voisines, AU REPOS.
    Sur un livre à pages très chargées (Grand Livre de la Magie), créer la
    texture de la page qui arrive est une grosse peinture unique : posée pile
-   au démarrage du tournant, elle fait sauter la première image. On garde
-   donc will-change sur les pages immédiatement atteignables (courante ±1)
-   pendant que le livre est immobile : le navigateur rasterise leur texture
-   à tête reposée, et le prochain tournant la réutilise sans repeindre.
-   Fenêtre volontairement étroite (mémoire) ; ces pages sont déjà visibles,
-   condition nécessaire pour qu'une texture soit effectivement produite. */
+   au démarrage du tournant, elle fait sauter la première image. On promeut
+   donc, pendant que le livre est immobile, toutes les feuilles que le
+   prochain tournant peut révéler — la MÊME fenêtre que majVisibilite,
+   [N-3 … N+2] — pour que le navigateur rasterise leur texture à tête reposée
+   et que le tournant la réutilise sans rien recréer. La condition « déjà
+   visible » est garantie par majVisibilite, appelée juste avant. */
 function prechauffer() {
   sheets.forEach((s, i) => {
-    const chaud = i >= feuillesTournees - 1 && i <= feuillesTournees + 1;
+    const chaud = i >= feuillesTournees - 3 && i <= feuillesTournees + 2;
     s.style.willChange = chaud ? "transform" : "";
     for (const p of s.children) p.style.willChange = chaud ? "transform" : "";
   });
