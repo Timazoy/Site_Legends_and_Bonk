@@ -12,13 +12,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap"
     rel="stylesheet" />
   <title>Les armes — Legends & Bonk</title>
-  <meta name="description" content="Toutes les armes de Legends & Bonk : caractéristiques, dégâts et prix pour équiper votre personnage de jeu de rôle." />
+  <meta name="description" content="Toutes les armes de Legends & Bonk : catalogue filtrable par catégorie, fiches détaillées avec dégâts et effets par rareté." />
   <link rel="canonical" href="https://legendsandbonk.com/equipement/armes.html" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Legends &amp; Bonk" />
   <meta property="og:locale" content="fr_FR" />
   <meta property="og:title" content="Les armes — Legends & Bonk" />
-  <meta property="og:description" content="Toutes les armes de Legends & Bonk : caractéristiques, dégâts et prix pour équiper votre personnage de jeu de rôle." />
+  <meta property="og:description" content="Toutes les armes de Legends & Bonk : catalogue filtrable par catégorie, fiches détaillées avec dégâts et effets par rareté." />
   <meta property="og:url" content="https://legendsandbonk.com/equipement/armes.html" />
   <meta property="og:image" content="https://legendsandbonk.com/image/image_pala_presentation.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -26,18 +26,334 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
     crossorigin="anonymous"></script>
+
+  <style>
+    :root {
+      --parch: #f4ecd8; --parch2: #e9dcbd; --ink: #2b2116; --line: #c9b892;
+      --bordeaux: #7a0808; --brun: #281b07;
+    }
+    .eq-wrap { max-width: 1100px; margin: 0 auto; padding: 0 12px 60px; }
+    h1.eq-title { text-align: center; font-weight: 700; letter-spacing: .5px; margin: 18px 0 2px; color: var(--brun); }
+    .eq-sub { text-align: center; color: #6b5a3a; font-style: italic; margin-bottom: 20px; }
+
+    .eq-filters {
+      position: sticky; top: 0; z-index: 20; background: rgba(244,236,216,.97); backdrop-filter: blur(3px);
+      border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; margin-bottom: 24px;
+      box-shadow: 0 3px 10px rgba(0,0,0,.08);
+    }
+    .eq-search {
+      width: 100%; font-family: inherit; font-weight: 600; font-size: 20px; padding: 8px 14px;
+      border: 1px solid var(--line); border-radius: 8px; background: #fffdf6; color: var(--ink);
+    }
+    .eq-search:focus { outline: 2px solid var(--bordeaux); border-color: var(--bordeaux); }
+    .eq-cats { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+    .eq-cat {
+      font-family: inherit; font-size: 16px; font-weight: 600; padding: 4px 13px; border-radius: 999px;
+      cursor: pointer; border: 1px solid var(--line); background: #fffdf6; color: var(--ink); transition: all .15s;
+    }
+    .eq-cat:hover { border-color: var(--bordeaux); }
+    .eq-cat.active { background: var(--bordeaux); color: #fff; border-color: var(--bordeaux); }
+    .eq-cat:focus-visible { outline: 2px solid var(--bordeaux); outline-offset: 2px; }
+    .eq-count { text-align: center; color: #8a795a; font-size: 16px; margin: -12px 0 18px; }
+
+    .cat-sep { border: none; border-top: 2px solid var(--line); margin: 34px 0 0; opacity: .8; }
+    .cat-header {
+      text-align: center; font-weight: 700; font-size: 30px; color: var(--brun);
+      margin: 18px 0 4px; letter-spacing: .5px;
+    }
+    .cat-header::after {
+      content: ""; display: block; width: 70px; height: 3px; background: var(--bordeaux);
+      margin: 8px auto 0; border-radius: 2px;
+    }
+    .subcat-header {
+      font-weight: 700; font-size: 21px; color: var(--bordeaux); font-style: italic;
+      margin: 22px 0 10px; padding-left: 4px;
+    }
+    .eq-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(175px, 1fr)); gap: 16px; }
+    .eq-grid + .subcat-header { margin-top: 26px; }
+    .eq-tile {
+      background: linear-gradient(160deg, var(--parch), var(--parch2)); border: 1px solid var(--line);
+      border-radius: 12px; padding: 11px; cursor: pointer; text-align: center; display: flex; flex-direction: column;
+      transition: transform .12s, box-shadow .12s;
+    }
+    .eq-tile:hover { transform: translateY(-3px); box-shadow: 0 8px 18px rgba(0,0,0,.16); }
+    .eq-tile:focus-visible { outline: 2px solid var(--bordeaux); outline-offset: 2px; }
+    .eq-thumb {
+      height: 118px; border-radius: 8px; overflow: hidden; background: #fffdf6; display: flex;
+      align-items: center; justify-content: center; border: 1px solid var(--line); margin-bottom: 9px;
+    }
+    .eq-thumb img { max-width: 100%; max-height: 100%; object-fit: contain; }
+    .eq-thumb.placeholder { color: #b9a06a; font-size: 46px; }
+    .eq-tile-name { font-weight: 700; font-size: 18px; line-height: 1.1; color: var(--brun); }
+    .eq-tile-cat { font-size: 14px; color: #9a875f; font-style: italic; margin-top: 2px; }
+    .eq-dots { display: flex; gap: 4px; justify-content: center; margin-top: 7px; min-height: 11px; }
+    .eq-dot { width: 11px; height: 11px; border-radius: 50%; border: 1px solid rgba(0,0,0,.28); }
+
+    .eq-fiche {
+      background: linear-gradient(160deg, var(--parch), var(--parch2)); border: 1px solid var(--line);
+      border-radius: 16px; padding: 24px 28px; box-shadow: 0 10px 30px rgba(0,0,0,.14); position: relative;
+    }
+    .eq-fiche::before {
+      content: ""; position: absolute; inset: 8px; border: 1px solid rgba(122,8,8,.18);
+      border-radius: 10px; pointer-events: none;
+    }
+    .eq-back {
+      display: inline-block; margin-bottom: 14px; cursor: pointer; color: var(--bordeaux);
+      font-weight: 700; font-size: 18px; background: none; border: none; font-family: inherit;
+    }
+    .eq-back:hover { text-decoration: underline; }
+    .eq-back:focus-visible { outline: 2px solid var(--bordeaux); outline-offset: 2px; }
+    .fiche-grid { display: grid; grid-template-columns: 1fr; gap: 22px; }
+    @media (min-width: 820px) { .fiche-grid { grid-template-columns: 1fr minmax(290px, 42%); } }
+    .fiche-name { font-size: 38px; font-weight: 700; color: var(--brun); line-height: 1.02; margin: 0; text-wrap: balance; }
+    .fiche-cat {
+      font-style: italic; color: var(--bordeaux); font-size: 20px; margin: 6px 0 2px; padding-bottom: 12px;
+      border-bottom: 2px solid rgba(122,8,8,.35);
+    }
+    .fiche-flavor { font-style: italic; font-size: 21px; color: #5a4a2c; margin: 15px 0 8px; }
+    .fiche-effects { font-size: 20px; margin-top: 6px; }
+    .fiche-effects p { margin: 0 0 5px; }
+    .fiche-illu {
+      background: #fffdf6; border: 1px solid var(--line); border-radius: 12px; padding: 14px;
+      display: flex; flex-direction: column; align-items: center; align-self: start; gap: 12px;
+    }
+    .fiche-illu img { max-width: 100%; max-height: 330px; object-fit: contain; border-radius: 6px; }
+    .fiche-illu.multi img { max-height: 250px; }
+    .fiche-illu.multi img + img { border-top: 1px dashed var(--line); padding-top: 12px; }
+    .fiche-illu.placeholder { min-height: 220px; justify-content: center; color: #b9a06a; font-size: 76px; }
+    .fiche-illu figcaption { font-style: italic; color: #7a6a48; font-size: 16px; text-align: center; }
+
+    .paliers { width: 100%; border-collapse: collapse; margin-top: 18px; }
+    .paliers caption { caption-side: top; text-align: left; font-weight: 700; font-size: 19px; color: var(--brun); padding-bottom: 6px; }
+    .paliers td { padding: 7px 10px; border-bottom: 1px solid rgba(201,184,146,.7); font-size: 19px; vertical-align: top; }
+    .paliers tr:last-child td { border-bottom: none; }
+    .pal-rare { white-space: nowrap; width: 1%; }
+    .pal-pill {
+      display: inline-block; font-weight: 700; font-size: 14px; padding: 2px 9px; border-radius: 999px;
+      min-width: 32px; text-align: center; font-variant-numeric: tabular-nums;
+    }
+    .pal-val { font-weight: 700; }
+    .single-dmg { font-size: 23px; font-weight: 700; color: var(--brun); margin-top: 8px; }
+    .eq-empty { grid-column: 1/-1; text-align: center; color: #6b5a3a; padding: 30px 0; }
+    @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+    @media (max-width: 768px) {
+      .fiche-name { font-size: 30px; }
+      h1.eq-title { font-size: 1.6rem; }
+    }
+  </style>
 </head>
 
 <body>
   <script src="../commun.js"></script>
 
-  <!-- Contenu de la page -->
   <main>
-    <div class="container" style="margin-top: 20px;">
-      <h1 class="text-center">Les armes</h1>
-      <p class="text-center">Cette page arrive bientôt…</p>
+    <div class="eq-wrap">
+      <h1 class="eq-title">Les armes</h1>
+      <p class="eq-sub">Le grimoire d'équipement — choisissez un objet pour consulter sa fiche</p>
+
+      <div id="vue-catalogue">
+        <div class="eq-filters">
+          <input id="recherche" class="eq-search" type="search" placeholder="Rechercher une arme…" autocomplete="off" aria-label="Rechercher une arme" />
+          <div id="cats" class="eq-cats"></div>
+        </div>
+        <p id="compte" class="eq-count"></p>
+        <div id="grille"></div>
+      </div>
+
+      <div id="vue-fiche" style="display:none;"></div>
     </div>
   </main>
+
+  <script src="armes-data.js"></script>
+  <script>
+    (function () {
+      var DB = window.EQUIP_ARMES || { raretes: {}, categoriesOrdre: [], objets: [] };
+      var IMG_BASE = "../image-db/equipement/armes/";
+      var RAR = DB.raretes;
+
+      // couleur de texte lisible (assombrie si trop claire) + texte du pill (blanc/noir)
+      function hexToRgb(h) { return [parseInt(h.slice(1,3),16), parseInt(h.slice(3,5),16), parseInt(h.slice(5,7),16)]; }
+      function lum(h) { var c = hexToRgb(h).map(function(v){ v/=255; return v<=.03928 ? v/12.92 : Math.pow((v+.055)/1.055,2.4); }); return .2126*c[0]+.7152*c[1]+.0722*c[2]; }
+      function texteLisible(h) {
+        var l = lum(h);
+        if (l < 0.4) return h;
+        var f = 0.45, rgb = hexToRgb(h).map(function(v){ return Math.round(v*f); });
+        return "#" + rgb.map(function(v){ return ("0"+v.toString(16)).slice(-2); }).join("");
+      }
+      function pillTexte(h) { return lum(h) > 0.55 ? "#1a1a1a" : "#ffffff"; }
+
+      // pré-calcul des styles de rareté
+      Object.keys(RAR).forEach(function (k) {
+        RAR[k].texte = texteLisible(RAR[k].couleur);
+        RAR[k].pillTxt = pillTexte(RAR[k].couleur);
+      });
+
+      var esc = function (s) { var d = document.createElement("div"); d.textContent = s == null ? "" : s; return d.innerHTML; };
+      var norm = function (s) { return s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase(); };
+      var slug = function (s) { return norm(s).replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""); };
+
+      var OBJETS = DB.objets;
+      OBJETS.forEach(function (o) { o._slug = slug(o.nom); });
+
+      // catégories présentes, dans l'ordre défini
+      var presentes = {};
+      OBJETS.forEach(function (o) { presentes[o.categorie] = true; });
+      var CATS = ["Toutes"].concat(DB.categoriesOrdre.filter(function (c) { return presentes[c]; }));
+      var catActive = "Toutes", recherche = "";
+
+      var $ = function (id) { return document.getElementById(id); };
+
+      function dots(o) {
+        return '<div class="eq-dots">' + (o.tiers || []).map(function (t) {
+          var r = RAR[t]; if (!r) return "";
+          return '<span class="eq-dot" style="background:' + r.couleur + '" title="' + esc(r.nom) + '"></span>';
+        }).join("") + '</div>';
+      }
+      function thumb(o) {
+        if (o.images && o.images.length) {
+          return '<div class="eq-thumb"><img src="' + IMG_BASE + encodeURIComponent(o.images[0]) + '" alt="' + esc(o.nom) + '" loading="lazy"></div>';
+        }
+        return '<div class="eq-thumb placeholder">⚔️</div>';
+      }
+
+      function renderCats() {
+        $("cats").innerHTML = CATS.map(function (c) {
+          return '<button class="eq-cat' + (c === catActive ? " active" : "") + '" data-cat="' + esc(c) + '">' + esc(c) + '</button>';
+        }).join("");
+      }
+
+      function filtrer() {
+        var q = norm(recherche);
+        return OBJETS.filter(function (o) {
+          return (catActive === "Toutes" || o.categorie === catActive) && (!q || norm(o.nom).indexOf(q) >= 0);
+        });
+      }
+
+      function tileHTML(o) {
+        return '<div class="eq-tile" tabindex="0" role="button" data-slug="' + o._slug + '">' +
+          thumb(o) +
+          '<div class="eq-tile-name">' + esc(o.nom) + '</div>' +
+          '<div class="eq-tile-cat">' + esc(o.categorie) + '</div>' +
+          dots(o) + '</div>';
+      }
+
+      var SUBS = DB.sousCategoriesOrdre || [];
+
+      function renderGrille() {
+        var list = filtrer();
+        $("compte").textContent = list.length + (list.length > 1 ? " objets" : " objet");
+        if (!list.length) { $("grille").innerHTML = '<p class="eq-empty">Aucune arme ne correspond à votre recherche.</p>'; return; }
+
+        var byCat = {};
+        list.forEach(function (o) { (byCat[o.categorie] = byCat[o.categorie] || []).push(o); });
+        var cats = CATS.filter(function (c) { return c !== "Toutes" && byCat[c]; });
+
+        var html = cats.map(function (c, ci) {
+          var sep = ci > 0 ? '<hr class="cat-sep">' : '';
+          var entete = '<h2 class="cat-header">' + esc(c) + '</h2>';
+
+          // regroupement par sous-catégorie
+          var bySub = {};
+          byCat[c].forEach(function (o) { var s = o.sousCategorie || " "; (bySub[s] = bySub[s] || []).push(o); });
+          var reelles = Object.keys(bySub).some(function (s) { return s !== " "; });
+          var ordre = [];
+          if (bySub[" "]) ordre.push(" ");
+          SUBS.forEach(function (s) { if (bySub[s]) ordre.push(s); });
+
+          var corps = ordre.map(function (s) {
+            var sh = (s !== " " && reelles) ? '<h3 class="subcat-header">' + esc(s) + '</h3>' : '';
+            return sh + '<div class="eq-grid">' + bySub[s].map(tileHTML).join("") + '</div>';
+          }).join("");
+
+          return sep + entete + corps;
+        }).join("");
+
+        $("grille").innerHTML = html;
+      }
+
+      function ficheHTML(o) {
+        var flavor = o.flavor ? '<p class="fiche-flavor">« ' + esc(o.flavor) + ' »</p>' : "";
+        var effets = (o.effets && o.effets.length)
+          ? '<div class="fiche-effects">' + o.effets.map(function (e) { return '<p>' + esc(e) + '</p>'; }).join("") + '</div>' : "";
+
+        var corps = "";
+        var tiersAvecVal = (o.tiers || []).filter(function (t) { return o.paliers && o.paliers[t]; });
+        if (tiersAvecVal.length) {
+          var lignes = tiersAvecVal.map(function (t) {
+            var r = RAR[t];
+            return '<tr><td class="pal-rare"><span class="pal-pill" style="background:' + r.couleur + ';color:' + r.pillTxt + '">' + t + '</span></td>' +
+              '<td class="pal-val" style="color:' + r.texte + '">' + esc(o.paliers[t]) + '</td></tr>';
+          }).join("");
+          corps = '<table class="paliers"><caption>Par rareté</caption><tbody>' + lignes + '</tbody></table>';
+        } else if (o.degatUnique) {
+          corps = '<p class="single-dmg">' + esc(o.degatUnique) + '</p>';
+        }
+
+        var illu;
+        if (o.images && o.images.length) {
+          var imgs = o.images.map(function (im) {
+            return '<img src="' + IMG_BASE + encodeURIComponent(im) + '" alt="' + esc(o.nom) + '">';
+          }).join("");
+          illu = '<figure class="fiche-illu' + (o.images.length > 1 ? ' multi' : '') + '">' + imgs +
+            '<figcaption>' + esc(o.nom) + '</figcaption></figure>';
+        } else {
+          illu = '<figure class="fiche-illu placeholder">⚔️<figcaption>Illustration à venir</figcaption></figure>';
+        }
+
+        return '<div class="eq-fiche">' +
+          '<button class="eq-back" type="button">← Retour au catalogue</button>' +
+          '<div class="fiche-grid"><div>' +
+          '<h2 class="fiche-name">' + esc(o.nom) + '</h2>' +
+          '<p class="fiche-cat">' + esc(o.categorie) + (o.sousCategorie ? ' · ' + esc(o.sousCategorie) : '') + '</p>' +
+          flavor + effets + corps +
+          '</div>' + illu + '</div></div>';
+      }
+
+      function ouvrir(o, push) {
+        $("vue-fiche").innerHTML = ficheHTML(o);
+        $("vue-catalogue").style.display = "none";
+        $("vue-fiche").style.display = "block";
+        $("vue-fiche").querySelector(".eq-back").addEventListener("click", fermer);
+        if (push !== false && location.hash !== "#" + o._slug) location.hash = o._slug;
+        window.scrollTo(0, 0);
+      }
+
+      function fermer() {
+        if (location.hash) { location.hash = ""; return; } // déclenche hashchange -> catalogue
+        montrerCatalogue();
+      }
+      function montrerCatalogue() {
+        $("vue-fiche").style.display = "none";
+        $("vue-catalogue").style.display = "block";
+      }
+
+      function routeDepuisHash() {
+        var h = decodeURIComponent((location.hash || "").replace(/^#/, ""));
+        if (!h) { montrerCatalogue(); return; }
+        var o = OBJETS.filter(function (x) { return x._slug === h; })[0];
+        if (o) ouvrir(o, false); else montrerCatalogue();
+      }
+
+      // événements
+      $("recherche").addEventListener("input", function (e) { recherche = e.target.value; renderGrille(); });
+      $("cats").addEventListener("click", function (e) {
+        var b = e.target.closest(".eq-cat"); if (!b) return;
+        catActive = b.dataset.cat; renderCats(); renderGrille();
+      });
+      $("grille").addEventListener("click", function (e) {
+        var t = e.target.closest(".eq-tile"); if (!t) return;
+        var o = OBJETS.filter(function (x) { return x._slug === t.dataset.slug; })[0]; if (o) ouvrir(o);
+      });
+      $("grille").addEventListener("keydown", function (e) {
+        if (e.key !== "Enter" && e.key !== " ") return;
+        var t = e.target.closest(".eq-tile"); if (!t) return; e.preventDefault();
+        var o = OBJETS.filter(function (x) { return x._slug === t.dataset.slug; })[0]; if (o) ouvrir(o);
+      });
+      window.addEventListener("hashchange", routeDepuisHash);
+
+      renderCats(); renderGrille(); routeDepuisHash();
+    })();
+  </script>
 </body>
 
 </html>
