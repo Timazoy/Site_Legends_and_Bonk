@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /partials/
+
+Sitemap: https://legendsandbonk.com/sitemap.xml
