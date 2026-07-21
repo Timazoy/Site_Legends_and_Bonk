@@ -12,13 +12,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap"
     rel="stylesheet" />
   <title>Les armures — Legends & Bonk</title>
-  <meta name="description" content="Toutes les armures de Legends & Bonk : protection, caractéristiques et prix pour votre personnage de jeu de rôle." />
+  <meta name="description" content="Toutes les armures de Legends & Bonk : catalogue filtrable par catégorie, fiches détaillées avec bonus de PV et effets par rareté." />
   <link rel="canonical" href="https://legendsandbonk.com/equipement/armures.html" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Legends &amp; Bonk" />
   <meta property="og:locale" content="fr_FR" />
   <meta property="og:title" content="Les armures — Legends & Bonk" />
-  <meta property="og:description" content="Toutes les armures de Legends & Bonk : protection, caractéristiques et prix pour votre personnage de jeu de rôle." />
+  <meta property="og:description" content="Toutes les armures de Legends & Bonk : catalogue filtrable par catégorie, fiches détaillées avec bonus de PV et effets par rareté." />
   <meta property="og:url" content="https://legendsandbonk.com/equipement/armures.html" />
   <meta property="og:image" content="https://legendsandbonk.com/image/image_pala_presentation.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -26,18 +26,512 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
     crossorigin="anonymous"></script>
+
+  <style>
+    :root {
+      /* chrome clair (fond blanc du site) */
+      --parch: #f4ecd8; --parch2: #e9dcbd; --ink: #2b2116; --line: #c9b892;
+      --bordeaux: #7a0808; --brun: #281b07; --muted: #6b5a3a;
+    }
+    /* le fond reste celui du site (blanc) — pas d'override de body */
+    .eq-wrap { max-width: 1120px; margin: 0 auto; padding: 0 12px 60px; color: var(--ink); }
+    h1.eq-title { text-align: center; font-weight: 700; letter-spacing: .5px; margin: 18px 0 2px; color: var(--brun); }
+    .eq-sub { text-align: center; color: var(--muted); font-style: italic; margin-bottom: 18px; }
+
+    /* ---- barre de filtres (claire) ---- */
+    .eq-filters {
+      position: sticky; top: 8px; z-index: 20; background: rgba(255,255,255,.96); backdrop-filter: blur(4px);
+      border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; margin-bottom: 14px;
+      box-shadow: 0 3px 10px rgba(0,0,0,.08);
+      transition: transform .28s ease, opacity .28s ease;
+    }
+    .eq-filters.eq-hidden { transform: translateY(-140%); opacity: 0; pointer-events: none; }
+    .eq-search {
+      width: 100%; font-family: inherit; font-weight: 600; font-size: 20px; padding: 8px 14px;
+      border: 1px solid var(--line); border-radius: 8px; background: #fffdf6; color: var(--ink);
+    }
+    .eq-search:focus { outline: 2px solid var(--bordeaux); border-color: var(--bordeaux); }
+    .eq-cats { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+    .eq-cat {
+      font-family: inherit; font-size: 16px; font-weight: 600; padding: 4px 13px; border-radius: 999px;
+      cursor: pointer; border: 1px solid var(--line); background: #fffdf6; color: var(--ink); transition: all .15s;
+    }
+    .eq-cat:hover { border-color: var(--bordeaux); }
+    .eq-cat.active { background: var(--bordeaux); color: #fff; border-color: var(--bordeaux); }
+    .eq-cat:focus-visible { outline: 2px solid var(--bordeaux); outline-offset: 2px; }
+
+    /* ---- légende des raretés (sur fond clair) ---- */
+    .eq-legend {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 16px;
+      margin: 0 0 12px; font-size: 14px; color: var(--muted);
+    }
+    .eq-legend span { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+    .eq-legend i { width: 11px; height: 11px; border-radius: 3px; transform: rotate(45deg); display: inline-block;
+      box-shadow: 0 0 7px var(--g), inset 0 0 0 1px rgba(0,0,0,.22); }
+    .eq-count { text-align: center; color: #8a795a; font-size: 16px; margin: 0 0 18px; }
+
+    /* ---- séparateurs de catégorie ---- */
+    .cat-sep { border: none; border-top: 2px solid var(--line); margin: 34px 0 0; opacity: .8; }
+    .cat-header {
+      text-align: center; font-weight: 700; font-size: 30px; color: var(--brun);
+      margin: 18px 0 4px; letter-spacing: .5px;
+    }
+    .cat-header::after {
+      content: ""; display: block; width: 70px; height: 3px; background: var(--bordeaux);
+      margin: 8px auto 0; border-radius: 2px;
+    }
+    .subcat-header {
+      font-weight: 700; font-size: 21px; color: var(--bordeaux); font-style: italic;
+      margin: 22px 0 12px; padding-left: 4px;
+    }
+    /* descriptions optionnelles sous les (sous-)catégories (armures-textes.js) */
+    .cat-desc {
+      text-align: center; color: var(--muted); font-size: 16px; line-height: 1.4;
+      max-width: 680px; margin: 4px auto 8px;
+    }
+    .subcat-desc {
+      color: var(--muted); font-size: 15px; font-style: italic; line-height: 1.4;
+      max-width: 760px; margin: 2px 0 12px; padding-left: 4px;
+    }
+    .subcat-header + .subcat-desc { margin-top: -6px; }
+
+    /* ---- grille de cartes ---- */
+    .eq-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(176px, 1fr)); gap: 18px; }
+    .eq-grid + .subcat-header { margin-top: 26px; }
+
+    /* ===== CARTE (loot sombre sur page claire) ===== */
+    .eq-tile {
+      --rl: #6f6552; --rg: #b8b0a0; --rgl: rgba(0,0,0,.35); --tint: rgba(255,255,255,.05);
+      position: relative; overflow: hidden; cursor: pointer;
+      background: linear-gradient(165deg, #241d14 0%, #16110b 100%);
+      border: 2px solid var(--rl); border-radius: 14px;
+      display: flex; flex-direction: column;
+      box-shadow: 0 4px 12px rgba(30,20,8,.3);
+      transition: transform .14s ease, box-shadow .14s ease;
+    }
+    .eq-tile::before {
+      content: ""; position: absolute; inset: 3px; border: 1px solid rgba(255,255,255,.08);
+      border-radius: 10px; pointer-events: none; z-index: 3;
+    }
+    .eq-tile:hover, .eq-tile:focus-visible {
+      transform: translateY(-4px); box-shadow: 0 0 20px var(--rgl), 0 10px 22px rgba(30,20,8,.35);
+      border-color: var(--rg);
+    }
+    .eq-tile:focus-visible { outline: none; }
+
+    .card-ribbon {
+      position: absolute; top: 13px; right: -31px; z-index: 4; width: 118px;
+      transform: rotate(45deg); text-align: center;
+      background: var(--rl); color: #14100c; font-weight: 800; font-size: 12px; letter-spacing: 1px;
+      padding: 3px 0; box-shadow: 0 2px 6px rgba(0,0,0,.5);
+    }
+
+    .card-art {
+      position: relative; height: 134px; margin: 12px 12px 0;
+      display: flex; align-items: center; justify-content: center;
+      background: radial-gradient(circle at 50% 46%, var(--tint) 0%, transparent 70%);
+      border-radius: 8px;
+    }
+    .card-art img {
+      max-width: 84%; max-height: 122px; object-fit: contain;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,.6));
+    }
+    .card-art.placeholder { color: var(--rg); font-size: 46px; }
+
+    .card-foot { margin-top: auto; text-align: center; }
+    .card-name {
+      padding: 9px 9px 2px; font-weight: 700; font-size: 17px; line-height: 1.1; color: #f0e7d0;
+      border-top: 2px solid var(--rl);
+      background: linear-gradient(#211b12, #191309);
+    }
+    .card-cat { font-size: 13px; color: #a1937a; font-style: italic; background: #191309; padding: 0 8px; }
+    .card-gems {
+      display: flex; gap: 5px; justify-content: center; align-items: center;
+      padding: 7px 0 10px; min-height: 12px; background: linear-gradient(#191309, #130e08);
+    }
+    .gem {
+      width: 11px; height: 11px; transform: rotate(45deg); border-radius: 2px;
+      box-shadow: 0 0 6px var(--g), inset 0 0 0 1px rgba(255,255,255,.45);
+    }
+
+    /* ===== FICHE (sombre sur page claire) ===== */
+    .eq-fiche {
+      --rl: #6f6552; --rgl: rgba(0,0,0,.35); --tint: rgba(255,255,255,.05);
+      background: linear-gradient(160deg, #201b14, #17130d); border: 1px solid #2a2318;
+      border-radius: 16px; padding: 24px 28px; box-shadow: 0 12px 32px rgba(30,20,8,.35);
+      position: relative; overflow: hidden;
+    }
+    .eq-fiche::after {
+      content: ""; position: absolute; top: 0; left: 0; right: 0; height: 5px; background: var(--rl);
+      box-shadow: 0 0 16px var(--rl);
+    }
+    .eq-fiche::before {
+      content: ""; position: absolute; inset: 8px; border: 1px solid rgba(255,255,255,.06);
+      border-radius: 10px; pointer-events: none;
+    }
+    .eq-back {
+      display: inline-block; margin-bottom: 14px; cursor: pointer; color: #d8b24a;
+      font-weight: 700; font-size: 18px; background: none; border: none; font-family: inherit;
+    }
+    .eq-back:hover { text-decoration: underline; }
+    .eq-back:focus-visible { outline: 2px solid #d8b24a; outline-offset: 2px; }
+    .fiche-grid { display: grid; grid-template-columns: 1fr; gap: 22px; }
+    @media (min-width: 820px) { .fiche-grid { grid-template-columns: 1fr minmax(300px, 44%); } }
+    .fiche-name { font-size: 38px; font-weight: 700; color: #f0e7d0; line-height: 1.02; margin: 0; text-wrap: balance; }
+    .fiche-cat {
+      font-style: italic; color: #d8b24a; font-size: 20px; margin: 6px 0 2px; padding-bottom: 12px;
+      border-bottom: 1px solid #3a3327;
+    }
+    .rar-badge {
+      display: inline-block; margin: 12px 0 2px; padding: 4px 14px; border-radius: 999px;
+      color: #14100c; font-weight: 800; font-size: 15px; letter-spacing: .4px;
+      box-shadow: 0 0 14px var(--rgl);
+    }
+    .fiche-flavor { font-style: italic; font-size: 21px; color: #c9bd9f; margin: 15px 0 8px; }
+    .fiche-portee {
+      display: inline-flex; align-items: center; gap: 12px; margin: 14px 0 4px;
+      padding: 7px 16px; border-radius: 10px;
+      background: rgba(216,178,74,.10); border: 1px solid rgba(216,178,74,.45);
+    }
+    .fiche-portee .lbl { font-size: 13px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: #d8b24a; }
+    .fiche-portee .sepv { width: 1px; height: 18px; background: rgba(216,178,74,.5); }
+    .fiche-portee .val { font-size: 21px; font-weight: 700; color: #f0e7d0; font-variant-numeric: tabular-nums; }
+    .fiche-effects { font-size: 20px; margin-top: 6px; color: #ece3cd; }
+    .fiche-effects p { margin: 0 0 5px; }
+
+    .fiche-illu {
+      position: relative; overflow: hidden; align-self: start;
+      background: linear-gradient(165deg, #241d14, #16110b);
+      border: 2px solid var(--rl); border-radius: 14px; padding: 20px 18px 18px;
+      display: flex; flex-direction: column; align-items: center; gap: 12px;
+      box-shadow: 0 0 22px var(--rgl), 0 10px 24px rgba(30,20,8,.35);
+    }
+    .fiche-illu::before {
+      content: ""; position: absolute; inset: 4px; border: 1px solid rgba(255,255,255,.08);
+      border-radius: 10px; pointer-events: none;
+    }
+    .fiche-illu .illu-ribbon {
+      position: absolute; top: 14px; right: -32px; width: 122px; z-index: 2;
+      transform: rotate(45deg); text-align: center;
+      background: var(--rl); color: #14100c; font-weight: 800; font-size: 12px; letter-spacing: 1px;
+      padding: 3px 0; box-shadow: 0 2px 6px rgba(0,0,0,.5);
+    }
+    .fiche-illu .illu-stage {
+      width: 100%; display: flex; flex-direction: column; align-items: center; gap: 12px;
+      background: radial-gradient(circle at 50% 42%, var(--tint) 0%, transparent 72%); border-radius: 8px; padding: 6px 0;
+    }
+    .fiche-illu img {
+      max-width: 100%; max-height: 330px; object-fit: contain;
+      filter: drop-shadow(0 8px 12px rgba(0,0,0,.65));
+    }
+    .fiche-illu.multi img { max-height: 240px; }
+    .fiche-illu.multi img + img { margin-top: 6px; }
+    .fiche-illu.placeholder .illu-stage { min-height: 220px; justify-content: center; color: #a1937a; font-size: 76px; }
+    .fiche-illu figcaption { font-style: italic; color: #a1937a; font-size: 16px; text-align: center; }
+
+    .paliers { width: 100%; border-collapse: collapse; margin-top: 18px; }
+    .paliers caption { caption-side: top; text-align: left; font-weight: 700; font-size: 19px; color: #f0e7d0; padding-bottom: 6px; }
+    .paliers td { padding: 7px 10px; border-bottom: 1px solid #3a3327; font-size: 19px; vertical-align: top; }
+    .paliers tr:last-child td { border-bottom: none; }
+    .pal-rare { white-space: nowrap; width: 1%; }
+    .pal-pill {
+      display: inline-block; font-weight: 800; font-size: 14px; padding: 2px 9px; border-radius: 999px;
+      min-width: 32px; text-align: center; font-variant-numeric: tabular-nums; color: #14100c;
+      box-shadow: 0 0 8px var(--gl);
+    }
+    .pal-val { font-weight: 700; }
+    .paliers th { padding: 3px 10px 7px; text-align: left; font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: #a1937a; font-weight: 700; border-bottom: 1px solid #3a3327; }
+    .paliers th.th-prix { text-align: right; }
+    .pal-prix { text-align: right; white-space: nowrap; font-weight: 700; color: #d9c48c; font-variant-numeric: tabular-nums; }
+    .pal-prix .mc { font-size: 13px; font-weight: 600; color: #a1937a; margin-left: 3px; }
+    .single-dmg { font-size: 23px; font-weight: 700; color: #f0e7d0; margin-top: 8px; }
+    .single-prix { font-size: 19px; font-weight: 700; color: #d9c48c; margin-top: 4px; font-variant-numeric: tabular-nums; }
+    .single-prix .mc { font-size: 13px; font-weight: 600; color: #a1937a; margin-left: 3px; }
+    .eq-empty { grid-column: 1/-1; text-align: center; color: var(--muted); padding: 30px 0; }
+    @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+    @media (max-width: 768px) {
+      .fiche-name { font-size: 30px; }
+      h1.eq-title { font-size: 1.6rem; }
+      .eq-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; }
+    }
+  </style>
 </head>
 
 <body>
   <script src="../commun.js"></script>
 
-  <!-- Contenu de la page -->
   <main>
-    <div class="container" style="margin-top: 20px;">
-      <h1 class="text-center">Les armures</h1>
-      <p class="text-center">Cette page arrive bientôt…</p>
+    <div class="eq-wrap">
+      <h1 class="eq-title">Les armures</h1>
+      <p class="eq-sub">Le grimoire d'équipement — choisissez un objet pour consulter sa fiche</p>
+
+      <div id="vue-catalogue">
+        <div class="eq-filters">
+          <input id="recherche" class="eq-search" type="search" placeholder="Rechercher une armure…" autocomplete="off" aria-label="Rechercher une armure" />
+          <div id="cats" class="eq-cats"></div>
+        </div>
+        <div id="legende" class="eq-legend" aria-hidden="true"></div>
+        <p id="compte" class="eq-count"></p>
+        <div id="grille"></div>
+      </div>
+
+      <div id="vue-fiche" style="display:none;"></div>
     </div>
   </main>
+
+  <script src="armures-data.js"></script>
+  <script src="armures-textes.js"></script>
+  <script>
+    (function () {
+      var DB = window.EQUIP_ARMURES || { raretes: {}, categoriesOrdre: [], objets: [] };
+      var IMG_BASE = "../image-db/equipement/armures/";
+      var RAR = DB.raretes;
+
+      var RANK = { C: 0, SC: 1, R: 2, SR: 3, E: 4, SE: 5 };
+
+      // couleurs de rareté éclatantes (cartes sombres)
+      var FRAME = {
+        C:  { line: "#9a9484", gem: "#c4bda9", glow: "rgba(196,189,169,.4)" },
+        SC: { line: "#5b93ff", gem: "#7db0ff", glow: "rgba(91,147,255,.6)" },
+        R:  { line: "#57c23a", gem: "#7ee05a", glow: "rgba(87,194,58,.6)" },
+        SR: { line: "#28e070", gem: "#57ff97", glow: "rgba(40,224,112,.65)" },
+        E:  { line: "#b45cff", gem: "#cd8bff", glow: "rgba(180,92,255,.65)" },
+        SE: { line: "#ff53d6", gem: "#ff86e4", glow: "rgba(255,83,214,.65)" }
+      };
+      var NEUTRAL = { line: "#6f6552", gem: "#b8b0a0", glow: "rgba(0,0,0,.35)" };
+
+      var esc = function (s) { var d = document.createElement("div"); d.textContent = s == null ? "" : s; return d.innerHTML; };
+      var fmtPrix = function (n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, " ") + ' <span class="mc">MC</span>'; };
+      var norm = function (s) { return s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase(); };
+      var slug = function (s) { return norm(s).replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""); };
+
+      // textes éditables à la main (descriptions de catégories / sous-catégories)
+      var TEXTES = window.EQUIP_ARMURES_TEXTES || {};
+      var T_CATS = TEXTES.categories || {};
+      var T_SUBS = TEXTES.sousCategories || {};
+
+      var OBJETS = DB.objets;
+      OBJETS.forEach(function (o) {
+        o._slug = slug(o.nom);
+        var top = null, best = -1;
+        (o.tiers || []).forEach(function (t) {
+          if (RANK[t] != null && RANK[t] > best) { best = RANK[t]; top = t; }
+        });
+        o._top = top;
+        o._frame = (top && FRAME[top]) ? FRAME[top] : NEUTRAL;
+      });
+
+      var presentes = {};
+      OBJETS.forEach(function (o) { presentes[o.categorie] = true; });
+      var CATS = ["Toutes"].concat(DB.categoriesOrdre.filter(function (c) { return presentes[c]; }));
+      var catActive = "Toutes", recherche = "";
+
+      var $ = function (id) { return document.getElementById(id); };
+
+      function frameVars(f) {
+        return "--rl:" + f.line + ";--rg:" + f.gem + ";--rgl:" + f.glow + ";--tint:" + f.glow;
+      }
+      function gems(o) {
+        return '<div class="card-gems">' + (o.tiers || []).map(function (t) {
+          var r = RAR[t], f = FRAME[t]; if (!r) return "";
+          return '<span class="gem" style="background:' + (f ? f.gem : r.couleur) + ';--g:' + (f ? f.glow : 'transparent') + '" title="' + esc(r.nom) + '"></span>';
+        }).join("") + '</div>';
+      }
+      function art(o, cls) {
+        if (o.images && o.images.length) {
+          return '<div class="' + cls + '"><img src="' + IMG_BASE + encodeURIComponent(o.images[0]) + '" alt="' + esc(o.nom) + '" loading="lazy"></div>';
+        }
+        return '<div class="' + cls + ' placeholder">🛡️</div>';
+      }
+
+      function renderCats() {
+        $("cats").innerHTML = CATS.map(function (c) {
+          return '<button class="eq-cat' + (c === catActive ? " active" : "") + '" data-cat="' + esc(c) + '">' + esc(c) + '</button>';
+        }).join("");
+      }
+
+      function renderLegende() {
+        var ordre = ["C","SC","R","SR","E","SE"];
+        $("legende").innerHTML = ordre.map(function (t) {
+          var r = RAR[t], f = FRAME[t]; if (!r) return "";
+          return '<span><i style="background:' + f.gem + ';--g:' + f.glow + '"></i>' + esc(r.nom) + '</span>';
+        }).join("");
+      }
+
+      function filtrer() {
+        var q = norm(recherche);
+        return OBJETS.filter(function (o) {
+          return (catActive === "Toutes" || o.categorie === catActive) && (!q || norm(o.nom).indexOf(q) >= 0);
+        });
+      }
+
+      function tileHTML(o) {
+        var ribbon = o._top ? '<div class="card-ribbon">' + o._top + '</div>' : '';
+        return '<div class="eq-tile" tabindex="0" role="button" data-slug="' + o._slug + '" style="' + frameVars(o._frame) + '">' +
+          ribbon +
+          art(o, "card-art") +
+          '<div class="card-foot">' +
+            '<div class="card-name">' + esc(o.nom) + '</div>' +
+            '<div class="card-cat">' + esc(o.categorie) + '</div>' +
+            gems(o) +
+          '</div>' +
+          '</div>';
+      }
+
+      var SUBS = DB.sousCategoriesOrdre || [];
+      var NOSUB = "";
+
+      function renderGrille() {
+        var list = filtrer();
+        $("compte").textContent = list.length + (list.length > 1 ? " objets" : " objet");
+        if (!list.length) { $("grille").innerHTML = '<p class="eq-empty">Aucune armure ne correspond à votre recherche.</p>'; return; }
+
+        var byCat = {};
+        list.forEach(function (o) { (byCat[o.categorie] = byCat[o.categorie] || []).push(o); });
+        var cats = CATS.filter(function (c) { return c !== "Toutes" && byCat[c]; });
+
+        var html = cats.map(function (c, ci) {
+          var sep = ci > 0 ? '<hr class="cat-sep">' : '';
+          var entete = '<h2 class="cat-header">' + esc(c) + '</h2>' +
+            (T_CATS[c] ? '<p class="cat-desc">' + esc(T_CATS[c]) + '</p>' : '');
+
+          var bySub = {};
+          byCat[c].forEach(function (o) { var s = o.sousCategorie || NOSUB; (bySub[s] = bySub[s] || []).push(o); });
+          var reelles = Object.keys(bySub).some(function (s) { return s !== NOSUB; });
+          var ordre = [];
+          if (bySub[NOSUB]) ordre.push(NOSUB);
+          SUBS.forEach(function (s) { if (bySub[s]) ordre.push(s); });
+
+          var corps = ordre.map(function (s) {
+            var d = (T_SUBS[c] || {})[s];
+            var sh = (s !== NOSUB && reelles)
+              ? '<h3 class="subcat-header">' + esc(s) + '</h3>' + (d ? '<p class="subcat-desc">' + esc(d) + '</p>' : '')
+              : '';
+            return sh + '<div class="eq-grid">' + bySub[s].map(tileHTML).join("") + '</div>';
+          }).join("");
+
+          return sep + entete + corps;
+        }).join("");
+
+        $("grille").innerHTML = html;
+      }
+
+      function ficheHTML(o) {
+        var flavor = o.flavor ? '<p class="fiche-flavor">« ' + esc(o.flavor) + ' »</p>' : "";
+        var effets = (o.effets && o.effets.length)
+          ? '<div class="fiche-effects">' + o.effets.map(function (e) { return '<p>' + esc(e) + '</p>'; }).join("") + '</div>' : "";
+        var portee = o.portee
+          ? '<div class="fiche-portee"><span class="lbl">Portée</span><span class="sepv"></span><span class="val">' + esc(o.portee) + '</span></div>' : "";
+
+        var badge = o._top && RAR[o._top]
+          ? '<div><span class="rar-badge" style="background:' + o._frame.gem + ';--rgl:' + o._frame.glow + '">' + esc(RAR[o._top].nom) + '</span></div>' : "";
+
+        var corps = "";
+        var aPrix = o.prix && typeof o.prix === "object";
+        var tiersAvecVal = (o.tiers || []).filter(function (t) { return o.paliers && o.paliers[t]; });
+        if (tiersAvecVal.length) {
+          var lignes = tiersAvecVal.map(function (t) {
+            var r = RAR[t], f = FRAME[t] || { gem: r.couleur, glow: "transparent" };
+            var celPrix = aPrix
+              ? '<td class="pal-prix">' + (o.prix[t] != null ? fmtPrix(o.prix[t]) : '—') + '</td>' : "";
+            return '<tr><td class="pal-rare"><span class="pal-pill" style="background:' + f.gem + ';--gl:' + f.glow + '">' + t + '</span></td>' +
+              '<td class="pal-val" style="color:' + f.gem + '">' + esc(o.paliers[t]) + '</td>' + celPrix + '</tr>';
+          }).join("");
+          var thead = aPrix
+            ? '<thead><tr><th></th><th>Effet</th><th class="th-prix">Prix</th></tr></thead>' : "";
+          corps = '<table class="paliers"><caption>Par rareté</caption>' + thead + '<tbody>' + lignes + '</tbody></table>';
+        } else if (o.degatUnique) {
+          corps = '<p class="single-dmg">' + esc(o.degatUnique) + '</p>';
+          if (typeof o.prix === "number") corps += '<p class="single-prix">' + fmtPrix(o.prix) + '</p>';
+        }
+
+        var ribbon = o._top ? '<div class="illu-ribbon">' + o._top + '</div>' : '';
+        var illu;
+        if (o.images && o.images.length) {
+          var imgs = o.images.map(function (im) {
+            return '<img src="' + IMG_BASE + encodeURIComponent(im) + '" alt="' + esc(o.nom) + '">';
+          }).join("");
+          illu = '<figure class="fiche-illu' + (o.images.length > 1 ? ' multi' : '') + '" style="' + frameVars(o._frame) + '">' +
+            ribbon + '<div class="illu-stage">' + imgs + '</div>' +
+            '<figcaption>' + esc(o.nom) + '</figcaption></figure>';
+        } else {
+          illu = '<figure class="fiche-illu placeholder" style="' + frameVars(o._frame) + '">' + ribbon +
+            '<div class="illu-stage">🛡️</div><figcaption>Illustration à venir</figcaption></figure>';
+        }
+
+        return '<div class="eq-fiche" style="' + frameVars(o._frame) + '">' +
+          '<button class="eq-back" type="button">← Retour au catalogue</button>' +
+          '<div class="fiche-grid"><div>' +
+          '<h2 class="fiche-name">' + esc(o.nom) + '</h2>' +
+          '<p class="fiche-cat">' + esc(o.categorie) + (o.sousCategorie ? ' · ' + esc(o.sousCategorie) : '') + '</p>' +
+          badge + flavor + portee + effets + corps +
+          '</div>' + illu + '</div></div>';
+      }
+
+      var catScroll = 0;  // position de scroll du catalogue, mémorisée avant d'ouvrir une fiche
+
+      function ouvrir(o, push) {
+        // navigation initiée par l'utilisateur (clic) : on retient où il en était
+        if (push !== false) catScroll = window.scrollY || window.pageYOffset || 0;
+        $("vue-fiche").innerHTML = ficheHTML(o);
+        $("vue-catalogue").style.display = "none";
+        $("vue-fiche").style.display = "block";
+        $("vue-fiche").querySelector(".eq-back").addEventListener("click", fermer);
+        if (push !== false && location.hash !== "#" + o._slug) location.hash = o._slug;
+        window.scrollTo(0, 0);
+      }
+
+      function fermer() {
+        if (location.hash) { location.hash = ""; return; }
+        montrerCatalogue();
+      }
+      function montrerCatalogue() {
+        $("vue-fiche").style.display = "none";
+        $("vue-catalogue").style.display = "block";
+        filtres.classList.remove("eq-hidden"); lastY = catScroll;
+        // restaure la position après que le catalogue a repris sa hauteur
+        requestAnimationFrame(function () { window.scrollTo(0, catScroll); });
+      }
+
+      function routeDepuisHash() {
+        var h = decodeURIComponent((location.hash || "").replace(/^#/, ""));
+        if (!h) { montrerCatalogue(); return; }
+        var o = OBJETS.filter(function (x) { return x._slug === h; })[0];
+        if (o) ouvrir(o, false); else montrerCatalogue();
+      }
+
+      // masque la barre de filtres au défilement vers le bas, la révèle vers le haut
+      var filtres = document.querySelector(".eq-filters");
+      var lastY = window.scrollY || 0;
+      window.addEventListener("scroll", function () {
+        if ($("vue-catalogue").style.display === "none") return; // pas en vue fiche
+        var y = window.scrollY || window.pageYOffset || 0;
+        if (y < 90) { filtres.classList.remove("eq-hidden"); lastY = y; return; }
+        var diff = y - lastY;
+        if (diff > 8) filtres.classList.add("eq-hidden");
+        else if (diff < -8) filtres.classList.remove("eq-hidden");
+        lastY = y;
+      }, { passive: true });
+
+      $("recherche").addEventListener("input", function (e) { recherche = e.target.value; renderGrille(); });
+      $("cats").addEventListener("click", function (e) {
+        var b = e.target.closest(".eq-cat"); if (!b) return;
+        catActive = b.dataset.cat; renderCats(); renderGrille();
+      });
+      $("grille").addEventListener("click", function (e) {
+        var t = e.target.closest(".eq-tile"); if (!t) return;
+        var o = OBJETS.filter(function (x) { return x._slug === t.dataset.slug; })[0]; if (o) ouvrir(o);
+      });
+      $("grille").addEventListener("keydown", function (e) {
+        if (e.key !== "Enter" && e.key !== " ") return;
+        var t = e.target.closest(".eq-tile"); if (!t) return; e.preventDefault();
+        var o = OBJETS.filter(function (x) { return x._slug === t.dataset.slug; })[0]; if (o) ouvrir(o);
+      });
+      window.addEventListener("hashchange", routeDepuisHash);
+
+      renderCats(); renderLegende(); renderGrille(); routeDepuisHash();
+    })();
+  </script>
 </body>
 
 </html>
