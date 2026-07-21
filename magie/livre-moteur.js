@@ -313,6 +313,23 @@ function majVisibilite() {
   });
 }
 
+/* Préchauffage des pages voisines, AU REPOS.
+   Sur un livre à pages très chargées (Grand Livre de la Magie), créer la
+   texture de la page qui arrive est une grosse peinture unique : posée pile
+   au démarrage du tournant, elle fait sauter la première image. On garde
+   donc will-change sur les pages immédiatement atteignables (courante ±1)
+   pendant que le livre est immobile : le navigateur rasterise leur texture
+   à tête reposée, et le prochain tournant la réutilise sans repeindre.
+   Fenêtre volontairement étroite (mémoire) ; ces pages sont déjà visibles,
+   condition nécessaire pour qu'une texture soit effectivement produite. */
+function prechauffer() {
+  sheets.forEach((s, i) => {
+    const chaud = i >= feuillesTournees - 1 && i <= feuillesTournees + 1;
+    s.style.willChange = chaud ? "transform" : "";
+    for (const p of s.children) p.style.willChange = chaud ? "transform" : "";
+  });
+}
+
 // Au départ d'un feuilletage, on prépare seulement les feuilles qui vont
 // réellement bouger ou apparaître : la plage parcourue (de la position
 // courante à la cible), plus une marge de deux feuilles de chaque côté.
@@ -434,14 +451,13 @@ function allerAFeuille(cible) {
   finVol = Math.max(finVol, Date.now() + PREROLL + ordre * 110 + 1050);
   clearTimeout(zTimer);
   zTimer = setTimeout(() => {
-    // will-change coûte de la mémoire : on le retire dès l'arrêt,
-    // sur les feuilles comme sur leurs pages promues
-    sheets.forEach(s => {
-      s.style.willChange = "";
-      for (const p of s.children) p.style.willChange = "";
-    });
     majZ();
     majVisibilite();
+    // On ne retire pas tout le will-change : on le concentre sur les pages
+    // voisines pour garder leur texture prête au prochain tournant (le reste
+    // est libéré ici). majVisibilite d'abord : le préchauffage n'agit que sur
+    // des pages redevenues visibles.
+    prechauffer();
   }, finVol - Date.now());
   majEtat();
 }
@@ -635,6 +651,7 @@ function construireGrimoire(idFamille) {
   placerFleches();
   majZ();
   majVisibilite();
+  prechauffer();   // texture de la 1re page prête : premier tournant fluide
   majEtat();
   rescale();
 
