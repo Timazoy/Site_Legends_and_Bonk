@@ -240,7 +240,13 @@
       box-shadow: 0 0 8px var(--gl);
     }
     .pal-val { font-weight: 700; }
+    .paliers th { padding: 3px 10px 7px; text-align: left; font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: #a1937a; font-weight: 700; border-bottom: 1px solid #3a3327; }
+    .paliers th.th-prix { text-align: right; }
+    .pal-prix { text-align: right; white-space: nowrap; font-weight: 700; color: #d9c48c; font-variant-numeric: tabular-nums; }
+    .pal-prix .mc { font-size: 13px; font-weight: 600; color: #a1937a; margin-left: 3px; }
     .single-dmg { font-size: 23px; font-weight: 700; color: #f0e7d0; margin-top: 8px; }
+    .single-prix { font-size: 19px; font-weight: 700; color: #d9c48c; margin-top: 4px; font-variant-numeric: tabular-nums; }
+    .single-prix .mc { font-size: 13px; font-weight: 600; color: #a1937a; margin-left: 3px; }
     .eq-empty { grid-column: 1/-1; text-align: center; color: var(--muted); padding: 30px 0; }
     @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
     @media (max-width: 768px) {
@@ -295,6 +301,7 @@
       var NEUTRAL = { line: "#6f6552", gem: "#b8b0a0", glow: "rgba(0,0,0,.35)" };
 
       var esc = function (s) { var d = document.createElement("div"); d.textContent = s == null ? "" : s; return d.innerHTML; };
+      var fmtPrix = function (n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, " ") + ' <span class="mc">MC</span>'; };
       var norm = function (s) { return s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase(); };
       var slug = function (s) { return norm(s).replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""); };
 
@@ -420,16 +427,22 @@
           ? '<div><span class="rar-badge" style="background:' + o._frame.gem + ';--rgl:' + o._frame.glow + '">' + esc(RAR[o._top].nom) + '</span></div>' : "";
 
         var corps = "";
+        var aPrix = o.prix && typeof o.prix === "object";
         var tiersAvecVal = (o.tiers || []).filter(function (t) { return o.paliers && o.paliers[t]; });
         if (tiersAvecVal.length) {
           var lignes = tiersAvecVal.map(function (t) {
             var r = RAR[t], f = FRAME[t] || { gem: r.couleur, glow: "transparent" };
+            var celPrix = aPrix
+              ? '<td class="pal-prix">' + (o.prix[t] != null ? fmtPrix(o.prix[t]) : '—') + '</td>' : "";
             return '<tr><td class="pal-rare"><span class="pal-pill" style="background:' + f.gem + ';--gl:' + f.glow + '">' + t + '</span></td>' +
-              '<td class="pal-val" style="color:' + f.gem + '">' + esc(o.paliers[t]) + '</td></tr>';
+              '<td class="pal-val" style="color:' + f.gem + '">' + esc(o.paliers[t]) + '</td>' + celPrix + '</tr>';
           }).join("");
-          corps = '<table class="paliers"><caption>Par rareté</caption><tbody>' + lignes + '</tbody></table>';
+          var thead = aPrix
+            ? '<thead><tr><th></th><th>Dégâts</th><th class="th-prix">Prix</th></tr></thead>' : "";
+          corps = '<table class="paliers"><caption>Par rareté</caption>' + thead + '<tbody>' + lignes + '</tbody></table>';
         } else if (o.degatUnique) {
           corps = '<p class="single-dmg">' + esc(o.degatUnique) + '</p>';
+          if (typeof o.prix === "number") corps += '<p class="single-prix">' + fmtPrix(o.prix) + '</p>';
         }
 
         var ribbon = o._top ? '<div class="illu-ribbon">' + o._top + '</div>' : '';

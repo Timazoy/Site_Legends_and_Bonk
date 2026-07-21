@@ -1,4 +1,4 @@
-/* Généré depuis Armes.docx + images_armes_1 + classification logiciel.js — ne pas éditer à la main de préférence. */
+/* Généré depuis Armes.docx + images_armes_1 + classification logiciel.js + Prix armes .docx — ne pas éditer à la main de préférence. */
 window.EQUIP_ARMES = {
  "raretes": {
   "C": {
@@ -70,6 +70,14 @@ window.EQUIP_ARMES = {
     "E": "17 - 34 dégâts",
     "SE": "21 - 42 dégâts"
    },
+   "prix": {
+    "C": 1000,
+    "SC": 2000,
+    "R": 4000,
+    "SR": 6000,
+    "E": 8000,
+    "SE": 10000
+   },
    "flavor": "Basique, simple. OG.",
    "portee": "2",
    "effets": [],
@@ -92,6 +100,12 @@ window.EQUIP_ARMES = {
     "SR": "18 - 37 dégâts",
     "E": "22 - 45 dégâts",
     "SE": "28 - 56 dégâts"
+   },
+   "prix": {
+    "R": 5000,
+    "SR": 7500,
+    "E": 10000,
+    "SE": 12500
    },
    "flavor": "Swing. Swoosh.",
    "portee": "2",
@@ -117,6 +131,12 @@ window.EQUIP_ARMES = {
     "R": "7 - 15 dégâts",
     "SR": "9 - 19 dégâts",
     "E": "12 - 24 dégâts"
+   },
+   "prix": {
+    "SC": 2480,
+    "R": 4960,
+    "SR": 7440,
+    "E": 9920
    },
    "flavor": "Pour les gens raffinés.",
    "portee": "2",
@@ -145,6 +165,13 @@ window.EQUIP_ARMES = {
     "E": "28 - 56 dégâts",
     "SE": "35 - 70 dégâts"
    },
+   "prix": {
+    "SC": 3200,
+    "R": 6400,
+    "SR": 9600,
+    "E": 12800,
+    "SE": 16000
+   },
    "flavor": "Épée halal.",
    "portee": "2",
    "effets": [
@@ -170,6 +197,12 @@ window.EQUIP_ARMES = {
     "R": "9 - 19 dégâts",
     "SR": "12 - 24 dégâts"
    },
+   "prix": {
+    "C": 950,
+    "SC": 1900,
+    "R": 3800,
+    "SR": 5700
+   },
    "flavor": "Jackie Chan prime.",
    "portee": "2",
    "effets": [
@@ -194,6 +227,12 @@ window.EQUIP_ARMES = {
     "SC": "12 - 25 dégâts",
     "R": "15 - 30 dégâts",
     "SR": "18 - 37 dégâts"
+   },
+   "prix": {
+    "C": 1550,
+    "SC": 3100,
+    "R": 6200,
+    "SR": 9300
    },
    "flavor": "Salut les ptits indiens.",
    "portee": "2",
@@ -221,6 +260,12 @@ window.EQUIP_ARMES = {
     "SR": "14 - 28 dégâts",
     "E": "16 - 34 dégâts"
    },
+   "prix": {
+    "SC": 1900,
+    "R": 3800,
+    "SR": 5700,
+    "E": 7600
+   },
    "flavor": "",
    "portee": "2",
    "effets": [
@@ -241,6 +286,12 @@ window.EQUIP_ARMES = {
     "SE"
    ],
    "paliers": {},
+   "prix": {
+    "R": 4400,
+    "SR": 6600,
+    "E": 8800,
+    "SE": 11000
+   },
    "flavor": "Cette arme peut prendre la forme de toutes les armes contre un peu de votre vie à la transformation (voir tableau) puis pour garder la nouvelle forme (2% de vie par /T).",
    "portee": "",
    "effets": [
@@ -269,6 +320,12 @@ window.EQUIP_ARMES = {
     "SR": "18 à 34 dégâts",
     "E": "20 à 40 dégâts"
    },
+   "prix": {
+    "SC": 3000,
+    "R": 6000,
+    "SR": 9000,
+    "E": 12000
+   },
    "flavor": "",
    "portee": "2",
    "effets": [
@@ -294,6 +351,12 @@ window.EQUIP_ARMES = {
     "E": "17 à 34 dégâts",
     "SE": "21 à 42 dégâts"
    },
+   "prix": {
+    "R": 4400,
+    "SR": 6600,
+    "E": 8800,
+    "SE": 11000
+   },
    "flavor": "",
    "portee": "2",
    "effets": [
@@ -317,6 +380,11 @@ window.EQUIP_ARMES = {
     "SC": "6 - 12 dégâts",
     "R": "7 - 15 dégâts"
    },
+   "prix": {
+    "C": 650,
+    "SC": 1300,
+    "R": 2600
+   },
    "flavor": "Ça c’est un vrai couteau!",
    "portee": "1",
    "effets": [
@@ -339,6 +407,11 @@ window.EQUIP_ARMES = {
     "C": "5 - 10 dégâts",
     "SC": "6 - 12 dégâts",
     "R": "7 - 15 dégâts"
+   },
+   "prix": {
+    "C": 500,
+    "SC": 1000,
+    "R": 2000
    },
    "flavor": "… Blyat.",
    "portee": "1",
@@ -369,6 +442,14 @@ window.EQUIP_ARMES = {
     "E": "11 - 22 dégâts",
     "SE": "14 - 28 dégâts"
    },
+   "prix": {
+    "C": 800,
+    "SC": 1600,
+    "R": 3200,
+    "SR": 4800,
+    "E": 6400,
+    "SE": 8000
+   },
    "flavor": "Ça pique.",
    "portee": "1",
    "effets": [
@@ -393,6 +474,12 @@ window.EQUIP_ARMES = {
     "R": "6 - 12 dégâts",
     "SR": "7 - 15 dégâts",
     "E": "9 - 18 dégâts"
+   },
+   "prix": {
+    "SC": 2800,
+    "R": 5600,
+    "SR": 8400,
+    "E": 11200
    },
    "flavor": "Wolverine ouuuuuu?",
    "portee": "1",
@@ -423,6 +510,14 @@ window.EQUIP_ARMES = {
     "E": "24 - 27 dégâts",
     "SE": "17 - 34 dégâts"
    },
+   "prix": {
+    "C": 960,
+    "SC": 1920,
+    "R": 3840,
+    "SR": 5760,
+    "E": 7680,
+    "SE": 9600
+   },
    "flavor": "Pour César!!",
    "portee": "1",
    "effets": [],
@@ -443,6 +538,11 @@ window.EQUIP_ARMES = {
     "R": "-50% - 6 - 12 dégâts",
     "SR": "-65% - 8 - 15 dégâts",
     "E": "-80% ), cette action prend 1T TDA à charger. 9 - 18 degas"
+   },
+   "prix": {
+    "R": 3400,
+    "SR": 5100,
+    "E": 6800
    },
    "flavor": "Mini shwik!!",
    "portee": "1",
@@ -466,6 +566,12 @@ window.EQUIP_ARMES = {
     "SC": "5 - 10 dégâts",
     "R": "6 - 12 degas",
     "SR": "7 - 15 dégâts"
+   },
+   "prix": {
+    "C": 1050,
+    "SC": 2100,
+    "R": 4200,
+    "SR": 6300
    },
    "flavor": "Première base.",
    "portee": "1",
@@ -491,6 +597,12 @@ window.EQUIP_ARMES = {
     "SR": "9 - 17 dégâts",
     "E": "10 - 20 dégâts",
     "SE": "13 - 25 dégâts"
+   },
+   "prix": {
+    "SR": 5250,
+    "E": 7000,
+    "SE": 8750,
+    "R": 3500
    },
    "flavor": "",
    "portee": "1",
@@ -519,6 +631,13 @@ window.EQUIP_ARMES = {
     "SR": "26 - 52 dégâts",
     "E": "30 - 61 dégâts"
    },
+   "prix": {
+    "C": 2240,
+    "SC": 4480,
+    "R": 8960,
+    "SR": 13440,
+    "E": 17920
+   },
    "flavor": "",
    "portee": "1",
    "effets": [
@@ -545,6 +664,13 @@ window.EQUIP_ARMES = {
     "R": "9 - 18 dégâts",
     "SR": "11 - 22 dégâts",
     "E": "13 - 27 dégâts"
+   },
+   "prix": {
+    "C": 950,
+    "SC": 1900,
+    "R": 3800,
+    "SR": 5700,
+    "E": 7600
    },
    "flavor": "",
    "portee": "1",
@@ -573,6 +699,13 @@ window.EQUIP_ARMES = {
     "SR": "14 - 28 dégâts",
     "E": "16 - 33 dégâts"
    },
+   "prix": {
+    "C": 1100,
+    "SC": 2200,
+    "R": 4400,
+    "SR": 6600,
+    "E": 8800
+   },
    "flavor": "PasLeDictionnaire LOL!",
    "portee": "1",
    "effets": [],
@@ -598,6 +731,13 @@ window.EQUIP_ARMES = {
     "SR": "5 - 11 dégâts",
     "E": "7 - 14 dégâts"
    },
+   "prix": {
+    "C": 1350,
+    "SC": 2700,
+    "R": 5400,
+    "SR": 8100,
+    "E": 10800
+   },
    "flavor": "Suka …",
    "portee": "1",
    "effets": [
@@ -622,6 +762,12 @@ window.EQUIP_ARMES = {
     "R": "13 - 27 dégâts",
     "SR": "17 - 34 dégâts",
     "E": "20 - 41 dégâts"
+   },
+   "prix": {
+    "SC": 2600,
+    "R": 5200,
+    "SR": 7800,
+    "E": 10400
    },
    "flavor": "Muda muda mudaaaa!!!",
    "portee": "1",
@@ -653,6 +799,11 @@ window.EQUIP_ARMES = {
     "SC": "6 - 12 dégâts",
     "R": "7 - 15 dégâts"
    },
+   "prix": {
+    "C": 1056,
+    "SC": 2112,
+    "R": 4224
+   },
    "flavor": "",
    "portee": "1",
    "effets": [
@@ -679,6 +830,12 @@ window.EQUIP_ARMES = {
     "SC": "17 - 34 dégâts",
     "R": "20 - 40 dégâts",
     "SR": "25 - 51 dégâts"
+   },
+   "prix": {
+    "C": 2300,
+    "SC": 4600,
+    "R": 9200,
+    "SR": 13800
    },
    "flavor": "Attention au retour.",
    "portee": "2",
@@ -707,6 +864,13 @@ window.EQUIP_ARMES = {
     "SR": "28 - 56 dégâts",
     "E": "34 - 68 dégâts"
    },
+   "prix": {
+    "C": 2000,
+    "SC": 4000,
+    "R": 8000,
+    "SR": 12000,
+    "E": 16000
+   },
    "flavor": "Hérisson à la brochette.",
    "portee": "2",
    "effets": [],
@@ -725,6 +889,10 @@ window.EQUIP_ARMES = {
    "paliers": {
     "C": "15 - 30 dégâts",
     "SC": "19 - 38 dégâts"
+   },
+   "prix": {
+    "C": 550,
+    "SC": 1100
    },
    "flavor": "Funny looking maracas.",
    "portee": "2",
@@ -748,6 +916,12 @@ window.EQUIP_ARMES = {
     "R": "-75% - 24 - 27 dégâts",
     "SR": "-88% - 17 - 34 dégâts",
     "E": "-100% ), cette action prend 1T TDA à charger. 21 - 41 degas"
+   },
+   "prix": {
+    "SC": 2100,
+    "R": 4200,
+    "SR": 6300,
+    "E": 8400
    },
    "flavor": "Shwik shwik!!",
    "portee": "2",
@@ -774,6 +948,13 @@ window.EQUIP_ARMES = {
     "SR": "19 - 38 dégâts",
     "E": "22 - 45 dégâts"
    },
+   "prix": {
+    "C": 1750,
+    "SC": 3500,
+    "R": 7000,
+    "SR": 10500,
+    "E": 14000
+   },
    "flavor": "Home run!!!",
    "portee": "1",
    "effets": [
@@ -798,6 +979,12 @@ window.EQUIP_ARMES = {
     "R": "11 - 22 dégâts",
     "SR": "14 - 28 dégâts",
     "E": "17 - 34 dégâts"
+   },
+   "prix": {
+    "SC": 2320,
+    "R": 4640,
+    "SR": 6960,
+    "E": 9280
    },
    "flavor": "Pour repousser les hérétiques.",
    "portee": "5",
@@ -826,6 +1013,14 @@ window.EQUIP_ARMES = {
     "E": "17 - 34 dégâts",
     "SE": "21 - 42 dégâts"
    },
+   "prix": {
+    "C": 1150,
+    "SC": 2300,
+    "R": 4600,
+    "SR": 6900,
+    "E": 9200,
+    "SE": 11500
+   },
    "flavor": "La mort vous regarde.",
    "portee": "3",
    "effets": [
@@ -852,6 +1047,12 @@ window.EQUIP_ARMES = {
     "R": "6 - 12 dégâts",
     "SR": "7 - 15 dégâts"
    },
+   "prix": {
+    "C": 815,
+    "SC": 1630,
+    "R": 3260,
+    "SR": 4890
+   },
    "flavor": "Bonk.",
    "portee": "3",
    "effets": [
@@ -877,6 +1078,12 @@ window.EQUIP_ARMES = {
     "R": "13 - 26 dégâts",
     "SR": "16 - 32 dégâts"
    },
+   "prix": {
+    "C": 1300,
+    "SC": 2600,
+    "R": 5200,
+    "SR": 7800
+   },
    "flavor": "HAMMMERR DOWNN!",
    "portee": "4",
    "effets": [],
@@ -899,6 +1106,12 @@ window.EQUIP_ARMES = {
     "SR": "12 - 24 dégâts",
     "E": "14 - 29 dégâts",
     "SE": "18 - 36 dégâts"
+   },
+   "prix": {
+    "R": 8400,
+    "SR": 12600,
+    "E": 16800,
+    "SE": 21000
    },
    "flavor": "Concentration. Vitesse. Je suis la vitesse.",
    "portee": "4",
@@ -930,6 +1143,14 @@ window.EQUIP_ARMES = {
     "E": "20 - 41 dégâts",
     "SE": "25 - 50 dégâts"
    },
+   "prix": {
+    "C": 1850,
+    "SC": 3700,
+    "R": 7400,
+    "SR": 11100,
+    "E": 14800,
+    "SE": 18500
+   },
    "flavor": "Mini pic.",
    "portee": "3",
    "effets": [
@@ -952,6 +1173,11 @@ window.EQUIP_ARMES = {
     "SR": "24 - 47 dégâts (60% 14 - 24)",
     "E": "28 - 56 dégâts (60% 17 - 34)",
     "SE": "35 - 70 dégâts (60% 21 - 42)"
+   },
+   "prix": {
+    "SR": 11250,
+    "E": 15000,
+    "SE": 18750
    },
    "flavor": "",
    "portee": "3",
@@ -978,6 +1204,12 @@ window.EQUIP_ARMES = {
     "SR": "16 - 32 dégâts",
     "E": "19 - 38 dégâts",
     "SE": "24 - 48 dégâts"
+   },
+   "prix": {
+    "R": 5440,
+    "SR": 8160,
+    "E": 10880,
+    "SE": 13600
    },
    "flavor": "",
    "portee": "4",
@@ -1008,6 +1240,14 @@ window.EQUIP_ARMES = {
     "SR": "16 - 33 dégâts",
     "E": "20 - 40 dégâts",
     "SE": "25 - 50 dégâts"
+   },
+   "prix": {
+    "C": 1440,
+    "SC": 2880,
+    "R": 5760,
+    "SR": 8640,
+    "E": 11520,
+    "SE": 14400
    },
    "flavor": "",
    "portee": "3",
@@ -1041,6 +1281,14 @@ window.EQUIP_ARMES = {
     "E": "9 à 18 dégâts",
     "SE": "11 à 23 dégâts"
    },
+   "prix": {
+    "C": 850,
+    "SC": 1700,
+    "R": 4255,
+    "SR": 5960,
+    "E": 9570,
+    "SE": 11275
+   },
    "flavor": "",
    "portee": "4",
    "effets": [
@@ -1067,6 +1315,12 @@ window.EQUIP_ARMES = {
     "SR": "14 - 28 dégâts",
     "E": "17 - 34 dégâts",
     "SE": "21 - 42 dégâts"
+   },
+   "prix": {
+    "R": 4400,
+    "SR": 6600,
+    "E": 8800,
+    "SE": 11000
    },
    "flavor": "3 trous de plus ça ne fait pas de mal.",
    "portee": "4",
@@ -1098,6 +1352,14 @@ window.EQUIP_ARMES = {
     "E": "22 - 45 dégâts",
     "SE": "28 - 56 dégâts"
    },
+   "prix": {
+    "C": 1600,
+    "SC": 3200,
+    "R": 6400,
+    "SR": 9600,
+    "E": 12800,
+    "SE": 16000
+   },
    "flavor": "Dans le crâne à ta mère.",
    "portee": "4",
    "effets": [
@@ -1122,6 +1384,12 @@ window.EQUIP_ARMES = {
     "SR": "14 - 28 dégâts",
     "E": "17 - 34 degas",
     "SE": "21 - 42 dégâts"
+   },
+   "prix": {
+    "R": 6200,
+    "SR": 9300,
+    "E": 12400,
+    "SE": 15500
    },
    "flavor": "La lame est bien accrochée hein?!?",
    "portee": "3",
@@ -1152,6 +1420,14 @@ window.EQUIP_ARMES = {
     "E": "20 à 40 dégâts",
     "SE": "25 à 50 dégâts"
    },
+   "prix": {
+    "C": 1715,
+    "SC": 3430,
+    "R": 6865,
+    "SR": 10295,
+    "E": 13720,
+    "SE": 17160
+   },
    "flavor": "4 portée.",
    "portee": "",
    "effets": [
@@ -1180,6 +1456,13 @@ window.EQUIP_ARMES = {
     "SR": "33 - 66 dégâts",
     "E": "39 - 79 dégâts"
    },
+   "prix": {
+    "C": 2350,
+    "SC": 4700,
+    "R": 9400,
+    "SR": 14100,
+    "E": 18800
+   },
    "flavor": "Guts goat.",
    "portee": "3",
    "effets": [
@@ -1205,6 +1488,12 @@ window.EQUIP_ARMES = {
     "E": "36 - 72 dégâts",
     "SE": "45 - 90 dégâts"
    },
+   "prix": {
+    "R": 8540,
+    "SR": 12810,
+    "E": 17080,
+    "SE": 21350
+   },
    "flavor": "Paslabridebus LOL!",
    "portee": "4",
    "effets": [],
@@ -1227,6 +1516,12 @@ window.EQUIP_ARMES = {
     "SR": "23 - 46 dégâts",
     "E": "28 - 56 dégâts",
     "SE": "35 - 70 dégâts"
+   },
+   "prix": {
+    "R": 10200,
+    "SR": 15300,
+    "E": 20400,
+    "SE": 25500
    },
    "flavor": "Double mains, double problème.",
    "portee": "3",
@@ -1255,6 +1550,13 @@ window.EQUIP_ARMES = {
     "SR": "26 - 52 dégâts",
     "E": "31 - 63 dégâts"
    },
+   "prix": {
+    "C": 2450,
+    "SC": 4900,
+    "R": 9800,
+    "SR": 14700,
+    "E": 19600
+   },
    "flavor": "",
    "portee": "4",
    "effets": [
@@ -1279,6 +1581,12 @@ window.EQUIP_ARMES = {
     "R": "19 - 39 dégâts",
     "SR": "24 - 49 dégâts",
     "E": "29 - 59 dégâts"
+   },
+   "prix": {
+    "SC": 3950,
+    "R": 7900,
+    "SR": 11850,
+    "E": 15800
    },
    "flavor": "",
    "portee": "3",
@@ -1306,6 +1614,12 @@ window.EQUIP_ARMES = {
     "R": "30 à 60 dégâts",
     "SR": "37 à 75 dégâts",
     "E": "45 à 90 dégâts"
+   },
+   "prix": {
+    "SC": 5335,
+    "R": 10670,
+    "SR": 16005,
+    "E": 21335
    },
    "flavor": "3 portée.",
    "portee": "",
@@ -1336,6 +1650,14 @@ window.EQUIP_ARMES = {
     "E": "Dégâts des fléche +20%",
     "SE": "Dégâts des fléche +25%"
    },
+   "prix": {
+    "C": 1500,
+    "SC": 3000,
+    "R": 6000,
+    "SR": 9000,
+    "E": 12000,
+    "SE": 15000
+   },
    "flavor": "Paslejeu LOL.",
    "portee": "35",
    "effets": [
@@ -1365,6 +1687,14 @@ window.EQUIP_ARMES = {
     "E": "67 flèches",
     "SE": "84 flèches"
    },
+   "prix": {
+    "C": 200,
+    "SC": 400,
+    "R": 800,
+    "SR": 1200,
+    "E": 1600,
+    "SE": 2000
+   },
    "flavor": "Coubeh.",
    "portee": "",
    "effets": [],
@@ -1389,6 +1719,13 @@ window.EQUIP_ARMES = {
     "R": "6 - 12 dégâts",
     "SR": "7 - 15 dégâts",
     "E": "9 - 18 dégâts"
+   },
+   "prix": {
+    "C": 950,
+    "SC": 1900,
+    "R": 3800,
+    "SR": 5700,
+    "E": 7600
    },
    "flavor": "Moi amour sushi.",
    "portee": "20",
@@ -1415,6 +1752,10 @@ window.EQUIP_ARMES = {
     "C": "5 - 10 dégâts",
     "SC": "6 - 12 dégâts"
    },
+   "prix": {
+    "C": 650,
+    "SC": 1300
+   },
    "flavor": "Sacrée pendante!",
    "portee": "20",
    "effets": [
@@ -1439,6 +1780,12 @@ window.EQUIP_ARMES = {
     "SC": "9 - 19 dégâts",
     "R": "11 - 22 dégâts",
     "SR": "14 - 28 dégâts"
+   },
+   "prix": {
+    "C": 910,
+    "SC": 1820,
+    "R": 3640,
+    "SR": 5460
    },
    "flavor": "Un bâton qui revient.",
    "portee": "20",
@@ -1469,6 +1816,14 @@ window.EQUIP_ARMES = {
     "E": "19 - 38 dégâts",
     "SE": "24 - 48 dégâts"
    },
+   "prix": {
+    "C": 1050,
+    "SC": 2100,
+    "R": 4200,
+    "SR": 6300,
+    "E": 8400,
+    "SE": 10500
+   },
    "flavor": "Waka waka héhé.",
    "portee": "20",
    "effets": [],
@@ -1496,6 +1851,14 @@ window.EQUIP_ARMES = {
     "E": "Tire sur 26 cases",
     "SE": "Tire sur 30 cases"
    },
+   "prix": {
+    "C": 700,
+    "SC": 1400,
+    "R": 2800,
+    "SR": 4200,
+    "E": 5600,
+    "SE": 7000
+   },
    "flavor": "On est dans minecraft ouuuuuuuuuu?!",
    "portee": "35",
    "effets": [
@@ -1520,6 +1883,12 @@ window.EQUIP_ARMES = {
     "SR": "+ 60% de dégâts des flèches",
     "E": "+ 70% de dégâts des flèches",
     "SE": "+ 80% de dégâts des flèches"
+   },
+   "prix": {
+    "R": 8000,
+    "SR": 12000,
+    "E": 16000,
+    "SE": 20000
    },
    "flavor": "Attention les doigts.",
    "portee": "35",
@@ -1547,6 +1916,13 @@ window.EQUIP_ARMES = {
     "SR": "20 - 41 dégâts",
     "E": "25 - 50 dégâts",
     "SE": "31 - 62 dégâts"
+   },
+   "prix": {
+    "SC": 2800,
+    "R": 5600,
+    "SR": 8400,
+    "E": 11200,
+    "SE": 14000
    },
    "flavor": "Quelques choses à compenser.",
    "portee": "20",
@@ -1576,6 +1952,13 @@ window.EQUIP_ARMES = {
     "E": "28 - 56 dégâts",
     "SE": "35 - 70 dégâts"
    },
+   "prix": {
+    "SC": 4200,
+    "R": 8400,
+    "SR": 12600,
+    "E": 16800,
+    "SE": 21000
+   },
    "flavor": "La cause du commerce triangulaire.",
    "portee": "20",
    "effets": [
@@ -1598,6 +1981,14 @@ window.EQUIP_ARMES = {
     "SE"
    ],
    "paliers": {},
+   "prix": {
+    "C": 1275,
+    "SC": 2550,
+    "R": 5095,
+    "SR": 7645,
+    "E": 10190,
+    "SE": 12740
+   },
    "flavor": "25 portée.",
    "portee": "",
    "effets": [
@@ -1626,6 +2017,13 @@ window.EQUIP_ARMES = {
     "SR": "+25% de dégâts",
     "E": "+30% de dégâts"
    },
+   "prix": {
+    "C": 800,
+    "SC": 1600,
+    "R": 3200,
+    "SR": 4800,
+    "E": 6400
+   },
    "flavor": "",
    "portee": "15",
    "effets": [
@@ -1651,6 +2049,12 @@ window.EQUIP_ARMES = {
     "E": "+2 actions de barbare.",
     "SE": "+2 actions de barbare et vous faites 10% de dégâts en plus."
    },
+   "prix": {
+    "R": 8500,
+    "SR": 13500,
+    "E": 17500,
+    "SE": 24500
+   },
    "flavor": null,
    "portee": "",
    "effets": [],
@@ -1673,6 +2077,12 @@ window.EQUIP_ARMES = {
     "SR": "+1 partition et si vous êtes en Mono-classe alors le dé du passif du barde passe à un D6 où (1 = 1 allié; 2 et 3 = 2 alliés; 4, 5 et 6 = 3 alliés). Et si vous êtes en Bi-classes alors le dé passe à un D4 où (1 = 1 allié; 2, 3 et 4 = 2 alliés).",
     "E": "+2 partitions.",
     "SE": "+2 partitions et si vous êtes en Mono-classe alors le dé du passif du barde passe à un D8 où (1 et 2 = 1 allié; 3 et 4 = 2 alliés; 5 et 6 = 3 alliés; 7 et 8 = 4 alliés). Et si vous êtes en Bi-classes alors le dé passe à un D6 où (1 et 2 = 1 allié; 3 et 4 = 2 alliés; 5 et 6 = 3 alliés)."
+   },
+   "prix": {
+    "R": 8500,
+    "SR": 13500,
+    "E": 17500,
+    "SE": 24500
    },
    "flavor": null,
    "portee": "",
@@ -1697,6 +2107,12 @@ window.EQUIP_ARMES = {
     "E": "+2 actions de guerrier.",
     "SE": "+2 actions de guerrier et vous donne 10% de résistance."
    },
+   "prix": {
+    "R": 8500,
+    "SR": 13500,
+    "E": 17500,
+    "SE": 24500
+   },
    "flavor": null,
    "portee": "",
    "effets": [],
@@ -1719,6 +2135,12 @@ window.EQUIP_ARMES = {
     "SR": "+1 action de l’archer et vous rajoute +1 en précision.",
     "E": "+2 actions de l’archer.",
     "SE": "+2 actions de l’archer et vous rajoute +2 de précision."
+   },
+   "prix": {
+    "R": 8500,
+    "SR": 13500,
+    "E": 17500,
+    "SE": 24500
    },
    "flavor": null,
    "portee": "",
@@ -1743,6 +2165,12 @@ window.EQUIP_ARMES = {
     "E": "+2 pactes.",
     "SE": "+2 pactes et vos attaques classiques baissent les PV max de la cible de 5% à chaque attaque."
    },
+   "prix": {
+    "R": 8500,
+    "SR": 13500,
+    "E": 17500,
+    "SE": 24500
+   },
    "flavor": null,
    "portee": "",
    "effets": [],
@@ -1765,6 +2193,12 @@ window.EQUIP_ARMES = {
     "SR": "+1 voeux et les effets des buff que vous utilisez sont multipliés par 1.1 ou si c’est des statistiques vous ajoutez +1 aux statistiques concerné.",
     "E": "+2 voeux.",
     "SE": "+2 voeux et les effets des buff que vous utilisez sont multipliés par 1.2 ou si c’est des statistiques vous ajoutez +2 aux statistiques concerné."
+   },
+   "prix": {
+    "R": 8500,
+    "SR": 13500,
+    "E": 17500,
+    "SE": 24500
    },
    "flavor": null,
    "portee": "",
@@ -1789,6 +2223,12 @@ window.EQUIP_ARMES = {
     "E": "+2 actions de rôdeurs.",
     "SE": "+2 actions de rôdeurs et son animal a des statistiques de 4 niveaux supérieurs."
    },
+   "prix": {
+    "R": 8500,
+    "SR": 13500,
+    "E": 17500,
+    "SE": 24500
+   },
    "flavor": null,
    "portee": "",
    "effets": [],
@@ -1811,6 +2251,12 @@ window.EQUIP_ARMES = {
     "SR": "+1 action de roublard et +20% de dégâts à la première attaque du combat.",
     "E": "+2 actions de roublard.",
     "SE": "+2 actions de roublard et +40% de dégâts à la première attaque du combat."
+   },
+   "prix": {
+    "R": 8500,
+    "SR": 13500,
+    "E": 17500,
+    "SE": 24500
    },
    "flavor": null,
    "portee": "",
@@ -1835,6 +2281,12 @@ window.EQUIP_ARMES = {
     "E": "+2 actions du moine.",
     "SE": "+2 actions du moine et 10% de chance d’appliquer un style rapide à l’attaque."
    },
+   "prix": {
+    "R": 8500,
+    "SR": 13500,
+    "E": 17500,
+    "SE": 24500
+   },
    "flavor": null,
    "portee": "",
    "effets": [],
@@ -1857,6 +2309,12 @@ window.EQUIP_ARMES = {
     "SR": "+1 tirage et si les cartes sorties ne conviennent pas le cartomancien peux les remettre dans le paquet est tiré une nouvelle carte qui sera obligatoirement jouer.",
     "E": "+2 tirages.",
     "SE": "+2 tirages et si les cartes sorties ne conviennent pas le cartomancien peux les remettre dans le paquet est tiré une deux nouvelles cartes, un pile ou face décidera de laquelle des deux cartes sera obligatoirement jouer."
+   },
+   "prix": {
+    "R": 8500,
+    "SR": 13500,
+    "E": 17500,
+    "SE": 24500
    },
    "flavor": null,
    "portee": "",
@@ -1881,6 +2339,12 @@ window.EQUIP_ARMES = {
     "E": "+2 décoctions",
     "SE": "+2 décoctions et les heals que vous prodiguez seront multipliés par 1.2."
    },
+   "prix": {
+    "R": 8500,
+    "SR": 13500,
+    "E": 17500,
+    "SE": 24500
+   },
    "flavor": null,
    "portee": "",
    "effets": [],
@@ -1904,6 +2368,12 @@ window.EQUIP_ARMES = {
     "E": "+2 actions de Pneuma-chir.",
     "SE": "+2 actions de Pneuma-chir et +4 de portée sur ces liens."
    },
+   "prix": {
+    "R": 8500,
+    "SR": 13500,
+    "E": 17500,
+    "SE": 24500
+   },
    "flavor": null,
    "portee": "",
    "effets": [],
@@ -1926,6 +2396,12 @@ window.EQUIP_ARMES = {
     "SR": "+1 Offrande et augmente les% de chance de la moisson des offrandes de 10%.",
     "E": "+2 Offrandes.",
     "SE": "+2 Offrandes et augmente les% de chance de la moisson des offrandes de 20%."
+   },
+   "prix": {
+    "R": 8500,
+    "SR": 13500,
+    "E": 17500,
+    "SE": 24500
    },
    "flavor": null,
    "portee": "",
@@ -1954,6 +2430,14 @@ window.EQUIP_ARMES = {
     "E": "13 - 27 dégâts",
     "SE": "17 - 34 dégâts"
    },
+   "prix": {
+    "C": 1250,
+    "SC": 2500,
+    "R": 5000,
+    "SR": 7500,
+    "E": 10000,
+    "SE": 12500
+   },
    "flavor": "Le cousin chelou du OG.",
    "portee": "2",
    "effets": [],
@@ -1976,6 +2460,12 @@ window.EQUIP_ARMES = {
     "SR": "26 - 52 dégâts",
     "E": "31 - 63 dégâts",
     "SE": "39 - 78 dégâts Petite lames:"
+   },
+   "prix": {
+    "R": 9400,
+    "SR": 14100,
+    "E": 18800,
+    "SE": 23500
    },
    "flavor": "Braabapbapbapppbapp.",
    "portee": "2",
@@ -2006,6 +2496,14 @@ window.EQUIP_ARMES = {
     "E": "9 - 18 dégâts",
     "SE": "11 - 22 dégâts"
    },
+   "prix": {
+    "C": 1000,
+    "SC": 2000,
+    "R": 4000,
+    "SR": 6000,
+    "E": 8000,
+    "SE": 10000
+   },
    "flavor": "Cure dent galactique.",
    "portee": "1",
    "effets": [
@@ -2035,6 +2533,14 @@ window.EQUIP_ARMES = {
     "E": "18 - 36 dégâts",
     "SE": "22 - 45 dégâts"
    },
+   "prix": {
+    "C": 2000,
+    "SC": 4000,
+    "R": 8000,
+    "SR": 12000,
+    "E": 16000,
+    "SE": 20000
+   },
    "flavor": "Trop sophistiqué pour être jeté.",
    "portee": "4",
    "effets": [
@@ -2060,6 +2566,12 @@ window.EQUIP_ARMES = {
     "E": "23 - 47 dégâts",
     "SE": "29 - 59 dégâts Bouclier:"
    },
+   "prix": {
+    "R": 10600,
+    "SR": 15900,
+    "E": 21200,
+    "SE": 26500
+   },
    "flavor": "Pour les bûcherons coupe afro.",
    "portee": "3",
    "effets": [],
@@ -2082,6 +2594,12 @@ window.EQUIP_ARMES = {
     "SC": "4D4 + 3 dégâts",
     "R": "5D4 + 4 dégâts",
     "SR": "6D4 + 4 dégâts"
+   },
+   "prix": {
+    "C": 1365,
+    "SC": 2730,
+    "R": 5460,
+    "SR": 8190
    },
    "flavor": "",
    "portee": "15",
@@ -2112,6 +2630,14 @@ window.EQUIP_ARMES = {
     "E": "10D8 dégâts",
     "SE": "12D8 dégâts"
    },
+   "prix": {
+    "C": 1820,
+    "SC": 3640,
+    "R": 7280,
+    "SR": 10920,
+    "E": 14560,
+    "SE": 18200
+   },
    "flavor": "",
    "portee": "15",
    "effets": [
@@ -2136,6 +2662,12 @@ window.EQUIP_ARMES = {
     "R": "4D8 + 9 dégâts 12 dégâts",
     "SR": "5D8 + 9 dégâts 15 dégâts",
     "E": "6D8 + 12 dégâts La baïonnette: 1 de portée (vert) ½ de repoussé de 1 casse et ¼ d'immobilisé. 17 dégâts"
+   },
+   "prix": {
+    "SC": 5460,
+    "R": 10920,
+    "SR": 16380,
+    "E": 21840
    },
    "flavor": "Le mousquet:",
    "portee": "",
@@ -2164,6 +2696,12 @@ window.EQUIP_ARMES = {
     "E": "5D20 + 25 dégâts",
     "SE": "6D20 + 25 dégâts Petite lames:"
    },
+   "prix": {
+    "R": 12000,
+    "SR": 18000,
+    "E": 24000,
+    "SE": 30000
+   },
    "flavor": "",
    "portee": "30",
    "effets": [
@@ -2190,6 +2728,12 @@ window.EQUIP_ARMES = {
     "SC": "3D4 + 2 dégâts",
     "R": "4D4 + 4 dégâts",
     "SR": "5D4 + 4 dégâts"
+   },
+   "prix": {
+    "C": 1200,
+    "SC": 2400,
+    "R": 4800,
+    "SR": 7200
    },
    "flavor": "",
    "portee": "12",
@@ -2221,6 +2765,14 @@ window.EQUIP_ARMES = {
     "E": "+23% PA 1/4 contre parfait",
     "SE": "+28% PA 1/4 contre parfait"
    },
+   "prix": {
+    "C": 1250,
+    "SC": 2500,
+    "R": 5000,
+    "SR": 7500,
+    "E": 10000,
+    "SE": 12500
+   },
    "flavor": "Master chief serait fier.",
    "portee": "",
    "effets": [
@@ -2250,6 +2802,14 @@ window.EQUIP_ARMES = {
     "E": "+ 56 mana",
     "SE": "+ 70 mana"
    },
+   "prix": {
+    "C": 1500,
+    "SC": 3000,
+    "R": 6000,
+    "SR": 9000,
+    "E": 12000,
+    "SE": 15000
+   },
    "flavor": "Vous ne passerez pas!!!",
    "portee": "",
    "effets": [],
@@ -2272,6 +2832,12 @@ window.EQUIP_ARMES = {
     "SR": "+ 37 mana",
     "E": "+ 45 mana",
     "SE": "+ 56 mana"
+   },
+   "prix": {
+    "R": 6600,
+    "SR": 9900,
+    "E": 13200,
+    "SE": 16500
    },
    "flavor": "I need healing!",
    "portee": "",
@@ -2302,6 +2868,12 @@ window.EQUIP_ARMES = {
     "E": "+ 45 mana",
     "SE": "+ 56 mana"
    },
+   "prix": {
+    "R": 6000,
+    "SR": 9000,
+    "E": 12000,
+    "SE": 15000
+   },
    "flavor": "Le temps c'est de l'argent!",
    "portee": "",
    "effets": [
@@ -2330,6 +2902,12 @@ window.EQUIP_ARMES = {
     "SR": "+ 37 mana",
     "E": "+ 45 mana",
     "SE": "+ 56 mana"
+   },
+   "prix": {
+    "R": 6600,
+    "SR": 9900,
+    "E": 13200,
+    "SE": 16500
    },
    "flavor": "Build like a tank.",
    "portee": "",
@@ -2360,6 +2938,12 @@ window.EQUIP_ARMES = {
     "E": "+ 45 mana",
     "SE": "+ 56 mana"
    },
+   "prix": {
+    "R": 5920,
+    "SR": 8880,
+    "E": 11840,
+    "SE": 14800
+   },
    "flavor": "Tahh éliatrope.",
    "portee": "",
    "effets": [
@@ -2388,6 +2972,12 @@ window.EQUIP_ARMES = {
     "SR": "+ 37 mana",
     "E": "+ 45 mana",
     "SE": "+ 56 mana"
+   },
+   "prix": {
+    "R": 5920,
+    "SR": 8880,
+    "E": 11840,
+    "SE": 14800
    },
    "flavor": "c’est quoi cette merde!",
    "portee": "",
@@ -2418,6 +3008,12 @@ window.EQUIP_ARMES = {
     "E": "+ 45 mana",
     "SE": "+ 56 mana"
    },
+   "prix": {
+    "R": 5920,
+    "SR": 8880,
+    "E": 11840,
+    "SE": 14800
+   },
    "flavor": "Ta prochaine phrase sera …",
    "portee": "",
    "effets": [
@@ -2446,6 +3042,12 @@ window.EQUIP_ARMES = {
     "SR": "+ 37 mana",
     "E": "+ 45 mana",
     "SE": "+ 56 mana"
+   },
+   "prix": {
+    "R": 6600,
+    "SR": 9900,
+    "E": 13200,
+    "SE": 16500
    },
    "flavor": "This is fine.",
    "portee": "",
@@ -2476,6 +3078,12 @@ window.EQUIP_ARMES = {
     "E": "+ 45 mana",
     "SE": "+ 56 mana"
    },
+   "prix": {
+    "R": 6600,
+    "SR": 9900,
+    "E": 13200,
+    "SE": 16500
+   },
    "flavor": "De la glace dans mes veines.",
    "portee": "",
    "effets": [
@@ -2504,6 +3112,12 @@ window.EQUIP_ARMES = {
     "SR": "+ 37 mana",
     "E": "+ 45 mana",
     "SE": "+ 56 mana"
+   },
+   "prix": {
+    "R": 6600,
+    "SR": 9900,
+    "E": 13200,
+    "SE": 16500
    },
    "flavor": "Zzzap electriciti!",
    "portee": "",
@@ -2534,6 +3148,12 @@ window.EQUIP_ARMES = {
     "E": "+ 45 mana",
     "SE": "+ 56 mana"
    },
+   "prix": {
+    "R": 6600,
+    "SR": 9900,
+    "E": 13200,
+    "SE": 16500
+   },
    "flavor": "Je vois des personnes mortes.",
    "portee": "",
    "effets": [
@@ -2562,6 +3182,12 @@ window.EQUIP_ARMES = {
     "SR": "+ 37 mana",
     "E": "+ 45 mana",
     "SE": "+ 56 mana"
+   },
+   "prix": {
+    "R": 6600,
+    "SR": 9900,
+    "E": 13200,
+    "SE": 16500
    },
    "flavor": "Bomboclaat!",
    "portee": "",
@@ -2592,6 +3218,12 @@ window.EQUIP_ARMES = {
     "E": "+ 45 mana",
     "SE": "+ 56 mana"
    },
+   "prix": {
+    "R": 6600,
+    "SR": 9900,
+    "E": 13200,
+    "SE": 16500
+   },
    "flavor": "Sharknado!",
    "portee": "",
    "effets": [
@@ -2620,6 +3252,12 @@ window.EQUIP_ARMES = {
     "SR": "+ 37 mana",
     "E": "+ 45 mana",
     "SE": "+ 56 mana"
+   },
+   "prix": {
+    "R": 6600,
+    "SR": 9900,
+    "E": 13200,
+    "SE": 16500
    },
    "flavor": "Ici on mesure dès vent a plus de 100 km/h!",
    "portee": "",
@@ -2650,6 +3288,12 @@ window.EQUIP_ARMES = {
     "E": "+ 45 mana",
     "SE": "+ 56 mana"
    },
+   "prix": {
+    "R": 6600,
+    "SR": 9900,
+    "E": 13200,
+    "SE": 16500
+   },
    "flavor": "Un bâton spécialisé dans les sort de la famille de terre:",
    "portee": "",
    "effets": [
@@ -2677,6 +3321,12 @@ window.EQUIP_ARMES = {
     "SR": "+ 37 mana",
     "E": "+ 45 mana",
     "SE": "+ 56 mana"
+   },
+   "prix": {
+    "R": 6600,
+    "SR": 9900,
+    "E": 13200,
+    "SE": 16500
    },
    "flavor": "Une branche magique!",
    "portee": "",
@@ -2707,6 +3357,12 @@ window.EQUIP_ARMES = {
     "E": "+ 45 mana",
     "SE": "+ 56 mana"
    },
+   "prix": {
+    "R": 6600,
+    "SR": 9900,
+    "E": 13200,
+    "SE": 16500
+   },
    "flavor": "7ème jour dodo.",
    "portee": "",
    "effets": [
@@ -2736,6 +3392,12 @@ window.EQUIP_ARMES = {
     "E": "+ 34 PV",
     "SE": "+ 42 PV"
    },
+   "prix": {
+    "R": 6600,
+    "SR": 9900,
+    "E": 13200,
+    "SE": 16500
+   },
    "flavor": "Un bâton spécialisé dans les sort de la famille du sang et les hématomancie l’apprécie particulièrement:",
    "portee": "",
    "effets": [
@@ -2763,6 +3425,12 @@ window.EQUIP_ARMES = {
     "SR": "+ 37 mana",
     "E": "+ 45 mana",
     "SE": "+ 56 mana"
+   },
+   "prix": {
+    "R": 6600,
+    "SR": 9900,
+    "E": 13200,
+    "SE": 16500
    },
    "flavor": "Un bâton spécialisé dans les sort de la famille des élément oublié:",
    "portee": "",
@@ -2792,6 +3460,12 @@ window.EQUIP_ARMES = {
     "E": "20 - 40 dégâts",
     "SE": "24 - 49 dégâts"
    },
+   "prix": {
+    "R": 5840,
+    "SR": 8760,
+    "E": 11680,
+    "SE": 14600
+   },
    "flavor": "Paslestyledecombat LOL!",
    "portee": "2",
    "effets": [],
@@ -2819,6 +3493,14 @@ window.EQUIP_ARMES = {
     "E": "17 - 34 dégâts",
     "SE": "21 - 42 dégâts"
    },
+   "prix": {
+    "C": 1400,
+    "SC": 2800,
+    "R": 5600,
+    "SR": 8400,
+    "E": 11200,
+    "SE": 14000
+   },
    "flavor": "Pour déterrer et zouker ta grand-mère.",
    "portee": "3",
    "effets": [],
@@ -2839,6 +3521,11 @@ window.EQUIP_ARMES = {
     "C": "5 - 10 dégâts",
     "SC": "6 - 12 dégâts",
     "R": "7 - 15 dégâts"
+   },
+   "prix": {
+    "C": 800,
+    "SC": 1600,
+    "R": 3200
    },
    "flavor": "Tchic tchic.",
    "portee": "20",
@@ -2866,6 +3553,12 @@ window.EQUIP_ARMES = {
     "R": "3 - 7 dégâts",
     "SR": "4 - 9 dégâts"
    },
+   "prix": {
+    "C": 650,
+    "SC": 1300,
+    "R": 2600,
+    "SR": 3900
+   },
    "flavor": "Affronter mon regard.",
    "portee": "30",
    "effets": [
@@ -2889,6 +3582,11 @@ window.EQUIP_ARMES = {
     "SR": "+ 35% de dégâts des flèches",
     "E": "+ 40% de dégâts des flèches",
     "SE": "+ 45% de dégâts des flèches"
+   },
+   "prix": {
+    "SR": 10800,
+    "E": 14400,
+    "SE": 18000
    },
    "flavor": "Pour tirer des bangers.",
    "portee": "35",
@@ -2919,6 +3617,14 @@ window.EQUIP_ARMES = {
     "E": "Dégâts des flèches +15%",
     "SE": "Dégâts des flèches +20% Bouclier:"
    },
+   "prix": {
+    "C": 1875,
+    "SC": 3750,
+    "R": 7500,
+    "SR": 11250,
+    "E": 15000,
+    "SE": 18750
+   },
    "flavor": "",
    "portee": "30",
    "effets": [
@@ -2948,6 +3654,14 @@ window.EQUIP_ARMES = {
     "E": "+22% PA 1/4 contre parfait",
     "SE": "+28% PA 1/4 contre parfait"
    },
+   "prix": {
+    "C": 1250,
+    "SC": 2500,
+    "R": 5000,
+    "SR": 7500,
+    "E": 10000,
+    "SE": 12500
+   },
    "flavor": "Vous faites - 10% de dégâts.",
    "portee": "",
    "effets": [],
@@ -2975,6 +3689,14 @@ window.EQUIP_ARMES = {
     "E": "17 - 34 dégâts",
     "SE": "21 - 42 dégâts Mi-distance et de lancer: Il faut minimum 12 en Force pour les lancer."
    },
+   "prix": {
+    "C": 1250,
+    "SC": 2500,
+    "R": 5000,
+    "SR": 7500,
+    "E": 10000,
+    "SE": 12500
+   },
    "flavor": "",
    "portee": "2",
    "effets": [],
@@ -2997,6 +3719,12 @@ window.EQUIP_ARMES = {
     "SR": "15 - 30 dégâts",
     "E": "18 - 36 dégâts",
     "SE": "22 - 45 dégâts"
+   },
+   "prix": {
+    "R": 5668,
+    "SR": 8502,
+    "E": 11336,
+    "SE": 14170
    },
    "flavor": "",
    "portee": "4",
@@ -3024,6 +3752,14 @@ window.EQUIP_ARMES = {
     "SR": "Dégâts des flèches +10%",
     "E": "Dégâts des flèches +15%",
     "SE": "Dégâts des flèches +20%"
+   },
+   "prix": {
+    "C": 1875,
+    "SC": 3750,
+    "R": 7500,
+    "SR": 11250,
+    "E": 15000,
+    "SE": 18750
    },
    "flavor": "",
    "portee": "30",
@@ -3054,6 +3790,14 @@ window.EQUIP_ARMES = {
     "E": "9 - 18 dégâts",
     "SE": "11 - 22 dégâts Bouclier:"
    },
+   "prix": {
+    "C": 698,
+    "SC": 1396,
+    "R": 2792,
+    "SR": 4188,
+    "E": 5584,
+    "SE": 6980
+   },
    "flavor": "",
    "portee": "20",
    "effets": [
@@ -3083,6 +3827,14 @@ window.EQUIP_ARMES = {
     "E": "+22% PA 1/4 contre parfait",
     "SE": "+28% PA 1/4 contre parfait"
    },
+   "prix": {
+    "C": 1250,
+    "SC": 2500,
+    "R": 5000,
+    "SR": 7500,
+    "E": 10000,
+    "SE": 12500
+   },
    "flavor": "Vous faites - 10% de dégâts.",
    "portee": "",
    "effets": [],
@@ -3105,6 +3857,12 @@ window.EQUIP_ARMES = {
     "R": "+15% PA 1/10 contre parfait",
     "SR": "+19% PA 1/10 contre parfait",
     "E": "+23% PA 1/6 contre parfait"
+   },
+   "prix": {
+    "SC": 1440,
+    "R": 2880,
+    "SR": 4320,
+    "E": 5760
    },
    "flavor": "Couvercle de casserole.",
    "portee": "",
@@ -3135,6 +3893,14 @@ window.EQUIP_ARMES = {
     "E": "+27% PA 1/4 contre parfait",
     "SE": "+34% PA 1/4 contre parfait"
    },
+   "prix": {
+    "C": 1000,
+    "SC": 2000,
+    "R": 4000,
+    "SR": 6000,
+    "E": 8000,
+    "SE": 10000
+   },
    "flavor": "On se la met en joute.",
    "portee": "",
    "effets": [
@@ -3157,6 +3923,11 @@ window.EQUIP_ARMES = {
     "R": "+18% PA 15% de chance de réflexion",
     "SR": "+23% PA 20% de chance de réflexion",
     "E": "+27% PA 30% de chance de réflexion"
+   },
+   "prix": {
+    "R": 4200,
+    "SR": 6300,
+    "E": 8400
    },
    "flavor": "Parle à ma main.",
    "portee": "",
@@ -3183,6 +3954,12 @@ window.EQUIP_ARMES = {
     "E": "+36% PA 1/2 contre parfait",
     "SE": "+45% PA 1/2 contre parfait"
    },
+   "prix": {
+    "R": 4600,
+    "SR": 6900,
+    "E": 9200,
+    "SE": 12500
+   },
    "flavor": "Efficace contre les casseurs.",
    "portee": "",
    "effets": [
@@ -3206,6 +3983,11 @@ window.EQUIP_ARMES = {
     "R": "+21% PA 1/6 contre parfait",
     "SR": "+26% PA 1/6 contre parfait",
     "E": "+31% PA 1/4 contre parfait"
+   },
+   "prix": {
+    "R": 5400,
+    "SR": 8100,
+    "E": 10800
    },
    "flavor": "Il faut minimum 16 en Force pour le manier.",
    "portee": "",
@@ -3241,6 +4023,14 @@ window.EQUIP_ARMES = {
     "E": "+22% PA",
     "SE": "+28% PA"
    },
+   "prix": {
+    "C": 800,
+    "SC": 1600,
+    "R": 3200,
+    "SR": 4800,
+    "E": 6400,
+    "SE": 8000
+   },
    "flavor": "Garde les style rapide.",
    "portee": "",
    "effets": [
@@ -3265,6 +4055,12 @@ window.EQUIP_ARMES = {
     "R": "20% de dégâts absorbés",
     "SR": "20% de dégâts absorbés",
     "E": "25% de dégâts absorbés"
+   },
+   "prix": {
+    "SC": 2400,
+    "R": 4800,
+    "SR": 7200,
+    "E": 9600
    },
    "flavor": "Le bouclier peut absorber un pourcentage des dégâts reçus (X% selon sa rareté). En dépensant 1 action, vous pouvez relâcher l’énergie absorbée et infliger l’équivalent des dégâts stockés sur une cible située à 1 case de portée. Tous les dégâts absorbés sont automatiquement déchargés à la fin de chaque combat.",
    "portee": "",
@@ -3293,6 +4089,14 @@ window.EQUIP_ARMES = {
     "E": "+18% PA 1/6 contre parfait",
     "SE": "+23% PA 1/6 contre parfait"
    },
+   "prix": {
+    "C": 1200,
+    "SC": 2400,
+    "R": 4800,
+    "SR": 7200,
+    "E": 9600,
+    "SE": 12000
+   },
    "flavor": "Vous faites - 5% de dégâts",
    "portee": "",
    "effets": [
@@ -3316,6 +4120,11 @@ window.EQUIP_ARMES = {
     "SR": "+ 15% de dégâts",
     "E": "+ 20% de dégâts"
    },
+   "prix": {
+    "R": 6500,
+    "SR": 9750,
+    "E": 16250
+   },
    "flavor": null,
    "portee": "",
    "effets": [],
@@ -3336,6 +4145,11 @@ window.EQUIP_ARMES = {
     "R": "+ 10% de PA",
     "SR": "+ 15% de PA",
     "E": "+ 20% de PA"
+   },
+   "prix": {
+    "R": 6500,
+    "SR": 9750,
+    "E": 16250
    },
    "flavor": null,
    "portee": "",
@@ -3358,6 +4172,11 @@ window.EQUIP_ARMES = {
     "SR": "+ 2 de VTS",
     "E": "+ 3 de VTS"
    },
+   "prix": {
+    "R": 6500,
+    "SR": 9750,
+    "E": 16250
+   },
    "flavor": null,
    "portee": "",
    "effets": [],
@@ -3378,6 +4197,11 @@ window.EQUIP_ARMES = {
     "R": "- 10% de dégâts ainsi que 10% de chance d’appliquer l’effet saignement.",
     "SR": "- 7,5% de dégâts ainsi que 10% de chance d’appliquer l’effet saignement.",
     "E": "- 7,5% de dégâts ainsi que 15% de chance d’appliquer l’effet saignement."
+   },
+   "prix": {
+    "R": 6800,
+    "SR": 10200,
+    "E": 17000
    },
    "flavor": null,
    "portee": "",
@@ -3400,6 +4224,11 @@ window.EQUIP_ARMES = {
     "SR": "- 7,5% de PV ainsi que 10% des dégâts sont renvoyés à l'ennemi.",
     "E": "- 7,5% de PV ainsi que 15% des dégâts sont renvoyés à l'ennemi."
    },
+   "prix": {
+    "R": 6800,
+    "SR": 10200,
+    "E": 17000
+   },
    "flavor": null,
    "portee": "",
    "effets": [],
@@ -3421,6 +4250,11 @@ window.EQUIP_ARMES = {
     "SR": "- 1 de VTS ainsi qu’un second déplacement a 1/4 de distance.",
     "E": "- 1 de VTS ainsi qu’un second déplacement a 1/2 de distance."
    },
+   "prix": {
+    "R": 6800,
+    "SR": 10200,
+    "E": 17000
+   },
    "flavor": null,
    "portee": "",
    "effets": [],
@@ -3434,6 +4268,7 @@ window.EQUIP_ARMES = {
    "sousCategorie": null,
    "tiers": [],
    "paliers": {},
+   "prix": 80,
    "flavor": "Droit dans le genou.",
    "portee": "",
    "effets": [],
@@ -3448,6 +4283,7 @@ window.EQUIP_ARMES = {
    "sousCategorie": null,
    "tiers": [],
    "paliers": {},
+   "prix": 140,
    "flavor": "Big ouille!",
    "portee": "",
    "effets": [],
@@ -3462,6 +4298,7 @@ window.EQUIP_ARMES = {
    "sousCategorie": null,
    "tiers": [],
    "paliers": {},
+   "prix": 225,
    "flavor": "Giga mega ouille!!!",
    "portee": "",
    "effets": [
@@ -3492,6 +4329,7 @@ window.EQUIP_ARMES = {
    "sousCategorie": null,
    "tiers": [],
    "paliers": {},
+   "prix": 225,
    "flavor": "Caliente!!!!!",
    "portee": "",
    "effets": [],
@@ -3506,6 +4344,7 @@ window.EQUIP_ARMES = {
    "sousCategorie": null,
    "tiers": [],
    "paliers": {},
+   "prix": 180,
    "flavor": "Ninja! (pasletreamer LOL!).",
    "portee": "",
    "effets": [
@@ -3521,6 +4360,7 @@ window.EQUIP_ARMES = {
    "sousCategorie": null,
    "tiers": [],
    "paliers": {},
+   "prix": 225,
    "flavor": "Christophe Maé sors de là.",
    "portee": "",
    "effets": [],
@@ -3535,6 +4375,7 @@ window.EQUIP_ARMES = {
    "sousCategorie": null,
    "tiers": [],
    "paliers": {},
+   "prix": 195,
    "flavor": "Canicule! Hmm hmm… Canicule!",
    "portee": "",
    "effets": [],
@@ -3549,6 +4390,7 @@ window.EQUIP_ARMES = {
    "sousCategorie": null,
    "tiers": [],
    "paliers": {},
+   "prix": 225,
    "flavor": "Pour te foudroyer le fion.",
    "portee": "",
    "effets": [],
@@ -3563,6 +4405,7 @@ window.EQUIP_ARMES = {
    "sousCategorie": null,
    "tiers": [],
    "paliers": {},
+   "prix": 180,
    "flavor": "Cui cui les ptits oiseaux!",
    "portee": "",
    "effets": [],
@@ -3577,6 +4420,7 @@ window.EQUIP_ARMES = {
    "sousCategorie": null,
    "tiers": [],
    "paliers": {},
+   "prix": 180,
    "flavor": "Ta bien bue de l’eau?",
    "portee": "",
    "effets": [],
@@ -3591,6 +4435,7 @@ window.EQUIP_ARMES = {
    "sousCategorie": null,
    "tiers": [],
    "paliers": {},
+   "prix": 195,
    "flavor": "Des fleurs pour ta mère!",
    "portee": "",
    "effets": [],
@@ -3605,6 +4450,7 @@ window.EQUIP_ARMES = {
    "sousCategorie": null,
    "tiers": [],
    "paliers": {},
+   "prix": 195,
    "flavor": "Le sol c’est de la lave!",
    "portee": "",
    "effets": [],
@@ -3619,6 +4465,7 @@ window.EQUIP_ARMES = {
    "sousCategorie": null,
    "tiers": [],
    "paliers": {},
+   "prix": 180,
    "flavor": "Wankil crazy!!!",
    "portee": "",
    "effets": [],
@@ -3633,6 +4480,7 @@ window.EQUIP_ARMES = {
    "sousCategorie": null,
    "tiers": [],
    "paliers": {},
+   "prix": 225,
    "flavor": "MACRON…putain…EXPLOTION!!",
    "portee": "",
    "effets": [
@@ -3649,6 +4497,7 @@ window.EQUIP_ARMES = {
    "sousCategorie": null,
    "tiers": [],
    "paliers": {},
+   "prix": 195,
    "flavor": "big pique!",
    "portee": "",
    "effets": [],
@@ -3663,6 +4512,7 @@ window.EQUIP_ARMES = {
    "sousCategorie": null,
    "tiers": [],
    "paliers": {},
+   "prix": 400,
    "flavor": "On prend la même est on recommence.",
    "portee": "",
    "effets": [],
@@ -3677,6 +4527,7 @@ window.EQUIP_ARMES = {
    "sousCategorie": null,
    "tiers": [],
    "paliers": {},
+   "prix": 225,
    "flavor": "C’est un hérisson le baille ou!!!",
    "portee": "",
    "effets": [],
@@ -3691,6 +4542,7 @@ window.EQUIP_ARMES = {
    "sousCategorie": null,
    "tiers": [],
    "paliers": {},
+   "prix": 250,
    "flavor": "Toucher par cupidon!!!!!",
    "portee": "",
    "effets": [],
@@ -3705,6 +4557,7 @@ window.EQUIP_ARMES = {
    "sousCategorie": null,
    "tiers": [],
    "paliers": {},
+   "prix": 180,
    "flavor": "Slurp! Slurp!",
    "portee": "",
    "effets": [],
