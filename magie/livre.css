@@ -655,31 +655,27 @@
 
   .grimoire-aide { margin-top: 20px; font-size: .85rem; }
 
-  /* --------- Allègement du rendu mobile ---------
+  /* --------- Allègement du rendu mobile (maximal) ---------
      Un GPU de téléphone peine là où celui d'un PC (même en « vue mobile »)
-     ne bronche pas. On retire donc, en mobile seulement, les effets les
-     plus coûteux à peindre sur chaque page d'une scène 3D animée :
-       - les filtres SVG feTurbulence (bruit du parchemin et du cuir) ;
-       - le filtre blur des taches d'usure ;
-       - le rayon de flou des grandes ombres, ramené à une valeur modérée.
-     Les dégradés parchemin/cuir sont conservés : à l'œil, le livre reste
-     le même, mais le feuilletage retrouve sa fluidité. */
+     ne bronche pas. On réduit donc au strict nécessaire, en mobile seulement,
+     le coût de peinture de chaque page d'une scène 3D animée :
+       - plus de filtre SVG feTurbulence (bruit du parchemin et du cuir) ;
+       - dégradés ramenés à un dégradé de base (+ une lueur centrale douce) ;
+       - taches d'usure supprimées : c'est un calque plein-page DE PLUS par
+         feuille, invisible dans le feuilletage mais cher à composer ;
+       - ombres réduites à un seul inset au flou modéré.
+     Le PC garde le rendu riche complet. */
   .parchemin {
     background:
-      radial-gradient(ellipse at 18% 12%, rgba(122, 86, 38, .13), transparent 46%),
-      radial-gradient(ellipse at 84% 86%, rgba(110, 74, 32, .16), transparent 42%),
-      radial-gradient(ellipse at 70% 25%, rgba(133, 94, 40, .09), transparent 38%),
-      radial-gradient(ellipse at 50% 45%, rgba(255, 250, 232, .55), transparent 65%),
-      linear-gradient(105deg, #e6d5aa, #f1e4c0 32%, #e9dab2 64%, #e0cfa2);
-    box-shadow: inset 0 0 24px rgba(96, 66, 26, .34), inset 0 0 8px rgba(80, 52, 18, .28);
+      radial-gradient(ellipse at 50% 45%, rgba(255, 250, 232, .4), transparent 70%),
+      linear-gradient(105deg, #e6d5aa, #f1e4c0 40%, #e4d1a4);
+    box-shadow: inset 0 0 14px rgba(96, 66, 26, .3);
   }
 
-  .parchemin::before { filter: none; }
+  .parchemin::before { display: none; }
 
   .cuir {
-    background:
-      radial-gradient(ellipse at 50% 40%, rgba(120, 75, 28, .35), transparent 75%),
-      linear-gradient(120deg, #2c1b09, #402611 45%, #2a1a09 90%);
-    box-shadow: inset 0 0 40px rgba(0, 0, 0, .72), inset 0 0 12px rgba(0, 0, 0, .6);
+    background: linear-gradient(120deg, #2c1b09, #402611 45%, #2a1a09 90%);
+    box-shadow: inset 0 0 22px rgba(0, 0, 0, .7);
   }
 }
