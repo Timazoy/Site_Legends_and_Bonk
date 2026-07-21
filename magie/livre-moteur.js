@@ -333,7 +333,15 @@ function afficherPlage(a, b) {
   sheets.forEach((s, i) => {
     if (i >= lo && i <= hi) {
       s.style.visibility = "";
+      // On promeut la feuille ET ses deux pages. La feuille est en
+      // preserve-3d : elle ne peut pas être aplatie en une seule texture, et
+      // sans promouvoir les pages elles-mêmes le navigateur re-rasterise leur
+      // contenu (texte serif, dégradés, ombre) à CHAQUE image de la rotation
+      // — d'où la saccade pendant tout le tournant, pas seulement au début.
+      // Promue, chaque page devient une texture posée une fois puis
+      // simplement re-projetée en 3D.
       s.style.willChange = "transform";
+      for (const p of s.children) p.style.willChange = "transform";
     }
   });
 }
@@ -385,6 +393,13 @@ function reculer() {
   majPan();
 }
 
+// Court pré-roll avant la première rotation : deux images pour que les
+// couches promues par afficherPlage soient créées et rasterisées AVANT que
+// la page ne commence à tourner. Sans lui, la toute première image du
+// tournant tombe pendant la création de la texture (saccade au démarrage).
+// 32 ms restent imperceptibles au clic.
+const PREROLL = 32;
+
 function allerAFeuille(cible) {
   cible = Math.max(0, Math.min(nbFeuilles, cible));
   if (cible === feuillesTournees) return;
@@ -410,17 +425,21 @@ function allerAFeuille(cible) {
       // plus récente a pu changer la cible : c'est elle qui fait foi, et
       // chaque feuille converge vers le bon état au lieu de se contredire.
       s.classList.toggle("flipped", idx < feuillesTournees);
-    }, o * 110);
+    }, PREROLL + o * 110);
     feuillesTournees += dir;
   }
 
   // Le repos, c'est quand le DERNIER retournement en vol est terminé —
   // y compris ceux lancés par une navigation précédente encore en cours.
-  finVol = Math.max(finVol, Date.now() + ordre * 110 + 1050);
+  finVol = Math.max(finVol, Date.now() + PREROLL + ordre * 110 + 1050);
   clearTimeout(zTimer);
   zTimer = setTimeout(() => {
-    // will-change coûte de la mémoire : on le retire dès l'arrêt
-    sheets.forEach(s => { s.style.willChange = ""; });
+    // will-change coûte de la mémoire : on le retire dès l'arrêt,
+    // sur les feuilles comme sur leurs pages promues
+    sheets.forEach(s => {
+      s.style.willChange = "";
+      for (const p of s.children) p.style.willChange = "";
+    });
     majZ();
     majVisibilite();
   }, finVol - Date.now());
