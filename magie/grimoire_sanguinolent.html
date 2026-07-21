@@ -129,6 +129,22 @@
       border-color: #7a2a20;
       color: #4a1512;
     }
+
+    /* --------- Allègement du rendu mobile ---------
+       Même principe que livre.css : sur GPU de téléphone, on retire les
+       effets les plus coûteux propres à ce thème (bruit SVG du cuir rouge,
+       blur des éclaboussures de sang) tout en gardant leurs dégradés.
+       Ces règles doivent rester APRÈS livre.css (chargé plus haut) pour
+       l'emporter, et donc figurer ici, dans le style inline de la page. */
+    @media (max-width: 899.98px) {
+      .cuir {
+        background:
+          radial-gradient(ellipse at 50% 40%, rgba(150, 35, 25, .38), transparent 75%),
+          linear-gradient(120deg, #2a0808, #4a1010 45%, #260606 90%);
+        box-shadow: inset 0 0 40px rgba(0, 0, 0, .75), inset 0 0 12px rgba(0, 0, 0, .6);
+      }
+      .parchemin::after { filter: none; }
+    }
   </style>
 </head>
 
