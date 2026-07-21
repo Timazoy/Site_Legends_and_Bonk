@@ -313,18 +313,28 @@ function majVisibilite() {
   });
 }
 
-// Au départ d'un feuilletage, on révèle seulement les feuilles qui vont
+// Au départ d'un feuilletage, on prépare seulement les feuilles qui vont
 // réellement bouger ou apparaître : la plage parcourue (de la position
 // courante à la cible), plus une marge de deux feuilles de chaque côté.
-// Tout révéler d'un coup — comme on le faisait — provoquait, sur un livre
-// à beaucoup de pages, un pic de peinture PILE au moment où l'on tourne la
-// page : petite saccade au retournement, alors que le glissement restait
-// fluide. majVisibilite() reprend la main à l'arrêt et remasque le reste.
+//   1. On les rend visibles. Tout révéler d'un coup — comme on le faisait —
+//      provoquait, sur un livre à beaucoup de pages, un pic de peinture PILE
+//      au moment où l'on tourne la page.
+//   2. On pose will-change: transform DÈS MAINTENANT, une tâche complète
+//      avant que les setTimeout ne lancent les rotations. Posé au dernier
+//      moment (dans le même souffle que le transform), le navigateur n'a
+//      pas le temps de promouvoir la feuille sur sa propre couche : les
+//      premières images du retournement sont alors repeintes (texte serif,
+//      dégradés, ombre) et c'est la saccade au tout début du tournant.
+// majVisibilite() reprend la main à l'arrêt et remasque le reste ; le zTimer
+// retire le will-change une fois le livre immobile.
 function afficherPlage(a, b) {
   const lo = Math.min(a, b) - 2;
   const hi = Math.max(a, b) + 1;
   sheets.forEach((s, i) => {
-    if (i >= lo && i <= hi) s.style.visibility = "";
+    if (i >= lo && i <= hi) {
+      s.style.visibility = "";
+      s.style.willChange = "transform";
+    }
   });
 }
 
@@ -392,9 +402,9 @@ function allerAFeuille(cible) {
       // clics rapprochés, et c'est l'ordre du DOM qui trancherait —
       // faux quand on recule.
       s.style.zIndex = ++zVol;
-      // prévient le compositeur juste avant le mouvement : il garde la
-      // feuille sur sa propre couche au lieu de la repeindre à chaque image
-      s.style.willChange = "transform";
+      // will-change: transform est déjà posé par afficherPlage, une tâche
+      // plus tôt, pour laisser au compositeur le temps de promouvoir la
+      // feuille avant que la rotation ne parte (sinon : saccade au démarrage).
       // On relit la position au moment où le retournement part, au lieu de
       // figer la direction du clic. Sur des clics rapides, une navigation
       // plus récente a pu changer la cible : c'est elle qui fait foi, et
