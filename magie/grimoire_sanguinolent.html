@@ -159,8 +159,10 @@
       <p class="grimoire-sous-titre">Tous les sortilèges connus des hématomanciens de Legends & Bonk — une magie qui se paie en points de vie</p>
 
       <div class="recherche-sort">
-        <input type="text" id="rechercheSort" list="listeSorts" placeholder="✦ Chercher un sort…" />
-        <datalist id="listeSorts"></datalist>
+        <div class="recherche-sort-box">
+          <input type="text" id="rechercheSort" placeholder="✦ Chercher un sort…" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="listeSorts" />
+          <ul class="suggestions-sort" id="listeSorts" role="listbox"></ul>
+        </div>
       </div>
 
       <div class="book-scene">

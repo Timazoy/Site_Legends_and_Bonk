@@ -37,8 +37,13 @@
   margin-bottom: 18px;
 }
 
-.recherche-sort input {
+.recherche-sort-box {
+  position: relative;
   width: min(420px, 88vw);
+}
+
+.recherche-sort input {
+  width: 100%;
   background: linear-gradient(180deg, #efe2bd, #e2d0a2);
   border: 2px solid #6b501f;
   border-radius: 3px;
@@ -53,6 +58,42 @@
 
 .recherche-sort input::placeholder { color: #8a7148; }
 .recherche-sort input:focus { border-color: #b8912f; box-shadow: 0 0 0 3px rgba(184, 145, 47, .35); }
+
+/* Liste de suggestions maison (les <datalist> ne s'affichent pas sur
+   Firefox Android). */
+.suggestions-sort {
+  position: absolute;
+  top: calc(100% + 3px);
+  left: 0;
+  right: 0;
+  z-index: 60;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  max-height: 264px;
+  overflow-y: auto;
+  background: linear-gradient(180deg, #efe2bd, #e2d0a2);
+  border: 2px solid #6b501f;
+  border-radius: 3px;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, .3);
+  display: none;
+}
+
+.suggestions-sort.ouvert { display: block; }
+
+.suggestions-sort li {
+  padding: 7px 14px;
+  font-family: "IM Fell English", serif;
+  font-style: italic;
+  font-size: 1.02rem;
+  color: #3b2a15;
+  cursor: pointer;
+  border-bottom: 1px solid rgba(107, 80, 31, .22);
+}
+
+.suggestions-sort li:last-child { border-bottom: none; }
+.suggestions-sort li.actif,
+.suggestions-sort li:hover { background: rgba(184, 145, 47, .38); }
 
 /* --------- Mise à l'échelle --------- */
 .book-scene {

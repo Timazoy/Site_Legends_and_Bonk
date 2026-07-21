@@ -564,17 +564,51 @@ function construireBookmarks() {
   else book.appendChild(conteneur);
 }
 
-/* ---------- Recherche de sort ---------- */
-function construireDatalist() {
-  indexSorts.forEach(s => {
-    const o = document.createElement("option");
-    o.value = s.nom;
-    datalist.appendChild(o);
-  });
-}
+/* ---------- Recherche de sort ----------
+   Firefox Android n'affiche pas les <datalist> natives : on gère nous-
+   mêmes la liste de suggestions, ce qui fonctionne sur tous les
+   navigateurs. #listeSorts est un <ul>, et non une <datalist>. */
+let suggIndex = -1;   // suggestion surlignée au clavier (-1 = aucune)
 
 function normaliser(s) {
   return s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().trim();
+}
+
+function fermerSuggestions() {
+  datalist.classList.remove("ouvert");
+  datalist.innerHTML = "";
+  suggIndex = -1;
+  champ.setAttribute("aria-expanded", "false");
+}
+
+function afficherSuggestions() {
+  const q = normaliser(champ.value);
+  datalist.innerHTML = "";
+  suggIndex = -1;
+  if (!q) { datalist.classList.remove("ouvert"); champ.setAttribute("aria-expanded", "false"); return; }
+  const hits = indexSorts.filter(s => normaliser(s.nom).includes(q)).slice(0, 12);
+  if (!hits.length) { datalist.classList.remove("ouvert"); champ.setAttribute("aria-expanded", "false"); return; }
+  hits.forEach(s => {
+    const li = document.createElement("li");
+    li.textContent = s.nom;
+    li.setAttribute("role", "option");
+    // pointerdown : on choisit avant que le champ ne perde le focus,
+    // et ça couvre aussi bien la souris que le tactile.
+    li.addEventListener("pointerdown", e => {
+      e.preventDefault();
+      champ.value = s.nom;
+      fermerSuggestions();
+      chercherSort();
+    });
+    datalist.appendChild(li);
+  });
+  datalist.classList.add("ouvert");
+  champ.setAttribute("aria-expanded", "true");
+}
+
+function majSuggActive() {
+  [...datalist.children].forEach((li, i) =>
+    li.classList.toggle("actif", i === suggIndex));
 }
 
 function chercherSort() {
@@ -596,8 +630,29 @@ function chercherSort() {
   }
 }
 
-champ.addEventListener("change", chercherSort);
-champ.addEventListener("keydown", e => { if (e.key === "Enter") chercherSort(); });
+champ.addEventListener("input", afficherSuggestions);
+champ.addEventListener("focus", afficherSuggestions);
+champ.addEventListener("blur", () => setTimeout(fermerSuggestions, 120));
+champ.addEventListener("keydown", e => {
+  const n = datalist.children.length;
+  if (e.key === "ArrowDown" && n) {
+    e.preventDefault();
+    suggIndex = (suggIndex + 1) % n;
+    majSuggActive();
+  } else if (e.key === "ArrowUp" && n) {
+    e.preventDefault();
+    suggIndex = (suggIndex - 1 + n) % n;
+    majSuggActive();
+  } else if (e.key === "Enter") {
+    if (suggIndex >= 0 && datalist.children[suggIndex]) {
+      champ.value = datalist.children[suggIndex].textContent;
+    }
+    fermerSuggestions();
+    chercherSort();
+  } else if (e.key === "Escape") {
+    fermerSuggestions();
+  }
+});
 
 /* ---------- Mise à l'échelle ----------
    .book-scale a une transition de .45s : elle sert à faire glisser la
@@ -659,7 +714,6 @@ function construireGrimoire(idFamille) {
   paginerLivre();
   construireFeuilles();
   construireBookmarks();
-  construireDatalist();
   placerFleches();
   majZ();
   majVisibilite();
