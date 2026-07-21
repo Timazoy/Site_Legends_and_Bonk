@@ -313,10 +313,19 @@ function majVisibilite() {
   });
 }
 
-// Pendant un feuilletage, toutes les feuilles en mouvement doivent être
-// peintes : on rétablit tout, majVisibilite() reprend la main à l'arrêt.
-function toutAfficher() {
-  sheets.forEach(s => { s.style.visibility = ""; });
+// Au départ d'un feuilletage, on révèle seulement les feuilles qui vont
+// réellement bouger ou apparaître : la plage parcourue (de la position
+// courante à la cible), plus une marge de deux feuilles de chaque côté.
+// Tout révéler d'un coup — comme on le faisait — provoquait, sur un livre
+// à beaucoup de pages, un pic de peinture PILE au moment où l'on tourne la
+// page : petite saccade au retournement, alors que le glissement restait
+// fluide. majVisibilite() reprend la main à l'arrêt et remasque le reste.
+function afficherPlage(a, b) {
+  const lo = Math.min(a, b) - 2;
+  const hi = Math.max(a, b) + 1;
+  sheets.forEach((s, i) => {
+    if (i >= lo && i <= hi) s.style.visibility = "";
+  });
 }
 
 function majEtat() {
@@ -370,7 +379,7 @@ function allerAFeuille(cible) {
   cible = Math.max(0, Math.min(nbFeuilles, cible));
   if (cible === feuillesTournees) return;
   const dir = cible > feuillesTournees ? 1 : -1;
-  toutAfficher();
+  afficherPlage(feuillesTournees, cible);
   let ordre = 0;
   while (feuillesTournees !== cible) {
     const idx = dir > 0 ? feuillesTournees : feuillesTournees - 1;
