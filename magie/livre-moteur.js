@@ -483,10 +483,18 @@ function pageCourante() {
 
 /* ---------- Clics sur les pages ---------- */
 book.addEventListener("click", e => {
-  const lien = e.target.closest("[data-page]");
-  if (lien) {
-    allerAPage(parseInt(lien.dataset.page, 10));
-    return;
+  // Sur grand écran, les lignes du sommaire naviguent au clic (lien [data-page]).
+  // Sur mobile, TOUTE la page est une zone « tape pour tourner » : honorer ces
+  // liens ferait sauter à une catégorie dès qu'un tap destiné à tourner tombe
+  // sur une ligne du sommaire (première page du livre). On les ignore donc en
+  // mobile — le saut direct vers une catégorie y passe par la barre de
+  // marque-pages, toujours visible sous le livre.
+  if (!modeMobile) {
+    const lien = e.target.closest("[data-page]");
+    if (lien) {
+      allerAPage(parseInt(lien.dataset.page, 10));
+      return;
+    }
   }
   const page = e.target.closest(".page");
   if (!page) return;
