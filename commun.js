@@ -70,16 +70,6 @@
       var dropdown = a.closest(".dropdown");
       if (dropdown) dropdown.querySelector(".dropdown-toggle").classList.add("active");
     });
-
-    // sur mobile, ouvrir un dropdown ne doit pas laisser le menu replié
-    document.querySelectorAll(".navbar .dropdown-toggle").forEach(function (toggle) {
-      toggle.addEventListener("click", function () {
-        var navbarCollapse = document.getElementById("navbarSupportedContent");
-        if (window.getComputedStyle(navbarCollapse).display === "none") {
-          new bootstrap.Collapse(navbarCollapse, { show: true });
-        }
-      });
-    });
   }).catch(echec);
 
   /* ---------- Footer ---------- */
