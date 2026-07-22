@@ -264,7 +264,7 @@ const armes = {
   "Sang-battant": ["amd", "lo", "x", "sc", "e"],
   // Longue distance classiques
   "Arc": ["ald", "cl", "x", "c", "se"],
-  "Carquoi": ["ald", "cl", "x", "c", "se"],
+  "Carquois": ["ald", "cl", "x", "c", "se"],
   "Kunais": ["ald", "cl", "x", "c", "e"],
   "Bolas": ["ald", "cl", "x", "c", "sc"],
   "Boomerang": ["ald", "cl", "x", "c", "sr"],
@@ -303,10 +303,10 @@ const armes = {
   "Bâton aquatique": ["bat", "x", "ma", "r", "se"],
   "Bâton éolien": ["bat", "x", "ma", "r", "se"],
   "Bâton terrestre": ["bat", "x", "ma", "r", "se"],
-  "Bâton végétale": ["bat", "x", "ma", "r", "se"],
+  "Bâton végétal": ["bat", "x", "ma", "r", "se"],
   "Bâton de création": ["bat", "x", "ma", "r", "se"],
   "Bâton sanguinolent": ["bat", "x", "ma", "r", "se"],
-  "Bâton des éléments oubliées": ["bat", "x", "ma", "r", "se"],
+  "Bâton des éléments oubliés": ["bat", "x", "ma", "r", "se"],
   //Armes musicales
   "La luth hache": ["acd", "cl", "mu", "r", "se"],
   "Pelle guitard": ["amd", "cl", "mu", "c", "se"],

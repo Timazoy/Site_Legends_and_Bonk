@@ -176,6 +176,9 @@
     .eq-back:hover { text-decoration: underline; }
     .eq-back:focus-visible { outline: 2px solid #d8b24a; outline-offset: 2px; }
     .fiche-grid { display: grid; grid-template-columns: 1fr; gap: 22px; }
+    /* sans ça, une colonne de grille refuse de rétrécir sous la largeur de son contenu :
+       un tableau large élargirait la fiche au lieu de défiler dans .xtab-scroll */
+    .fiche-grid > * { min-width: 0; }
     @media (min-width: 820px) { .fiche-grid { grid-template-columns: 1fr minmax(300px, 44%); } }
     .fiche-name { font-size: 38px; font-weight: 700; color: #f0e7d0; line-height: 1.02; margin: 0; text-wrap: balance; }
     .fiche-cat {
@@ -188,8 +191,9 @@
       box-shadow: 0 0 14px var(--rgl);
     }
     .fiche-flavor { font-style: italic; font-size: 21px; color: #c9bd9f; margin: 15px 0 8px; }
+    .fiche-portees { display: flex; flex-wrap: wrap; gap: 10px; margin: 14px 0 4px; }
     .fiche-portee {
-      display: inline-flex; align-items: center; gap: 12px; margin: 14px 0 4px;
+      display: inline-flex; align-items: center; gap: 12px;
       padding: 7px 16px; border-radius: 10px;
       background: rgba(216,178,74,.10); border: 1px solid rgba(216,178,74,.45);
     }
@@ -244,6 +248,63 @@
     .paliers th.th-prix { text-align: right; }
     .pal-prix { text-align: right; white-space: nowrap; font-weight: 700; color: #d9c48c; font-variant-numeric: tabular-nums; }
     .pal-prix .mc { font-size: 13px; font-weight: 600; color: #a1937a; margin-left: 3px; }
+    /* tableaux libres d'une fiche (ex. coûts de transformation de la Lame de sang) */
+    .xtab { width: 100%; border-collapse: collapse; margin-top: 22px; }
+    .xtab caption {
+      caption-side: top; text-align: left; font-weight: 700; font-size: 19px; color: #f0e7d0; padding-bottom: 6px;
+    }
+    .xtab-unit { float: right; font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: #a1937a; font-weight: 700; padding-top: 5px; }
+    .xtab-grp th {
+      text-align: left; font-size: 13px; letter-spacing: .08em; text-transform: uppercase;
+      color: #d8b24a; font-weight: 800; padding: 14px 10px 5px; border-bottom: 1px solid #3a3327;
+    }
+    .xtab tbody tr:first-child th { padding-top: 2px; }
+    .xtab td { padding: 6px 10px; border-bottom: 1px solid rgba(58,51,39,.55); font-size: 18px; }
+    .xtab tr:last-child td { border-bottom: none; }
+    .xtab-nom { color: #ece3cd; }
+    .xtab-box { position: relative; }
+    /* fondu sur le bord droit : signale qu'il reste du tableau à droite.
+       .deborde est posé par le JS quand ça dépasse, .fin quand on est au bout. */
+    .xtab-box::after {
+      content: ""; position: absolute; top: 0; right: 0; bottom: 0; width: 46px; pointer-events: none;
+      background: linear-gradient(to right, rgba(28,23,15,0), rgba(28,23,15,.92));
+      opacity: 0; transition: opacity .18s ease;
+    }
+    .xtab-box.deborde::after { opacity: 1; }
+    .xtab-box.deborde.fin::after { opacity: 0; }
+    .xtab-scroll { overflow-x: auto; scrollbar-width: thin; scrollbar-color: rgba(216,178,74,.55) rgba(255,255,255,.06); }
+    .xtab-scroll::-webkit-scrollbar { height: 7px; }
+    .xtab-scroll::-webkit-scrollbar-track { background: rgba(255,255,255,.06); border-radius: 4px; }
+    .xtab-scroll::-webkit-scrollbar-thumb { background: rgba(216,178,74,.55); border-radius: 4px; }
+    .xtab.matrice { min-width: 460px; }
+    .xtab.matrice td { font-size: 17px; }
+    .xtab.matrice thead th {
+      padding: 3px 10px 7px; text-align: right; white-space: nowrap; font-size: 13px; letter-spacing: .06em;
+      text-transform: uppercase; color: #a1937a; font-weight: 700; border-bottom: 1px solid #3a3327;
+    }
+    .xtab.matrice thead th:first-child { text-align: left; }
+    .xtab-num { text-align: right; white-space: nowrap; font-weight: 700; color: #f0e7d0; font-variant-numeric: tabular-nums; }
+    .xtab-val { width: 1%; text-align: right; white-space: nowrap; font-weight: 700; color: #f0e7d0; font-variant-numeric: tabular-nums; }
+    .xtab-note { font-size: 16px; font-style: italic; color: #a1937a; margin: 8px 0 0; }
+
+    /* schéma de zone : grille de cases colorées (portées, aires d'effet) */
+    .fiche-schema { margin-top: 22px; }
+    .fiche-schema h4 { font-weight: 700; font-size: 19px; color: #f0e7d0; margin: 0 0 8px; }
+    .schema-grille { display: grid; gap: 3px; width: max-content; max-width: 100%; }
+    /* .sc-case porte l'aspect « case vide ». Les classes de couleur .sc-* ont la même
+       spécificité et sont déclarées après : elles l'emportent bien. */
+    .sc-case {
+      display: inline-block; border-radius: 3px;
+      background: rgba(255,255,255,.035); border: 1px solid rgba(255,255,255,.07);
+    }
+    .schema-grille .sc-case { width: 22px; height: 22px; }
+    .schema-legende .sc-case { width: 15px; height: 15px; }
+    .sc-m { background: rgba(216,178,74,.72); border-color: rgba(216,178,74,.95); }
+    .sc-b { background: rgba(106,158,90,.78); border-color: rgba(126,186,108,.95); }
+    .sc-P { background: #0d0a06; border-color: #d8b24a; box-shadow: 0 0 7px rgba(216,178,74,.5); }
+    .schema-legende { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 11px; font-size: 16px; color: #c9bd9f; }
+    .schema-legende span { display: inline-flex; align-items: center; gap: 7px; }
+    @media (max-width: 768px) { .schema-grille .sc-case { width: 19px; height: 19px; } }
     .single-dmg { font-size: 23px; font-weight: 700; color: #f0e7d0; margin-top: 8px; }
     .single-prix { font-size: 19px; font-weight: 700; color: #d9c48c; margin-top: 4px; font-variant-numeric: tabular-nums; }
     .single-prix .mc { font-size: 13px; font-weight: 600; color: #a1937a; margin-left: 3px; }
@@ -253,6 +314,11 @@
       .fiche-name { font-size: 30px; }
       h1.eq-title { font-size: 1.6rem; }
       .eq-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; }
+      .eq-fiche { padding: 22px 16px; }
+      /* la matrice reste défilable, mais on la resserre pour limiter le défilement */
+      .xtab.matrice { min-width: 380px; }
+      .xtab.matrice td { font-size: 15px; }
+      .xtab.matrice td, .xtab.matrice thead th { padding-left: 6px; padding-right: 6px; }
     }
   </style>
 </head>
@@ -420,8 +486,13 @@
         var flavor = o.flavor ? '<p class="fiche-flavor">« ' + esc(o.flavor) + ' »</p>' : "";
         var effets = (o.effets && o.effets.length)
           ? '<div class="fiche-effects">' + o.effets.map(function (e) { return '<p>' + esc(e) + '</p>'; }).join("") + '</div>' : "";
-        var portee = o.portee
-          ? '<div class="fiche-portee"><span class="lbl">Portée</span><span class="sepv"></span><span class="val">' + esc(o.portee) + '</span></div>' : "";
+        function badgePortee(lbl, val) {
+          return '<div class="fiche-portee"><span class="lbl">' + lbl + '</span><span class="sepv"></span>' +
+            '<span class="val">' + esc(val) + '</span></div>';
+        }
+        var portee = (o.portee ? badgePortee("Portée", o.portee) : "") +
+          (o.porteeLancer ? badgePortee("Lancer", o.porteeLancer) : "");
+        if (portee) portee = '<div class="fiche-portees">' + portee + '</div>';
 
         var badge = o._top && RAR[o._top]
           ? '<div><span class="rar-badge" style="background:' + o._frame.gem + ';--rgl:' + o._frame.glow + '">' + esc(RAR[o._top].nom) + '</span></div>' : "";
@@ -440,9 +511,69 @@
           var thead = aPrix
             ? '<thead><tr><th></th><th>Dégâts</th><th class="th-prix">Prix</th></tr></thead>' : "";
           corps = '<table class="paliers"><caption>Par rareté</caption>' + thead + '<tbody>' + lignes + '</tbody></table>';
-        } else if (o.degatUnique) {
-          corps = '<p class="single-dmg">' + esc(o.degatUnique) + '</p>';
+        } else {
+          // certains objets n'ont pas de dégâts (flèches fumigène, explosives) :
+          // sans ce cas, leur prix ne s'afficherait nulle part
+          if (o.degatUnique) corps = '<p class="single-dmg">' + esc(o.degatUnique) + '</p>';
           if (typeof o.prix === "number") corps += '<p class="single-prix">' + fmtPrix(o.prix) + '</p>';
+        }
+
+        // tableaux libres (facultatifs), deux formes possibles :
+        //  - liste  : { titre, unite, note, groupes: [{ nom, lignes: [[nom, valeur], …] }] }
+        //  - matrice: { titre, note, colonnes: [libellé, col1, …], rangs: [[libellé, val1, …], …] }
+        var tableaux = (o.tableaux || []).map(function (tb) {
+          var cap = tb.titre
+            ? '<caption>' + (tb.unite ? '<span class="xtab-unit">' + esc(tb.unite) + '</span>' : '') +
+              esc(tb.titre) + '</caption>' : "";
+          var table;
+
+          if (tb.rangs && tb.rangs.length) {
+            var thead = (tb.colonnes || []).length
+              ? '<thead><tr>' + tb.colonnes.map(function (c, i) {
+                  return '<th' + (i ? ' class="xth-num"' : '') + '>' + esc(c) + '</th>';
+                }).join("") + '</tr></thead>' : "";
+            var trs = tb.rangs.map(function (r) {
+              return '<tr>' + r.map(function (c, i) {
+                return '<td class="' + (i ? 'xtab-num' : 'xtab-nom') + '">' + esc(c) + '</td>';
+              }).join("") + '</tr>';
+            }).join("");
+            table = '<table class="xtab matrice">' + cap + thead + '<tbody>' + trs + '</tbody></table>';
+          } else {
+            var corpsT = (tb.groupes || []).map(function (g) {
+              var entete = g.nom ? '<tr class="xtab-grp"><th colspan="2">' + esc(g.nom) + '</th></tr>' : '';
+              return entete + (g.lignes || []).map(function (l) {
+                return '<tr><td class="xtab-nom">' + esc(l[0]) + '</td><td class="xtab-val">' + esc(l[1]) + '</td></tr>';
+              }).join("");
+            }).join("");
+            table = '<table class="xtab">' + cap + '<tbody>' + corpsT + '</tbody></table>';
+          }
+
+          return '<div class="xtab-box"><div class="xtab-scroll">' + table + '</div></div>' +
+            (tb.note ? '<p class="xtab-note">' + esc(tb.note) + '</p>' : "");
+        }).join("");
+
+        // schéma de zone (facultatif) : { titre, grille: ["..mmm..", …], legende: [[car, texte], …] }
+        // chaque caractère est une case ; "." = case vide, tout autre caractère = classe .sc-<car>
+        var schema = "";
+        if (o.schema && o.schema.grille && o.schema.grille.length) {
+          var g = o.schema.grille;
+          var larg = Math.max.apply(null, g.map(function (l) { return l.length; }));
+          var cases = g.map(function (ligne) {
+            var out = "";
+            for (var i = 0; i < larg; i++) {
+              var c = ligne.charAt(i) || ".";
+              out += '<span class="sc-case' + (c === "." ? "" : " sc-" + esc(c)) + '"></span>';
+            }
+            return out;
+          }).join("");
+          var leg = (o.schema.legende || []).map(function (l) {
+            return '<span><i class="sc-case sc-' + esc(l[0]) + '"></i>' + esc(l[1]) + '</span>';
+          }).join("");
+          schema = '<div class="fiche-schema">' +
+            (o.schema.titre ? '<h4>' + esc(o.schema.titre) + '</h4>' : "") +
+            '<div class="schema-grille" style="grid-template-columns:repeat(' + larg + ',auto)">' + cases + '</div>' +
+            (leg ? '<div class="schema-legende">' + leg + '</div>' : "") +
+            '</div>';
         }
 
         var ribbon = o._top ? '<div class="illu-ribbon">' + o._top + '</div>' : '';
@@ -464,9 +595,29 @@
           '<div class="fiche-grid"><div>' +
           '<h2 class="fiche-name">' + esc(o.nom) + '</h2>' +
           '<p class="fiche-cat">' + esc(o.categorie) + (o.sousCategorie ? ' · ' + esc(o.sousCategorie) : '') + '</p>' +
-          badge + flavor + portee + effets + corps +
+          badge + flavor + portee + effets + schema + tableaux + corps +
           '</div>' + illu + '</div></div>';
       }
+
+      // Indice de défilement des tableaux larges : sur mobile la barre est en overlay
+      // (invisible tant qu'on ne touche pas), donc rien ne dirait qu'il reste des colonnes.
+      function majTableaux() {
+        var boites = $("vue-fiche").querySelectorAll(".xtab-box");
+        Array.prototype.forEach.call(boites, function (box) {
+          var sc = box.querySelector(".xtab-scroll"); if (!sc) return;
+          var deborde = sc.scrollWidth - sc.clientWidth;
+          box.classList.toggle("deborde", deborde > 2);
+          box.classList.toggle("fin", deborde - sc.scrollLeft <= 2);
+        });
+      }
+      function initTableaux() {
+        // les écouteurs meurent avec les éléments au rendu suivant : rien à détacher
+        Array.prototype.forEach.call($("vue-fiche").querySelectorAll(".xtab-scroll"), function (sc) {
+          sc.addEventListener("scroll", majTableaux, { passive: true });
+        });
+        majTableaux();
+      }
+      window.addEventListener("resize", majTableaux);
 
       var catScroll = 0;  // position de scroll du catalogue, mémorisée avant d'ouvrir une fiche
 
@@ -477,6 +628,7 @@
         $("vue-catalogue").style.display = "none";
         $("vue-fiche").style.display = "block";
         $("vue-fiche").querySelector(".eq-back").addEventListener("click", fermer);
+        initTableaux();
         if (push !== false && location.hash !== "#" + o._slug) location.hash = o._slug;
         window.scrollTo(0, 0);
       }
