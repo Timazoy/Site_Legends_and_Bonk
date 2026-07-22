@@ -248,10 +248,11 @@
       background: linear-gradient(180deg, #241b30, #140e20);
       box-shadow: inset 0 6px 14px rgba(0,0,0,.5);
       display: flex; align-items: flex-end; justify-content: center; padding: 14px 18px 16px;
+      overflow: hidden; /* le sigil reste gravé dans le comptoir, ne déborde pas sur les étagères */
     }
     .counter .sigil {
-      position: absolute; left: 50%; top: 52%; transform: translate(-50%, -50%);
-      width: 168px; height: 168px; opacity: .18; pointer-events: none; color: var(--rune);
+      position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+      width: 148px; height: 148px; opacity: .18; pointer-events: none; color: var(--rune);
     }
     .counter .props { position: relative; z-index: 1; display: flex; align-items: flex-end; gap: 30px; }
     .paper {
@@ -457,7 +458,6 @@
       <p class="pot-hint">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 21 7v10l-9 5-9-5V7z"/><path d="M12 2v20M3 7l9 5 9-5M12 12l9 5M12 12 3 17"/></svg>
         <span>Chaque potion a une <b>puissance tirée au D20</b> à l'usage.</span>
-        <span>Prix selon la quantité : <b>Petite</b> (1 usage) · <b>Moyenne</b> (3) · <b>Grande</b> (5).</span>
       </p>
 
       <div class="pot-filters">
