@@ -427,6 +427,108 @@
   margin: 0;
 }
 
+/* --------- Les sceaux des niveaux ---------
+   Chaque effet arrive scellé : une ligne au cachet de cire qu'on brise
+   d'un clic. Les sceaux brisés sont retenus dans le stockage local. */
+.panneau-texte .sceau {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 6px 12px 6px 8px;
+  background: rgba(107, 80, 31, .07);
+  border: 1px dashed rgba(107, 80, 31, .5);
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: left;
+  transition: background .2s ease, border-color .2s ease;
+}
+
+.panneau-texte .sceau:hover {
+  background: rgba(107, 80, 31, .16);
+  border-color: #6b501f;
+}
+
+.sceau-cire {
+  flex: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #b52424, #6d0505 72%);
+  color: #f0d9a8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .8rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, .45), inset 0 -2px 4px rgba(0, 0, 0, .4);
+}
+
+.sceau-nom {
+  font-family: "IM Fell English SC", serif;
+  font-size: 1.05rem;
+  color: #281b07;
+}
+
+.sceau-etat {
+  margin-left: auto;
+  font-family: "IM Fell English", serif;
+  font-style: italic;
+  font-size: .85rem;
+  color: #8a7148;
+}
+
+.sceau-etat::after { content: "scellé"; }
+.sceau:hover .sceau-etat::after { content: "briser le sceau"; }
+.sceau.brise .sceau-etat::after { content: "…"; }
+
+/* le cachet se fendille puis part en éclats */
+@keyframes sceau-secousse {
+  0%, 100% { transform: none; }
+  20% { transform: translateX(-3px) rotate(-.6deg); }
+  45% { transform: translateX(3px) rotate(.6deg); }
+  70% { transform: translateX(-2px); }
+}
+
+@keyframes cire-brise {
+  0% { transform: none; opacity: 1; }
+  50% { transform: scale(1.18) rotate(-10deg); }
+  100% { transform: scale(.35) rotate(-30deg); opacity: 0; }
+}
+
+.panneau-texte .sceau.brise {
+  animation: sceau-secousse .38s ease;
+  pointer-events: none;
+  border-style: solid;
+  border-color: rgba(122, 8, 8, .55);
+}
+
+.sceau.brise .sceau-cire { animation: cire-brise .38s ease forwards; }
+
+/* l'effet se déroule à la place du sceau */
+@keyframes niveau-eclot {
+  from { opacity: 0; transform: translateY(-6px); }
+}
+
+.panneau-texte .niveau.eclot { animation: niveau-eclot .45s ease; }
+
+/* lien discret pour resceller la seule carte affichée */
+.lien-resceller {
+  display: none;
+  margin: 14px auto 0 auto;
+  padding: 0;
+  background: none;
+  border: none;
+  font-family: "IM Fell English", serif;
+  font-style: italic;
+  font-size: .85rem;
+  color: #8a7148;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.lien-resceller.visible { display: block; }
+.lien-resceller:hover { color: #7a0808; }
+
 /* ================= LA GALERIE DES ARCANES ================= */
 .galerie-titre {
   font-family: "IM Fell English SC", serif;
@@ -501,6 +603,50 @@
   padding: 1px 7px;
   border-radius: 8px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, .4);
+}
+
+/* --------- Barre des sceaux, sous la galerie --------- */
+.sceaux-barre {
+  max-width: 1100px;
+  margin: 24px auto 0 auto;
+  padding: 0 16px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px 16px;
+}
+
+.sceaux-compteur {
+  font-family: "IM Fell English", serif;
+  font-style: italic;
+  color: #6d5325;
+  font-size: .95rem;
+  margin: 0;
+}
+
+.btn-resceller {
+  font-family: "IM Fell English", serif;
+  font-size: .95rem;
+  color: #3b2a15;
+  background: #efe2bd;
+  border: 1px solid #6b501f;
+  border-radius: 6px;
+  padding: 4px 14px;
+  cursor: pointer;
+  transition: background .2s ease, color .2s ease, border-color .2s ease;
+}
+
+.btn-resceller:hover:not(:disabled),
+.btn-resceller.confirme {
+  background: #7a0808;
+  border-color: #7a0808;
+  color: #efe2bd;
+}
+
+.btn-resceller:disabled {
+  opacity: .45;
+  cursor: default;
 }
 
 /* ================= ZOOM PLEIN ÉCRAN ================= */
@@ -601,7 +747,10 @@
   .zoom-carte,
   .paquet.melange .paquet-carte,
   .paquet.melange::before,
-  .paquet.melange::after {
+  .paquet.melange::after,
+  .panneau-texte .sceau.brise,
+  .sceau.brise .sceau-cire,
+  .panneau-texte .niveau.eclot {
     animation-duration: .01s;
   }
 }

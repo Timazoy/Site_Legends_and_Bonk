@@ -82,6 +82,7 @@
             <h2 id="carteNom"></h2>
             <span class="panneau-num" id="carteNum"></span>
             <div id="niveauxZone"></div>
+            <button class="lien-resceller" id="rescellerCarte" type="button">resceller cet arcane</button>
           </div>
         </div>
 
@@ -91,6 +92,12 @@
       <h2 class="galerie-titre">Les Arcanes</h2>
       <p class="galerie-aide">Cliquez sur une carte pour la consulter sans toucher au paquet</p>
       <div class="galerie" id="galerie"></div>
+
+      <!-- Mémoire des sceaux brisés -->
+      <div class="sceaux-barre">
+        <p class="sceaux-compteur" id="sceauxCompteur" aria-live="polite"></p>
+        <button class="btn-resceller" id="rescellerTout" type="button">✦ Resceller tous les arcanes</button>
+      </div>
 
       <!-- Affichage d'une carte en plein écran -->
       <div class="zoom-overlay" id="zoomOverlay">
