@@ -12,13 +12,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap"
     rel="stylesheet" />
   <title>Les armures — Legends & Bonk</title>
-  <meta name="description" content="Toutes les armures de Legends & Bonk : catalogue filtrable par catégorie, fiches détaillées avec bonus de PV et effets par rareté." />
+  <meta name="description" content="Toutes les armures de Legends & Bonk : catalogue filtrable par catégorie, fiches détaillées avec les PA gagnés et les effets par rareté." />
   <link rel="canonical" href="https://legendsandbonk.com/equipement/armures.html" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Legends &amp; Bonk" />
   <meta property="og:locale" content="fr_FR" />
   <meta property="og:title" content="Les armures — Legends & Bonk" />
-  <meta property="og:description" content="Toutes les armures de Legends & Bonk : catalogue filtrable par catégorie, fiches détaillées avec bonus de PV et effets par rareté." />
+  <meta property="og:description" content="Toutes les armures de Legends & Bonk : catalogue filtrable par catégorie, fiches détaillées avec les PA gagnés et les effets par rareté." />
   <meta property="og:url" content="https://legendsandbonk.com/equipement/armures.html" />
   <meta property="og:image" content="https://legendsandbonk.com/image/image_pala_presentation.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -306,6 +306,8 @@
       var slug = function (s) { return norm(s).replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""); };
 
       // textes éditables à la main (descriptions de catégories / sous-catégories)
+      // les retours à la ligne (\n) écrits dans armures-textes.js sont conservés
+      var escLignes = function (s) { return esc(s).replace(/\n/g, "<br>"); };
       var TEXTES = window.EQUIP_ARMURES_TEXTES || {};
       var T_CATS = TEXTES.categories || {};
       var T_SUBS = TEXTES.sousCategories || {};
@@ -393,7 +395,7 @@
         var html = cats.map(function (c, ci) {
           var sep = ci > 0 ? '<hr class="cat-sep">' : '';
           var entete = '<h2 class="cat-header">' + esc(c) + '</h2>' +
-            (T_CATS[c] ? '<p class="cat-desc">' + esc(T_CATS[c]) + '</p>' : '');
+            (T_CATS[c] ? '<p class="cat-desc">' + escLignes(T_CATS[c]) + '</p>' : '');
 
           var bySub = {};
           byCat[c].forEach(function (o) { var s = o.sousCategorie || NOSUB; (bySub[s] = bySub[s] || []).push(o); });
@@ -405,7 +407,7 @@
           var corps = ordre.map(function (s) {
             var d = (T_SUBS[c] || {})[s];
             var sh = (s !== NOSUB && reelles)
-              ? '<h3 class="subcat-header">' + esc(s) + '</h3>' + (d ? '<p class="subcat-desc">' + esc(d) + '</p>' : '')
+              ? '<h3 class="subcat-header">' + esc(s) + '</h3>' + (d ? '<p class="subcat-desc">' + escLignes(d) + '</p>' : '')
               : '';
             return sh + '<div class="eq-grid">' + bySub[s].map(tileHTML).join("") + '</div>';
           }).join("");

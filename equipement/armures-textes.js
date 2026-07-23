@@ -8,6 +8,7 @@
  *                     IMBRIQUÉ PAR GRANDE CATÉGORIE.
  *
  * Laisse "" (chaîne vide) pour ne rien afficher.
+ * Un \n dans le texte est affiché comme un retour à la ligne.
  * ------------------------------------------------------------------ */
 window.EQUIP_ARMURES_TEXTES = {
 
@@ -30,7 +31,13 @@ window.EQUIP_ARMURES_TEXTES = {
     "Armures lourdes": {
       "Standard": "",
       "Ensemble de fourrure": "Si les trois éléments de fourrure sont équipés, le porteur est immunisé à la glace.",
-      "Ensemble du berserker": "Chaque pièce a le même effet, mais plus vous portez d'éléments de l'ensemble, plus il est puissant. Pour chaque attaque subie : avec 1 élément, +10% de dégâts infligés / +5% de dégâts subis ; avec 2 éléments, +22% / +8% ; avec 3 éléments, +36% / +12%. Ces effets durent jusqu'à la fin du combat, mais peuvent aussi être retirés d'un coup contre une sous-action."
+      "Ensemble du berserker":
+        "Chaque pièce a le même effet, mais plus vous en portez, plus l'ensemble est puissant.\n" +
+        "À chaque attaque subie, vous gagnez un bonus qui se cumule :\n" +
+        "• 1 élément — +10% de dégâts infligés, +5% de dégâts subis\n" +
+        "• 2 éléments — +22% infligés, +8% subis\n" +
+        "• 3 éléments — +36% infligés, +12% subis\n" +
+        "Ces bonus durent jusqu'à la fin du combat, mais peuvent être retirés d'un coup contre une sous-action."
     }
   }
 

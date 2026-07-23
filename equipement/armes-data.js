@@ -2861,12 +2861,12 @@ window.EQUIP_ARMES = {
         "SE"
       ],
       "paliers": {
-        "C": "+10% PA 1/10 contre parfait",
-        "SC": "+13% PA 1/10 contre parfait",
-        "R": "+15% PA 1/8 contre parfait",
-        "SR": "+19% PA 1/8 contre parfait",
-        "E": "+23% PA 1/4 contre parfait",
-        "SE": "+28% PA 1/4 contre parfait"
+        "C": "+10% des PV en PA, 1/10 contre parfait",
+        "SC": "+13% des PV en PA, 1/10 contre parfait",
+        "R": "+15% des PV en PA, 1/8 contre parfait",
+        "SR": "+19% des PV en PA, 1/8 contre parfait",
+        "E": "+23% des PV en PA, 1/4 contre parfait",
+        "SE": "+28% des PV en PA, 1/4 contre parfait"
       },
       "prix": {
         "C": 1250,
@@ -3735,12 +3735,12 @@ window.EQUIP_ARMES = {
         "SE"
       ],
       "paliers": {
-        "C": "+10% PA 1/10 contre parfait",
-        "SC": "+12% PA 1/10 contre parfait",
-        "R": "+15% PA 1/6 contre parfait",
-        "SR": "+19% PA 1/6 contre parfait",
-        "E": "+22% PA 1/4 contre parfait",
-        "SE": "+28% PA 1/4 contre parfait"
+        "C": "+10% des PV en PA, 1/10 contre parfait",
+        "SC": "+12% des PV en PA, 1/10 contre parfait",
+        "R": "+15% des PV en PA, 1/6 contre parfait",
+        "SR": "+19% des PV en PA, 1/6 contre parfait",
+        "E": "+22% des PV en PA, 1/4 contre parfait",
+        "SE": "+28% des PV en PA, 1/4 contre parfait"
       },
       "prix": {
         "C": 1250,
@@ -3912,12 +3912,12 @@ window.EQUIP_ARMES = {
         "SE"
       ],
       "paliers": {
-        "C": "+10% PA 1/10 contre parfait",
-        "SC": "+12% PA 1/10 contre parfait",
-        "R": "+15% PA 1/6 contre parfait",
-        "SR": "+19% PA 1/6 contre parfait",
-        "E": "+22% PA 1/4 contre parfait",
-        "SE": "+28% PA 1/4 contre parfait"
+        "C": "+10% des PV en PA, 1/10 contre parfait",
+        "SC": "+12% des PV en PA, 1/10 contre parfait",
+        "R": "+15% des PV en PA, 1/6 contre parfait",
+        "SR": "+19% des PV en PA, 1/6 contre parfait",
+        "E": "+22% des PV en PA, 1/4 contre parfait",
+        "SE": "+28% des PV en PA, 1/4 contre parfait"
       },
       "prix": {
         "C": 1250,
@@ -3945,10 +3945,10 @@ window.EQUIP_ARMES = {
         "E"
       ],
       "paliers": {
-        "SC": "+13% PA 1/12 contre parfait",
-        "R": "+15% PA 1/10 contre parfait",
-        "SR": "+19% PA 1/10 contre parfait",
-        "E": "+23% PA 1/6 contre parfait"
+        "SC": "+13% des PV en PA, 1/12 contre parfait",
+        "R": "+15% des PV en PA, 1/10 contre parfait",
+        "SR": "+19% des PV en PA, 1/10 contre parfait",
+        "E": "+23% des PV en PA, 1/6 contre parfait"
       },
       "prix": {
         "SC": 1440,
@@ -3978,12 +3978,12 @@ window.EQUIP_ARMES = {
         "SE"
       ],
       "paliers": {
-        "C": "+12% PA 1/10 contre parfait",
-        "SC": "+15% PA 1/10 contre parfait",
-        "R": "+18% PA 1/6 contre parfait",
-        "SR": "+23% PA 1/6 contre parfait",
-        "E": "+27% PA 1/4 contre parfait",
-        "SE": "+34% PA 1/4 contre parfait"
+        "C": "+12% des PV en PA, 1/10 contre parfait",
+        "SC": "+15% des PV en PA, 1/10 contre parfait",
+        "R": "+18% des PV en PA, 1/6 contre parfait",
+        "SR": "+23% des PV en PA, 1/6 contre parfait",
+        "E": "+27% des PV en PA, 1/4 contre parfait",
+        "SE": "+34% des PV en PA, 1/4 contre parfait"
       },
       "prix": {
         "C": 1000,
@@ -4012,9 +4012,9 @@ window.EQUIP_ARMES = {
         "E"
       ],
       "paliers": {
-        "R": "+18% PA 15% de chance de réflexion",
-        "SR": "+23% PA 20% de chance de réflexion",
-        "E": "+27% PA 30% de chance de réflexion"
+        "R": "+18% des PV en PA, 15% de chance de réflexion",
+        "SR": "+23% des PV en PA, 20% de chance de réflexion",
+        "E": "+27% des PV en PA, 30% de chance de réflexion"
       },
       "prix": {
         "R": 4200,
@@ -4041,10 +4041,10 @@ window.EQUIP_ARMES = {
         "SE"
       ],
       "paliers": {
-        "R": "+24% PA 1/4 contre parfait",
-        "SR": "+30% PA 1/4 contre parfait",
-        "E": "+36% PA 1/2 contre parfait",
-        "SE": "+45% PA 1/2 contre parfait"
+        "R": "+24% des PV en PA, 1/4 contre parfait",
+        "SR": "+30% des PV en PA, 1/4 contre parfait",
+        "E": "+36% des PV en PA, 1/2 contre parfait",
+        "SE": "+45% des PV en PA, 1/2 contre parfait"
       },
       "prix": {
         "R": 4600,
@@ -4072,9 +4072,9 @@ window.EQUIP_ARMES = {
         "E"
       ],
       "paliers": {
-        "R": "+21% PA 1/6 contre parfait",
-        "SR": "+26% PA 1/6 contre parfait",
-        "E": "+31% PA 1/4 contre parfait"
+        "R": "+21% des PV en PA, 1/6 contre parfait",
+        "SR": "+26% des PV en PA, 1/6 contre parfait",
+        "E": "+31% des PV en PA, 1/4 contre parfait"
       },
       "prix": {
         "R": 5400,
@@ -4109,12 +4109,12 @@ window.EQUIP_ARMES = {
         "SE"
       ],
       "paliers": {
-        "C": "+10% PA",
-        "SC": "+12% PA",
-        "R": "+15% PA",
-        "SR": "+18% PA",
-        "E": "+22% PA",
-        "SE": "+28% PA"
+        "C": "+10% des PV en PA",
+        "SC": "+12% des PV en PA",
+        "R": "+15% des PV en PA",
+        "SR": "+18% des PV en PA",
+        "E": "+22% des PV en PA",
+        "SE": "+28% des PV en PA"
       },
       "prix": {
         "C": 800,
@@ -4176,12 +4176,12 @@ window.EQUIP_ARMES = {
         "SE"
       ],
       "paliers": {
-        "C": "+8% PA 1/12 contre parfait",
-        "SC": "+10% PA 1/12 contre parfait",
-        "R": "+12% PA 1/10 contre parfait",
-        "SR": "+15% PA 1/10 contre parfait",
-        "E": "+18% PA 1/6 contre parfait",
-        "SE": "+23% PA 1/6 contre parfait"
+        "C": "+8% des PV en PA, 1/12 contre parfait",
+        "SC": "+10% des PV en PA, 1/12 contre parfait",
+        "R": "+12% des PV en PA, 1/10 contre parfait",
+        "SR": "+15% des PV en PA, 1/10 contre parfait",
+        "E": "+18% des PV en PA, 1/6 contre parfait",
+        "SE": "+23% des PV en PA, 1/6 contre parfait"
       },
       "prix": {
         "C": 1200,

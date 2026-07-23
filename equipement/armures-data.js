@@ -29,10 +29,10 @@ window.EQUIP_ARMURES = {
    "sousCategorie": "Standard",
    "tiers": ["C", "SC", "R", "SR"],
    "paliers": {
-    "C": "+15% de PV",
-    "SC": "+18% de PV",
-    "R": "+22% de PV",
-    "SR": "+27% de PV"
+    "C": "+15% des PV en PA",
+    "SC": "+18% des PV en PA",
+    "R": "+22% des PV en PA",
+    "SR": "+27% des PV en PA"
    },
    "prix": { "C": 4500, "SC": 9000, "R": 18000, "SR": 27000 },
    "effets": [],
@@ -44,10 +44,10 @@ window.EQUIP_ARMURES = {
    "sousCategorie": "Standard",
    "tiers": ["C", "SC", "R", "SR"],
    "paliers": {
-    "C": "+20% de PV",
-    "SC": "+25% de PV",
-    "R": "+30% de PV",
-    "SR": "+38% de PV"
+    "C": "+20% des PV en PA",
+    "SC": "+25% des PV en PA",
+    "R": "+30% des PV en PA",
+    "SR": "+38% des PV en PA"
    },
    "prix": { "C": 6000, "SC": 12000, "R": 24000, "SR": 36000 },
    "effets": [],
@@ -59,9 +59,9 @@ window.EQUIP_ARMURES = {
    "sousCategorie": "Standard",
    "tiers": ["C", "SC", "R"],
    "paliers": {
-    "C": "+13% de PV",
-    "SC": "+17% de PV",
-    "R": "+20% de PV"
+    "C": "+13% des PV en PA",
+    "SC": "+17% des PV en PA",
+    "R": "+20% des PV en PA"
    },
    "prix": { "C": 3900, "SC": 7800, "R": 15600 },
    "effets": [],
@@ -74,12 +74,12 @@ window.EQUIP_ARMURES = {
    "sousCategorie": "Divers",
    "tiers": ["C", "SC", "R", "SR", "E", "SE"],
    "paliers": {
-    "C":  "+5% de PV, +10% de PM, +1 en discrétion",
-    "SC": "+6% de PV, +12% de PM, +1 en discrétion",
-    "R":  "+7,5% de PV, +15% de PM, +2 en discrétion",
-    "SR": "+9% de PV, +19% de PM, +2 en discrétion",
-    "E":  "+11% de PV, +23% de PM, +3 en discrétion",
-    "SE": "+14% de PV, +28% de PM, +3 en discrétion"
+    "C":  "+5% des PV en PA, +10% de PM, +1 en discrétion",
+    "SC": "+6% des PV en PA, +12% de PM, +1 en discrétion",
+    "R":  "+7,5% des PV en PA, +15% de PM, +2 en discrétion",
+    "SR": "+9% des PV en PA, +19% de PM, +2 en discrétion",
+    "E":  "+11% des PV en PA, +23% de PM, +3 en discrétion",
+    "SE": "+14% des PV en PA, +28% de PM, +3 en discrétion"
    },
    "prix": { "C": 1800, "SC": 3600, "R": 7200, "SR": 10800, "E": 14400, "SE": 18000 },
    "effets": [],
@@ -91,9 +91,9 @@ window.EQUIP_ARMURES = {
    "sousCategorie": "Divers",
    "tiers": ["SC", "R", "SR"],
    "paliers": {
-    "SC": "+12,5 de PV",
-    "R":  "+15 de PV",
-    "SR": "+19 de PV"
+    "SC": "+12,5% des PV en PA",
+    "R":  "+15% des PV en PA",
+    "SR": "+19% des PV en PA"
    },
    "prix": { "SC": 4800, "R": 9600, "SR": 14400 },
    "effets": ["Peut être équipée uniquement sous une cuirasse."],
@@ -106,10 +106,10 @@ window.EQUIP_ARMURES = {
    "sousCategorie": "Ensemble du désert",
    "tiers": ["C", "SC", "R", "SR"],
    "paliers": {
-    "C":  "+10% de PV",
-    "SC": "+12% de PV",
-    "R":  "+15% de PV",
-    "SR": "+19% de PV"
+    "C":  "+10% des PV en PA",
+    "SC": "+12% des PV en PA",
+    "R":  "+15% des PV en PA",
+    "SR": "+19% des PV en PA"
    },
    "prix": { "C": 3450, "SC": 6900, "R": 13800, "SR": 20700 },
    "effets": [],
@@ -121,10 +121,10 @@ window.EQUIP_ARMURES = {
    "sousCategorie": "Ensemble du désert",
    "tiers": ["C", "SC", "R", "SR"],
    "paliers": {
-    "C":  "+15% de PV",
-    "SC": "+19% de PV",
-    "R":  "+22% de PV",
-    "SR": "+28% de PV"
+    "C":  "+15% des PV en PA",
+    "SC": "+19% des PV en PA",
+    "R":  "+22% des PV en PA",
+    "SR": "+28% des PV en PA"
    },
    "prix": { "C": 5200, "SC": 10400, "R": 20800, "SR": 31200 },
    "effets": [],
@@ -136,9 +136,9 @@ window.EQUIP_ARMURES = {
    "sousCategorie": "Ensemble du désert",
    "tiers": ["C", "SC", "R"],
    "paliers": {
-    "C":  "+10% de PV",
-    "SC": "+12% de PV",
-    "R":  "+15% de PV"
+    "C":  "+10% des PV en PA",
+    "SC": "+12% des PV en PA",
+    "R":  "+15% des PV en PA"
    },
    "prix": { "C": 3450, "SC": 6900, "R": 13800 },
    "effets": [],
@@ -151,10 +151,10 @@ window.EQUIP_ARMURES = {
    "sousCategorie": "Standard",
    "tiers": ["SC", "R", "SR", "E"],
    "paliers": {
-    "SC": "+22,5% de PV",
-    "R":  "+27% de PV",
-    "SR": "+34% de PV",
-    "E":  "+40,5% de PV"
+    "SC": "+22,5% des PV en PA",
+    "R":  "+27% des PV en PA",
+    "SR": "+34% des PV en PA",
+    "E":  "+40,5% des PV en PA"
    },
    "prix": { "SC": 10800, "R": 21600, "SR": 32400, "E": 43200 },
    "effets": [],
@@ -166,10 +166,10 @@ window.EQUIP_ARMURES = {
    "sousCategorie": "Standard",
    "tiers": ["SC", "R", "SR", "E"],
    "paliers": {
-    "SC": "+28% de PV, VTS -1",
-    "R":  "+34% de PV, VTS -1",
-    "SR": "+42% de PV, VTS -0",
-    "E":  "+50% de PV, VTS -0"
+    "SC": "+28% des PV en PA, VTS -1",
+    "R":  "+34% des PV en PA, VTS -1",
+    "SR": "+42% des PV en PA, VTS -0",
+    "E":  "+50% des PV en PA, VTS -0"
    },
    "prix": { "SC": 13600, "R": 27200, "SR": 40800, "E": 54400 },
    "effets": [],
@@ -181,9 +181,9 @@ window.EQUIP_ARMURES = {
    "sousCategorie": "Standard",
    "tiers": ["SC", "R", "SR"],
    "paliers": {
-    "SC": "+19% de PV, VTS -1",
-    "R":  "+23% de PV, VTS -1",
-    "SR": "+28% de PV, VTS -0"
+    "SC": "+19% des PV en PA, VTS -1",
+    "R":  "+23% des PV en PA, VTS -1",
+    "SR": "+28% des PV en PA, VTS -0"
    },
    "prix": { "SC": 8600, "R": 17200, "SR": 25800 },
    "effets": [],
@@ -196,11 +196,11 @@ window.EQUIP_ARMURES = {
    "sousCategorie": "Ensemble isolant",
    "tiers": ["C", "SC", "R", "SR", "E"],
    "paliers": {
-    "C":  "+15% de PV",
-    "SC": "+19% de PV",
-    "R":  "+22,5% de PV",
-    "SR": "+28% de PV",
-    "E":  "+33% de PV"
+    "C":  "+15% des PV en PA",
+    "SC": "+19% des PV en PA",
+    "R":  "+22,5% des PV en PA",
+    "SR": "+28% des PV en PA",
+    "E":  "+33% des PV en PA"
    },
    "prix": { "C": 5400, "SC": 10800, "R": 21600, "SR": 32400, "E": 43200 },
    "effets": [],
@@ -212,11 +212,11 @@ window.EQUIP_ARMURES = {
    "sousCategorie": "Ensemble isolant",
    "tiers": ["C", "SC", "R", "SR", "E"],
    "paliers": {
-    "C":  "+18 de PV, précision -1",
-    "SC": "+22% de PV, précision -1",
-    "R":  "+27% de PV, VTS -0",
-    "SR": "+34% de PV, VTS -0",
-    "E":  "+40% de PV, VTS -0"
+    "C":  "+18% des PV en PA, précision -1",
+    "SC": "+22% des PV en PA, précision -1",
+    "R":  "+27% des PV en PA, VTS -0",
+    "SR": "+34% des PV en PA, VTS -0",
+    "E":  "+40% des PV en PA, VTS -0"
    },
    "prix": { "C": 6800, "SC": 13600, "R": 27200, "SR": 40800, "E": 54400 },
    "effets": [],
@@ -228,10 +228,10 @@ window.EQUIP_ARMURES = {
    "sousCategorie": "Ensemble isolant",
    "tiers": ["C", "SC", "R", "SR"],
    "paliers": {
-    "C":  "+12% de PV, VTS -1",
-    "SC": "+15% de PV, VTS -1",
-    "R":  "+18% de PV, VTS -0",
-    "SR": "+22,5% de PV, VTS -0"
+    "C":  "+12% des PV en PA, VTS -1",
+    "SC": "+15% des PV en PA, VTS -1",
+    "R":  "+18% des PV en PA, VTS -0",
+    "SR": "+22,5% des PV en PA, VTS -0"
    },
    "prix": { "C": 4300, "SC": 8600, "R": 17200, "SR": 25800 },
    "effets": [],
@@ -244,12 +244,12 @@ window.EQUIP_ARMURES = {
    "sousCategorie": "Standard",
    "tiers": ["C", "SC", "R", "SR", "E", "SE"],
    "paliers": {
-    "C":  "+20% de PV, perception -2",
-    "SC": "+25% de PV, perception -1",
-    "R":  "+30% de PV, perception -1",
-    "SR": "+38% de PV, perception -1",
-    "E":  "+45% de PV, perception -0",
-    "SE": "+56% de PV, perception -0"
+    "C":  "+20% des PV en PA, perception -2",
+    "SC": "+25% des PV en PA, perception -1",
+    "R":  "+30% des PV en PA, perception -1",
+    "SR": "+38% des PV en PA, perception -1",
+    "E":  "+45% des PV en PA, perception -0",
+    "SE": "+56% des PV en PA, perception -0"
    },
    "prix": { "C": 6000, "SC": 12000, "R": 24000, "SR": 36000, "E": 48000, "SE": 60000 },
    "effets": [],
@@ -261,12 +261,12 @@ window.EQUIP_ARMURES = {
    "sousCategorie": "Standard",
    "tiers": ["C", "SC", "R", "SR", "E", "SE"],
    "paliers": {
-    "C":  "+25% de PV, VTS -2",
-    "SC": "+31% de PV, VTS -2",
-    "R":  "+37,5% de PV, VTS -2",
-    "SR": "+47% de PV, VTS -1",
-    "E":  "+56% de PV, VTS -1",
-    "SE": "+70% de PV, VTS -1"
+    "C":  "+25% des PV en PA, VTS -2",
+    "SC": "+31% des PV en PA, VTS -2",
+    "R":  "+37,5% des PV en PA, VTS -2",
+    "SR": "+47% des PV en PA, VTS -1",
+    "E":  "+56% des PV en PA, VTS -1",
+    "SE": "+70% des PV en PA, VTS -1"
    },
    "prix": { "C": 7500, "SC": 15000, "R": 30000, "SR": 45000, "E": 60000, "SE": 75000 },
    "effets": [],
@@ -278,12 +278,12 @@ window.EQUIP_ARMURES = {
    "sousCategorie": "Standard",
    "tiers": ["C", "SC", "R", "SR", "E", "SE"],
    "paliers": {
-    "C":  "+16% de PV, VTS -2",
-    "SC": "+21% de PV, VTS -2",
-    "R":  "+25% de PV, VTS -2",
-    "SR": "+31% de PV, VTS -1",
-    "E":  "+36% de PV, VTS -1",
-    "SE": "+45% de PV, VTS -1"
+    "C":  "+16% des PV en PA, VTS -2",
+    "SC": "+21% des PV en PA, VTS -2",
+    "R":  "+25% des PV en PA, VTS -2",
+    "SR": "+31% des PV en PA, VTS -1",
+    "E":  "+36% des PV en PA, VTS -1",
+    "SE": "+45% des PV en PA, VTS -1"
    },
    "prix": { "C": 4800, "SC": 9600, "R": 19200, "SR": 28800, "E": 38400, "SE": 48000 },
    "effets": [],
@@ -296,10 +296,10 @@ window.EQUIP_ARMURES = {
    "sousCategorie": "Ensemble de fourrure",
    "tiers": ["SC", "R", "SR", "E"],
    "paliers": {
-    "SC": "+22% de PV",
-    "R":  "+27% de PV",
-    "SR": "+34% de PV",
-    "E":  "+40% de PV"
+    "SC": "+22% des PV en PA",
+    "R":  "+27% des PV en PA",
+    "SR": "+34% des PV en PA",
+    "E":  "+40% des PV en PA"
    },
    "prix": { "SC": 12400, "R": 24800, "SR": 37200, "E": 49600 },
    "effets": [],
@@ -311,10 +311,10 @@ window.EQUIP_ARMURES = {
    "sousCategorie": "Ensemble de fourrure",
    "tiers": ["SC", "R", "SR", "E"],
    "paliers": {
-    "SC": "+27% de PV, VTS -2",
-    "R":  "+33% de PV, VTS -1",
-    "SR": "+41% de PV, VTS -1",
-    "E":  "+49% de PV, VTS -0"
+    "SC": "+27% des PV en PA, VTS -2",
+    "R":  "+33% des PV en PA, VTS -1",
+    "SR": "+41% des PV en PA, VTS -1",
+    "E":  "+49% des PV en PA, VTS -0"
    },
    "prix": { "SC": 15200, "R": 30400, "SR": 45600, "E": 60800 },
    "effets": [],
@@ -326,10 +326,10 @@ window.EQUIP_ARMURES = {
    "sousCategorie": "Ensemble de fourrure",
    "tiers": ["SC", "R", "SR", "E"],
    "paliers": {
-    "SC": "+19% de PV, VTS -2",
-    "R":  "+22% de PV, VTS -1",
-    "SR": "+28% de PV, VTS -1",
-    "E":  "+34% de PV, VTS -0"
+    "SC": "+19% des PV en PA, VTS -2",
+    "R":  "+22% des PV en PA, VTS -1",
+    "SR": "+28% des PV en PA, VTS -1",
+    "E":  "+34% des PV en PA, VTS -0"
    },
    "prix": { "SC": 10400, "R": 20800, "SR": 31200, "E": 41600 },
    "effets": [],
@@ -342,10 +342,10 @@ window.EQUIP_ARMURES = {
    "sousCategorie": "Ensemble du berserker",
    "tiers": ["SC", "R", "SR", "E"],
    "paliers": {
-    "SC": "+18% de PV",
-    "R":  "+22% de PV",
-    "SR": "+28% de PV",
-    "E":  "+34% de PV"
+    "SC": "+18% des PV en PA",
+    "R":  "+22% des PV en PA",
+    "SR": "+28% des PV en PA",
+    "E":  "+34% des PV en PA"
    },
    "prix": { "SC": 12700, "R": 25400, "SR": 38100, "E": 50800 },
    "effets": [],
@@ -357,10 +357,10 @@ window.EQUIP_ARMURES = {
    "sousCategorie": "Ensemble du berserker",
    "tiers": ["SC", "R", "SR", "E"],
    "paliers": {
-    "SC": "+22% de PV",
-    "R":  "+27% de PV",
-    "SR": "+34% de PV",
-    "E":  "+40% de PV"
+    "SC": "+22% des PV en PA",
+    "R":  "+27% des PV en PA",
+    "SR": "+34% des PV en PA",
+    "E":  "+40% des PV en PA"
    },
    "prix": { "SC": 17000, "R": 34000, "SR": 51000, "E": 68000 },
    "effets": [],
@@ -372,10 +372,10 @@ window.EQUIP_ARMURES = {
    "sousCategorie": "Ensemble du berserker",
    "tiers": ["SC", "R", "SR", "E"],
    "paliers": {
-    "SC": "+15% de PV",
-    "R":  "+18% de PV",
-    "SR": "+22% de PV",
-    "E":  "+27% de PV"
+    "SC": "+15% des PV en PA",
+    "R":  "+18% des PV en PA",
+    "SR": "+22% des PV en PA",
+    "E":  "+27% des PV en PA"
    },
    "prix": { "SC": 10100, "R": 20200, "SR": 30300, "E": 40400 },
    "effets": [],
