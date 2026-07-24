@@ -12,13 +12,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap"
     rel="stylesheet" />
   <title>Les classes — Legends & Bonk</title>
-  <meta name="description" content="Les classes de personnage de Legends & Bonk : capacités et rôles pour créer votre héros de jeu de rôle." />
+  <meta name="description" content="Les 19 classes de Legends & Bonk : la galerie des héros. Passif, bi-classe, actions, sorts et compétences de chaque classe." />
   <link rel="canonical" href="https://legendsandbonk.com/personnages/classes.html" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Legends &amp; Bonk" />
   <meta property="og:locale" content="fr_FR" />
   <meta property="og:title" content="Les classes — Legends & Bonk" />
-  <meta property="og:description" content="Les classes de personnage de Legends & Bonk : capacités et rôles pour créer votre héros de jeu de rôle." />
+  <meta property="og:description" content="Les 19 classes de Legends & Bonk : la galerie des héros. Passif, bi-classe, actions, sorts et compétences de chaque classe." />
   <meta property="og:url" content="https://legendsandbonk.com/personnages/classes.html" />
   <meta property="og:image" content="https://legendsandbonk.com/image/image_pala_presentation.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -26,18 +26,723 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
     crossorigin="anonymous"></script>
+
+  <style>
+    :root {
+      --brun: #281b07; --bordeaux: #7a0808; --gold: #d8b24a; --muted: #6b5a3a;
+      --parch: #f3e7cb; --parch2: #e9dabb; --ink: #34260f; --line: #c9b892;
+      --or1: #f4e0a4; --or2: #c69f35; --or3: #7d5f16; --or4: #4d3a0c;
+      --torche: #ffa842;
+    }
+
+    /* ================= mise en page générale ================= */
+    .gal-wrap { max-width: 1180px; margin: 22px auto 60px; padding: 0 12px; color: var(--ink); }
+    .gal-title { text-align: center; font-weight: 700; letter-spacing: .5px; margin: 4px 0 2px; color: var(--brun); }
+    .gal-sub { text-align: center; color: var(--muted); font-style: italic; margin-bottom: 14px; }
+
+    /* les trois moteurs de capacités, présentés avant la galerie */
+    .gal-moteurs { display: grid; gap: 10px; grid-template-columns: repeat(3, 1fr); margin: 0 auto 18px; max-width: 980px; }
+    .moteur {
+      border: 1px solid var(--line); border-left: 5px solid var(--c, var(--gold));
+      border-radius: 9px; padding: 9px 13px; background: #fffdf6;
+    }
+    .moteur b { display: block; color: var(--c, var(--brun)); letter-spacing: .06em; text-transform: uppercase; font-size: 16px; }
+    .moteur span { font-size: 15px; color: var(--muted); line-height: 1.35; display: block; }
+    @media (max-width: 767px) { .gal-moteurs { grid-template-columns: 1fr; } }
+
+    /* ============ les filtres : un pavois de bannières ============
+       Les moteurs sont de grandes oriflammes à queue d'aronde, les rôles
+       de petits fanions pointus, tous pendus à la corniche par une corde.
+       Une bannière éteinte est voilée par un calque sombre (pas de filtre
+       CSS : c'est moins coûteux à l'affichage, mobile compris). */
+    .pavois { position: relative; z-index: 2; }
+    .oriflammes, .fanions { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+    .oriflammes { margin-bottom: 20px; }
+
+    .banniere {
+      position: relative; cursor: pointer; padding-top: 20px;
+      transition: transform .16s ease;
+    }
+    /* la corde qui la relie à la corniche */
+    .banniere::before {
+      content: ""; position: absolute; top: 0; left: 50%; width: 2px; height: 20px;
+      transform: translateX(-50%); background: linear-gradient(#8a7852, #3a3122);
+    }
+    .banniere .etoffe {
+      position: relative; display: block; text-align: center;
+      color: #f7edd4; font-family: inherit; font-weight: 700;
+      letter-spacing: .09em; text-transform: uppercase; line-height: 1.15;
+      background-color: var(--c, #7d7365);
+      background-image:
+        linear-gradient(180deg, rgba(255, 255, 255, .2), rgba(0, 0, 0, .18) 55%, rgba(0, 0, 0, .42)),
+        repeating-linear-gradient(90deg, rgba(0, 0, 0, .09) 0 7px, transparent 7px 14px);
+      box-shadow: 0 5px 11px rgba(0, 0, 0, .5);
+      transition: color .16s ease;
+    }
+    /* le voile des bannières éteintes */
+    .banniere .etoffe::after {
+      content: ""; position: absolute; inset: 0; background: rgba(18, 15, 11, .5);
+      transition: opacity .16s ease;
+    }
+    .banniere:hover .etoffe::after { opacity: .45; }
+    .banniere.active .etoffe::after { opacity: 0; }
+    .banniere.active { transform: translateY(3px); }
+    .banniere.active .etoffe {
+      color: #fff8e2; box-shadow: 0 7px 15px rgba(0, 0, 0, .6);
+      background-image:
+        linear-gradient(180deg, rgba(255, 255, 255, .34), rgba(0, 0, 0, .12) 55%, rgba(0, 0, 0, .34)),
+        repeating-linear-gradient(90deg, rgba(0, 0, 0, .09) 0 7px, transparent 7px 14px);
+    }
+    .banniere.active::after {
+      content: ""; position: absolute; top: 3px; left: 50%; width: 9px; height: 9px;
+      transform: translateX(-50%) rotate(45deg); border-radius: 2px;
+      background: linear-gradient(135deg, var(--or1), var(--or2) 60%, var(--or3));
+      box-shadow: 0 1px 3px rgba(0, 0, 0, .6);
+    }
+    .banniere:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+    /* oriflamme (moteur) : queue d'aronde */
+    .oriflammes .etoffe {
+      min-width: 122px; padding: 11px 17px 26px; font-size: 16px;
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 82%, 0 100%);
+    }
+    /* fanion (rôle) : pointe simple */
+    .fanions .etoffe {
+      min-width: 96px; padding: 8px 13px 22px; font-size: 13.5px;
+      clip-path: polygon(0 0, 100% 0, 100% 68%, 50% 100%, 0 68%);
+    }
+
+    /* ---- la recherche : une fente gravée dans la pierre ---- */
+    .fente {
+      position: relative; z-index: 2; max-width: 480px; margin: 26px auto 4px;
+      border-radius: 7px; padding: 2px;
+      background: linear-gradient(180deg, #171410, #2b2721);
+      box-shadow:
+        inset 0 4px 8px rgba(0, 0, 0, .9), inset 0 -1px 0 rgba(255, 240, 210, .12),
+        0 1px 0 rgba(255, 240, 210, .07);
+    }
+    .fente::before {
+      content: "⌕"; position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+      font-size: 25px; line-height: 1; color: rgba(233, 214, 172, .55); pointer-events: none;
+    }
+    .fente input {
+      width: 100%; background: transparent; border: 0; outline: 0;
+      -webkit-appearance: none; appearance: none;
+      font-family: inherit; font-weight: 600; font-size: 19px; letter-spacing: .03em;
+      color: #f2e5c3; padding: 8px 14px 9px 42px;
+    }
+    .fente input::placeholder { color: rgba(226, 208, 168, .48); font-style: italic; }
+    .fente:focus-within { box-shadow: inset 0 4px 8px rgba(0, 0, 0, .9), 0 0 0 2px rgba(216, 178, 74, .5); }
+
+    .gal-count {
+      position: relative; z-index: 2; text-align: center; font-style: italic;
+      color: #c6b58e; margin: 12px 0 20px;
+    }
+
+    /* ================= le mur de pierre ================= */
+    /* Le motif SVG dessine une assise de blocs décalés d'une rangée à l'autre
+       (264 × 132 : deux assises de 62 px, joints de 4 px). Les dégradés
+       au-dessus ajoutent le relief des assises, la lueur des torches
+       et l'assombrissement des bords. */
+    .gal-wall {
+      position: relative; overflow: hidden;
+      border: 12px solid #14110d; border-radius: 16px;
+      padding: 20px 26px 58px;
+      background-image:
+        repeating-linear-gradient(180deg, rgba(255, 246, 226, .055) 0 2px, transparent 2px 66px),
+        repeating-linear-gradient(180deg, transparent 0 59px, rgba(0, 0, 0, .28) 59px 66px),
+        radial-gradient(125% 78% at 50% 34%, transparent 40%, rgba(0, 0, 0, .6)),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='264' height='132'%3E%3Crect width='264' height='132' fill='%23211e1a'/%3E%3Cg fill='%23554e45'%3E%3Crect x='2' y='2' width='128' height='62'/%3E%3Crect x='134' y='2' width='128' height='62'/%3E%3Crect x='-64' y='68' width='128' height='62'/%3E%3Crect x='68' y='68' width='128' height='62'/%3E%3Crect x='200' y='68' width='128' height='62'/%3E%3C/g%3E%3C/svg%3E");
+      background-size: auto, auto, auto, 264px 132px;
+      box-shadow: inset 0 0 70px rgba(0, 0, 0, .6), 0 16px 42px rgba(12, 10, 8, .4);
+    }
+    /* corniche en haut, soubassement en bas — de la pierre taillée, pas du bois */
+    .gal-rail, .gal-plinth {
+      position: absolute; left: 0; right: 0; z-index: 3; pointer-events: none;
+      background: linear-gradient(180deg, #6d6659 0 3px, #4b463d 3px, #302c26 62%, #1b1814);
+    }
+    .gal-rail { top: 0; height: 20px; border-bottom: 2px solid #100e0b; box-shadow: 0 6px 16px rgba(0, 0, 0, .55); }
+    .gal-plinth { bottom: 0; height: 26px; border-top: 2px solid #100e0b; box-shadow: 0 -6px 16px rgba(0, 0, 0, .5); }
+
+    /* ---- torches murales, de part et d'autre de la première rangée ---- */
+    .gal-scene { position: relative; }
+    .torche {
+      position: absolute; top: 14px; width: 15px; height: 44px; pointer-events: none;
+      border-radius: 3px; background: linear-gradient(90deg, #2e2113, #6b4f2c 45%, #241a0f);
+      box-shadow: 0 4px 9px rgba(0, 0, 0, .65);
+    }
+    .torche.gauche { left: -17px; }
+    .torche.droite { right: -17px; }
+    /* le halo qu'elle jette sur la pierre */
+    .torche::after {
+      content: ""; position: absolute; left: 50%; top: -46px; width: 270px; height: 270px;
+      transform: translateX(-50%); border-radius: 50%; pointer-events: none;
+      background: radial-gradient(circle, rgba(255, 168, 66, .2), transparent 62%);
+    }
+    /* la coupelle qui reçoit la flamme */
+    .torche::before {
+      content: ""; position: absolute; top: -7px; left: -6px; right: -6px; height: 11px;
+      border-radius: 5px 5px 2px 2px; background: linear-gradient(180deg, #9c7a3c, #3a2b14);
+    }
+    .torche i {
+      position: absolute; top: -32px; left: 50%; width: 17px; height: 30px;
+      border-radius: 50% 50% 50% 50% / 62% 62% 40% 40%;
+      background: linear-gradient(180deg, #fff3b0, #ffb43c 52%, #ff6a1e);
+      box-shadow: 0 0 26px 9px rgba(255, 150, 50, .5);
+      animation: flamme 1.3s ease-in-out infinite alternate;
+    }
+    @keyframes flamme {
+      from { transform: translateX(-50%) scaleY(.9) skewX(-5deg); }
+      to { transform: translateX(-50%) scaleY(1.12) skewX(6deg); }
+    }
+    @media (prefers-reduced-motion: reduce) { .torche i { animation: none; transform: translateX(-50%); } }
+
+    .gal-grid {
+      position: relative; z-index: 2;
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(226px, 1fr)); gap: 40px 26px;
+    }
+    .gal-empty { position: relative; z-index: 2; text-align: center; color: #d9c79a; font-style: italic; padding: 30px 0; }
+
+    /* ---- un tableau accroché au mur ---- */
+    .gal-tile { position: relative; cursor: pointer; text-align: center; transition: transform .18s ease; }
+    /* halo du spot qui éclaire le tableau */
+    .gal-tile::before {
+      content: ""; position: absolute; left: 50%; top: -34px; transform: translateX(-50%);
+      width: 150%; height: 62%; pointer-events: none;
+      background: radial-gradient(58% 100% at 50% 0, rgba(255, 220, 155, .17), transparent 72%);
+    }
+    .gal-tile:hover, .gal-tile:focus-visible { transform: translateY(-4px); outline: none; }
+    .gal-tile:focus-visible .frame { box-shadow: 0 0 0 3px var(--gold), 0 16px 30px rgba(0, 0, 0, .6); }
+
+    /* ---- le cadre doré ---- */
+    .frame {
+      position: relative;
+      padding: 13px; border-radius: 4px;
+      background: linear-gradient(135deg,
+          var(--or1) 0%, var(--or2) 17%, var(--or3) 34%, var(--or1) 50%,
+          var(--or2) 66%, var(--or4) 84%, var(--or1) 100%);
+      box-shadow:
+        inset 0 0 0 1px rgba(255, 244, 205, .6),
+        inset 0 0 0 5px rgba(90, 62, 12, .22),
+        inset 0 0 0 6px rgba(255, 240, 190, .3),
+        0 14px 28px rgba(0, 0, 0, .55);
+      transition: box-shadow .18s ease;
+    }
+    .gal-tile:hover .frame { box-shadow: inset 0 0 0 1px rgba(255, 244, 205, .75), inset 0 0 0 5px rgba(90, 62, 12, .22), 0 20px 34px rgba(0, 0, 0, .62); }
+    /* fleuron au sommet du cadre */
+    .frame::before {
+      content: ""; position: absolute; top: -9px; left: 50%; width: 19px; height: 19px;
+      transform: translateX(-50%) rotate(45deg); border-radius: 3px;
+      background: linear-gradient(135deg, var(--or1), var(--or2) 55%, var(--or3));
+      box-shadow: 0 2px 4px rgba(0, 0, 0, .5);
+    }
+    /* liseré sombre contre la toile */
+    .frame::after {
+      content: ""; position: absolute; inset: 10px; border: 2px solid rgba(58, 40, 8, .55);
+      border-radius: 2px; pointer-events: none; z-index: 2;
+    }
+    .frame-art { position: relative; overflow: hidden; border-radius: 2px; aspect-ratio: 1 / 1; background: #1c1409; }
+    .frame-art img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    /* vernis : reflet oblique sur la toile */
+    .frame-art::after {
+      content: ""; position: absolute; inset: 0; pointer-events: none;
+      background:
+        linear-gradient(108deg, rgba(255, 255, 255, .16) 0 16%, transparent 34%),
+        radial-gradient(120% 90% at 50% 0, transparent 55%, rgba(0, 0, 0, .38));
+    }
+
+    /* ---- la plaque de laiton ---- */
+    .plaque {
+      position: relative; margin: 11px auto 0; max-width: 92%;
+      padding: 7px 16px 8px; border-radius: 3px; border: 1px solid #6b5320;
+      background: linear-gradient(180deg, #ddc584, #b59240 46%, #8a6c27);
+      box-shadow: 0 3px 7px rgba(0, 0, 0, .55), inset 0 1px 0 rgba(255, 248, 214, .75), inset 0 -2px 4px rgba(0, 0, 0, .28);
+    }
+    /* les deux vis de fixation */
+    .plaque::before, .plaque::after {
+      content: ""; position: absolute; top: 50%; width: 5px; height: 5px; border-radius: 50%;
+      transform: translateY(-50%); background: radial-gradient(circle at 35% 30%, #fff3cb, #6d5417);
+    }
+    .plaque::before { left: 5px; } .plaque::after { right: 5px; }
+    .plaque .nom {
+      font-size: 19px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase;
+      color: #2c2208; text-shadow: 0 1px 0 rgba(255, 246, 208, .6); line-height: 1.15;
+    }
+    .plaque .meta { font-size: 14px; color: #4d3c12; letter-spacing: .04em; line-height: 1.25; }
+    .plaque .meta i { font-style: normal; opacity: .55; }
+
+    /* ================= la fiche d'une classe ================= */
+    .retour {
+      display: inline-block; margin-bottom: 12px; color: var(--bordeaux); text-decoration: none;
+      font-weight: 700; letter-spacing: .04em;
+    }
+    .retour:hover { color: var(--brun); text-decoration: underline; }
+
+    .fiche-grid { display: grid; grid-template-columns: 320px minmax(0, 1fr); gap: 26px; align-items: start; }
+    @media (max-width: 899px) { .fiche-grid { grid-template-columns: 1fr; } }
+
+    /* colonne de gauche : le tableau et sa carte d'identité */
+    .fiche-art { position: sticky; top: 14px; }
+    @media (max-width: 899px) { .fiche-art { position: static; max-width: 380px; margin: 0 auto; } }
+    .fiche-art .frame { box-shadow: inset 0 0 0 1px rgba(255, 244, 205, .6), inset 0 0 0 5px rgba(90, 62, 12, .22), 0 12px 26px rgba(0, 0, 0, .35); }
+
+    .ident { margin-top: 14px; border: 1px solid var(--line); border-radius: 10px; background: #fffdf6; overflow: hidden; }
+    .ident dl { margin: 0; }
+    .ident .lg { display: grid; grid-template-columns: 116px minmax(0, 1fr); gap: 0; border-top: 1px solid #e6dcc2; }
+    .ident .lg:first-child { border-top: 0; }
+    .ident dt {
+      font-size: 14px; letter-spacing: .09em; text-transform: uppercase; color: var(--muted);
+      padding: 8px 10px; background: #f7f1e0; font-weight: 600;
+    }
+    .ident dd { margin: 0; padding: 8px 12px; font-size: 17px; }
+    .ident dd ul { margin: 0; padding-left: 17px; }
+
+    .type-badge {
+      display: inline-block; padding: 2px 12px; border-radius: 999px; color: #fff; font-size: 15px;
+      letter-spacing: .07em; text-transform: uppercase; background: var(--c, var(--brun));
+    }
+    .roles { display: flex; flex-wrap: wrap; gap: 6px; }
+    .role-chip {
+      display: inline-block; font-size: 14px; padding: 2px 11px; border-radius: 999px;
+      border: 1px solid var(--rc, var(--line)); color: var(--rc, var(--ink));
+      background: color-mix(in srgb, var(--rc, #fff) 12%, #fffdf6);
+    }
+    .role-chip b { font-weight: 700; }
+    .role-chip span { opacity: .75; }
+
+    /* colonne de droite : le parchemin */
+    .parch {
+      background: linear-gradient(180deg, var(--parch), var(--parch2));
+      border: 1px solid var(--line); border-radius: 12px; padding: 20px 24px 24px;
+      box-shadow: inset 0 0 34px rgba(150, 120, 60, .17), 0 4px 14px rgba(0, 0, 0, .1);
+    }
+    .parch h2 {
+      font-size: 23px; letter-spacing: .1em; text-transform: uppercase; color: var(--bordeaux);
+      margin: 26px 0 8px; padding-bottom: 5px; border-bottom: 1px solid rgba(122, 8, 8, .25);
+    }
+    .parch h2:first-child { margin-top: 0; }
+    .parch p { margin: 0 0 9px; line-height: 1.45; }
+    .parch p:last-child { margin-bottom: 0; }
+    .lede { font-size: 21px; }
+
+    /* passif et bi-classe, côte à côte */
+    .duo { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    @media (max-width: 620px) { .duo { grid-template-columns: 1fr; } }
+    .cap {
+      border: 1px solid var(--line); border-top: 4px solid var(--gold); border-radius: 9px;
+      padding: 12px 15px 13px; background: rgba(255, 253, 246, .72);
+    }
+    .cap.mineur { border-top-color: #a99a78; background: rgba(255, 253, 246, .45); }
+    .cap .kicker { font-size: 13px; letter-spacing: .13em; text-transform: uppercase; color: var(--muted); }
+    .cap .cap-nom { font-size: 21px; font-weight: 700; color: var(--brun); margin-bottom: 5px; line-height: 1.2; }
+    .cap p { font-size: 18px; }
+
+    /* actions, sorts, compétences */
+    .pouvoir {
+      border: 1px solid var(--line); border-left: 4px solid var(--bordeaux); border-radius: 8px;
+      background: rgba(255, 253, 246, .7); padding: 11px 15px 12px; margin-bottom: 11px;
+    }
+    .pouvoir .tete { display: flex; flex-wrap: wrap; align-items: baseline; gap: 9px; margin-bottom: 3px; }
+    .pouvoir .p-nom { font-size: 21px; font-weight: 700; color: var(--brun); }
+    .cout {
+      font-size: 15px; letter-spacing: .05em; color: #5a4a22; white-space: nowrap;
+      border: 1px solid var(--line); border-radius: 6px; padding: 1px 9px; background: #fffdf6;
+    }
+    .notes { margin-top: 12px; }
+    .notes p { font-size: 17px; color: var(--muted); font-style: italic; }
+
+    /* listes du Grand Livre */
+    .livre { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; margin-top: 10px; }
+    .livre section { border: 1px solid var(--line); border-radius: 8px; padding: 10px 14px 12px; background: rgba(255, 253, 246, .7); }
+    .livre h3 { font-size: 15px; letter-spacing: .11em; text-transform: uppercase; color: var(--muted); margin: 0 0 6px; }
+    .livre ul { margin: 0; padding-left: 18px; }
+    .livre li { line-height: 1.35; }
+
+    /* tableau des paliers (magicien) */
+    .scroller { overflow-x: auto; margin-top: 10px; }
+    table.paliers { width: 100%; border-collapse: collapse; min-width: 460px; background: rgba(255, 253, 246, .7); }
+    table.paliers th, table.paliers td { border: 1px solid var(--line); padding: 7px 11px; text-align: left; font-size: 17px; }
+    table.paliers th { background: #f0e5c8; font-size: 14px; letter-spacing: .09em; text-transform: uppercase; color: var(--muted); }
+    table.paliers td:first-child { font-weight: 700; color: var(--brun); white-space: nowrap; }
+
+    /* éléments du magicien */
+    .elements { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 8px; }
+    .element {
+      border: 1px solid var(--line); border-radius: 999px; padding: 3px 13px; background: rgba(255, 253, 246, .8);
+    }
+    .element b { color: var(--brun); } .element span { color: var(--muted); font-size: 16px; }
+
+    /* encadré d'avertissement */
+    .important {
+      border: 1px solid rgba(122, 8, 8, .35); border-left: 5px solid var(--bordeaux); border-radius: 9px;
+      background: rgba(122, 8, 8, .07); padding: 12px 16px 13px;
+    }
+    .important p { font-size: 18px; }
+
+    .lien-page {
+      display: inline-block; margin-top: 10px; color: var(--bordeaux); font-weight: 700;
+      text-decoration: none; border-bottom: 1px solid rgba(122, 8, 8, .4);
+    }
+    .lien-page:hover { color: var(--brun); border-bottom-color: var(--brun); }
+
+    /* navigation d'une classe à l'autre, en bas de fiche */
+    .voisins { display: flex; justify-content: space-between; gap: 12px; margin-top: 20px; }
+    .voisin {
+      color: var(--bordeaux); text-decoration: none; font-weight: 700; max-width: 48%;
+      border: 1px solid var(--line); border-radius: 9px; padding: 7px 14px; background: #fffdf6;
+    }
+    .voisin:hover { background: var(--bordeaux); color: #fff; border-color: var(--bordeaux); }
+    .voisin.suivant { margin-left: auto; text-align: right; }
+
+    /* ================= mobile : on allège le décor ================= */
+    @media (max-width: 768px) {
+      .gal-wall { padding: 16px 12px 42px; border-width: 8px; }
+      .torche { top: 10px; width: 11px; height: 32px; }
+      .torche.gauche { left: -8px; } .torche.droite { right: -8px; }
+      .torche i { top: -24px; width: 13px; height: 23px; box-shadow: 0 0 18px 6px rgba(255, 150, 50, .45); }
+      .torche::after { width: 190px; height: 190px; top: -34px; }
+      .gal-grid { grid-template-columns: repeat(auto-fill, minmax(132px, 1fr)); gap: 26px 12px; }
+      .oriflammes, .fanions { gap: 7px; }
+      .oriflammes { margin-bottom: 14px; }
+      .banniere { padding-top: 14px; }
+      .banniere::before { height: 14px; }
+      .oriflammes .etoffe { min-width: 88px; padding: 8px 11px 19px; font-size: 13px; }
+      .fanions .etoffe { min-width: 70px; padding: 6px 9px 16px; font-size: 11.5px; letter-spacing: .05em; }
+      .fente { margin: 18px auto 2px; }
+      .fente input { font-size: 16px; padding: 7px 12px 8px 36px; }
+      .fente::before { font-size: 21px; left: 12px; }
+      .frame { padding: 8px; }
+      .frame::after { inset: 6px; border-width: 1px; }
+      .frame::before { width: 14px; height: 14px; top: -7px; }
+      .frame-art::after { background: linear-gradient(108deg, rgba(255, 255, 255, .12) 0 16%, transparent 34%); }
+      .plaque { padding: 5px 11px 6px; max-width: 100%; }
+      .plaque .nom { font-size: 15px; letter-spacing: .09em; }
+      .plaque .meta { font-size: 12px; }
+      .gal-tile::before { display: none; }
+      .parch { padding: 15px 15px 18px; }
+      /* étiquette au-dessus de la valeur : « Équipement » ne tient pas en colonne */
+      .ident .lg { grid-template-columns: 1fr; }
+      .ident dt { padding: 6px 12px 4px; }
+      .ident dd { padding-top: 4px; padding-bottom: 9px; }
+    }
+  </style>
 </head>
 
 <body>
   <script src="../commun.js"></script>
 
-  <!-- Contenu de la page -->
   <main>
-    <div class="container" style="margin-top: 20px;">
-      <h1 class="text-center">Les classes</h1>
-      <p class="text-center">Cette page arrive bientôt…</p>
+    <div class="gal-wrap">
+      <h1 class="gal-title">Les classes</h1>
+      <p class="gal-sub">La galerie des héros — décrochez un portrait pour lire sa fiche</p>
+
+      <div id="vue-galerie">
+        <div id="moteurs" class="gal-moteurs"></div>
+
+        <div class="gal-wall">
+          <div class="gal-rail"></div>
+
+          <!-- les filtres pendent à la corniche -->
+          <div class="pavois">
+            <div id="types" class="oriflammes" role="group" aria-label="Filtrer par moteur"></div>
+            <div id="roles" class="fanions" role="group" aria-label="Filtrer par rôle"></div>
+          </div>
+
+          <!-- la recherche, gravée dans la pierre -->
+          <div class="fente">
+            <input id="recherche" type="search" placeholder="Rechercher une classe…"
+              autocomplete="off" aria-label="Rechercher une classe" />
+          </div>
+
+          <p id="compte" class="gal-count"></p>
+
+          <div class="gal-scene">
+            <span class="torche gauche" aria-hidden="true"><i></i></span>
+            <span class="torche droite" aria-hidden="true"><i></i></span>
+            <div id="grille" class="gal-grid"></div>
+          </div>
+
+          <div class="gal-plinth"></div>
+        </div>
+      </div>
+
+      <div id="vue-fiche" style="display:none;"></div>
     </div>
   </main>
+
+  <script src="classes-data.js"></script>
+  <script>
+    (function () {
+      var DB = window.CLASSES;
+      var LISTE = DB.liste;
+      var IMG = "../image-db/personnages/classes/";
+
+      /* couleur d'un rôle : sert aux pastilles de la fiche */
+      var COUL_ROLE = {
+        "Dégâts": "#9e2b25", "Tank": "#4a6b8a", "Soins": "#3f7d4f", "Bonus/Malus": "#8a5aa8",
+        "Invocateur": "#a8712f", "Soutien": "#2f7d8a", "Création": "#7a5a2f", "Polyvalent": "#5f5a8a"
+      };
+      var TYPE = {};
+      DB.types.forEach(function (t) { TYPE[t.id] = t; });
+      /* le libellé affiché d'un rôle (« Bonus / Malus » plutôt que l'identifiant) */
+      var NOM_ROLE = {};
+      DB.roles.forEach(function (r) { NOM_ROLE[r.id] = r.nom; });
+
+      function esc(s) {
+        return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
+          return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+        });
+      }
+      /* pour la recherche : minuscules, sans accents ni ponctuation
+         (NFD sépare la lettre de son accent, le filtre ne garde que les lettres) */
+      function norm(s) {
+        return String(s || "").toLowerCase().normalize("NFD").replace(/[^a-z0-9 ]+/g, " ");
+      }
+      var $ = function (id) { return document.getElementById(id); };
+
+      /* index de recherche : nom, spécialité, rôles, description */
+      LISTE.forEach(function (c) {
+        c._q = norm([c.nom, c.specialite, c.typeAffiche || TYPE[c.type].nom,
+          c.roles.map(function (r) { return r.cat + " " + r.detail; }).join(" "),
+          (c.ressource ? c.ressource.nom : ""), c.description.join(" ")].join(" "));
+      });
+
+      var typeActif = "Tous", roleActif = "Tous", recherche = "";
+
+      /* ---------------- la galerie ---------------- */
+
+      function renderMoteurs() {
+        $("moteurs").innerHTML = DB.types.map(function (t) {
+          return '<div class="moteur" style="--c:' + t.couleur + '"><b>' + esc(t.nom) + '</b>' +
+            '<span>' + esc(t.desc) + '</span></div>';
+        }).join("");
+      }
+
+      /* une bannière de filtre ; sans couleur, elle reste couleur pierre */
+      function banniere(txt, actif, attr, val, couleur) {
+        return '<span class="banniere' + (actif ? " active" : "") + '" tabindex="0" role="button"' +
+          ' aria-pressed="' + (actif ? "true" : "false") + '"' +
+          (couleur ? ' style="--c:' + couleur + '"' : "") +
+          ' data-' + attr + '="' + esc(val) + '">' +
+          '<span class="etoffe">' + esc(txt) + '</span></span>';
+      }
+
+      function renderFiltres() {
+        $("types").innerHTML = banniere("Toutes", typeActif === "Tous", "type", "Tous") +
+          DB.types.map(function (t) { return banniere(t.nom, typeActif === t.id, "type", t.id, t.couleur); }).join("");
+        $("roles").innerHTML = banniere("Tous", roleActif === "Tous", "role", "Tous") +
+          DB.roles.map(function (r) { return banniere(r.nom, roleActif === r.id, "role", r.id, COUL_ROLE[r.id]); }).join("");
+      }
+
+      function filtrer() {
+        var q = norm(recherche);
+        return LISTE.filter(function (c) {
+          if (typeActif !== "Tous" && c.type !== typeActif) return false;
+          if (roleActif !== "Tous" && !c.roles.some(function (r) { return r.cat === roleActif; })) return false;
+          return !q || c._q.indexOf(q) >= 0;
+        });
+      }
+
+      function tuileHTML(c) {
+        /* le magicien affiche « Polyvalent (mana) · Polyvalent » : on ne le dit qu'une fois */
+        var moteur = c.typeAffiche || TYPE[c.type].nom;
+        var meta = norm(moteur).indexOf(norm(c.specialite)) >= 0
+          ? esc(moteur)
+          : esc(moteur) + ' <i>·</i> ' + esc(c.specialite);
+
+        return '<div class="gal-tile" tabindex="0" role="button" data-slug="' + esc(c.slug) + '"' +
+          ' aria-label="Fiche de la classe ' + esc(c.nom) + '">' +
+          '<div class="frame"><div class="frame-art">' +
+            '<img src="' + IMG + encodeURIComponent(c.image) + '" alt="Portrait — ' + esc(c.nom) + '" loading="lazy" width="1000" height="1000">' +
+          '</div></div>' +
+          '<div class="plaque">' +
+            '<div class="nom">' + esc(c.nom) + '</div>' +
+            '<div class="meta">' + meta + '</div>' +
+          '</div></div>';
+      }
+
+      function renderGalerie() {
+        var list = filtrer();
+        $("compte").textContent = list.length + (list.length > 1 ? " classes accrochées" : " classe accrochée");
+        $("grille").innerHTML = list.length
+          ? list.map(tuileHTML).join("")
+          : '<p class="gal-empty">Aucune classe ne correspond à votre recherche.</p>';
+      }
+
+      /* ---------------- la fiche ---------------- */
+
+      function paras(arr, cls) {
+        return (arr || []).map(function (t) { return '<p' + (cls ? ' class="' + cls + '"' : "") + '>' + esc(t) + '</p>'; }).join("");
+      }
+
+      function capHTML(kicker, cap, mineur) {
+        if (!cap) return "";
+        return '<div class="cap' + (mineur ? " mineur" : "") + '">' +
+          '<div class="kicker">' + esc(kicker) + '</div>' +
+          '<div class="cap-nom">' + esc(cap.nom) + '</div>' +
+          paras(cap.texte) + '</div>';
+      }
+
+      function identHTML(c) {
+        var t = TYPE[c.type];
+        var roles = c.roles.map(function (r) {
+          return '<span class="role-chip" style="--rc:' + (COUL_ROLE[r.cat] || "#6b5a3a") + '"><b>' +
+            esc(NOM_ROLE[r.cat] || r.cat) + '</b>' +
+            (r.detail ? ' <span>' + esc(r.detail) + '</span>' : "") + '</span>';
+        }).join("");
+        var equip = '<ul>' + c.equipement.map(function (e) { return '<li>' + esc(e) + '</li>'; }).join("") + '</ul>';
+        if (c.equipementChoix) equip = '<div style="font-size:15px;color:var(--muted)">Au choix entre :</div>' + equip;
+
+        return '<div class="ident"><dl>' +
+          '<div class="lg"><dt>Moteur</dt><dd><span class="type-badge" style="--c:' + t.couleur + '">' +
+            esc(c.typeAffiche || t.nom) + '</span></dd></div>' +
+          '<div class="lg"><dt>Spécialité</dt><dd>' + esc(c.specialite) + '</dd></div>' +
+          '<div class="lg"><dt>Rôles</dt><dd><div class="roles">' + roles + '</div></dd></div>' +
+          '<div class="lg"><dt>Précision</dt><dd>' + esc(c.precision) + '</dd></div>' +
+          '<div class="lg"><dt>Équipement</dt><dd>' + equip + '</dd></div>' +
+          '</dl></div>';
+      }
+
+      function pouvoirsHTML(p) {
+        if (!p) return "";
+        var h = '<h2>' + esc(p.titre) + '</h2>' + paras(p.intro);
+        h += (p.liste || []).map(function (a) {
+          return '<div class="pouvoir"><div class="tete"><span class="p-nom">' + esc(a.nom) + '</span>' +
+            (a.cout ? '<span class="cout">' + esc(a.cout) + '</span>' : "") + '</div>' +
+            '<p>' + esc(a.texte) + '</p></div>';
+        }).join("");
+        if (p.notes) h += '<div class="notes">' + paras(p.notes) + '</div>';
+        return h;
+      }
+
+      function grimoireHTML(g) {
+        if (!g) return "";
+        var h = '<h2>Sorts</h2><p>' + esc(g.intro) + '</p>';
+        var cols = "";
+        if (g.famille) cols += '<section><h3>Famille</h3><ul><li>' + esc(g.famille) + '</li></ul></section>';
+        if (g.sousFamilles) cols += '<section><h3>Sous-familles</h3><ul>' +
+          g.sousFamilles.map(function (s) { return '<li>' + esc(s) + '</li>'; }).join("") + '</ul></section>';
+        if (g.sorts) cols += '<section><h3>Sorts accessibles</h3><ul>' +
+          g.sorts.map(function (s) { return '<li>' + esc(s) + '</li>'; }).join("") + '</ul></section>';
+        if (cols) h += '<div class="livre">' + cols + '</div>';
+        if (g.notes) h += '<div class="notes">' + paras(g.notes) + '</div>';
+        return h;
+      }
+
+      function elementsHTML(e) {
+        if (!e) return "";
+        var h = '<h2>' + esc(e.titre) + '</h2>' +
+          '<div class="elements">' + e.liste.map(function (x) {
+            return '<span class="element"><b>' + esc(x.nom) + '</b> <span>' + esc(x.quoi) + '</span></span>';
+          }).join("") + '</div>' +
+          '<p style="margin-top:12px">' + esc(e.oublie) + '</p>';
+
+        h += '<h2>' + esc(e.attaque.titre) + '</h2><div class="scroller"><table class="paliers">' +
+          '<thead><tr><th>Palier</th><th>Coût</th><th>Dégâts</th><th>Zone</th></tr></thead><tbody>' +
+          e.attaque.paliers.map(function (p) {
+            return '<tr><td>' + esc(p.palier) + '</td><td>' + esc(p.pm) + '</td><td>' + esc(p.degats) + '</td><td>' + esc(p.zone) + '</td></tr>';
+          }).join("") + '</tbody></table></div>';
+
+        h += '<h2>' + esc(e.creation.titre) + '</h2>' + paras(e.creation.texte);
+        h += '<div class="notes">' + paras(e.apres) + '</div>';
+        return h;
+      }
+
+      function ficheHTML(c) {
+        var i = LISTE.indexOf(c);
+        var prec = LISTE[(i - 1 + LISTE.length) % LISTE.length];
+        var suiv = LISTE[(i + 1) % LISTE.length];
+
+        var corps = '<h2>Description</h2>' + paras(c.description, "lede");
+
+        if (c.ressource) {
+          corps += '<h2>' + esc(c.ressource.nom) + '</h2>' + paras(c.ressource.texte);
+        }
+
+        corps += '<h2>Capacités</h2><div class="duo">' +
+          capHTML("Passif", c.passif) +
+          capHTML("Passif bi-classe", c.biclasse, true) +
+          '</div>';
+
+        corps += pouvoirsHTML(c.pouvoirs);
+        corps += grimoireHTML(c.grimoire);
+        (c.blocs || []).forEach(function (b) { corps += '<h2>' + esc(b.titre) + '</h2>' + paras(b.texte); });
+        corps += elementsHTML(c.elements);
+
+        if (c.important) {
+          corps += '<h2>Important</h2><div class="important">' + paras(c.important) + '</div>';
+        }
+        if (c.lien) {
+          corps += '<p><a class="lien-page" href="' + esc(c.lien.href) + '">' + esc(c.lien.texte) + ' →</a></p>';
+        }
+
+        return '<a class="retour" href="#">← Retour à la galerie</a>' +
+          '<div class="fiche-grid">' +
+            '<aside class="fiche-art">' +
+              '<div class="frame"><div class="frame-art">' +
+                '<img src="' + IMG + encodeURIComponent(c.image) + '" alt="Portrait — ' + esc(c.nom) + '" width="1000" height="1000">' +
+              '</div></div>' +
+              '<div class="plaque"><div class="nom">' + esc(c.nom) + '</div></div>' +
+              identHTML(c) +
+            '</aside>' +
+            '<div class="parch">' + corps + '</div>' +
+          '</div>' +
+          '<div class="voisins">' +
+            '<a class="voisin" href="#classe=' + esc(prec.slug) + '">← ' + esc(prec.nom) + '</a>' +
+            '<a class="voisin suivant" href="#classe=' + esc(suiv.slug) + '">' + esc(suiv.nom) + ' →</a>' +
+          '</div>';
+      }
+
+      /* ---------------- routage ---------------- */
+
+      function montrerGalerie() {
+        $("vue-fiche").style.display = "none";
+        $("vue-galerie").style.display = "";
+        document.title = "Les classes — Legends & Bonk";
+      }
+
+      function montrerFiche(c) {
+        $("vue-fiche").innerHTML = ficheHTML(c);
+        $("vue-galerie").style.display = "none";
+        $("vue-fiche").style.display = "";
+        document.title = c.nom + " — Les classes — Legends & Bonk";
+      }
+
+      function routeDepuisHash() {
+        var m = /^#classe=(.+)$/.exec(location.hash);
+        var c = m && LISTE.filter(function (x) { return x.slug === decodeURIComponent(m[1]); })[0];
+        if (c) montrerFiche(c); else montrerGalerie();
+        window.scrollTo(0, 0);
+      }
+
+      /* ---------------- écouteurs ---------------- */
+
+      $("recherche").addEventListener("input", function (e) { recherche = e.target.value; renderGalerie(); });
+
+      /* bannières et tuiles sont des span/div porteurs de role="button" :
+         on branche le clic et on leur rétablit le clavier. */
+      function agir(id, attr, action) {
+        function traiter(e) {
+          if (e.type === "keydown" && e.key !== "Enter" && e.key !== " ") return;
+          var el = e.target.closest("[data-" + attr + "]"); if (!el) return;
+          e.preventDefault(); action(el.getAttribute("data-" + attr));
+        }
+        $(id).addEventListener("click", traiter);
+        $(id).addEventListener("keydown", traiter);
+      }
+
+      agir("types", "type", function (v) { typeActif = v; renderFiltres(); renderGalerie(); });
+      agir("roles", "role", function (v) { roleActif = v; renderFiltres(); renderGalerie(); });
+      agir("grille", "slug", function (v) { location.hash = "classe=" + v; });
+
+      window.addEventListener("hashchange", routeDepuisHash);
+
+      renderMoteurs();
+      renderFiltres();
+      renderGalerie();
+      routeDepuisHash();
+    })();
+  </script>
 </body>
 
 </html>
