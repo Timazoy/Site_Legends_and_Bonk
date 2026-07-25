@@ -321,6 +321,8 @@
     /* étiquette gravée avec le nom */
     .pot-name {
       margin-top: 16px; max-width: 100%; text-align: center; line-height: 1.12;
+      /* les noms longs (« …empoisonnement ») se coupent au lieu de déborder de l'étiquette */
+      overflow-wrap: break-word; word-break: break-word; hyphens: auto;
       font-size: 13.5px; font-weight: 700; color: #f2e4c4;
       padding: 5px 9px; border-radius: 6px;
       background: linear-gradient(180deg, #5a3c22, #3c2612);

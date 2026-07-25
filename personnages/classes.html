@@ -267,6 +267,8 @@
     .plaque .nom {
       font-size: 19px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase;
       color: #2c2208; text-shadow: 0 1px 0 rgba(255, 246, 208, .6); line-height: 1.15;
+      /* les noms longs (« hématomancien ») se coupent au lieu de déborder de la plaque */
+      overflow-wrap: break-word; word-break: break-word; hyphens: auto;
     }
     .plaque .meta { font-size: 14px; color: #4d3c12; letter-spacing: .04em; line-height: 1.25; }
     .plaque .meta i { font-style: normal; opacity: .55; }
