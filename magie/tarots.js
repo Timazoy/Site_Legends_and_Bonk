@@ -97,7 +97,7 @@ const TAROTS = [
   {
     num: "IX",
     nom: "L'Ermite",
-    image: "ermite_tarot.webp",
+    image: null,
     niveaux: [
       "Si la cible est seule dans une zone de 5 autour d'elle, vous la soignez de 30% de sa vie max. Sinon, vous la soignez de 10% de sa vie max pendant 3T.",
       "Si la cible est seule dans une zone de 5 autour d'elle, vous la soignez de 45% de sa vie max. Sinon, vous la soignez de 10% de sa vie max pendant 4T.",
@@ -147,7 +147,7 @@ const TAROTS = [
   {
     num: "XIV",
     nom: "La Tempérance",
-    image: null,
+    image: "temperance_tarot.webp",
     niveaux: [
       "Annule tous les effets négatifs actifs sur la cible et la rend immunisée à tous les effets négatifs pendant 2T.",
       "Annule tous les effets négatifs actifs sur la cible et la rend immunisée à tous les effets négatifs pendant 3T.",
@@ -177,7 +177,7 @@ const TAROTS = [
   {
     num: "XVII",
     nom: "L'Étoile",
-    image: null,
+    image: "etoile_tarot.webp",
     niveaux: [
       "La téléportation se fait aléatoirement : un D4 détermine 4 zones sur le plateau à chaque lancer jusqu'à ce qu'il ne reste plus que 14 cases à déterminer, puis un D12 dira laquelle de ces cases sera la destination. Vous pouvez cependant relancer une fois un dé qui ne vous plaît pas.",
       "La téléportation se fait aléatoirement : un D4 détermine 4 zones sur le plateau à chaque lancer jusqu'à ce qu'il ne reste plus que 14 cases à déterminer, puis un D12 dira laquelle de ces cases sera la destination. Vous pouvez cependant relancer deux fois un dé qui ne vous plaît pas.",
@@ -187,7 +187,7 @@ const TAROTS = [
   {
     num: "XVIII",
     nom: "La Lune",
-    image: null,
+    image: "lune_tarot.webp",
     niveaux: [
       "Vous repoussez ou attirez (au choix) une cible selon le résultat d'un D8.",
       "Vous repoussez ou attirez (au choix) une cible selon le résultat d'un D10.",
@@ -197,7 +197,7 @@ const TAROTS = [
   {
     num: "XIX",
     nom: "Le Soleil",
-    image: null,
+    image: "soleil_tarot.webp",
     niveaux: [
       "Vous créez un siphon magique sur une case : ce siphon aura une zone de 3 cases où toutes les entités seront attirées en son centre. Une fois créé, le siphon reste 3T sur le plateau et les entités prises dedans devront utiliser 2 déplacements par case pour en sortir.",
       "Vous créez un siphon magique sur une case : ce siphon aura une zone de 5 cases où toutes les entités seront attirées en son centre. Une fois créé, le siphon reste 3T sur le plateau et les entités prises dedans devront utiliser 2 déplacements par case pour en sortir.",
