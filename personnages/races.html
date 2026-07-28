@@ -12,13 +12,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap"
     rel="stylesheet" />
   <title>Les races — Legends & Bonk</title>
-  <meta name="description" content="Les races de Legends & Bonk : origines, traits et bonus pour créer votre personnage de jeu de rôle." />
+  <meta name="description" content="Les 14 races de Legends & Bonk : l'échelle des peuples. Taille, apparence, sous-races et bonus de chaque race pour créer votre personnage." />
   <link rel="canonical" href="https://legendsandbonk.com/personnages/races.html" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Legends &amp; Bonk" />
   <meta property="og:locale" content="fr_FR" />
   <meta property="og:title" content="Les races — Legends & Bonk" />
-  <meta property="og:description" content="Les races de Legends & Bonk : origines, traits et bonus pour créer votre personnage de jeu de rôle." />
+  <meta property="og:description" content="Les 14 races de Legends & Bonk : l'échelle des peuples. Taille, apparence, sous-races et bonus de chaque race." />
   <meta property="og:url" content="https://legendsandbonk.com/personnages/races.html" />
   <meta property="og:image" content="https://legendsandbonk.com/image/og_partage.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -26,18 +26,934 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
     crossorigin="anonymous"></script>
+
+  <style>
+    :root {
+      --brun: #281b07; --bordeaux: #7a0808; --gold: #d8b24a; --muted: #6b5a3a;
+      --parch: #f3e7cb; --parch2: #e9dabb; --ink: #34260f; --line: #c9b892;
+      --or1: #f4e0a4; --or2: #c69f35; --or3: #7d5f16;
+      --vert: #3f7d4f; --rouge: #9e2b25;
+
+      /* la toise : hauteur d'un mètre, et hauteur totale de la planche */
+      --pxm: 92px;
+      --hmax: 3.1;
+      --pied: 56px;   /* la bande des noms, sous la ligne de sol */
+    }
+
+    /* ================= mise en page générale ================= */
+    .race-wrap { max-width: 1180px; margin: 22px auto 60px; padding: 0 12px; color: var(--ink); }
+    .race-title { text-align: center; font-weight: 700; letter-spacing: .5px; margin: 4px 0 2px; color: var(--brun); }
+    .race-sub { text-align: center; color: var(--muted); font-style: italic; margin-bottom: 18px; }
+
+    /* ---- la recherche : une réglette de laiton ---- */
+    .reglette {
+      max-width: 420px; margin: 4px auto 6px; padding: 2px; border-radius: 6px;
+      background: linear-gradient(180deg, var(--or3), #2f2515);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, .3);
+    }
+    .reglette input {
+      width: 100%; border: 0; border-radius: 4px; padding: 8px 13px;
+      font-family: inherit; font-size: 16px; color: var(--ink);
+      background: #fbf4e2;
+    }
+    .reglette input:focus { outline: 2px solid var(--gold); outline-offset: -2px; }
+    .race-count { text-align: center; color: var(--muted); font-size: 15px; margin: 10px 0 6px; letter-spacing: .04em; }
+
+    /* ================= l'échelle des peuples ================= */
+    /* la planche déborde la colonne de texte : quatorze peuples à l'échelle
+       réelle demandent de la largeur, et l'intérêt est de tous les voir
+       d'un seul regard. */
+    .echelle {
+      position: relative;
+      width: min(100vw - 32px, 1600px); margin-left: calc(50% - min(50vw - 16px, 800px));
+      display: flex; align-items: stretch;
+      border: 1px solid var(--line); border-radius: 10px;
+      background: var(--parch);
+      background-image:
+        radial-gradient(circle at 18% 12%, rgba(255, 255, 255, .5), transparent 42%),
+        radial-gradient(circle at 84% 88%, rgba(120, 92, 40, .09), transparent 46%);
+      box-shadow: inset 0 0 0 1px rgba(255, 250, 232, .7), 0 6px 18px rgba(0, 0, 0, .16);
+      overflow: hidden;
+    }
+
+    /* la toise, en marge : elle ne défile pas avec la frise */
+    .toise {
+      position: relative; flex: 0 0 54px; padding-bottom: var(--pied);
+      border-right: 1px solid var(--line);
+      background: linear-gradient(90deg, transparent, rgba(140, 112, 58, .07));
+    }
+    .toise span {
+      position: absolute; right: 7px; transform: translateY(50%);
+      font-size: 12px; color: var(--muted); letter-spacing: .03em; white-space: nowrap;
+    }
+    .toise span::after {
+      content: ""; position: absolute; right: -8px; top: 50%; width: 6px;
+      border-top: 1px solid var(--line);
+    }
+
+    /* la piste : c'est elle qui défile quand les peuples ne tiennent pas */
+    .piste { flex: 1 1 auto; overflow-x: auto; overflow-y: hidden; scrollbar-width: thin; scrollbar-color: #a2926e transparent; }
+    .piste::-webkit-scrollbar { height: 8px; }
+    .piste::-webkit-scrollbar-thumb { background: #a2926e; border-radius: 4px; }
+    /* le voile de droite ne s'allume que si la frise déborde vraiment */
+    .echelle.deborde::after {
+      content: ""; position: absolute; top: 1px; right: 1px; bottom: 1px; width: 46px;
+      pointer-events: none; border-radius: 0 9px 9px 0;
+      background: linear-gradient(90deg, rgba(243, 231, 203, 0), rgba(238, 224, 192, .96));
+    }
+    .scene {
+      position: relative; padding: 14px 6px 0; min-width: min-content;
+      min-height: calc(var(--pxm) * var(--hmax) + var(--pied));
+    }
+
+    /* les graduations, tous les 50 cm, et la ligne de sol */
+    .scene-fond {
+      position: absolute; left: 0; right: 0; bottom: var(--pied);
+      height: calc(var(--pxm) * var(--hmax)); pointer-events: none;
+      background-image: repeating-linear-gradient(to top,
+        rgba(140, 112, 58, .22) 0 1px, transparent 1px calc(var(--pxm) * .5));
+    }
+    .scene-sol {
+      position: absolute; left: 0; right: 0; bottom: var(--pied); height: 3px;
+      background: linear-gradient(180deg, #8d7a54, #6b5a38); pointer-events: none;
+    }
+
+    .frise { position: relative; display: flex; align-items: flex-end; gap: 4px; }
+
+    /* chaque peuple occupe toute la hauteur de la planche et se cale en bas :
+       la ligne de sol reste au même endroit quel que soit le filtre appliqué */
+    /* la largeur de la case suit la corpulence de la silhouette : un piaf
+       ailes déployées prend plus de place qu'un elfe, et rien ne se chevauche */
+    .peuple {
+      flex: 0 0 auto; min-width: 76px; max-width: 190px; padding: 0 5px;
+      display: flex; flex-direction: column;
+      height: calc(var(--pxm) * var(--hmax) + var(--pied));
+      align-items: center; justify-content: flex-end;
+      cursor: pointer; background: none; border: 0; padding: 0; color: inherit; font: inherit;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .peuple:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; border-radius: 6px; }
+
+    /* la silhouette : sa hauteur EST sa taille, à l'échelle de la toise */
+    .silh {
+      position: relative; height: calc(var(--pxm) * var(--h));
+      display: flex; align-items: flex-end; justify-content: center;
+      color: #3a2f1c; transition: transform .16s ease, color .16s ease;
+    }
+    .silh svg, .silh img { display: block; height: 100%; width: auto; }
+    .silh img { display: none; }
+    .silh.avec-image img { display: block; }
+    .silh.avec-image svg { display: none; }
+
+    /* le trait de la borne basse de la fourchette de taille */
+    .silh::after {
+      content: ""; position: absolute; left: -8px; right: -8px;
+      bottom: calc(var(--pxm) * var(--hmin));
+      border-top: 1px dashed rgba(122, 8, 8, .38);
+      opacity: var(--fourchette, 0); pointer-events: none;
+    }
+    /* les peuples dont le document ne donne pas la taille */
+    .peuple.variable .silh { color: #8b7c60; }
+    .peuple.variable .silh svg { opacity: .62; }
+
+    .peuple:hover .silh, .peuple.actif .silh { transform: translateY(-4px); color: var(--bordeaux); }
+
+    .peuple-pied {
+      height: var(--pied); padding-top: 7px; width: 100%;
+      display: flex; flex-direction: column; align-items: center; gap: 1px;
+    }
+    .peuple-nom {
+      font-size: 13px; font-weight: 700; letter-spacing: .04em; text-align: center;
+      color: var(--brun); line-height: 1.12; overflow-wrap: anywhere;
+    }
+    .peuple-taille { font-size: 11.5px; color: var(--muted); white-space: nowrap; }
+    .peuple:hover .peuple-nom, .peuple.actif .peuple-nom { color: var(--bordeaux); }
+
+    .echelle-vide { padding: 40px 16px; text-align: center; color: var(--muted); font-style: italic; }
+    .echelle-legende {
+      margin: 10px 2px 0; font-size: 13px; color: var(--muted); line-height: 1.5;
+      display: flex; flex-wrap: wrap; gap: 4px 18px; justify-content: center;
+    }
+
+    @media (max-width: 900px) { :root { --pxm: 82px; } }
+    @media (max-width: 560px) { :root { --pxm: 70px; --pied: 52px; } .peuple { min-width: 66px; padding: 0 3px; } .peuple-nom { font-size: 12px; } }
+
+    /* ================= la fiche d'une race ================= */
+    .retour {
+      display: inline-block; margin: 2px 0 14px; color: var(--bordeaux);
+      text-decoration: none; font-weight: 600; letter-spacing: .04em;
+    }
+    .retour:hover { text-decoration: underline; }
+
+    .fiche-grid { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 26px; align-items: start; }
+    @media (max-width: 899px) { .fiche-grid { grid-template-columns: 1fr; } }
+
+    .fiche-cote { position: sticky; top: 14px; }
+    @media (max-width: 899px) { .fiche-cote { position: static; max-width: 420px; margin: 0 auto; } }
+
+    /* la toise de la fiche : la race, et l'ombre d'un humain d'1,75 m */
+    .toise-fiche {
+      /* la toise de la fiche a sa propre échelle : --pxm est redéfini ici,
+         c'est lui que lisent les silhouettes */
+      --pxf: 74px; --pxm: 74px;
+      position: relative; display: flex; align-items: flex-end; justify-content: center; gap: 22px;
+      height: calc(var(--pxf) * 3.15); padding: 0 12px 0 44px;
+      border: 1px solid var(--line); border-radius: 9px; background: var(--parch);
+      background-image: repeating-linear-gradient(to top,
+        rgba(140, 112, 58, .2) 0 1px, transparent 1px calc(var(--pxf) * .5));
+      box-shadow: inset 0 0 0 1px rgba(255, 250, 232, .7);
+      overflow: hidden;
+    }
+    .toise-fiche .grad {
+      position: absolute; left: 6px; transform: translateY(50%);
+      font-size: 11px; color: var(--muted);
+    }
+    .toise-fiche .silh { color: var(--c, #3a2f1c); }
+    .toise-fiche .fantome { color: #a3947a; }
+    .toise-fiche .fantome svg { opacity: .5; }
+    .toise-etiq { text-align: center; font-size: 12.5px; color: var(--muted); margin: 7px 0 0; font-style: italic; }
+
+    .ident { margin-top: 14px; border: 1px solid var(--line); border-radius: 9px; background: #fffdf6; overflow: hidden; }
+    .ident dl { margin: 0; }
+    .ident dl > div { display: grid; grid-template-columns: 124px minmax(0, 1fr); border-top: 1px solid #e3d7ba; }
+    .ident dl > div:first-child { border-top: 0; }
+    .ident dt {
+      padding: 8px 12px; font-size: 12px; letter-spacing: .05em; text-transform: uppercase;
+      color: var(--muted); background: rgba(201, 184, 146, .16); font-weight: 600;
+    }
+    .ident dd { margin: 0; padding: 8px 12px; font-size: 15.5px; }
+
+    /* le parchemin de droite */
+    .parch {
+      background: var(--parch); border: 1px solid var(--line); border-radius: 10px;
+      padding: 20px 24px 26px; box-shadow: inset 0 0 0 1px rgba(255, 250, 232, .7), 0 5px 16px rgba(0, 0, 0, .14);
+    }
+    .parch h2 {
+      font-size: 20px; letter-spacing: .1em; text-transform: uppercase; color: var(--bordeaux);
+      margin: 24px 0 10px; padding-bottom: 6px; border-bottom: 1px solid var(--line);
+    }
+    .parch h2:first-child { margin-top: 0; }
+    .parch p { font-size: 16.5px; line-height: 1.6; margin: 0 0 10px; }
+    .parch p.lede { font-size: 17.5px; }
+    .parch .note { font-size: 16px; line-height: 1.55; color: var(--muted); font-style: italic; }
+
+    .important {
+      border-left: 4px solid var(--bordeaux); background: rgba(122, 8, 8, .06);
+      border-radius: 0 7px 7px 0; padding: 11px 15px 3px;
+    }
+
+    /* ---- la règle commune, au-dessus des cartes ----
+       Elle porte ce que les cartes ne répètent pas : sans elle, les tags
+       chiffrés en dessous ne veulent rien dire. Elle prend donc la teinte
+       de la race et le même corps que le parchemin, pas celui d'une note. */
+    .sous-intro {
+      border-left: 4px solid var(--sc, var(--muted)); border-radius: 0 7px 7px 0;
+      background: rgba(122, 100, 58, .09); padding: 11px 15px 12px; margin: 0 0 13px;
+    }
+    .sous-intro .kicker {
+      font-size: 13px; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 3px;
+    }
+    .sous-intro p { font-size: 16.5px; line-height: 1.55; margin: 0; }
+
+    /* ---- les cartes de sous-races ----
+       Le texte des cartes suit celui du parchemin (16,5 px) : elles portent
+       autant de règles que le corps de la fiche, elles ne sont pas des notes
+       de bas de page. La colonne est élargie en conséquence. */
+    .sous-grid { display: grid; gap: 13px; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
+    .sous {
+      border: 1px solid var(--line); border-top: 4px solid var(--sc, var(--muted));
+      border-radius: 8px; background: #fffdf6; padding: 14px 17px 16px;
+      transition: box-shadow .16s ease;
+    }
+    .sous.on { box-shadow: 0 0 0 2px var(--gold); }
+    .sous-nom { font-size: 20px; font-weight: 700; color: var(--brun); letter-spacing: .02em; }
+    .sous-titre { font-size: 16px; color: var(--muted); font-style: italic; }
+    /* le ruban des hybrides : les deux parents, chacun dans sa teinte */
+    .ruban {
+      display: inline-flex; align-items: center; gap: 6px; margin-bottom: 5px;
+      font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted);
+    }
+    .ruban i { width: 20px; height: 4px; border-radius: 2px; background: var(--pc, #999); }
+    .sous .note-app { font-size: 16px; color: var(--muted); font-style: italic; margin: 7px 0 0; line-height: 1.5; }
+    .sous p { font-size: 16.5px; line-height: 1.55; margin: 9px 0 0; }
+
+    .mods { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 11px; }
+    .mod {
+      font-size: 15px; line-height: 1.35; padding: 4px 10px; border-radius: 5px;
+      border: 1px solid; letter-spacing: .01em;
+    }
+    .mod.p { color: #2c5c39; border-color: rgba(63, 125, 79, .45); background: rgba(63, 125, 79, .1); }
+    .mod.m { color: #7d2620; border-color: rgba(158, 43, 37, .4); background: rgba(158, 43, 37, .08); }
+
+    /* une capacité, dans une carte de sous-race */
+    .cap { margin-top: 10px; border-left: 3px solid var(--line); padding-left: 11px; }
+    .cap-tete { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px; }
+    .cap-nom { font-weight: 700; color: var(--brun); font-size: 17px; }
+    .cout {
+      font-size: 13.5px; letter-spacing: .05em; color: #5c4d31;
+      border: 1px solid var(--line); border-radius: 4px; padding: 1px 7px; background: rgba(201, 184, 146, .22);
+    }
+
+    /* ---- la transformation des garous ---- */
+    .transfo { margin-top: 11px; border-top: 1px dashed var(--line); padding-top: 10px; }
+    .transfo .kicker { font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+    .transfo ul { margin: 7px 0 0; padding-left: 19px; }
+    .transfo li { font-size: 16.5px; line-height: 1.5; margin-bottom: 3px; }
+
+    /* la jauge de rage : deux tours francs, puis le risque de folie */
+    .rage { display: flex; gap: 4px; margin: 4px 0 8px; }
+    .rage div {
+      flex: var(--f, 1); border-radius: 5px; padding: 8px 10px; color: #fff6e0;
+      background: var(--rc); box-shadow: inset 0 -2px 0 rgba(0, 0, 0, .18);
+    }
+    .rage b { display: block; font-size: 16px; letter-spacing: .06em; }
+    .rage span { font-size: 12.5px; opacity: .92; }
+
+    /* ---- la roue des origines élémentaires ---- */
+    .roue { display: flex; flex-wrap: wrap; gap: 18px; justify-content: center; }
+    .roue-cycle { flex: 1 1 260px; max-width: 330px; }
+    .roue-cycle svg { width: 100%; height: auto; display: block; }
+    .roue-noeud { cursor: pointer; }
+    .roue-noeud circle { transition: opacity .15s ease; }
+    /* le liseré sombre garde le nom lisible sur les pastilles claires */
+    .roue-noeud text {
+      font-size: 12.5px; font-weight: 700; fill: #fffaee; pointer-events: none;
+      paint-order: stroke; stroke: rgba(40, 27, 7, .6); stroke-width: 3px; stroke-linejoin: round;
+    }
+    .roue.a-selection .roue-noeud:not(.on):not(.bat):not(.perd) circle { opacity: .32; }
+    .roue.a-selection .roue-noeud:not(.on):not(.bat):not(.perd) text { opacity: .5; }
+    .roue-fl { stroke: #8b7c60; stroke-width: 3; fill: none; transition: stroke .15s ease, opacity .15s ease; }
+    .roue.a-selection .roue-fl { opacity: .25; }
+    .roue.a-selection .roue-fl.gagne { opacity: 1; stroke: var(--vert); }
+    .roue.a-selection .roue-fl.subit { opacity: 1; stroke: var(--rouge); }
+    .roue-noeud.on circle { stroke: var(--brun); stroke-width: 3; }
+    .roue-note {
+      text-align: center; font-size: 15px; color: var(--muted); margin: 10px 0 0; min-height: 1.5em;
+    }
+
+    /* ---- l'hexagone d'une lignée d'oni ---- */
+    .hexa { display: block; width: 100%; max-width: 230px; height: auto; margin: 6px auto 2px; }
+    .hexa .grille { fill: none; stroke: rgba(140, 112, 58, .35); stroke-width: 1; }
+    .hexa .axe { stroke: rgba(140, 112, 58, .3); stroke-width: 1; }
+    .hexa .aire { fill: var(--sc); fill-opacity: .3; stroke: var(--sc); stroke-width: 2.5; stroke-linejoin: round; }
+    /* le chiffre prime sur son axe : c'est lui qu'on vient lire, l'étiquette
+       ne fait que dire lequel des six c'est. */
+    .hexa .lbl { font-size: 11px; letter-spacing: .06em; fill: var(--muted); }
+    .hexa .val { font-size: 16px; font-weight: 700; fill: var(--brun); }
+
+    /* ---- les moteurs de classe (oni) ---- */
+    .moteurs { display: grid; gap: 10px; grid-template-columns: repeat(3, 1fr); }
+    @media (max-width: 700px) { .moteurs { grid-template-columns: 1fr; } }
+    .moteur {
+      border: 1px solid var(--line); border-left: 5px solid var(--c, var(--gold));
+      border-radius: 8px; padding: 9px 13px; background: #fffdf6;
+    }
+    .moteur b { display: block; color: var(--c, var(--brun)); letter-spacing: .06em; text-transform: uppercase; font-size: 15px; }
+    .moteur span { font-size: 15px; color: var(--muted); line-height: 1.4; display: block; }
+
+    /* ---- le damier de la zone de souffle ---- */
+    .souffle {
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 14px 30px;
+      border: 1px solid var(--line); border-radius: 9px; padding: 18px;
+      background: rgba(201, 184, 146, .13);
+    }
+    .damier { --cw: 44px; display: grid; gap: 3px; }
+    .damier .case {
+      width: var(--cw); aspect-ratio: 1; border-radius: 3px;
+      border: 1px solid rgba(140, 112, 58, .3); background: #fffdf6;
+    }
+    .damier .touchee {
+      border-color: var(--c); background: var(--c);
+      box-shadow: inset 0 0 0 2px rgba(255, 250, 232, .35);
+    }
+    .damier .origine {
+      border-color: #2a2118;
+      background: repeating-linear-gradient(45deg, #2a2118 0 5px, #3d3226 5px 10px);
+    }
+    .souffle-legende { list-style: none; margin: 0; padding: 0; font-size: 15px; color: var(--muted); }
+    .souffle-legende li { display: flex; align-items: center; gap: 9px; margin-bottom: 8px; }
+    .souffle-legende i { width: 20px; height: 20px; border-radius: 3px; border: 1px solid rgba(140, 112, 58, .3); }
+    .souffle-legende i.touchee { background: var(--c); border-color: var(--c); }
+    .souffle-legende i.origine {
+      border-color: #2a2118;
+      background: repeating-linear-gradient(45deg, #2a2118 0 5px, #3d3226 5px 10px);
+    }
+    @media (max-width: 560px) { .damier { --cw: 38px; } }
+
+    /* navigation d'une race à l'autre, en bas de fiche */
+    .voisins { display: flex; justify-content: space-between; gap: 12px; margin-top: 22px; }
+    .voisin {
+      flex: 1 1 0; padding: 10px 15px; border: 1px solid var(--line); border-radius: 8px;
+      background: #fffdf6; color: var(--brun); text-decoration: none; font-weight: 600; letter-spacing: .03em;
+    }
+    .voisin:hover { border-color: var(--gold); color: var(--bordeaux); }
+    .voisin.suivant { text-align: right; }
+
+    @media (max-width: 560px) {
+      .parch { padding: 15px 15px 18px; }
+      .ident dl > div { grid-template-columns: 1fr; }
+      .ident dt { padding: 6px 12px 3px; }
+      .ident dd { padding-top: 3px; padding-bottom: 9px; }
+    }
+  </style>
 </head>
 
 <body>
   <script src="../commun.js"></script>
 
-  <!-- Contenu de la page -->
   <main>
-    <div class="container" style="margin-top: 20px;">
-      <h1 class="text-center">Les races</h1>
-      <p class="text-center">Cette page arrive bientôt…</p>
+    <div class="race-wrap">
+      <h1 class="race-title">Les races</h1>
+      <p class="race-sub">L’échelle des peuples — tout le monde à la même toise</p>
+
+      <div id="vue-echelle">
+        <div class="reglette">
+          <input id="recherche" type="search" placeholder="Rechercher une race, une sous-race…"
+            autocomplete="off" aria-label="Rechercher une race" />
+        </div>
+
+        <p id="compte" class="race-count"></p>
+
+        <div class="echelle">
+          <div id="toise" class="toise" aria-hidden="true"></div>
+          <div class="piste">
+            <div class="scene">
+              <div class="scene-fond"></div>
+              <div class="scene-sol"></div>
+              <div id="frise" class="frise"></div>
+            </div>
+          </div>
+        </div>
+
+        <p class="echelle-legende">
+          <span>Toise graduée tous les 50 cm.</span>
+          <span>Le trait rouge en pointillé marque le bas de la fourchette de taille.</span>
+          <span>Les peuples pâles n’ont pas de taille précisée : ils sont posés à hauteur humanoïde.</span>
+          <span id="glisser" style="display:none">Faites glisser la frise pour voir les peuples suivants.</span>
+        </p>
+      </div>
+
+      <div id="vue-fiche" style="display:none;"></div>
     </div>
   </main>
+
+  <script src="races-data.js"></script>
+  <script>
+    (function () {
+      var DB = window.RACES;
+      var LISTE = DB.liste;
+      var IMG = "../image-db/personnages/races/";
+      var HMAX = 3.1;            /* hauteur de la planche, en mètres */
+      var H_VARIABLE = 1.85;     /* où poser un peuple sans taille donnée */
+      var H_HUMAIN = 1.75;       /* l'ombre de comparaison, sur la fiche */
+
+      function esc(s) {
+        return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
+          return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+        });
+      }
+      /* pour la recherche : minuscules, sans accents ni ponctuation */
+      function norm(s) {
+        return String(s || "").toLowerCase().normalize("NFD").replace(/[^a-z0-9 ]+/g, " ");
+      }
+      var $ = function (id) { return document.getElementById(id); };
+
+      /* ============ les silhouettes de remplacement ============
+         Tant qu'une image n'est pas posée dans image-db/personnages/races/,
+         la page dessine un pictogramme. Chaque forme a sa propre largeur de
+         viewBox : c'est elle qui dit la corpulence, puisque la hauteur est
+         imposée par la taille de la race. */
+      var TRAIT = ' fill="none" stroke="currentColor" stroke-linecap="round"';
+      var FORMES = {
+        humanoide: [120,
+          '<ellipse cx="60" cy="30" rx="19" ry="24"/><rect x="53" y="48" width="14" height="12" rx="4"/>' +
+          '<path d="M34 66q26-11 52 0l-4 86q-22 8-44 0z"/>' +
+          '<path d="M36 72 26 154M84 72 94 154" stroke-width="14"' + TRAIT + '/>' +
+          '<path d="M50 156 46 288M70 156 74 288" stroke-width="17"' + TRAIT + '/>'],
+
+        elance: [110,
+          '<ellipse cx="55" cy="30" rx="16" ry="23"/><path d="M42 22 30 8 44 32zM68 22 80 8 66 32z"/>' +
+          '<rect x="49" y="48" width="12" height="12" rx="4"/>' +
+          '<path d="M35 66q20-10 40 0l-3 84q-17 7-34 0z"/>' +
+          '<path d="M37 72 29 152M73 72 81 152" stroke-width="11"' + TRAIT + '/>' +
+          '<path d="M47 154 44 288M63 154 66 288" stroke-width="14"' + TRAIT + '/>'],
+
+        trapu: [150,
+          '<ellipse cx="75" cy="34" rx="24" ry="26"/>' +
+          '<path d="M55 44q20 44 40 0 4 34-20 40-24-6-20-40z"/>' +
+          '<path d="M36 76q39-14 78 0l-6 82q-33 10-66 0z"/>' +
+          '<path d="M40 84 28 162M110 84 122 162" stroke-width="20"' + TRAIT + '/>' +
+          '<path d="M60 162 56 286M90 162 94 286" stroke-width="24"' + TRAIT + '/>'],
+
+        massif: [142,
+          '<ellipse cx="71" cy="34" rx="20" ry="23"/>' +
+          '<path d="M34 66q37-16 74 0l-8 84q-29 10-58 0z"/>' +
+          '<path d="M41 74 25 164M101 74 117 164" stroke-width="19"' + TRAIT + '/>' +
+          '<path d="M57 154 51 286M85 154 91 286" stroke-width="22"' + TRAIT + '/>'],
+
+        aile: [176,
+          '<path d="M70 74Q22 54 6 130Q36 118 70 134z"/><path d="M106 74Q154 54 170 130Q140 118 106 134z"/>' +
+          '<ellipse cx="88" cy="32" rx="17" ry="21"/><path d="M101 28 124 34 101 42z"/>' +
+          '<path d="M68 62q20-10 40 0l-4 88q-16 7-32 0z"/>' +
+          '<path d="M73 70 63 152M103 70 113 152" stroke-width="12"' + TRAIT + '/>' +
+          '<path d="M80 154 76 286M96 154 100 286" stroke-width="15"' + TRAIT + '/>'],
+
+        reptile: [144,
+          '<path d="M50 14 44 2 57 10zM62 10 58 0 71 6z"/>' +
+          '<ellipse cx="66" cy="30" rx="19" ry="21"/><path d="M80 24 108 32 80 41z"/>' +
+          '<rect x="58" y="48" width="15" height="12" rx="4"/>' +
+          '<path d="M38 66q28-12 56 0l-5 86q-23 8-46 0z"/>' +
+          '<path d="M41 74 31 154M91 74 101 154" stroke-width="15"' + TRAIT + '/>' +
+          '<path d="M55 156 51 288M79 156 83 288" stroke-width="18"' + TRAIT + '/>'],
+
+        cornu: [132,
+          '<path d="M45 18 31 0 50 13zM79 18 93 0 74 13z"/>' +
+          '<ellipse cx="62" cy="34" rx="18" ry="22"/><rect x="55" y="52" width="14" height="10" rx="4"/>' +
+          '<path d="M36 68q26-11 52 0l-4 84q-22 8-44 0z"/>' +
+          '<path d="M38 74 28 154M86 74 96 154" stroke-width="13"' + TRAIT + '/>' +
+          '<path d="M52 156 48 288M72 156 76 288" stroke-width="16"' + TRAIT + '/>' +
+          '<path d="M84 150q28 26 20 62" stroke-width="7"' + TRAIT + '/>'],
+
+        bestial: [126,
+          '<path d="M46 16 39 0 54 12zM76 16 83 0 68 12z"/>' +
+          '<ellipse cx="61" cy="32" rx="18" ry="22"/><rect x="54" y="50" width="14" height="10" rx="4"/>' +
+          '<path d="M35 66q26-11 52 0l-4 86q-22 8-44 0z"/>' +
+          '<path d="M37 72 27 154M85 72 95 154" stroke-width="14"' + TRAIT + '/>' +
+          '<path d="M51 156 47 288M71 156 75 288" stroke-width="17"' + TRAIT + '/>' +
+          '<path d="M85 148q26 22 22 54" stroke-width="8"' + TRAIT + '/>'],
+
+        informe: [132,
+          '<path d="M66 4c18 0 28 14 26 32-2 14-10 20-4 30 14 22 24 50 24 94 0 58-14 92-18 132H38C34 254 20 220 20 160c0-44 10-72 24-94 6-10-2-16-4-30C38 18 48 4 66 4z"/>' +
+          '<circle cx="66" cy="152" r="16" stroke-width="6" opacity=".45"' + TRAIT + '/>'],
+
+        bloc: [152,
+          '<rect x="49" y="6" width="54" height="46" rx="7"/><rect x="34" y="58" width="84" height="78" rx="9"/>' +
+          '<rect x="8" y="62" width="22" height="76" rx="10"/><rect x="122" y="62" width="22" height="76" rx="10"/>' +
+          '<rect x="42" y="142" width="29" height="148" rx="11"/><rect x="81" y="142" width="29" height="148" rx="11"/>']
+      };
+
+      function silhouetteSVG(forme) {
+        var f = FORMES[forme] || FORMES.humanoide;
+        return '<svg viewBox="0 0 ' + f[0] + ' 300" role="img" aria-hidden="true" focusable="false" fill="currentColor">' +
+          f[1] + '</svg>';
+      }
+
+      /* le bloc silhouette : l'image si elle existe, le pictogramme sinon */
+      function silhHTML(r, hauteur, hmin, cls) {
+        var st = '--h:' + hauteur + ';--hmin:' + (hmin != null ? hmin : hauteur) +
+          ';--fourchette:' + (hmin != null && hmin < hauteur ? 1 : 0);
+        return '<div class="silh' + (cls ? " " + cls : "") + '" style="' + st + '">' +
+          (r.image ? '<img class="silh-img" src="' + IMG + encodeURIComponent(r.image) +
+            '" alt="Silhouette — ' + esc(r.nom) + '">' : "") +
+          silhouetteSVG(r.forme) + '</div>';
+      }
+
+      /* dès qu'une image charge, elle remplace le pictogramme
+         (l'événement load ne remonte pas : on l'écoute à la capture) */
+      document.addEventListener("load", function (e) {
+        var t = e.target;
+        if (t && t.classList && t.classList.contains("silh-img")) {
+          var p = t.parentNode; if (p) p.classList.add("avec-image");
+        }
+      }, true);
+
+      /* ============ préparation des données ============ */
+      LISTE.forEach(function (r) {
+        var t = r.taille;
+        r._h = t ? t.max : H_VARIABLE;
+        r._hmin = t ? t.min : null;
+        /* « 1,50 m à 2,00 m » → « 1,50–2 m », pour tenir sous la silhouette */
+        r._court = t ? t.texte.replace("environ ", "~").replace(" m à ", "–").split(",00").join("")
+          : "taille libre";
+        var sous = (r.sousRaces || []);
+        r._q = norm([r.nom, r.resume, r.description.join(" "), r.caracteristiques.join(" "),
+          sous.map(function (s) { return s.nom + " " + (s.titre || ""); }).join(" ")].join(" "));
+      });
+
+      /* Les tailles libres ouvrent la frise. Elles sont posées à une hauteur
+         de convention, pas mesurées : les laisser dispersées entre les peuples
+         à l'échelle laisse croire qu'on peut les comparer à eux. Groupées en
+         tête, elles se lisent pour ce qu'elles sont — le reste de la frise
+         monte ensuite dans l'ordre du document. */
+      LISTE = LISTE.filter(function (r) { return !r.taille; })
+        .concat(LISTE.filter(function (r) { return r.taille; }));
+
+      var recherche = "";
+
+      /* ============ la planche ============ */
+
+      function renderToise() {
+        var h = "";
+        for (var m = 0.5; m <= HMAX; m += 0.5) {
+          var txt = (m % 1 === 0) ? m + " m" : String(m).replace(".", ",") + " m";
+          h += '<span style="bottom:calc(var(--pied) + var(--pxm) * ' + m + ')">' + txt + '</span>';
+        }
+        $("toise").innerHTML = h;
+      }
+
+      function filtrer() {
+        var q = norm(recherche);
+        return LISTE.filter(function (r) { return !q || r._q.indexOf(q) >= 0; });
+      }
+
+      function peupleHTML(r) {
+        return '<button type="button" class="peuple' + (r.taille ? "" : " variable") + '"' +
+          ' data-slug="' + esc(r.slug) + '" aria-label="Fiche de la race ' + esc(r.nom) + '">' +
+          silhHTML(r, r._h, r._hmin) +
+          '<span class="peuple-pied">' +
+            '<span class="peuple-nom">' + esc(r.nom) + '</span>' +
+            '<span class="peuple-taille">' + esc(r._court) + '</span>' +
+          '</span></button>';
+      }
+
+      /* le voile de droite n'apparaît que si la frise déborde de la piste */
+      function jaugerDebord() {
+        var p = document.querySelector(".piste");
+        var trop = p.scrollWidth - p.clientWidth > 8;
+        document.querySelector(".echelle").classList.toggle("deborde",
+          trop && p.scrollLeft + p.clientWidth < p.scrollWidth - 8);
+        $("glisser").style.display = trop ? "" : "none";
+      }
+
+      function renderPlanche() {
+        var list = filtrer();
+        $("compte").textContent = list.length + (list.length > 1 ? " peuples sur la toise" : " peuple sur la toise");
+        $("frise").innerHTML = list.length
+          ? list.map(peupleHTML).join("")
+          : '<p class="echelle-vide">Aucune race ne correspond à votre recherche.</p>';
+        jaugerDebord();
+      }
+
+      /* ============ les briques de la fiche ============ */
+
+      function paras(arr, cls) {
+        return (arr || []).map(function (t) {
+          return '<p' + (cls ? ' class="' + cls + '"' : "") + '>' + esc(t) + '</p>';
+        }).join("");
+      }
+
+      function modsHTML(s) {
+        var h = (s.plus || []).map(function (x) { return '<span class="mod p">' + esc(x) + '</span>'; }).join("") +
+          (s.moins || []).map(function (x) { return '<span class="mod m">' + esc(x) + '</span>'; }).join("");
+        return h ? '<div class="mods">' + h + '</div>' : "";
+      }
+
+      function capsHTML(s) {
+        return (s.capacites || []).map(function (c) {
+          return '<div class="cap"><div class="cap-tete"><span class="cap-nom">' + esc(c.nom) + '</span>' +
+            (c.cout ? '<span class="cout">' + esc(c.cout) + '</span>' : "") + '</div>' +
+            paras(c.texte) + '</div>';
+        }).join("");
+      }
+
+      /* l'hexagone d'une lignée d'oni : six axes, de 0 à 20 */
+      var AXES = [
+        { k: "force", l: "FOR" }, { k: "dexterite", l: "DEX" }, { k: "constitution", l: "CON" },
+        { k: "charisme", l: "CHA" }, { k: "sagesse", l: "SAG" }, { k: "intelligence", l: "INT" }
+      ];
+      function pt(cx, cy, r, i) {
+        var a = (-90 + i * 60) * Math.PI / 180;
+        return [cx + r * Math.cos(a), cy + r * Math.sin(a)];
+      }
+      function polygone(cx, cy, r) {
+        return AXES.map(function (_, i) { var p = pt(cx, cy, r, i); return p[0].toFixed(1) + "," + p[1].toFixed(1); }).join(" ");
+      }
+      function hexaHTML(s) {
+        var cx = 95, cy = 88, R = 52, MAX = 20;
+        var h = '<svg class="hexa" viewBox="0 0 190 178" role="img" aria-label="Statistiques de ' + esc(s.nom) + '">';
+        [0.25, 0.5, 0.75, 1].forEach(function (f) {
+          h += '<polygon class="grille" points="' + polygone(cx, cy, R * f) + '"/>';
+        });
+        AXES.forEach(function (_, i) {
+          var p = pt(cx, cy, R, i);
+          h += '<line class="axe" x1="' + cx + '" y1="' + cy + '" x2="' + p[0].toFixed(1) + '" y2="' + p[1].toFixed(1) + '"/>';
+        });
+        h += '<polygon class="aire" points="' + AXES.map(function (a, i) {
+          var p = pt(cx, cy, R * (s.stats[a.k] / MAX), i);
+          return p[0].toFixed(1) + "," + p[1].toFixed(1);
+        }).join(" ") + '"/>';
+        AXES.forEach(function (a, i) {
+          var p = pt(cx, cy, R + 22, i);
+          var anc = i === 0 || i === 3 ? "middle" : (i < 3 ? "start" : "end");
+          h += '<text class="lbl" x="' + p[0].toFixed(1) + '" y="' + (p[1] - 5).toFixed(1) + '" text-anchor="' + anc + '">' + a.l + '</text>' +
+            '<text class="val" x="' + p[0].toFixed(1) + '" y="' + (p[1] + 11).toFixed(1) + '" text-anchor="' + anc + '">' + s.stats[a.k] + '</text>';
+        });
+        return h + '</svg>';
+      }
+
+      function sousHTML(r) {
+        if (!r.sousRaces) return "";
+        var h = '<h2>' + esc(r.sousTitre || "Sous-races") + '</h2>';
+        if (r.sousIntro) {
+          h += '<div class="sous-intro" style="--sc:' + r.couleur + '">' +
+            '<div class="kicker">Règle commune</div>' +
+            '<p>' + esc(r.sousIntro) + '</p></div>';
+        }
+
+        h += '<div class="sous-grid">' + r.sousRaces.map(function (s) {
+          var c = s.couleur || r.couleur;
+          var b = '<div class="sous" style="--sc:' + c + '"' + (s.id ? ' data-sous="' + esc(s.id) + '"' : "") + '>';
+
+          if (s.hybride) {
+            b += '<div class="ruban">' + s.hybride.map(function (p) {
+              var par = LISTE.filter(function (x) { return x.nom === p; })[0];
+              return '<i style="--pc:' + (par ? par.couleur : "#999") + '"></i>' + esc(p);
+            }).join(' × ') + '</div>';
+          }
+          b += '<div class="sous-nom">' + esc(s.nom) + '</div>';
+          if (s.titre) b += '<div class="sous-titre">' + esc(s.titre) + '</div>';
+          if (s.stats) b += hexaHTML(s);
+          if (s.note) b += '<p class="note-app">' + esc(s.note) + '</p>';
+          b += paras(s.texte);
+          b += capsHTML(s);
+          b += modsHTML(s);
+
+          if (s.transformation) {
+            b += '<div class="transfo"><div class="kicker">Pendant la transformation</div><ul>' +
+              s.transformation.effets.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join("") +
+              '</ul></div>';
+          }
+          return b + '</div>';
+        }).join("") + '</div>';
+        return h;
+      }
+
+      /* la jauge de rage des garous */
+      function rageHTML() {
+        return '<h2>La rage</h2>' +
+          '<div class="rage">' +
+            '<div style="--f:2;--rc:#4f6b3f"><b>2T</b><span>La transformation, sans risque</span></div>' +
+            '<div style="--f:1;--rc:#a8712f"><b>+1T</b><span>¼ de chance de folie</span></div>' +
+            '<div style="--f:1;--rc:#7a0808"><b>+1T</b><span>¾ de chance de folie</span></div>' +
+          '</div>' +
+          '<p class="note">Transformation : {1} [1 par CR]. Chaque tour supplémentaire se paie au risque de basculer en folie.</p>';
+      }
+
+      /* la roue des origines élémentaires : chaque cycle est une boucle où
+         une origine domine la suivante (+40 % de dégâts subis) */
+      function roueHTML(r) {
+        var par = {};
+        r.sousRaces.forEach(function (s) { par[s.id] = s; });
+
+        var svgs = r.roue.cycles.map(function (cycle, ci) {
+          var n = cycle.length, cx = 130, cy = 128, R = n === 3 ? 78 : 86, NR = 31;
+          var pts = cycle.map(function (_, i) {
+            var a = (-90 + i * 360 / n) * Math.PI / 180;
+            return [cx + R * Math.cos(a), cy + R * Math.sin(a)];
+          });
+          var h = '<svg viewBox="0 0 260 260" role="img" aria-label="Cycle des origines">' +
+            '<defs><marker id="fl' + ci + '" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">' +
+            '<path d="M0 0 10 5 0 10z" fill="context-stroke"/></marker></defs>';
+
+          /* les flèches : de i vers i+1, rognées au bord des pastilles */
+          cycle.forEach(function (de, i) {
+            var vers = cycle[(i + 1) % n], a = pts[i], b = pts[(i + 1) % n];
+            var dx = b[0] - a[0], dy = b[1] - a[1], d = Math.sqrt(dx * dx + dy * dy);
+            var ux = dx / d, uy = dy / d, m = NR + 5;
+            h += '<line class="roue-fl" data-de="' + de + '" data-vers="' + vers + '" marker-end="url(#fl' + ci + ')"' +
+              ' x1="' + (a[0] + ux * m).toFixed(1) + '" y1="' + (a[1] + uy * m).toFixed(1) +
+              '" x2="' + (b[0] - ux * m).toFixed(1) + '" y2="' + (b[1] - uy * m).toFixed(1) + '"/>';
+          });
+          /* les pastilles */
+          cycle.forEach(function (id, i) {
+            var s = par[id] || { nom: id, couleur: "#888" };
+            h += '<g class="roue-noeud" data-elem="' + id + '" tabindex="0" role="button">' +
+              '<circle cx="' + pts[i][0].toFixed(1) + '" cy="' + pts[i][1].toFixed(1) + '" r="' + NR + '" fill="' + s.couleur + '"/>' +
+              '<text x="' + pts[i][0].toFixed(1) + '" y="' + (pts[i][1] + 5).toFixed(1) + '" text-anchor="middle">' +
+              esc(s.nom) + '</text></g>';
+          });
+          return '<div class="roue-cycle">' + h + '</svg></div>';
+        }).join("");
+
+        return '<h2>La roue des origines</h2>' +
+          '<p>Chaque origine en domine une autre : la flèche pointe vers celle qui subit <b>+40 % de dégâts</b>. Touchez une origine pour suivre son cycle.</p>' +
+          '<div class="roue" id="roue">' + svgs + '</div>' +
+          '<p class="roue-note" id="roue-note">Deux boucles indépendantes : un triangle et un pentagone.</p>';
+      }
+
+      function moteursHTML(r) {
+        if (!r.moteurs) return "";
+        var C = { Capacites: "#a8712f", Ressource: "#3f7d8a", Mana: "#5f5a8a" };
+        return '<h2>Selon le moteur de votre classe</h2>' +
+          '<div class="moteurs">' + r.moteurs.map(function (m) {
+            return '<div class="moteur" style="--c:' + (C[m.id] || "#6b5a3a") + '"><b>' + esc(m.nom) + '</b>' +
+              '<span>' + esc(m.texte) + '</span></div>';
+          }).join("") + '</div>' +
+          '<a class="retour" style="margin:10px 0 0" href="classes.html">Voir les classes →</a>';
+      }
+
+      /* le damier du souffle : une case par caractère de la grille, la
+         teinte est celle de la race (les six lignées partagent la forme) */
+      function souffleHTML(r) {
+        var g = r.souffle.grille, cols = g[0].length, cases = "";
+        g.forEach(function (ligne, y) {
+          for (var x = 0; x < cols; x++) {
+            var c = ligne.charAt(x);
+            cases += '<span class="case' + (c === "X" ? " touchee" : c === "O" ? " origine" : "") + '"' +
+              ' aria-label="ligne ' + (y + 1) + ', colonne ' + (x + 1) + '"></span>';
+          }
+        });
+        return '<h2>Zone du souffle</h2>' +
+          '<div class="souffle" style="--c:' + r.couleur + '">' +
+            '<div class="damier" style="grid-template-columns:repeat(' + cols + ',var(--cw))" role="img"' +
+              ' aria-label="Damier de la zone de souffle, ' + cols + ' cases de large sur ' + g.length + ' de haut">' +
+              cases +
+            '</div>' +
+            '<ul class="souffle-legende">' +
+              '<li><i class="origine"></i>Le drakéide</li>' +
+              '<li><i class="touchee"></i>Case soufflée</li>' +
+            '</ul>' +
+          '</div>' +
+          (r.souffle.note ? '<p class="note">' + esc(r.souffle.note) + '</p>' : "");
+      }
+
+      /* la toise de la fiche : la race, et l'ombre d'un humain d'1,75 m */
+      function toiseFicheHTML(r) {
+        var grads = "";
+        for (var m = 0.5; m <= 3; m += 0.5) {
+          grads += '<span class="grad" style="bottom:calc(var(--pxf) * ' + m + ')">' +
+            (m % 1 === 0 ? m + " m" : String(m).replace(".", ",") + " m") + '</span>';
+        }
+        var fantome = { nom: "Humain", forme: "humanoide", image: null };
+        return '<div class="toise-fiche" style="--c:' + r.couleur + '">' + grads +
+          silhHTML(fantome, H_HUMAIN, null, "fantome") +
+          silhHTML(r, r._h, r._hmin) +
+          '</div>' +
+          '<p class="toise-etiq">' + esc(r.nom) + ' — ' + esc(r.taille ? r.taille.texte : "taille non précisée") +
+          ', face à un humain d’1,75 m</p>';
+      }
+
+      function identHTML(r) {
+        var l = '<div><dt>Taille</dt><dd>' + esc(r.taille ? r.taille.texte : "non précisée") + '</dd></div>';
+        if (r.poids) l += '<div><dt>Poids</dt><dd>' + esc(r.poids) + '</dd></div>';
+        if (r.longevite) l += '<div><dt>Longévité</dt><dd>' + esc(r.longevite) + '</dd></div>';
+        if (r.sousRaces) {
+          l += '<div><dt>' + esc(r.sousTitre || "Sous-races") + '</dt><dd>' + r.sousRaces.length + '</dd></div>';
+        }
+        return '<div class="ident"><dl>' + l + '</dl></div>';
+      }
+
+      function ficheHTML(r) {
+        var i = LISTE.indexOf(r);
+        var prec = LISTE[(i - 1 + LISTE.length) % LISTE.length];
+        var suiv = LISTE[(i + 1) % LISTE.length];
+
+        var corps = '<h2>Description</h2>' + paras(r.description, "lede") +
+          '<h2>Apparence</h2>' + paras(r.apparence) +
+          '<h2>Caractéristiques</h2>' + paras(r.caracteristiques);
+
+        if (r.important) corps += '<div class="important">' + paras(r.important) + '</div>';
+        (r.blocs || []).forEach(function (b) { corps += '<h2>' + esc(b.titre) + '</h2>' + paras(b.texte); });
+
+        if (r.rage) corps += rageHTML();
+        if (r.roue) corps += roueHTML(r);
+        if (r.souffle) corps += souffleHTML(r);
+        corps += moteursHTML(r);
+        corps += sousHTML(r);
+
+        return '<a class="retour" href="#">← Retour à l’échelle</a>' +
+          '<div class="fiche-grid">' +
+            '<aside class="fiche-cote">' + toiseFicheHTML(r) + identHTML(r) + '</aside>' +
+            '<div class="parch">' + corps + '</div>' +
+          '</div>' +
+          '<div class="voisins">' +
+            '<a class="voisin" href="#race=' + esc(prec.slug) + '">← ' + esc(prec.nom) + '</a>' +
+            '<a class="voisin suivant" href="#race=' + esc(suiv.slug) + '">' + esc(suiv.nom) + ' →</a>' +
+          '</div>';
+      }
+
+      /* ============ routage ============ */
+
+      function montrerPlanche() {
+        $("vue-fiche").style.display = "none";
+        $("vue-echelle").style.display = "";
+        jaugerDebord();   /* la piste était masquée : ses mesures étaient nulles */
+        document.title = "Les races — Legends & Bonk";
+      }
+
+      function montrerFiche(r) {
+        $("vue-fiche").innerHTML = ficheHTML(r);
+        $("vue-echelle").style.display = "none";
+        $("vue-fiche").style.display = "";
+        document.title = r.nom + " — Les races — Legends & Bonk";
+      }
+
+      function routeDepuisHash() {
+        var m = /^#race=(.+)$/.exec(location.hash);
+        var r = m && LISTE.filter(function (x) { return x.slug === decodeURIComponent(m[1]); })[0];
+        if (r) montrerFiche(r); else montrerPlanche();
+        window.scrollTo(0, 0);
+      }
+
+      /* ============ écouteurs ============ */
+
+      $("recherche").addEventListener("input", function (e) { recherche = e.target.value; renderPlanche(); });
+
+      /* la frise est faite de <button> : un seul écouteur délégué suffit */
+      $("frise").addEventListener("click", function (e) {
+        var el = e.target.closest("[data-slug]"); if (!el) return;
+        location.hash = "race=" + el.getAttribute("data-slug");
+      });
+
+      /* la roue : on éclaire l'origine choisie, ce qu'elle domine et ce qui la domine */
+      function traiterRoue(e) {
+        if (e.type === "keydown" && e.key !== "Enter" && e.key !== " ") return;
+        var n = e.target.closest("[data-elem]"); if (!n) return;
+        e.preventDefault();
+        var roue = $("roue"), note = $("roue-note");
+        if (!roue) return;
+        var id = n.getAttribute("data-elem");
+        var deja = n.classList.contains("on");
+
+        roue.querySelectorAll(".on,.bat,.perd,.gagne,.subit").forEach(function (el) {
+          el.classList.remove("on", "bat", "perd", "gagne", "subit");
+        });
+        document.querySelectorAll("#vue-fiche .sous.on").forEach(function (el) { el.classList.remove("on"); });
+
+        if (deja) {
+          roue.classList.remove("a-selection");
+          note.textContent = "Deux boucles indépendantes : un triangle et un pentagone.";
+          return;
+        }
+        roue.classList.add("a-selection");
+        n.classList.add("on");
+
+        var domine = "", dominant = "";
+        roue.querySelectorAll(".roue-fl").forEach(function (fl) {
+          var de = fl.getAttribute("data-de"), vers = fl.getAttribute("data-vers");
+          if (de === id) {
+            fl.classList.add("gagne"); domine = vers;
+            var c = roue.querySelector('[data-elem="' + vers + '"]'); if (c) c.classList.add("bat");
+          }
+          if (vers === id) {
+            fl.classList.add("subit"); dominant = de;
+            var c2 = roue.querySelector('[data-elem="' + de + '"]'); if (c2) c2.classList.add("perd");
+          }
+        });
+
+        function nomDe(x) {
+          var s = document.querySelector('#vue-fiche .sous[data-sous="' + x + '"] .sous-nom');
+          return s ? s.textContent : x;
+        }
+        note.textContent = nomDe(id) + " inflige +40 % à " + nomDe(domine) +
+          " · " + nomDe(dominant) + " lui inflige +40 %.";
+
+        var carte = document.querySelector('#vue-fiche .sous[data-sous="' + id + '"]');
+        if (carte) carte.classList.add("on");
+      }
+      $("vue-fiche").addEventListener("click", traiterRoue);
+      $("vue-fiche").addEventListener("keydown", traiterRoue);
+
+      document.querySelector(".piste").addEventListener("scroll", jaugerDebord, { passive: true });
+      window.addEventListener("resize", jaugerDebord);
+      window.addEventListener("hashchange", routeDepuisHash);
+
+      renderToise();
+      renderPlanche();
+      routeDepuisHash();
+    })();
+  </script>
 </body>
 
 </html>
