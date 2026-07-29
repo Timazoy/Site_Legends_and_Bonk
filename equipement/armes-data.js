@@ -755,7 +755,7 @@ window.EQUIP_ARMES = {
       ]
     },
     {
-      "nom": "Paire de faucille",
+      "nom": "Paire de faucilles",
       "categorie": "Courte distance",
       "sousCategorie": "De lancer",
       "tiers": [
@@ -2084,7 +2084,7 @@ window.EQUIP_ARMES = {
       ]
     },
     {
-      "nom": "Paquet de carte",
+      "nom": "Paquet de cartes",
       "categorie": "Longue distance",
       "sousCategorie": "Classique",
       "tiers": [
@@ -2379,7 +2379,7 @@ window.EQUIP_ARMES = {
       ]
     },
     {
-      "nom": "Le paquet de carte du Cartomancien",
+      "nom": "Le paquet de cartes du Cartomancien",
       "categorie": "Talismans",
       "sousCategorie": null,
       "tiers": [
@@ -3562,7 +3562,7 @@ window.EQUIP_ARMES = {
       ]
     },
     {
-      "nom": "Pelle guitard",
+      "nom": "Pelle guitare",
       "categorie": "Musicales",
       "sousCategorie": "Mi-distance",
       "tiers": [

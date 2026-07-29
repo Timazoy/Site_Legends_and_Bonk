@@ -12,13 +12,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap"
     rel="stylesheet" />
   <title>Les potions — Legends & Bonk</title>
-  <meta name="description" content="Les potions de Legends & Bonk : l'étagère de l'apothicaire — effets tirés au D20, paliers de puissance et prix par quantité." />
+  <meta name="description" content="Les potions de Legends & Bonk : effets tirés au D20, paliers de puissance et prix par quantité." />
   <link rel="canonical" href="https://legendsandbonk.com/equipement/potions.html" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Legends &amp; Bonk" />
   <meta property="og:locale" content="fr_FR" />
   <meta property="og:title" content="Les potions — Legends & Bonk" />
-  <meta property="og:description" content="Les potions de Legends & Bonk : l'étagère de l'apothicaire — effets tirés au D20, paliers de puissance et prix par quantité." />
+  <meta property="og:description" content="Les potions de Legends & Bonk : effets tirés au D20, paliers de puissance et prix par quantité." />
   <meta property="og:url" content="https://legendsandbonk.com/equipement/potions.html" />
   <meta property="og:image" content="https://legendsandbonk.com/image/og_partage.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -455,7 +455,7 @@
   <main>
     <div class="pot-wrap">
       <h1 class="pot-title">Les potions</h1>
-      <p class="pot-sub">La boutique de l'apothicaire à la nuit tombée — attrapez un flacon pour lire son étiquette</p>
+      <p class="pot-sub">La boutique à la nuit tombée — attrapez un flacon pour lire son étiquette</p>
 
       <p class="pot-hint">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 21 7v10l-9 5-9-5V7z"/><path d="M12 2v20M3 7l9 5 9-5M12 12l9 5M12 12 3 17"/></svg>
@@ -652,21 +652,32 @@
       }
 
       var lastFocus = null;
-      function openFiche(slug) {
+      /* push === false : ouverture demandée par l'URL, on ne réécrit pas le hash */
+      function openFiche(slug, push) {
         var o = OBJETS.filter(function (x) { return x.slug === slug; })[0];
         if (!o) return;
-        lastFocus = document.activeElement;
+        // le changement de hash rappelle openFiche : ne pas écraser la fiole d'origine
+        if (!$("overlay").classList.contains("open")) lastFocus = document.activeElement;
         $("scroll").innerHTML = ficheHTML(o);
         $("overlay").classList.add("open");
         document.body.style.overflow = "hidden";
         var btn = $("fiche-close");
         if (btn) btn.focus();
+        if (push !== false && location.hash !== "#" + o.slug) location.hash = o.slug;
       }
       function closeFiche() {
+        // vider le hash rappelle closeFiche via routeDepuisHash : on ne ferme qu'une fois
+        if (location.hash) { location.hash = ""; return; }
         $("overlay").classList.remove("open");
         document.body.style.overflow = "";
         $("scroll").innerHTML = "";
         if (lastFocus && lastFocus.focus) lastFocus.focus();
+      }
+
+      /* une fiole peut être ouverte directement depuis un lien : potions.html#guerison */
+      function routeDepuisHash() {
+        var h = decodeURIComponent((location.hash || "").replace(/^#/, ""));
+        if (h) openFiche(h, false); else closeFiche();
       }
 
       // ---- events ----
@@ -698,8 +709,11 @@
         lastY = y;
       }, { passive: true });
 
+      window.addEventListener("hashchange", routeDepuisHash);
+
       renderCats();
       renderCabinet();
+      routeDepuisHash();
     })();
   </script>
 </body>

@@ -298,6 +298,21 @@
     }
     .ident dd { margin: 0; padding: 8px 12px; font-size: 17px; }
     .ident dd ul { margin: 0; padding-left: 17px; }
+    /* renvoi vers la fiche de l'objet dans le catalogue d'équipement */
+    .eq-lien {
+      color: var(--bordeaux); font-weight: 700; text-decoration: none;
+      border-bottom: 1px dotted rgba(122, 8, 8, .5);
+    }
+    .eq-lien:hover, .eq-lien:focus-visible { color: var(--brun); border-bottom: 1px solid var(--brun); }
+
+    /* renvoi vers les règles de montée de niveau ; « vide » = page pas encore
+       écrite : la mention reste signalée mais n'est pas cliquable */
+    .lien-regle {
+      color: var(--bordeaux); font-weight: 700; text-decoration: none;
+      border-bottom: 1px dotted rgba(122, 8, 8, .5);
+    }
+    a.lien-regle:hover, a.lien-regle:focus-visible { color: var(--brun); border-bottom: 1px solid var(--brun); }
+    .lien-regle.vide { color: var(--muted); border-bottom-color: rgba(107, 90, 58, .45); cursor: default; }
 
     .type-badge {
       display: inline-block; padding: 2px 12px; border-radius: 999px; color: #fff; font-size: 15px;
@@ -350,8 +365,18 @@
       font-size: 15px; letter-spacing: .05em; color: #5a4a22; white-space: nowrap;
       border: 1px solid var(--line); border-radius: 6px; padding: 1px 9px; background: #fffdf6;
     }
-    .notes { margin-top: 12px; }
-    .notes p { font-size: 17px; color: var(--muted); font-style: italic; }
+    /* règles de gain, de création, de récupération : c'est du contenu de règle,
+       pas une note de bas de page — chaque ligne est marquée et lisible */
+    .notes { margin-top: 14px; padding-top: 12px; border-top: 1px solid rgba(122, 8, 8, .22); }
+    .notes p {
+      position: relative; padding-left: 23px; margin-bottom: 8px;
+      font-size: 18px; color: var(--ink); line-height: 1.45;
+    }
+    .notes p::before {
+      content: "◆"; position: absolute; left: 2px; top: 0;
+      font-size: 13px; line-height: 1.7; color: var(--or2);
+    }
+    .notes p:last-child { margin-bottom: 0; }
 
     /* listes du Grand Livre */
     .livre { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; margin-top: 10px; }
@@ -426,6 +451,8 @@
       .ident .lg { grid-template-columns: 1fr; }
       .ident dt { padding: 6px 12px 4px; }
       .ident dd { padding-top: 4px; padding-bottom: 9px; }
+      .notes p { font-size: 16px; padding-left: 19px; }
+      .notes p::before { font-size: 11px; line-height: 1.9; }
     }
   </style>
 </head>
@@ -495,6 +522,19 @@
           return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
         });
       }
+      /* Les données restent du texte pur : c'est ici que la mention des règles
+         de montée de niveau devient un lien. Adresse vide (le cas tant que la
+         page n'existe pas) : la mention est signalée mais pas cliquable. */
+      var MENTION_NIVEAU = "voir règle de montée de niveaux";
+      function prose(s) {
+        var h = esc(s);
+        if (h.indexOf(MENTION_NIVEAU) < 0) return h;
+        var url = DB.lienNiveau;
+        return h.split(MENTION_NIVEAU).join(
+          url ? '<a class="lien-regle" href="' + esc(url) + '">' + MENTION_NIVEAU + '</a>'
+              : '<span class="lien-regle vide">' + MENTION_NIVEAU + '</span>');
+      }
+
       /* pour la recherche : minuscules, sans accents ni ponctuation
          (NFD sépare la lettre de son accent, le filtre ne garde que les lettres) */
       function norm(s) {
@@ -574,7 +614,7 @@
       /* ---------------- la fiche ---------------- */
 
       function paras(arr, cls) {
-        return (arr || []).map(function (t) { return '<p' + (cls ? ' class="' + cls + '"' : "") + '>' + esc(t) + '</p>'; }).join("");
+        return (arr || []).map(function (t) { return '<p' + (cls ? ' class="' + cls + '"' : "") + '>' + prose(t) + '</p>'; }).join("");
       }
 
       function capHTML(kicker, cap, mineur) {
@@ -592,7 +632,13 @@
             esc(NOM_ROLE[r.cat] || r.cat) + '</b>' +
             (r.detail ? ' <span>' + esc(r.detail) + '</span>' : "") + '</span>';
         }).join("");
-        var equip = '<ul>' + c.equipement.map(function (e) { return '<li>' + esc(e) + '</li>'; }).join("") + '</ul>';
+        /* une entrée d'équipement est soit du texte, soit un renvoi vers la fiche
+           de l'objet dans le catalogue ({ nom, lien, apres }) */
+        var equip = '<ul>' + c.equipement.map(function (e) {
+          if (typeof e === "string") return '<li>' + esc(e) + '</li>';
+          return '<li><a class="eq-lien" href="' + esc(e.lien) + '">' + esc(e.nom) + '</a>' +
+            (e.apres ? " " + esc(e.apres) : "") + '</li>';
+        }).join("") + '</ul>';
         if (c.equipementChoix) equip = '<div style="font-size:15px;color:var(--muted)">Au choix entre :</div>' + equip;
 
         return '<div class="ident"><dl>' +
@@ -611,7 +657,7 @@
         h += (p.liste || []).map(function (a) {
           return '<div class="pouvoir"><div class="tete"><span class="p-nom">' + esc(a.nom) + '</span>' +
             (a.cout ? '<span class="cout">' + esc(a.cout) + '</span>' : "") + '</div>' +
-            '<p>' + esc(a.texte) + '</p></div>';
+            '<p>' + prose(a.texte) + '</p></div>';
         }).join("");
         if (p.notes) h += '<div class="notes">' + paras(p.notes) + '</div>';
         return h;
@@ -619,7 +665,7 @@
 
       function grimoireHTML(g) {
         if (!g) return "";
-        var h = '<h2>Sorts</h2><p>' + esc(g.intro) + '</p>';
+        var h = '<h2>Sorts</h2><p>' + prose(g.intro) + '</p>';
         var cols = "";
         if (g.famille) cols += '<section><h3>Famille</h3><ul><li>' + esc(g.famille) + '</li></ul></section>';
         if (g.sousFamilles) cols += '<section><h3>Sous-familles</h3><ul>' +
@@ -637,7 +683,7 @@
           '<div class="elements">' + e.liste.map(function (x) {
             return '<span class="element"><b>' + esc(x.nom) + '</b> <span>' + esc(x.quoi) + '</span></span>';
           }).join("") + '</div>' +
-          '<p style="margin-top:12px">' + esc(e.oublie) + '</p>';
+          '<p style="margin-top:12px">' + prose(e.oublie) + '</p>';
 
         h += '<h2>' + esc(e.attaque.titre) + '</h2><div class="scroller"><table class="paliers">' +
           '<thead><tr><th>Palier</th><th>Coût</th><th>Dégâts</th><th>Zone</th></tr></thead><tbody>' +

@@ -12,13 +12,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap"
     rel="stylesheet" />
   <title>Les règles de création — Legends & Bonk</title>
-  <meta name="description" content="Les règles de création de personnage de Legends & Bonk : classe, race, répartition des statistiques, caractéristiques calculées, personnalité, don et passif." />
+  <meta name="description"
+    content="Les règles de création de personnage de Legends & Bonk : classe, race, répartition des statistiques, caractéristiques calculées, personnalité, don et passif." />
   <link rel="canonical" href="https://legendsandbonk.com/personnages/regles_creation.html" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Legends &amp; Bonk" />
   <meta property="og:locale" content="fr_FR" />
   <meta property="og:title" content="Les règles de création — Legends & Bonk" />
-  <meta property="og:description" content="Les règles de création de personnage de Legends & Bonk : classe, race, répartition des statistiques, caractéristiques calculées, personnalité, don et passif." />
+  <meta property="og:description"
+    content="Les règles de création de personnage de Legends & Bonk : classe, race, répartition des statistiques, caractéristiques calculées, personnalité, don et passif." />
   <meta property="og:url" content="https://legendsandbonk.com/personnages/regles_creation.html" />
   <meta property="og:image" content="https://legendsandbonk.com/image/og_partage.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -29,193 +31,619 @@
 
   <style>
     :root {
-      --parch: #f4ecd8; --parch2: #e9dcbd; --ink: #2b2116; --line: #c9b892;
-      --bordeaux: #7a0808; --brun: #281b07; --gold: #d8b24a; --muted: #6b5a3a;
+      --parch: #f4ecd8;
+      --parch2: #e9dcbd;
+      --ink: #2b2116;
+      --line: #c9b892;
+      --bordeaux: #7a0808;
+      --brun: #281b07;
+      --gold: #d8b24a;
+      --muted: #6b5a3a;
     }
 
     /* le fond du site reste blanc : la page pose dessus une grande feuille
        de parchemin, pour que la lecture ne se fasse jamais sur du blanc pur */
-    .crea-wrap { max-width: 1040px; margin: 0 auto; padding: 18px 12px 60px; color: var(--ink); }
+    .crea-wrap {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 18px 12px 60px;
+      color: var(--ink);
+    }
+
     .crea-sheet {
-      position: relative; border: 1px solid var(--line); border-radius: 16px;
-      padding: 26px 34px 34px; box-shadow: 0 6px 26px rgba(40,27,7,.14);
+      position: relative;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 26px 34px 34px;
+      box-shadow: 0 6px 26px rgba(40, 27, 7, .14);
       background:
-        repeating-linear-gradient(0deg, rgba(122,8,8,.014) 0 2px, transparent 2px 5px),
+        repeating-linear-gradient(0deg, rgba(122, 8, 8, .014) 0 2px, transparent 2px 5px),
         linear-gradient(170deg, #fdf8ec, #f9f2e1 55%, #f5eeda);
     }
+
     /* double filet intérieur, comme sur les fiches d'équipement */
     .crea-sheet::before {
-      content: ""; position: absolute; inset: 8px; border: 1px solid rgba(201,184,146,.6);
-      border-radius: 10px; pointer-events: none;
+      content: "";
+      position: absolute;
+      inset: 8px;
+      border: 1px solid rgba(201, 184, 146, .6);
+      border-radius: 10px;
+      pointer-events: none;
     }
-    .crea-sheet > * { position: relative; }
 
-    h1.crea-title { text-align: center; font-weight: 700; letter-spacing: .5px; margin: 6px 0 2px; color: var(--brun); }
-    .crea-sub { text-align: center; color: var(--muted); font-style: italic; margin-bottom: 22px; }
+    .crea-sheet>* {
+      position: relative;
+    }
+
+    h1.crea-title {
+      text-align: center;
+      font-weight: 700;
+      letter-spacing: .5px;
+      margin: 6px 0 2px;
+      color: var(--brun);
+    }
+
+    .crea-sub {
+      text-align: center;
+      color: var(--muted);
+      font-style: italic;
+      margin-bottom: 22px;
+    }
 
     /* ---- sommaire des six étapes ---- */
     .crea-somm {
       background: linear-gradient(160deg, var(--parch), var(--parch2));
-      border: 1px solid var(--line); border-radius: 14px;
-      padding: 16px 18px; margin-bottom: 34px;
-      box-shadow: 0 3px 10px rgba(40,27,7,.10);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 16px 18px;
+      margin-bottom: 34px;
+      box-shadow: 0 3px 10px rgba(40, 27, 7, .10);
     }
+
     .crea-somm h2 {
-      font-size: 15px; letter-spacing: 2px; text-transform: uppercase; text-align: center;
-      color: var(--bordeaux); font-weight: 800; margin: 0 0 12px;
+      font-size: 15px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-align: center;
+      color: var(--bordeaux);
+      font-weight: 800;
+      margin: 0 0 12px;
     }
-    .crea-somm ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; grid-template-columns: 1fr; }
-    @media (min-width: 620px) { .crea-somm ol { grid-template-columns: repeat(3, 1fr); } }
+
+    .crea-somm ol {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 8px;
+      grid-template-columns: 1fr;
+    }
+
+    @media (min-width: 620px) {
+      .crea-somm ol {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
     .crea-somm a {
-      display: flex; align-items: center; gap: 10px; padding: 7px 10px; border-radius: 9px;
-      color: var(--ink); text-decoration: none; font-size: 18px; border: 1px solid transparent;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 10px;
+      border-radius: 9px;
+      color: var(--ink);
+      text-decoration: none;
+      font-size: 18px;
+      border: 1px solid transparent;
     }
-    .crea-somm a:hover, .crea-somm a:focus-visible { background: rgba(122,8,8,.07); border-color: rgba(122,8,8,.25); }
+
+    .crea-somm a:hover,
+    .crea-somm a:focus-visible {
+      background: rgba(122, 8, 8, .07);
+      border-color: rgba(122, 8, 8, .25);
+    }
+
     .crea-somm .n {
-      flex: 0 0 auto; width: 27px; height: 27px; border-radius: 50%;
-      display: grid; place-items: center; font-size: 15px; font-weight: 800;
-      background: var(--bordeaux); color: var(--parch);
+      flex: 0 0 auto;
+      width: 27px;
+      height: 27px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 15px;
+      font-weight: 800;
+      background: var(--bordeaux);
+      color: var(--parch);
     }
 
     /* ---- une étape ---- */
-    .etape { scroll-margin-top: 18px; margin-bottom: 46px; }
-    .etape-head { display: flex; align-items: center; gap: 14px; margin-bottom: 6px; }
-    .etape-seal {
-      flex: 0 0 auto; width: 52px; height: 52px; border-radius: 50%;
-      display: grid; place-items: center; font-size: 26px; font-weight: 800; line-height: 1;
-      color: var(--parch); background: radial-gradient(circle at 36% 30%, #a01212, var(--bordeaux) 70%);
-      box-shadow: 0 0 0 3px var(--parch), 0 0 0 4px var(--line), 0 3px 8px rgba(40,27,7,.3);
+    .etape {
+      scroll-margin-top: 18px;
+      margin-bottom: 46px;
     }
-    .etape-head h2 { margin: 0; font-size: 34px; font-weight: 700; color: var(--brun); letter-spacing: .3px; }
-    .etape > hr { border: none; border-top: 2px solid var(--line); margin: 10px 0 18px; opacity: .8; }
+
+    .etape-head {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 6px;
+    }
+
+    .etape-seal {
+      flex: 0 0 auto;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 26px;
+      font-weight: 800;
+      line-height: 1;
+      color: var(--parch);
+      background: radial-gradient(circle at 36% 30%, #a01212, var(--bordeaux) 70%);
+      box-shadow: 0 0 0 3px var(--parch), 0 0 0 4px var(--line), 0 3px 8px rgba(40, 27, 7, .3);
+    }
+
+    .etape-head h2 {
+      margin: 0;
+      font-size: 34px;
+      font-weight: 700;
+      color: var(--brun);
+      letter-spacing: .3px;
+    }
+
+    .etape>hr {
+      border: none;
+      border-top: 2px solid var(--line);
+      margin: 10px 0 18px;
+      opacity: .8;
+    }
+
     .etape h3 {
-      font-size: 23px; font-weight: 700; font-style: italic; color: var(--bordeaux);
+      font-size: 23px;
+      font-weight: 700;
+      font-style: italic;
+      color: var(--bordeaux);
       margin: 30px 0 10px;
     }
-    .etape p { margin: 0 0 12px; }
-    .etape ul { margin: 0 0 12px; padding-left: 1.3em; }
-    .etape li { margin-bottom: 5px; }
+
+    .etape p {
+      margin: 0 0 12px;
+    }
+
+    .etape ul {
+      margin: 0 0 12px;
+      padding-left: 1.3em;
+    }
+
+    .etape li {
+      margin-bottom: 5px;
+    }
 
     /* ---- encart (règle à retenir) ---- */
     .encart {
-      background: rgba(216,178,74,.14); border: 1px solid rgba(122,8,8,.20);
-      border-left: 4px solid var(--bordeaux); border-radius: 0 10px 10px 0;
-      padding: 12px 16px; margin: 16px 0; font-size: 19px; color: var(--muted);
+      background: rgba(216, 178, 74, .14);
+      border: 1px solid rgba(122, 8, 8, .20);
+      border-left: 4px solid var(--bordeaux);
+      border-radius: 0 10px 10px 0;
+      padding: 12px 16px;
+      margin: 16px 0;
+      font-size: 19px;
+      color: var(--muted);
     }
-    .encart b, .encart strong { color: var(--bordeaux); }
-    .encart p:last-child { margin-bottom: 0; }
+
+    .encart b,
+    .encart strong {
+      color: var(--bordeaux);
+    }
+
+    .encart p:last-child {
+      margin-bottom: 0;
+    }
 
     /* ---- exemple ---- */
     .ex {
-      font-style: italic; color: var(--muted); font-size: 18px;
-      border-left: 2px solid var(--line); padding-left: 12px; margin: 10px 0 12px;
+      font-style: italic;
+      color: var(--muted);
+      font-size: 18px;
+      border-left: 2px solid var(--line);
+      padding-left: 12px;
+      margin: 10px 0 12px;
     }
-    .ex b { font-style: normal; color: var(--bordeaux); }
+
+    .ex b {
+      font-style: normal;
+      color: var(--bordeaux);
+    }
 
     /* ---- listes en pastilles (classes, races, statistiques) ---- */
-    .chips { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; margin: 14px 0 16px; padding: 0; }
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      list-style: none;
+      margin: 14px 0 16px;
+      padding: 0;
+    }
+
     .chips li {
       background: linear-gradient(160deg, var(--parch), var(--parch2));
-      border: 1px solid var(--line); border-radius: 999px;
-      padding: 5px 16px; font-size: 18px; font-weight: 700; color: var(--brun);
-      box-shadow: 0 1px 3px rgba(40,27,7,.10);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 5px 16px;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--brun);
+      box-shadow: 0 1px 3px rgba(40, 27, 7, .10);
     }
-    .chips.stats li { font-size: 19px; }
+
+    .chips.stats li {
+      font-size: 19px;
+    }
+
+    /* pastilles cliquables : elles ouvrent la fiche correspondante de la galerie.
+       Le lien porte le rembourrage, sinon seul le texte serait cliquable. */
+    .chips.liens li {
+      padding: 0;
+      transition: border-color .15s, box-shadow .15s, transform .15s, background .15s;
+    }
+
+    .chips.liens a {
+      display: block;
+      padding: 5px 16px;
+      border-radius: 999px;
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .chips-note {
+      font-size: 16px;
+      font-style: italic;
+      color: var(--muted);
+      margin: -6px 0 16px;
+    }
+
+    .chips.liens li:hover,
+    .chips.liens li:focus-within {
+      background: linear-gradient(160deg, #fffdf6, var(--parch));
+      border-color: var(--bordeaux);
+      color: var(--bordeaux);
+      transform: translateY(-1px);
+      box-shadow: 0 3px 8px rgba(40, 27, 7, .16);
+    }
 
     /* ---- cartes de formule (étape 4) ---- */
-    .formules { display: grid; gap: 14px; grid-template-columns: 1fr; margin: 16px 0 4px; }
-    @media (min-width: 700px) { .formules { grid-template-columns: 1fr 1fr; } }
+    .formules {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: 1fr;
+      margin: 16px 0 4px;
+    }
+
+    @media (min-width: 700px) {
+      .formules {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
     .formule {
       background: linear-gradient(160deg, var(--parch), var(--parch2));
-      border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px 12px;
-      box-shadow: 0 2px 8px rgba(40,27,7,.10); display: flex; flex-direction: column;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 14px 16px 12px;
+      box-shadow: 0 2px 8px rgba(40, 27, 7, .10);
+      display: flex;
+      flex-direction: column;
     }
+
     .formule h4 {
-      margin: 0 0 8px; font-size: 21px; font-weight: 800; color: var(--brun);
-      padding-bottom: 7px; border-bottom: 1px solid var(--line);
+      margin: 0 0 8px;
+      font-size: 21px;
+      font-weight: 800;
+      color: var(--brun);
+      padding-bottom: 7px;
+      border-bottom: 1px solid var(--line);
     }
+
     .formule .calc {
-      display: block; background: #fffdf6; border: 1px dashed var(--line); border-radius: 8px;
-      padding: 8px 12px; margin-bottom: 9px; font-size: 19px; font-weight: 700; color: var(--bordeaux);
-      text-align: center; font-variant-numeric: tabular-nums;
+      display: block;
+      background: #fffdf6;
+      border: 1px dashed var(--line);
+      border-radius: 8px;
+      padding: 8px 12px;
+      margin-bottom: 9px;
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--bordeaux);
+      text-align: center;
+      font-variant-numeric: tabular-nums;
     }
-    .formule p { font-size: 17px; color: var(--muted); margin: 0 0 8px; }
-    .formule .ex { margin: auto 0 0; font-size: 16px; }
+
+    .formule p {
+      font-size: 17px;
+      color: var(--muted);
+      margin: 0 0 8px;
+    }
+
+    .formule .ex {
+      margin: auto 0 0;
+      font-size: 16px;
+    }
 
     /* barème détaillé, quand une seule ligne de formule serait illisible */
     .bareme {
-      list-style: none; margin: 0 0 10px; padding: 10px 14px;
-      background: #fffdf6; border: 1px dashed var(--line); border-radius: 8px;
+      list-style: none;
+      margin: 0 0 10px;
+      padding: 10px 14px;
+      background: #fffdf6;
+      border: 1px dashed var(--line);
+      border-radius: 8px;
     }
-    .bareme li { display: flex; gap: 12px; align-items: baseline; margin: 0 0 6px; font-size: 17px; color: var(--muted); }
-    .bareme li:last-child { margin-bottom: 0; }
+
+    .bareme li {
+      display: flex;
+      gap: 12px;
+      align-items: baseline;
+      margin: 0 0 6px;
+      font-size: 17px;
+      color: var(--muted);
+    }
+
+    .bareme li:last-child {
+      margin-bottom: 0;
+    }
+
     .bareme .v {
-      flex: 0 0 78px; text-align: right; font-size: 19px; font-weight: 800;
-      color: var(--bordeaux); font-variant-numeric: tabular-nums; white-space: nowrap;
+      flex: 0 0 78px;
+      text-align: right;
+      font-size: 19px;
+      font-weight: 800;
+      color: var(--bordeaux);
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
     }
+
     /* la description doit rester UN seul élément flex, sinon le <b> qu'elle
        contient devient un item à part et la ligne se disloque */
-    .bareme .d { flex: 1; }
-    .bareme b { color: var(--brun); }
+    .bareme .d {
+      flex: 1;
+    }
+
+    .bareme b {
+      color: var(--brun);
+    }
 
     /* ---- table des statistiques de mana ---- */
-    .mana-table { width: 100%; border-collapse: collapse; margin: 12px 0 14px; font-size: 18px; }
-    .mana-table th, .mana-table td { border: 1px solid var(--line); padding: 7px 12px; text-align: left; }
-    .mana-table th { background: var(--parch2); color: var(--brun); font-weight: 800; }
-    .mana-table td { background: #fffdf6; }
-    .mana-table td:last-child { color: var(--bordeaux); font-weight: 700; white-space: nowrap; }
+    .mana-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0 14px;
+      font-size: 18px;
+    }
+
+    .mana-table th,
+    .mana-table td {
+      border: 1px solid var(--line);
+      padding: 7px 12px;
+      text-align: left;
+    }
+
+    .mana-table th {
+      background: var(--parch2);
+      color: var(--brun);
+      font-weight: 800;
+    }
+
+    .mana-table td {
+      background: #fffdf6;
+    }
+
+    .mana-table td:last-child {
+      color: var(--bordeaux);
+      font-weight: 700;
+      white-space: nowrap;
+    }
 
     /* ---- volets de personnalité ---- */
-    .volets { display: grid; gap: 14px; grid-template-columns: 1fr; margin: 16px 0; }
-    @media (min-width: 700px) { .volets { grid-template-columns: 1fr 1fr; } }
+    .volets {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: 1fr;
+      margin: 16px 0;
+    }
+
+    @media (min-width: 700px) {
+      .volets {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
     .volet {
       background: linear-gradient(160deg, var(--parch), var(--parch2));
-      border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px;
-      box-shadow: 0 2px 8px rgba(40,27,7,.10);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 14px 16px;
+      box-shadow: 0 2px 8px rgba(40, 27, 7, .10);
     }
-    .volet.large { grid-column: 1 / -1; }
-    .volet h4 { margin: 0 0 8px; font-size: 21px; font-weight: 800; color: var(--brun); }
-    .volet h4 span { color: var(--bordeaux); font-size: 16px; font-weight: 800; margin-right: 7px; }
-    .volet p { font-size: 18px; margin: 0 0 8px; }
-    .volet .ex { margin-bottom: 0; }
+
+    .volet.large {
+      grid-column: 1 / -1;
+    }
+
+    .volet h4 {
+      margin: 0 0 8px;
+      font-size: 21px;
+      font-weight: 800;
+      color: var(--brun);
+    }
+
+    .volet h4 span {
+      color: var(--bordeaux);
+      font-size: 16px;
+      font-weight: 800;
+      margin-right: 7px;
+    }
+
+    .volet p {
+      font-size: 18px;
+      margin: 0 0 8px;
+    }
+
+    .volet .ex {
+      margin-bottom: 0;
+    }
 
     /* ---- roue des comportements ---- */
-    .roue-fig { margin: 18px 0 6px; text-align: center; }
-    .roue {
-      width: 100%; max-width: 560px; height: auto; display: block; margin: 0 auto;
-      font-family: inherit; filter: drop-shadow(0 4px 12px rgba(40,27,7,.18));
+    .roue-fig {
+      margin: 18px 0 6px;
+      text-align: center;
     }
-    .roue .fond { fill: #fffdf6; }
-    .roue .petale { fill: var(--parch2); }
-    .roue .coeur { fill: var(--parch); }
-    .roue .trait { fill: none; stroke: var(--brun); stroke-width: 2.2; }
-    .roue .cadre { fill: none; stroke: var(--brun); stroke-width: 4; }
-    .roue text { fill: var(--ink); font-weight: 700; text-anchor: middle; }
-    .roue .lbl { font-size: 25px; }
-    .roue .lbl-sm { font-size: 21px; }
-    .roue .coin { font-size: 21px; font-style: italic; fill: var(--bordeaux); }
-    .roue .coin.g { text-anchor: start; } .roue .coin.d { text-anchor: end; }
-    .roue-leg { font-size: 16px; color: var(--muted); font-style: italic; margin-top: 8px; }
+
+    .roue {
+      width: 100%;
+      max-width: 560px;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      font-family: inherit;
+      filter: drop-shadow(0 4px 12px rgba(40, 27, 7, .18));
+    }
+
+    .roue .fond {
+      fill: #fffdf6;
+    }
+
+    .roue .petale {
+      fill: var(--parch2);
+    }
+
+    .roue .coeur {
+      fill: var(--parch);
+    }
+
+    .roue .trait {
+      fill: none;
+      stroke: var(--brun);
+      stroke-width: 2.2;
+    }
+
+    .roue .cadre {
+      fill: none;
+      stroke: var(--brun);
+      stroke-width: 4;
+    }
+
+    .roue text {
+      fill: var(--ink);
+      font-weight: 700;
+      text-anchor: middle;
+    }
+
+    .roue .lbl {
+      font-size: 25px;
+    }
+
+    .roue .lbl-sm {
+      font-size: 21px;
+    }
+
+    .roue .coin {
+      font-size: 21px;
+      font-style: italic;
+      fill: var(--bordeaux);
+    }
+
+    .roue .coin.g {
+      text-anchor: start;
+    }
+
+    .roue .coin.d {
+      text-anchor: end;
+    }
+
+    .roue-leg {
+      font-size: 16px;
+      color: var(--muted);
+      font-style: italic;
+      margin-top: 8px;
+    }
 
     /* ---- pied de page de la section ---- */
     .crea-fin {
-      border-top: 2px solid var(--line); margin-top: 10px; padding-top: 18px;
-      text-align: center; color: var(--muted); font-style: italic; font-size: 18px;
+      border-top: 2px solid var(--line);
+      margin-top: 10px;
+      padding-top: 18px;
+      text-align: center;
+      color: var(--muted);
+      font-style: italic;
+      font-size: 18px;
     }
 
     @media (max-width: 768px) {
-      .crea-wrap { padding: 10px 8px 40px; }
-      .crea-sheet { padding: 16px 14px 22px; border-radius: 12px; }
-      .crea-sheet::before { inset: 5px; }
-      .bareme { padding: 9px 11px; }
-      .bareme li { font-size: 15px; gap: 9px; }
-      .bareme .v { flex-basis: 66px; font-size: 16px; }
-      .etape-head h2 { font-size: 25px; }
-      .etape-seal { width: 42px; height: 42px; font-size: 21px; }
-      .etape h3 { font-size: 19px; }
-      .encart, .chips li { font-size: 16px; }
-      .formule .calc { font-size: 17px; }
-      .ex, .formule p, .volet p, .mana-table { font-size: 15px; }
+      .crea-wrap {
+        padding: 10px 8px 40px;
+      }
+
+      .crea-sheet {
+        padding: 16px 14px 22px;
+        border-radius: 12px;
+      }
+
+      .crea-sheet::before {
+        inset: 5px;
+      }
+
+      .bareme {
+        padding: 9px 11px;
+      }
+
+      .bareme li {
+        font-size: 15px;
+        gap: 9px;
+      }
+
+      .bareme .v {
+        flex-basis: 66px;
+        font-size: 16px;
+      }
+
+      .etape-head h2 {
+        font-size: 25px;
+      }
+
+      .etape-seal {
+        width: 42px;
+        height: 42px;
+        font-size: 21px;
+      }
+
+      .etape h3 {
+        font-size: 19px;
+      }
+
+      .encart,
+      .chips li {
+        font-size: 16px;
+      }
+
+      .chips-note {
+        font-size: 14px;
+      }
+
+      .chips.liens a {
+        padding: 5px 13px;
+      }
+
+      .formule .calc {
+        font-size: 17px;
+      }
+
+      .ex,
+      .formule p,
+      .volet p,
+      .mana-table {
+        font-size: 15px;
+      }
     }
   </style>
 </head>
@@ -226,321 +654,374 @@
   <!-- Contenu de la page -->
   <main>
     <div class="crea-wrap">
-     <div class="crea-sheet">
-      <h1 class="crea-title">Les règles de création</h1>
-      <p class="crea-sub">Six étapes pour donner corps à un héros.</p>
+      <div class="crea-sheet">
+        <h1 class="crea-title">Les règles de création</h1>
+        <p class="crea-sub">Six étapes pour donner corps à un héros.</p>
 
-      <nav class="crea-somm" aria-label="Sommaire des étapes">
-        <h2>Les six étapes</h2>
-        <ol>
-          <li><a href="#classe"><span class="n">1</span> La classe</a></li>
-          <li><a href="#race"><span class="n">2</span> La race</a></li>
-          <li><a href="#statistiques"><span class="n">3</span> Les statistiques</a></li>
-          <li><a href="#caracteristiques"><span class="n">4</span> Les caractéristiques</a></li>
-          <li><a href="#personnalite"><span class="n">5</span> La personnalité</a></li>
-          <li><a href="#don"><span class="n">6</span> Don et passif</a></li>
-        </ol>
-      </nav>
+        <nav class="crea-somm" aria-label="Sommaire des étapes">
+          <h2>Les six étapes</h2>
+          <ol>
+            <li><a href="#classe"><span class="n">1</span> La classe</a></li>
+            <li><a href="#race"><span class="n">2</span> La race</a></li>
+            <li><a href="#statistiques"><span class="n">3</span> Les statistiques</a></li>
+            <li><a href="#caracteristiques"><span class="n">4</span> Les caractéristiques</a></li>
+            <li><a href="#personnalite"><span class="n">5</span> La personnalité</a></li>
+            <li><a href="#don"><span class="n">6</span> Don et passif</a></li>
+          </ol>
+        </nav>
 
-      <!-- ============ ÉTAPE 1 — LA CLASSE ============ -->
-      <section class="etape" id="classe">
-        <div class="etape-head">
-          <div class="etape-seal" aria-hidden="true">1</div>
-          <h2>La classe</h2>
-        </div>
-        <hr>
-
-        <p>L'étape la plus importante. Vous choisissez votre classe parmi celles disponibles :</p>
-
-        <ul class="chips">
-          <li>Barbare</li><li>Barde</li><li>Clerc</li><li>Druide</li><li>Nécromancien</li>
-          <li>Guerrier</li><li>Magicien</li><li>Archer</li><li>Occultiste</li><li>Paladin</li>
-          <li>Rôdeur</li><li>Roublard</li><li>Moine</li><li>Cartomancien</li><li>Hématomancien</li>
-          <li>Apothicaire</li><li>Pneuma-chir</li><li>Bastioniste</li>
-        </ul>
-
-        <div class="encart">
-          <p>Pour le confort de jeu de tout le monde, <b>évitez autant que possible les doublons de classe</b>
-            entre les joueurs d'une même partie.</p>
-        </div>
-
-        <h3>1.2 — Le bi-classe</h3>
-        <p>Si vous le souhaitez, vous pouvez manier une seconde classe en plus de la première.
-          En contrepartie, les deux classes retenues :</p>
-        <ul>
-          <li>perdent l'accès à certains éléments de leur progression (tout ce qui est en rouge dans le document de montée de niveau) ;</li>
-          <li>utilisent leurs passifs de bi-classe au lieu de leurs passifs classiques ;</li>
-          <li>ne donnent droit qu'à <b>une seule</b> des deux armes que chacune propose.</li>
-        </ul>
-        <p>Le choix d'une seconde classe se fait à la création du personnage, ou à n'importe quel moment de l'aventure.</p>
-      </section>
-
-      <!-- ============ ÉTAPE 2 — LA RACE ============ -->
-      <section class="etape" id="race">
-        <div class="etape-head">
-          <div class="etape-seal" aria-hidden="true">2</div>
-          <h2>La race</h2>
-        </div>
-        <hr>
-
-        <p>En second lieu, il faut choisir sa race parmi celles disponibles :</p>
-
-        <ul class="chips">
-          <li>Humain</li><li>Elfe</li><li>Nain</li><li>Orc</li><li>Drakéide</li><li>Tieffelin</li>
-          <li>Piaf</li><li>Élémentari</li><li>Golemovi</li><li>Goliath</li><li>Garou</li>
-          <li>Graille-tout</li><li>Kroakoa</li><li>Oni</li>
-        </ul>
-
-        <h3>2.2 — Sous-race ou origine</h3>
-        <p>Il est maintenant temps de choisir sa sous-race — métier, lignée, origine, etc. — parmi celles
-          qu'ouvre la race sélectionnée. Reportez-vous au document de la race choisie.</p>
-      </section>
-
-      <!-- ============ ÉTAPE 3 — LES STATISTIQUES ============ -->
-      <section class="etape" id="statistiques">
-        <div class="etape-head">
-          <div class="etape-seal" aria-hidden="true">3</div>
-          <h2>Les statistiques</h2>
-        </div>
-        <hr>
-
-        <p>Étape cruciale : c'est ici que se décide la façon dont le personnage se jouera. Vous disposez de
-          <b>19 points</b> à répartir dans six statistiques :</p>
-
-        <ul class="chips stats">
-          <li>Force</li><li>Dextérité</li><li>Constitution</li>
-          <li>Intelligence</li><li>Sagesse</li><li>Charisme</li>
-        </ul>
-
-        <p>Chaque statistique part de <b>8</b>. Les bonus et malus de race s'appliquent d'abord ; vous répartissez
-          vos points ensuite, sans jamais dépasser <b>15</b> dans une même statistique. Les statistiques
-          continueront de monter en cours de partie — <b>20</b> reste le maximum absolu.</p>
-
-        <div class="encart">
-          <p><b>Modificateurs.</b> Chaque tranche de 2 points au-dessus de 10 accorde un bonus de <b>+1</b> à
-            tous les jets de dés associés à cette statistique. À l'inverse, chaque point en dessous de 10 inflige
-            un malus de <b>−1</b> à ces mêmes jets.</p>
-        </div>
-      </section>
-
-      <!-- ============ ÉTAPE 4 — LES CARACTÉRISTIQUES ============ -->
-      <section class="etape" id="caracteristiques">
-        <div class="etape-head">
-          <div class="etape-seal" aria-hidden="true">4</div>
-          <h2>Les caractéristiques</h2>
-        </div>
-        <hr>
-
-        <p>Les six statistiques une fois posées, tout le reste de la fiche se déduit par calcul.</p>
-
-        <div class="encart">
-          <p>Toutes les divisions sont <b>arrondies au nombre inférieur</b>, sans exception.</p>
-        </div>
-
-        <h3>4.1 — Les statistiques secondaires</h3>
-
-        <div class="formules">
-          <div class="formule">
-            <h4>Vitesse (Vts)</h4>
-            <span class="calc">(Force + Dextérité) ÷ 2</span>
-            <p>Définit l'ordre d'attaque et les déplacements possibles par tour.</p>
-            <p class="ex"><b>Ex :</b> 15 en Force et 12 en Dextérité font (15 + 12) ÷ 2 = 13,5, donc 13 de Vitesse.</p>
+        <!-- ============ ÉTAPE 1 — LA CLASSE ============ -->
+        <section class="etape" id="classe">
+          <div class="etape-head">
+            <div class="etape-seal" aria-hidden="true">1</div>
+            <h2>La classe</h2>
           </div>
+          <hr>
 
-          <div class="formule">
-            <h4>Perception</h4>
-            <span class="calc">(Sagesse + Intelligence) ÷ 2</span>
-            <p>Sert à effectuer les checks de perception.</p>
-          </div>
+          <p>L'étape la plus importante. Vous choisissez votre classe parmi celles disponibles :</p>
 
-          <div class="formule">
-            <h4>Discrétion</h4>
-            <span class="calc">(Sagesse + Dextérité) ÷ 2</span>
-            <p>Sert à effectuer les checks de discrétion.</p>
-          </div>
-
-          <div class="formule">
-            <h4>Précision</h4>
-            <span class="calc">Statistique spécifique de la classe</span>
-            <p>Sert aux checks en combat, pour savoir si votre attaque touche sa cible. En bi-classe, faites la
-              moyenne des statistiques spécifiques des deux classes.</p>
-          </div>
-        </div>
-
-        <h3>4.2 — Les caractéristiques</h3>
-
-        <div class="formules">
-          <div class="formule">
-            <h4>Points de vie (PV)</h4>
-            <p>Tout personnage démarre à 60 PV. Seule la Constitution vient ensuite ajuster ce total.</p>
-            <ul class="bareme">
-              <li><span class="v">60 PV</span><span class="d">de base</span></li>
-              <li><span class="v">+ 10 PV</span><span class="d">par point de Constitution <b>au-dessus</b> de 10</span></li>
-              <li><span class="v">− 5 PV</span><span class="d">par point de Constitution <b>en dessous</b> de 10</span></li>
-            </ul>
-            <p class="ex"><b>Ex :</b> 13 en Constitution font 60 + 3 × 10 = 90 PV. 8 en Constitution font 60 − 2 × 5 = 50 PV.</p>
-          </div>
-
-          <div class="formule">
-            <h4>Déplacements</h4>
-            <span class="calc">Vitesse ÷ 2</span>
-            <p>Le nombre de cases que le personnage peut parcourir en un tour.</p>
-            <p class="ex"><b>Ex :</b> 15 de Vitesse font 15 ÷ 2 = 7,5, donc 7 cases de déplacement par tour.</p>
-          </div>
-        </div>
-
-        <div class="formule" style="margin-top:14px">
-          <h4>Points de mana (PM)</h4>
-          <p>Un personnage capable de manier la magie dispose de points de mana pour lancer ses sorts. Il en
-            possède 75 de base, ajustés selon la statistique que sa classe associe au mana.</p>
-          <ul class="bareme">
-            <li><span class="v">75 PM</span><span class="d">de base</span></li>
-            <li><span class="v">+ 5 PM</span><span class="d">par point <b>au-dessus</b> de 10 sur la statistique de mana</span></li>
-            <li><span class="v">− 5 PM</span><span class="d">par point <b>en dessous</b> de 10 sur cette même statistique</span></li>
+          <ul class="chips liens">
+            <li><a href="classes.html#classe=barbare">Barbare</a></li>
+            <li><a href="classes.html#classe=barde">Barde</a></li>
+            <li><a href="classes.html#classe=clerc">Clerc</a></li>
+            <li><a href="classes.html#classe=druide">Druide</a></li>
+            <li><a href="classes.html#classe=necromancien">Nécromancien</a></li>
+            <li><a href="classes.html#classe=guerrier">Guerrier</a></li>
+            <li><a href="classes.html#classe=magicien">Magicien</a></li>
+            <li><a href="classes.html#classe=archer">Archer</a></li>
+            <li><a href="classes.html#classe=occultiste">Occultiste</a></li>
+            <li><a href="classes.html#classe=paladin">Paladin</a></li>
+            <li><a href="classes.html#classe=rodeur">Rôdeur</a></li>
+            <li><a href="classes.html#classe=roublard">Roublard</a></li>
+            <li><a href="classes.html#classe=moine">Moine</a></li>
+            <li><a href="classes.html#classe=cartomancien">Cartomancien</a></li>
+            <li><a href="classes.html#classe=hematomancien">Hématomancien</a></li>
+            <li><a href="classes.html#classe=apothicaire">Apothicaire</a></li>
+            <li><a href="classes.html#classe=pneuma-chir">Pneuma-chir</a></li>
+            <li><a href="classes.html#classe=chaman">Chaman</a></li>
+            <li><a href="classes.html#classe=bastioniste">Bastioniste</a></li>
           </ul>
-          <table class="mana-table">
-            <thead>
-              <tr><th>Classe</th><th>Statistique de mana</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>Clerc, Druide</td><td>Sagesse</td></tr>
-              <tr><td>Magicien, Nécromancien</td><td>Intelligence</td></tr>
-              <tr><td>Bastioniste</td><td>Constitution</td></tr>
-            </tbody>
-          </table>
-          <p class="ex"><b>Ex :</b> un Magicien avec 13 en Intelligence a 75 + 3 × 5 = 90 PM.</p>
-        </div>
-      </section>
+          <p class="chips-note">Chaque nom mène à la fiche complète de la classe.</p>
 
-      <!-- ============ ÉTAPE 5 — LA PERSONNALITÉ ============ -->
-      <section class="etape" id="personnalite">
-        <div class="etape-head">
-          <div class="etape-seal" aria-hidden="true">5</div>
-          <h2>La personnalité</h2>
-        </div>
-        <hr>
-
-        <p>La personnalité est un aspect important du jeu de rôle : c'est elle qui donne sa crédibilité au
-          personnage et rend l'expérience plus immersive et plus agréable pour tout le monde. Elle se construit
-          en six volets.</p>
-
-        <div class="volets">
-          <div class="volet">
-            <h4><span>1</span>L'histoire</h4>
-            <p>Écrivez ce qu'a vécu le personnage avant l'aventure. À vous de voir si vous le voulez complexe,
-              long, sombre, drôle ou pas du tout : c'est totalement libre.</p>
+          <div class="encart">
+            <p>Pour le confort de jeu de tout le monde, <b>évitez autant que possible les doublons de classe</b>
+              entre les joueurs d'une même partie.</p>
           </div>
 
-          <div class="volet">
-            <h4><span>2</span>Les liens</h4>
-            <p>Si le personnage entretient des liens particuliers avec certaines personnes, c'est ici qu'on les
-              note, en expliquant la nature de chacun.</p>
-            <p class="ex"><b>Ex :</b> Fiona (mère), Gilbert (némésis de toujours), Grégoire (amant),
-              Philippe (meilleur ami).</p>
+          <h3>1.2 — Le bi-classe</h3>
+          <p>Si vous le souhaitez, vous pouvez manier une seconde classe en plus de la première.
+            En contrepartie, les deux classes retenues :</p>
+          <ul>
+            <li>perdent l'accès à certains éléments de leur progression (tout ce qui est en rouge dans le document de
+              montée de niveau) ;</li>
+            <li>utilisent leurs passifs de bi-classe au lieu de leurs passifs classiques ;</li>
+            <li>ne donnent droit qu'à <b>une seule</b> des deux armes que chacune propose.</li>
+          </ul>
+          <p>Le choix d'une seconde classe se fait à la création du personnage, ou à n'importe quel moment de l'aventure
+            lors d'une montée de niveau.</p>
+        </section>
+
+        <!-- ============ ÉTAPE 2 — LA RACE ============ -->
+        <section class="etape" id="race">
+          <div class="etape-head">
+            <div class="etape-seal" aria-hidden="true">2</div>
+            <h2>La race</h2>
+          </div>
+          <hr>
+
+          <p>En second lieu, il faut choisir sa race parmi celles disponibles :</p>
+
+          <ul class="chips liens">
+            <li><a href="races.html#race=humain">Humain</a></li>
+            <li><a href="races.html#race=elfe">Elfe</a></li>
+            <li><a href="races.html#race=nain">Nain</a></li>
+            <li><a href="races.html#race=orc">Orc</a></li>
+            <li><a href="races.html#race=drakeide">Drakéide</a></li>
+            <li><a href="races.html#race=tieffelin">Tieffelin</a></li>
+            <li><a href="races.html#race=piaf">Piaf</a></li>
+            <li><a href="races.html#race=elementari">Élémentari</a></li>
+            <li><a href="races.html#race=golemovi">Golemovi</a></li>
+            <li><a href="races.html#race=goliath">Goliath</a></li>
+            <li><a href="races.html#race=garou">Garou</a></li>
+            <li><a href="races.html#race=graille-tout">Graille-tout</a></li>
+            <li><a href="races.html#race=kroakoa">Kroakoa</a></li>
+            <li><a href="races.html#race=oni">Oni</a></li>
+          </ul>
+          <p class="chips-note">Chaque nom mène à la fiche complète de la race.</p>
+
+          <h3>2.2 — Sous-race ou origine</h3>
+          <p>Il est maintenant temps de choisir sa sous-race — métier, lignée, origine, etc. — parmi celles
+            qu'ouvre la race sélectionnée. Reportez-vous au document de la race choisie.</p>
+        </section>
+
+        <!-- ============ ÉTAPE 3 — LES STATISTIQUES ============ -->
+        <section class="etape" id="statistiques">
+          <div class="etape-head">
+            <div class="etape-seal" aria-hidden="true">3</div>
+            <h2>Les statistiques</h2>
+          </div>
+          <hr>
+
+          <p>Étape cruciale : c'est ici que se décide la façon dont le personnage se jouera. Vous disposez de
+            <b>19 points</b> à répartir dans six statistiques :
+          </p>
+
+          <ul class="chips stats">
+            <li>Force</li>
+            <li>Dextérité</li>
+            <li>Constitution</li>
+            <li>Intelligence</li>
+            <li>Sagesse</li>
+            <li>Charisme</li>
+          </ul>
+
+          <p>Chaque statistique part de <b>8</b>. Les bonus et malus de race s'appliquent d'abord ; vous répartissez
+            vos points ensuite, sans jamais dépasser <b>15</b> dans une même statistique. Les statistiques
+            continueront de monter en cours de partie — <b>20</b> reste le maximum absolu.</p>
+
+          <div class="encart">
+            <p><b>Modificateurs.</b> Chaque tranche de 2 points au-dessus de 10 accorde un bonus de <b>+1</b> à
+              tous les jets de dés associés à cette statistique. À l'inverse, chaque point en dessous de 10 inflige
+              un malus de <b>−1</b> à ces mêmes jets.</p>
+          </div>
+        </section>
+
+        <!-- ============ ÉTAPE 4 — LES CARACTÉRISTIQUES ============ -->
+        <section class="etape" id="caracteristiques">
+          <div class="etape-head">
+            <div class="etape-seal" aria-hidden="true">4</div>
+            <h2>Les caractéristiques</h2>
+          </div>
+          <hr>
+
+          <p>Les six statistiques une fois posées, tout le reste de la fiche se déduit par calcul.</p>
+
+          <div class="encart">
+            <p>Toutes les divisions sont <b>arrondies au nombre inférieur</b>, sans exception.</p>
           </div>
 
-          <div class="volet large">
-            <h4><span>3</span>Le comportement</h4>
-            <p>Le comportement, c'est la façon dont votre personnage agit et réagit face à ce qui l'entoure.
-              Choisissez une option parmi celles de la roue.</p>
+          <h3>4.1 — Les statistiques secondaires</h3>
 
-            <figure class="roue-fig">
-              <svg class="roue" viewBox="0 0 600 600" role="img"
-                aria-label="Roue des comportements : neuf zones — loyal bon, neutre bon, chaotique bon, loyal neutre, neutre, chaotique neutre, loyal mauvais, neutre mauvais, chaotique mauvais — dont les quatre coins extrêmes sont nommés saint, béat, diabolique et démoniaque.">
-                <rect class="fond" x="0" y="0" width="600" height="600" />
+          <div class="formules">
+            <div class="formule">
+              <h4>Vitesse (Vts)</h4>
+              <span class="calc">(Force + Dextérité) ÷ 2</span>
+              <p>Définit l'ordre d'attaque et les déplacements possibles par tour.</p>
+              <p class="ex"><b>Ex :</b> 15 en Force et 12 en Dextérité font (15 + 12) ÷ 2 = 13,5, donc 13 de Vitesse.
+              </p>
+            </div>
 
-                <!-- les quatre pétales : le motif est dessiné une fois puis retourné -->
-                <defs>
-                  <path id="petale" d="M 200,0 C 205,140 232,216 270,270 C 216,232 140,205 0,200 L 0,0 Z" />
-                </defs>
-                <g class="petale">
-                  <use href="#petale" />
-                  <use href="#petale" transform="translate(600,0) scale(-1,1)" />
-                  <use href="#petale" transform="translate(0,600) scale(1,-1)" />
-                  <use href="#petale" transform="translate(600,600) scale(-1,-1)" />
-                </g>
-                <g class="trait">
-                  <use href="#petale" />
-                  <use href="#petale" transform="translate(600,0) scale(-1,1)" />
-                  <use href="#petale" transform="translate(0,600) scale(1,-1)" />
-                  <use href="#petale" transform="translate(600,600) scale(-1,-1)" />
-                </g>
+            <div class="formule">
+              <h4>Perception</h4>
+              <span class="calc">(Sagesse + Intelligence) ÷ 2</span>
+              <p>Sert à effectuer les checks de perception.</p>
+            </div>
 
-                <!-- le cœur neutre -->
-                <polygon class="coeur" points="280,252 320,252 348,280 348,320 320,348 280,348 252,320 252,280" />
-                <polygon class="trait" points="280,252 320,252 348,280 348,320 320,348 280,348 252,320 252,280" />
+            <div class="formule">
+              <h4>Discrétion</h4>
+              <span class="calc">(Sagesse + Dextérité) ÷ 2</span>
+              <p>Sert à effectuer les checks de discrétion.</p>
+            </div>
 
-                <rect class="cadre" x="2" y="2" width="596" height="596" />
-
-                <!-- les neuf comportements -->
-                <text class="lbl" x="110" y="158">Loyal bon</text>
-                <text class="lbl" x="490" y="158">Chaotique bon</text>
-                <text class="lbl-sm" x="300" y="88">Neutre bon</text>
-                <text class="lbl" x="122" y="308">Loyal neutre</text>
-                <text class="lbl" x="478" y="308">Chaotique neutre</text>
-                <text class="lbl-sm" x="300" y="307">Neutre</text>
-                <text class="lbl" x="110" y="458">Loyal mauvais</text>
-                <text class="lbl" x="490" y="458">Chaotique mauvais</text>
-                <text class="lbl-sm" x="300" y="528">Neutre mauvais</text>
-
-                <!-- les quatre extrêmes, dans les coins -->
-                <text class="coin g" x="20" y="36">Saint</text>
-                <text class="coin d" x="580" y="36">Béat</text>
-                <text class="coin g" x="20" y="586">Diabolique</text>
-                <text class="coin d" x="580" y="586">Démoniaque</text>
-              </svg>
-              <figcaption class="roue-leg">Les quatre coins marquent la forme la plus extrême du comportement
-                dans lequel ils se trouvent.</figcaption>
-            </figure>
+            <div class="formule">
+              <h4>Précision</h4>
+              <span class="calc">Statistique spécifique de la classe</span>
+              <p>Sert aux checks en combat, pour savoir si votre attaque touche sa cible. En bi-classe, faites la
+                moyenne des statistiques spécifiques des deux classes.</p>
+            </div>
           </div>
 
-          <div class="volet">
-            <h4><span>4</span>Les croyances</h4>
-            <p>Les croyances sont ce à quoi le personnage croit de tout son cœur : ses valeurs, son mantra de
-              vie, sa religion, etc.</p>
+          <h3>4.2 — Les caractéristiques</h3>
+
+          <div class="formules">
+            <div class="formule">
+              <h4>Points de vie (PV)</h4>
+              <p>Tout personnage démarre à 60 PV. Seule la Constitution vient ensuite ajuster ce total.</p>
+              <ul class="bareme">
+                <li><span class="v">60 PV</span><span class="d">de base</span></li>
+                <li><span class="v">+ 10 PV</span><span class="d">par point de Constitution <b>au-dessus</b> de
+                    10</span></li>
+                <li><span class="v">− 5 PV</span><span class="d">par point de Constitution <b>en dessous</b> de
+                    10</span></li>
+              </ul>
+              <p class="ex"><b>Ex :</b> 13 en Constitution font 60 + 3 × 10 = 90 PV. 8 en Constitution font 60 − 2 × 5 =
+                50 PV.</p>
+            </div>
+
+            <div class="formule">
+              <h4>Déplacements</h4>
+              <span class="calc">Vitesse ÷ 2</span>
+              <p>Le nombre de cases que le personnage peut parcourir en un tour.</p>
+              <p class="ex"><b>Ex :</b> 15 de Vitesse font 15 ÷ 2 = 7,5, donc 7 cases de déplacement par tour.</p>
+            </div>
           </div>
 
-          <div class="volet">
-            <h4><span>5</span>Les défauts</h4>
-            <p>On liste ici quelques défauts du personnage, pour le rendre plus crédible — personne n'est parfait.</p>
-            <p class="ex"><b>Ex :</b> alcoolique, peu de patience, raciste, arachnophobe…</p>
+          <div class="formule" style="margin-top:14px">
+            <h4>Points de mana (PM)</h4>
+            <p>Un personnage capable de manier la magie dispose de points de mana pour lancer ses sorts. Il en
+              possède 75 de base, ajustés selon la statistique que sa classe associe au mana.</p>
+            <ul class="bareme">
+              <li><span class="v">75 PM</span><span class="d">de base</span></li>
+              <li><span class="v">+ 5 PM</span><span class="d">par point <b>au-dessus</b> de 10 sur la statistique de
+                  mana</span></li>
+              <li><span class="v">− 5 PM</span><span class="d">par point <b>en dessous</b> de 10 sur cette même
+                  statistique</span></li>
+            </ul>
+            <table class="mana-table">
+              <thead>
+                <tr>
+                  <th>Classe</th>
+                  <th>Statistique de mana</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Clerc, Druide</td>
+                  <td>Sagesse</td>
+                </tr>
+                <tr>
+                  <td>Magicien, Nécromancien</td>
+                  <td>Intelligence</td>
+                </tr>
+                <tr>
+                  <td>Bastioniste</td>
+                  <td>Constitution</td>
+                </tr>
+              </tbody>
+            </table>
+            <p class="ex"><b>Ex :</b> un Magicien avec 13 en Intelligence a 75 + 3 × 5 = 90 PM.</p>
+          </div>
+        </section>
+
+        <!-- ============ ÉTAPE 5 — LA PERSONNALITÉ ============ -->
+        <section class="etape" id="personnalite">
+          <div class="etape-head">
+            <div class="etape-seal" aria-hidden="true">5</div>
+            <h2>La personnalité</h2>
+          </div>
+          <hr>
+
+          <p>La personnalité est un aspect important du jeu de rôle : c'est elle qui donne sa crédibilité au
+            personnage et rend l'expérience plus immersive et plus agréable pour tout le monde. Elle se construit
+            en six volets.</p>
+
+          <div class="volets">
+            <div class="volet">
+              <h4><span>1</span>L'histoire</h4>
+              <p>Écrivez ce qu'a vécu le personnage avant l'aventure. À vous de voir si vous le voulez complexe,
+                long, sombre, drôle ou pas du tout : c'est totalement libre.</p>
+            </div>
+
+            <div class="volet">
+              <h4><span>2</span>Les liens</h4>
+              <p>Si le personnage entretient des liens particuliers avec certaines personnes, c'est ici qu'on les
+                note, en expliquant la nature de chacun.</p>
+              <p class="ex"><b>Ex :</b> Fiona (mère), Gilbert (némésis de toujours), Grégoire (amant),
+                Philippe (meilleur ami).</p>
+            </div>
+
+            <div class="volet large">
+              <h4><span>3</span>Le comportement</h4>
+              <p>Le comportement, c'est la façon dont votre personnage agit et réagit face à ce qui l'entoure.
+                Choisissez une option parmi celles de la roue.</p>
+
+              <figure class="roue-fig">
+                <svg class="roue" viewBox="0 0 600 600" role="img"
+                  aria-label="Roue des comportements : neuf zones — loyal bon, neutre bon, chaotique bon, loyal neutre, neutre, chaotique neutre, loyal mauvais, neutre mauvais, chaotique mauvais — dont les quatre coins extrêmes sont nommés saint, béat, diabolique et démoniaque.">
+                  <rect class="fond" x="0" y="0" width="600" height="600" />
+
+                  <!-- les quatre pétales : le motif est dessiné une fois puis retourné -->
+                  <defs>
+                    <path id="petale" d="M 200,0 C 205,140 232,216 270,270 C 216,232 140,205 0,200 L 0,0 Z" />
+                  </defs>
+                  <g class="petale">
+                    <use href="#petale" />
+                    <use href="#petale" transform="translate(600,0) scale(-1,1)" />
+                    <use href="#petale" transform="translate(0,600) scale(1,-1)" />
+                    <use href="#petale" transform="translate(600,600) scale(-1,-1)" />
+                  </g>
+                  <g class="trait">
+                    <use href="#petale" />
+                    <use href="#petale" transform="translate(600,0) scale(-1,1)" />
+                    <use href="#petale" transform="translate(0,600) scale(1,-1)" />
+                    <use href="#petale" transform="translate(600,600) scale(-1,-1)" />
+                  </g>
+
+                  <!-- le cœur neutre -->
+                  <polygon class="coeur" points="280,252 320,252 348,280 348,320 320,348 280,348 252,320 252,280" />
+                  <polygon class="trait" points="280,252 320,252 348,280 348,320 320,348 280,348 252,320 252,280" />
+
+                  <rect class="cadre" x="2" y="2" width="596" height="596" />
+
+                  <!-- les neuf comportements -->
+                  <text class="lbl" x="110" y="158">Loyal bon</text>
+                  <text class="lbl" x="490" y="158">Chaotique bon</text>
+                  <text class="lbl-sm" x="300" y="88">Neutre bon</text>
+                  <text class="lbl" x="122" y="308">Loyal neutre</text>
+                  <text class="lbl" x="478" y="308">Chaotique neutre</text>
+                  <text class="lbl-sm" x="300" y="307">Neutre</text>
+                  <text class="lbl" x="110" y="458">Loyal mauvais</text>
+                  <text class="lbl" x="490" y="458">Chaotique mauvais</text>
+                  <text class="lbl-sm" x="300" y="528">Neutre mauvais</text>
+
+                  <!-- les quatre extrêmes, dans les coins -->
+                  <text class="coin g" x="20" y="36">Saint</text>
+                  <text class="coin d" x="580" y="36">Béat</text>
+                  <text class="coin g" x="20" y="586">Diabolique</text>
+                  <text class="coin d" x="580" y="586">Démoniaque</text>
+                </svg>
+                <figcaption class="roue-leg">Les quatre coins marquent la forme la plus extrême du comportement
+                  dans lequel ils se trouvent.</figcaption>
+              </figure>
+            </div>
+
+            <div class="volet">
+              <h4><span>4</span>Les croyances</h4>
+              <p>Les croyances sont ce à quoi le personnage croit de tout son cœur : ses valeurs, son mantra de
+                vie, sa religion, etc.</p>
+            </div>
+
+            <div class="volet">
+              <h4><span>5</span>Les défauts</h4>
+              <p>On liste ici quelques défauts du personnage, pour le rendre plus crédible — personne n'est parfait.</p>
+              <p class="ex"><b>Ex :</b> alcoolique, peu de patience, raciste, arachnophobe…</p>
+            </div>
+
+            <div class="volet large">
+              <h4><span>6</span>La description physique</h4>
+              <p>Il s'agit de décrire le personnage physiquement : taille, poids, allure, cicatrices, tatouages…</p>
+            </div>
           </div>
 
-          <div class="volet large">
-            <h4><span>6</span>La description physique</h4>
-            <p>Il s'agit de décrire le personnage physiquement : taille, poids, allure, cicatrices, tatouages…</p>
+          <div class="encart">
+            <p>Rien n'est figé : le personnage pourra évoluer ou changer au cours de l'histoire, si vous le
+              souhaitez. <i>Il a perdu la mémoire, il a rejeté sa religion…</i></p>
           </div>
-        </div>
+        </section>
 
-        <div class="encart">
-          <p>Rien n'est figé : le personnage pourra évoluer ou changer au cours de l'histoire, si vous le
-            souhaitez. <i>Il a perdu la mémoire, il a rejeté sa religion…</i></p>
-        </div>
-      </section>
+        <!-- ============ ÉTAPE 6 — DON ET PASSIF ============ -->
+        <section class="etape" id="don">
+          <div class="etape-head">
+            <div class="etape-seal" aria-hidden="true">6</div>
+            <h2>Don et passif</h2>
+          </div>
+          <hr>
 
-      <!-- ============ ÉTAPE 6 — DON ET PASSIF ============ -->
-      <section class="etape" id="don">
-        <div class="etape-head">
-          <div class="etape-seal" aria-hidden="true">6</div>
-          <h2>Don et passif</h2>
-        </div>
-        <hr>
+          <h3>6.1 — Le don</h3>
+          <p>Vous pouvez attribuer un don à votre personnage : il lui accordera un bonus de <b>+2</b> sur ce que
+            ce don recouvre.</p>
+          <p class="ex"><b>Ex :</b> perception divine (+2 aux checks de religion).</p>
 
-        <h3>6.1 — Le don</h3>
-        <p>Vous pouvez attribuer un don à votre personnage : il lui accordera un bonus de <b>+2</b> sur ce que
-          ce don recouvre.</p>
-        <p class="ex"><b>Ex :</b> perception divine (+2 aux checks de religion).</p>
+          <h3>6.2 — Le passif</h3>
+          <p>Chaque personnage peut choisir un passif. Qu'il soit en accord avec son histoire, sa classe ou ses
+            défauts n'a pas d'importance, tant qu'il reste crédible.</p>
+          <p class="ex"><b>Ex : Daron alcoolique.</b> À chaque fois que le personnage boit de l'alcool, il inflige
+            50 % de dégâts en plus, mais il a trois fois moins de chances de toucher.</p>
+        </section>
 
-        <h3>6.2 — Le passif</h3>
-        <p>Chaque personnage peut choisir un passif. Qu'il soit en accord avec son histoire, sa classe ou ses
-          défauts n'a pas d'importance, tant qu'il reste crédible.</p>
-        <p class="ex"><b>Ex : Daron alcoolique.</b> À chaque fois que le personnage boit de l'alcool, il inflige
-          50 % de dégâts en plus, mais il a trois fois moins de chances de toucher.</p>
-      </section>
-
-      <p class="crea-fin">Votre héros a désormais un nom, un corps et une histoire. Il ne lui manque plus
-        qu'un équipement — et une bonne raison de s'en servir.</p>
-     </div>
+        <p class="crea-fin">Votre héros a désormais un nom, un corps et une histoire. Il ne lui manque plus
+          qu'un équipement — et une bonne raison de s'en servir.</p>
+      </div>
     </div>
   </main>
 </body>

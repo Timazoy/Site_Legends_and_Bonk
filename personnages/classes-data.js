@@ -38,7 +38,12 @@
        lien: { href: "…", texte: "…" },   // facultatif : renvoi vers une autre page
        important: ["…"],           // facultatif : encadré d'avertissement
        precision: "Force",      // caractéristique dont dépend la précision
-       equipement: ["Marteau de combat [C]"],
+       equipement: [            // texte simple, ou objet pour renvoyer au catalogue :
+         "Une moyenne potion de guérison",
+         { nom: "Marteau de combat [C]",       // ce qui devient cliquable
+           lien: "../equipement/armes.html#marteau-de-combat",  // ancre = nom de l'objet
+           apres: "avec 25 flèches dedans" }   // facultatif : suite non cliquable
+       ],
        equipementChoix: true       // facultatif : « au choix entre » les entrées
      }
 
@@ -48,14 +53,21 @@
 
 /* Phrases qui reviennent à l'identique d'une classe à l'autre. */
 var SATIETE = "Les personnages de type Capacités peuvent récupérer l'équivalent d'un CR d'une capacité en consommant 5 points de satiété.";
-var GAIN_ACTIONS = "Il gagnera ensuite de nouvelles actions au fil de ses aventures ou en montant de niveau (voir le document Level up).";
+var GAIN_ACTIONS = "Il gagnera ensuite de nouvelles actions au fil de ses aventures ou en montant de niveau (voir règle de montée de niveaux).";
 var LIBRE_ACTIONS = "Les actions du personnage sont laissées à vos soins : créez-les comme il vous chante, en respectant les catégories de la classe ainsi que sa spécialité.";
-var GAIN_SORTS = "Il gagnera ensuite de nouveaux sorts au fil de ses aventures ou en montant de niveau (voir le document Level up).";
+var GAIN_SORTS = "Il gagnera ensuite de nouveaux sorts au fil de ses aventures ou en montant de niveau (voir règle de montée de niveaux).";
 var SORTS_PROPRES = "Il possède 2 sorts spécifiques à sa classe au début de l'aventure : c'est à vous de les créer comme il vous chante, en respectant les catégories de la classe ainsi que sa spécialité.";
-var GAIN_COMPETENCES = "Il gagnera ensuite de nouvelles compétences au fil de ses aventures ou en montant de niveau (voir le document Level up).";
+var GAIN_COMPETENCES = "Il gagnera ensuite de nouvelles compétences au fil de ses aventures ou en montant de niveau (voir règle de montée de niveaux).";
 var QUATRE_COMPETENCES = "Il possède 4 compétences au début de l'aventure : c'est à vous de les créer comme il vous chante, en respectant les catégories de la classe ainsi que sa spécialité.";
 
 window.CLASSES = {
+
+  /* ---------- renvoi vers les règles de montée de niveau ----------
+     Partout où un texte dit « voir règle de montée de niveaux », la mention
+     devient un lien vers cette adresse. Tant qu'elle est vide, la mention
+     reste affichée mais n'est pas cliquable : il suffira d'écrire l'URL ici
+     (par exemple "montee_de_niveau.html") pour activer tous les renvois. */
+  lienNiveau: "",
 
   /* ---------- les catégories de rôle, dans l'ordre des filtres ---------- */
   roles: [
@@ -116,7 +128,9 @@ window.CLASSES = {
         notes: [SATIETE, GAIN_ACTIONS, LIBRE_ACTIONS]
       },
       precision: "Force",
-      equipement: ["Marteau de combat [C]"]
+      equipement: [
+        { nom: "Marteau de combat [C]", lien: "../equipement/armes.html#marteau-de-combat" }
+      ]
     },
 
     /* ============================= BARDE ============================= */
@@ -134,7 +148,7 @@ window.CLASSES = {
         nom: "Partitions",
         texte: [
           "Il utilise des partitions pour lancer ses compétences : elles reposent sur son charisme. Si le charisme est supérieur ou égal à 12, il aura 2 partitions ; s'il est inférieur, ce sera 1 partition.",
-          "Les partitions sont ensuite gagnées tout au long de l'aventure, par la montée de niveau (voir le document Level up, section « type ressource »).",
+          "Les partitions sont ensuite gagnées tout au long de l'aventure, par la montée de niveau (voir règle de montée de niveaux, section « type ressource »).",
           "Le barde étant un musicien légendaire et un compagnon de choix, il récupère la moitié de son maximum de partitions à chaque court repos. En combat, grâce à sa détermination, il récupère une partition tous les 5T."
         ]
       },
@@ -155,7 +169,9 @@ window.CLASSES = {
         ]
       },
       precision: "Charisme",
-      equipement: ["Pelle guitare [C]"]
+      equipement: [
+        { nom: "Pelle guitare [C]", lien: "../equipement/armes.html#pelle-guitare" }
+      ]
     },
 
     /* ============================= CLERC ============================= */
@@ -185,7 +201,9 @@ window.CLASSES = {
         notes: [SORTS_PROPRES, GAIN_SORTS]
       },
       precision: "Sagesse",
-      equipement: ["Sceptre-Tintus [C]"]
+      equipement: [
+        { nom: "Sceptre-Tintus [C]", lien: "../equipement/armes.html#sceptre-tintus" }
+      ]
     },
 
     /* ============================= DRUIDE ============================ */
@@ -215,7 +233,9 @@ window.CLASSES = {
         notes: [SORTS_PROPRES, GAIN_SORTS]
       },
       precision: "Sagesse",
-      equipement: ["Hachette [C]"]
+      equipement: [
+        { nom: "Hachette [C]", lien: "../equipement/armes.html#hachette" }
+      ]
     },
 
     /* ============================ GUERRIER =========================== */
@@ -248,7 +268,10 @@ window.CLASSES = {
         notes: [SATIETE, GAIN_ACTIONS, LIBRE_ACTIONS]
       },
       precision: "Constitution",
-      equipement: ["Épée [C]", "Bouclier léger [C]"]
+      equipement: [
+        { nom: "Épée [C]", lien: "../equipement/armes.html#epee" },
+        { nom: "Bouclier léger [C]", lien: "../equipement/armes.html#bouclier-leger" }
+      ]
     },
 
     /* ========================= NÉCROMANCIEN ========================== */
@@ -278,7 +301,9 @@ window.CLASSES = {
         notes: [SORTS_PROPRES, GAIN_SORTS]
       },
       precision: "Intelligence",
-      equipement: ["Faux [C]"]
+      equipement: [
+        { nom: "Faux [C]", lien: "../equipement/armes.html#faux" }
+      ]
     },
 
     /* ============================ MAGICIEN =========================== */
@@ -333,12 +358,15 @@ window.CLASSES = {
         },
         apres: [
           "Effet sur les armes magiques : ⅓ de chance d'appliquer l'effet de l'attaque élémentaire.",
-          "La création de sorts pour les magiciens spécialisés est basée sur le système des types mana : deux sorts au début, puis gain en montant de niveau (voir le document Level up)."
+          "La création de sorts pour les magiciens spécialisés est basée sur le système des types mana : deux sorts au début, puis gain en montant de niveau (voir règle de montée de niveaux)."
         ]
       },
       important: ["Du fait de sa grande connexion avec la magie, le magicien peut uniquement manier des armes magiques."],
       precision: "Intelligence",
-      equipement: ["Bâton magique [C]", "Épée magique [C]"],
+      equipement: [
+        { nom: "Bâton de magie [C]", lien: "../equipement/armes.html#baton-de-magie" },
+        { nom: "Épée magique [C]", lien: "../equipement/armes.html#epee-magique" }
+      ],
       equipementChoix: true
     },
 
@@ -370,7 +398,10 @@ window.CLASSES = {
         notes: [SATIETE, GAIN_ACTIONS, LIBRE_ACTIONS]
       },
       precision: "Dextérité",
-      equipement: ["Arc [C]", "Carquois [C] avec 25 flèches aléatoires dedans"]
+      equipement: [
+        { nom: "Arc [C]", lien: "../equipement/armes.html#arc" },
+        { nom: "Carquois [C]", lien: "../equipement/armes.html#carquois", apres: "avec 25 flèches aléatoires dedans (vous pouvez utiliser le logiciel pour les générer, si pas assez de flèches sont données complétées avec des flèches basique supplémentaires)" }
+      ]
     },
 
     /* =========================== OCCULTISTE ========================== */
@@ -388,7 +419,7 @@ window.CLASSES = {
         nom: "Pactes",
         texte: [
           "Il utilise des pactes pour lancer ses compétences : ils reposent sur son charisme. Si le charisme est supérieur ou égal à 12, il aura 2 pactes ; s'il est inférieur, ce sera 1 pacte.",
-          "Les pactes sont ensuite gagnés tout au long de l'aventure, par la montée de niveau (voir le document Level up, section « type ressource »).",
+          "Les pactes sont ensuite gagnés tout au long de l'aventure, par la montée de niveau (voir règle de montée de niveaux, section « type ressource »).",
           "L'occultiste étant un guerrier perfide et animé d'une soif de pouvoir infatigable, il récupère la moitié de son maximum de pactes à chaque court repos. En combat, grâce à sa malice, il récupère un pacte tous les 5T."
         ]
       },
@@ -413,7 +444,9 @@ window.CLASSES = {
         "Exemple — Contrat de vengeance : un contrat passé avec un démon vengeur, offrant de puissants pouvoirs à l'occultiste, mais en retour il doit tuer le plus haut prêtre de l'Église."
       ],
       precision: "Charisme",
-      equipement: ["Glaive [C]"]
+      equipement: [
+        { nom: "Glaive [C]", lien: "../equipement/armes.html#glaive" }
+      ]
     },
 
     /* ============================ PALADIN ============================ */
@@ -431,7 +464,7 @@ window.CLASSES = {
         nom: "Vœux",
         texte: [
           "Il utilise des vœux pour lancer ses compétences : ils reposent sur son charisme. Si le charisme est supérieur ou égal à 12, il aura 2 vœux ; s'il est inférieur, ce sera 1 vœu.",
-          "Les vœux sont ensuite gagnés tout au long de l'aventure, par la montée de niveau (voir le document Level up, section « type ressource »).",
+          "Les vœux sont ensuite gagnés tout au long de l'aventure, par la montée de niveau (voir règle de montée de niveaux, section « type ressource »).",
           "Le paladin étant un guerrier fier et un aventurier aguerri, il récupère la moitié de son maximum de vœux à chaque court repos. En combat, grâce à sa rigueur, il récupère un vœu tous les 5T."
         ]
       },
@@ -456,7 +489,9 @@ window.CLASSES = {
         "Exemple — Serment de sang : un serment fait envers la divinité Sanguinius afin de la servir et d'être son fidèle chevalier sur terre. En cas de blasphème envers Sanguinius, le serment est brisé, et il sera donc jugé par tous ceux qui la vénèrent."
       ],
       precision: "Charisme",
-      equipement: ["Lance [C]"]
+      equipement: [
+        { nom: "Lance [C]", lien: "../equipement/armes.html#lance" }
+      ]
     },
 
     /* ============================= RÔDEUR ============================ */
@@ -487,7 +522,9 @@ window.CLASSES = {
         notes: [SATIETE, GAIN_ACTIONS, LIBRE_ACTIONS]
       },
       precision: "Dextérité",
-      equipement: ["Boomerang [C]"]
+      equipement: [
+        { nom: "Boomerang [C]", lien: "../equipement/armes.html#boomerang" }
+      ]
     },
 
     /* ============================ ROUBLARD =========================== */
@@ -518,7 +555,9 @@ window.CLASSES = {
         notes: [SATIETE, GAIN_ACTIONS, LIBRE_ACTIONS]
       },
       precision: "Dextérité",
-      equipement: ["Dague [C]"]
+      equipement: [
+        { nom: "Dague [C]", lien: "../equipement/armes.html#dague" }
+      ]
     },
 
     /* ============================= MOINE ============================= */
@@ -549,7 +588,9 @@ window.CLASSES = {
         notes: [SATIETE, GAIN_ACTIONS, LIBRE_ACTIONS]
       },
       precision: "Force",
-      equipement: ["Une moyenne potion de guérison"]
+      equipement: [
+        { nom: "Une moyenne potion de guérison", lien: "../equipement/potions.html#guerison" }
+      ]
     },
 
     /* ========================== CARTOMANCIEN ========================= */
@@ -565,7 +606,7 @@ window.CLASSES = {
         texte: [
           "Il utilise des pioches pour récupérer des cartes de tarot, qui servent ensuite à lancer ses compétences : les pioches reposent sur sa sagesse.",
           "Si la sagesse est inférieure à 12, ce sera 1 pioche. Si elle est égale à 12, il aura 2 pioches. Si elle est égale à 13, il aura 3 pioches. Si elle est supérieure ou égale à 14, il aura 4 pioches.",
-          "Les pioches sont ensuite gagnées tout au long de l'aventure, par la montée de niveau (voir le document Level up, section « type ressource »).",
+          "Les pioches sont ensuite gagnées tout au long de l'aventure, par la montée de niveau (voir règle de montée de niveaux, section « type ressource »).",
           "Le cartomancien manipulant le destin au-delà de notre compréhension, il récupère la moitié de son maximum de pioches à chaque court repos. En combat, grâce à sa divination, il récupère une pioche tous les 5T."
         ]
       },
@@ -589,13 +630,15 @@ window.CLASSES = {
           texte: [
             "Le cartomancien ne crée pas de nouvelles cartes, mais il peut améliorer les siennes pour qu'elles deviennent plus puissantes. Chaque carte peut être améliorée deux fois ; les améliorations ne changeront pas l'effet, mais le rendront soit plus fort, soit le modifieront pour une meilleure variante.",
             "Il possède 4 améliorations de carte au début de l'aventure. Il peut choisir de les utiliser dès le début en prenant des cartes aléatoires et en les montant au niveau 1 au maximum, ou bien de les garder et de les utiliser une par une sur la carte de son choix à chaque repos.",
-            "Il gagnera ensuite de nouvelles améliorations au fil de ses aventures ou en montant de niveau (voir le document Level up : les améliorations de cartes remplacent les nouvelles compétences)."
+            "Il gagnera ensuite de nouvelles améliorations au fil de ses aventures ou en montant de niveau (voir règle de montée de niveaux : les améliorations de cartes remplacent les nouvelles compétences)."
           ]
         }
       ],
       lien: { href: "../magie/tarots.html", texte: "Voir les cartes de tarot" },
       precision: "Sagesse",
-      equipement: ["Paquet de cartes [C]"]
+      equipement: [
+        { nom: "Paquet de cartes [C]", lien: "../equipement/armes.html#paquet-de-cartes" }
+      ]
     },
 
     /* ========================= HÉMATOMANCIEN ========================= */
@@ -636,7 +679,9 @@ window.CLASSES = {
       },
       lien: { href: "../magie/grimoire_sanguinolent.html", texte: "Ouvrir le Grand Livre Sanguin" },
       precision: "Constitution",
-      equipement: ["Couteau de chasse [C]"]
+      equipement: [
+        { nom: "Couteau de chasse [C]", lien: "../equipement/armes.html#couteau-de-chasse" }
+      ]
     },
 
     /* =========================== APOTHICAIRE ========================= */
@@ -655,7 +700,7 @@ window.CLASSES = {
         nom: "Décoctions",
         texte: [
           "Il utilise des décoctions pour lancer ses compétences : elles reposent sur son intelligence. Si l'intelligence est supérieure ou égale à 13, il aura 3 décoctions ; si elle est inférieure, ce sera 2 décoctions.",
-          "Les décoctions sont ensuite gagnées tout au long de l'aventure, par la montée de niveau (voir le document Level up, section « type ressource »).",
+          "Les décoctions sont ensuite gagnées tout au long de l'aventure, par la montée de niveau (voir règle de montée de niveaux, section « type ressource »).",
           "L'apothicaire étant un pharmacien et un chimiste très efficace, il récupère la moitié de son maximum de décoctions à chaque court repos. En combat, grâce à sa fabrication rapide, il récupère une décoction tous les 5T."
         ]
       },
@@ -683,9 +728,10 @@ window.CLASSES = {
           "Les compétences coûtent toutes 1 décoction à l'usage en général, mais elles peuvent coûter davantage si elles sont trop fortes."
         ]
       },
-      lien: { href: "../equipement/potions.html", texte: "Voir l'étagère de l'apothicaire" },
       precision: "Intelligence",
-      equipement: ["Paire de faucilles [C]"]
+      equipement: [
+        { nom: "Paire de faucilles [C]", lien: "../equipement/armes.html#paire-de-faucilles" }
+      ]
     },
 
     /* =========================== PNEUMA-CHIR ========================= */
@@ -726,7 +772,9 @@ window.CLASSES = {
         notes: [SATIETE, GAIN_ACTIONS, LIBRE_ACTIONS]
       },
       precision: "Constitution",
-      equipement: ["Kunais [C]"]
+      equipement: [
+        { nom: "Kunais [C]", lien: "../equipement/armes.html#kunais" }
+      ]
     },
 
     /* ============================= CHAMAN ============================ */
@@ -744,7 +792,7 @@ window.CLASSES = {
         nom: "Offrandes",
         texte: [
           "Il utilise des offrandes pour lancer ses compétences : elles reposent sur sa sagesse. Si la sagesse est supérieure ou égale à 14, il aura 4 offrandes ; à 13, il aura 3 offrandes ; si elle est inférieure, ce sera 2 offrandes.",
-          "Les offrandes sont ensuite gagnées tout au long de l'aventure, par la montée de niveau (voir le document Level up, section « type ressource »).",
+          "Les offrandes sont ensuite gagnées tout au long de l'aventure, par la montée de niveau (voir règle de montée de niveaux, section « type ressource »).",
           "Le chaman dialoguant avec les esprits et utilisant les cadavres pour récolter des offrandes, il en récupère à chaque court repos en effectuant une moisson d'offrandes sur un cadavre (voir le document Les règles spécifiques). En revanche, comparé aux autres classes ressource, il ne récupère pas d'offrande tous les 5T."
         ]
       },
@@ -765,7 +813,9 @@ window.CLASSES = {
         ]
       },
       precision: "Sagesse",
-      equipement: ["Katar [C]"]
+      equipement: [
+        { nom: "Katar [C]", lien: "../equipement/armes.html#katar" }
+      ]
     },
 
     /* =========================== BASTIONISTE ========================= */
@@ -798,7 +848,9 @@ window.CLASSES = {
         notes: [SORTS_PROPRES, GAIN_SORTS]
       },
       precision: "Force",
-      equipement: ["Le Mini Cracheur [C]"]
+      equipement: [
+        { nom: "Le Mini Cracheur [C]", lien: "../equipement/armes.html#le-mini-cracheur" }
+      ]
     }
   ]
 };
