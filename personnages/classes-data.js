@@ -62,12 +62,16 @@ var QUATRE_COMPETENCES = "Il possède 4 compétences au début de l'aventure : c
 
 window.CLASSES = {
 
-  /* ---------- renvoi vers les règles de montée de niveau ----------
-     Partout où un texte dit « voir règle de montée de niveaux », la mention
-     devient un lien vers cette adresse. Tant qu'elle est vide, la mention
-     reste affichée mais n'est pas cliquable : il suffira d'écrire l'URL ici
-     (par exemple "montee_de_niveau.html") pour activer tous les renvois. */
-  lienNiveau: "",
+  /* ---------- renvois vers le codex des règles ----------
+     Certaines tournures reviennent au fil des textes (« voir règle de montée
+     de niveaux », « voir la moisson d'offrandes », « voir les catégories
+     d'animaux ») : la mention devient un lien vers l'adresse correspondante.
+     Adresse vide : la mention reste affichée mais n'est pas cliquable.
+     Pour un renvoi propre à une seule classe, utiliser plutôt son champ
+     « lien », qui s'affiche en bas de fiche. */
+  lienNiveau: "../regles.html#level-up",
+  lienMoisson: "../regles.html#moisson-offrandes",
+  lienAnimaux: "../regles.html#animaux",
 
   /* ---------- les catégories de rôle, dans l'ordre des filtres ---------- */
   roles: [
@@ -232,6 +236,7 @@ window.CLASSES = {
         sorts: ["Plaque de fer", "Crush"],
         notes: [SORTS_PROPRES, GAIN_SORTS]
       },
+      lien: { href: "../regles.html#transformations", texte: "Voir la règle des transformations" },
       precision: "Sagesse",
       equipement: [
         { nom: "Hachette [C]", lien: "../equipement/armes.html#hachette" }
@@ -300,6 +305,7 @@ window.CLASSES = {
         sorts: ["Trompe la mort", "Mad men", "Empressement", "Fumigène empoisonné"],
         notes: [SORTS_PROPRES, GAIN_SORTS]
       },
+      lien: { href: "../regles.html#invocations", texte: "Voir la règle des invocations" },
       precision: "Intelligence",
       equipement: [
         { nom: "Faux [C]", lien: "../equipement/armes.html#faux" }
@@ -443,6 +449,7 @@ window.CLASSES = {
         "! Contrat ! Attention, l'occultiste a passé un contrat avec un démon ou une entité (à vous de choisir) : en aucun cas il ne doit le briser, car sinon il perdra totalement sa capacité à utiliser des pactes. Il y perdra aussi quelque chose de précieux.",
         "Exemple — Contrat de vengeance : un contrat passé avec un démon vengeur, offrant de puissants pouvoirs à l'occultiste, mais en retour il doit tuer le plus haut prêtre de l'Église."
       ],
+      lien: { href: "../regles.html#invocations", texte: "Voir la règle des invocations" },
       precision: "Charisme",
       equipement: [
         { nom: "Glaive [C]", lien: "../equipement/armes.html#glaive" }
@@ -507,11 +514,11 @@ window.CLASSES = {
       ],
       passif: {
         nom: "Dompteur sauvage",
-        texte: ["Le rôdeur est accompagné de son fidèle animal ; selon l'animal, il aura des spécificités différentes (voir le document Les animaux)."]
+        texte: ["Le rôdeur est accompagné de son fidèle animal ; selon l'animal, il aura des spécificités différentes (voir les catégories d'animaux)."]
       },
       biclasse: {
         nom: "Dompteur du dimanche",
-        texte: ["Le rôdeur est accompagné de son fidèle animal ; selon l'animal, il aura des spécificités différentes (voir le document Les animaux), mais l'animal aura des statistiques réduites."]
+        texte: ["Le rôdeur est accompagné de son fidèle animal ; selon l'animal, il aura des spécificités différentes (voir les catégories d'animaux), mais l'animal aura des statistiques réduites."]
       },
       pouvoirs: {
         titre: "Actions",
@@ -521,6 +528,7 @@ window.CLASSES = {
         ],
         notes: [SATIETE, GAIN_ACTIONS, LIBRE_ACTIONS]
       },
+      lien: { href: "../regles.html#animaux", texte: "Voir la règle des animaux" },
       precision: "Dextérité",
       equipement: [
         { nom: "Boomerang [C]", lien: "../equipement/armes.html#boomerang" }
@@ -554,6 +562,7 @@ window.CLASSES = {
         ],
         notes: [SATIETE, GAIN_ACTIONS, LIBRE_ACTIONS]
       },
+      lien: { href: "../regles.html#arts-des-voleurs", texte: "Voir la règle des arts des voleurs" },
       precision: "Dextérité",
       equipement: [
         { nom: "Dague [C]", lien: "../equipement/armes.html#dague" }
@@ -793,16 +802,16 @@ window.CLASSES = {
         texte: [
           "Il utilise des offrandes pour lancer ses compétences : elles reposent sur sa sagesse. Si la sagesse est supérieure ou égale à 14, il aura 4 offrandes ; à 13, il aura 3 offrandes ; si elle est inférieure, ce sera 2 offrandes.",
           "Les offrandes sont ensuite gagnées tout au long de l'aventure, par la montée de niveau (voir règle de montée de niveaux, section « type ressource »).",
-          "Le chaman dialoguant avec les esprits et utilisant les cadavres pour récolter des offrandes, il en récupère à chaque court repos en effectuant une moisson d'offrandes sur un cadavre (voir le document Les règles spécifiques). En revanche, comparé aux autres classes ressource, il ne récupère pas d'offrande tous les 5T."
+          "Le chaman dialoguant avec les esprits et utilisant les cadavres pour récolter des offrandes, il en récupère à chaque court repos en effectuant une moisson d'offrandes sur un cadavre (voir la moisson d'offrandes). En revanche, comparé aux autres classes ressource, il ne récupère pas d'offrande tous les 5T."
         ]
       },
       passif: {
         nom: "Portail des esprits",
-        texte: ["Le chaman, grâce à ses fortes relations avec les esprits du monde éthéré, peut en invoquer. C'est avec ses différentes offrandes qu'il utilise ses pouvoirs : elles octroient des bénédictions en fonction de leur qualité. Pour acquérir ces offrandes, le chaman doit effectuer une moisson d'offrandes en utilisant une sous-action (voir le document Les règles spécifiques)."]
+        texte: ["Le chaman, grâce à ses fortes relations avec les esprits du monde éthéré, peut en invoquer. C'est avec ses différentes offrandes qu'il utilise ses pouvoirs : elles octroient des bénédictions en fonction de leur qualité. Pour acquérir ces offrandes, le chaman doit effectuer une moisson d'offrandes en utilisant une sous-action (voir la moisson d'offrandes)."]
       },
       biclasse: {
         nom: "Porte des esprits",
-        texte: ["Le chaman, grâce à ses fortes relations avec les esprits du monde éthéré, peut en invoquer. C'est avec ses différentes offrandes qu'il utilise ses pouvoirs : elles octroient aussi des bénédictions en fonction de leur qualité. Pour acquérir ces offrandes, le chaman doit effectuer une moisson d'offrandes en utilisant une sous-action (voir le document Les règles spécifiques)."]
+        texte: ["Le chaman, grâce à ses fortes relations avec les esprits du monde éthéré, peut en invoquer. C'est avec ses différentes offrandes qu'il utilise ses pouvoirs : elles octroient aussi des bénédictions en fonction de leur qualité. Pour acquérir ces offrandes, le chaman doit effectuer une moisson d'offrandes en utilisant une sous-action (voir la moisson d'offrandes)."]
       },
       pouvoirs: {
         titre: "Compétences",
@@ -812,6 +821,10 @@ window.CLASSES = {
           "Les compétences coûtent toutes 1 offrande à l'usage en général, mais elles peuvent coûter davantage si elles sont trop fortes."
         ]
       },
+      lien: [
+        { href: "../regles.html#invocations", texte: "Voir la règle des invocations" },
+        { href: "../regles.html#moisson-offrandes", texte: "Voir la règle de la moisson d'offrandes" }
+      ],
       precision: "Sagesse",
       equipement: [
         { nom: "Katar [C]", lien: "../equipement/armes.html#katar" }

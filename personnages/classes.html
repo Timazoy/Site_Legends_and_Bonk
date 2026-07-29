@@ -522,17 +522,25 @@
           return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
         });
       }
-      /* Les données restent du texte pur : c'est ici que la mention des règles
-         de montée de niveau devient un lien. Adresse vide (le cas tant que la
+      /* Les données restent du texte pur : c'est ici que les mentions de règles
+         deviennent des liens vers le codex. Adresse vide (le cas tant que la
          page n'existe pas) : la mention est signalée mais pas cliquable. */
-      var MENTION_NIVEAU = "voir règle de montée de niveaux";
+      var RENVOIS = [
+        { mention: "voir règle de montée de niveaux", url: DB.lienNiveau },
+        { mention: "voir la moisson d'offrandes",     url: DB.lienMoisson },
+        { mention: "voir les catégories d'animaux",   url: DB.lienAnimaux }
+      ];
       function prose(s) {
         var h = esc(s);
-        if (h.indexOf(MENTION_NIVEAU) < 0) return h;
-        var url = DB.lienNiveau;
-        return h.split(MENTION_NIVEAU).join(
-          url ? '<a class="lien-regle" href="' + esc(url) + '">' + MENTION_NIVEAU + '</a>'
-              : '<span class="lien-regle vide">' + MENTION_NIVEAU + '</span>');
+        RENVOIS.forEach(function (r) {
+          /* le texte est déjà échappé : la mention doit l'être aussi pour s'y retrouver */
+          var m = esc(r.mention);
+          if (h.indexOf(m) < 0) return;
+          h = h.split(m).join(
+            r.url ? '<a class="lien-regle" href="' + esc(r.url) + '">' + m + '</a>'
+                  : '<span class="lien-regle vide">' + m + '</span>');
+        });
+        return h;
       }
 
       /* pour la recherche : minuscules, sans accents ni ponctuation
@@ -720,8 +728,11 @@
         if (c.important) {
           corps += '<h2>Important</h2><div class="important">' + paras(c.important) + '</div>';
         }
+        /* « lien » accepte un renvoi seul ou une liste de renvois */
         if (c.lien) {
-          corps += '<p><a class="lien-page" href="' + esc(c.lien.href) + '">' + esc(c.lien.texte) + ' →</a></p>';
+          [].concat(c.lien).forEach(function (l) {
+            corps += '<p><a class="lien-page" href="' + esc(l.href) + '">' + esc(l.texte) + ' →</a></p>';
+          });
         }
 
         return '<a class="retour" href="#">← Retour à la galerie</a>' +
