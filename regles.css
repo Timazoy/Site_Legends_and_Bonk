@@ -795,6 +795,63 @@ details.repli .corps > :last-child {
   font-size: 25px;
 }
 
+/* ---------- le gabarit de portée ---------- */
+/* 13 colonnes : les cases se dimensionnent en fraction pour tenir aussi bien
+   sur la feuille en bureau que sur un téléphone, d'où aspect-ratio plutôt
+   qu'une hauteur fixe comme sur la grille de déplacement */
+.grille-portee {
+  display: grid;
+  grid-template-columns: repeat(13, 1fr);
+  gap: 2px;
+  width: 100%;
+  max-width: 620px;
+  margin: 0 auto;
+  padding: 7px;
+  background: var(--parch2);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(40, 27, 7, .14);
+}
+
+.grille-portee span {
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--muted);
+  background: #fffdf6;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+/* une couleur par couronne, dans l'ordre du schéma dessiné à la main
+   (jaune, orange, vert, cyan, rouge, violet), prolongé de deux teintes
+   pour les couronnes 7 et 8 : elles ne sont pas « hors portée », juste
+   plus loin, et doivent donc être colorées comme les autres.
+   La couleur n'est qu'un renfort : le chiffre reste dans chaque case,
+   donc la grille se lit aussi sans distinguer les teintes. */
+.grille-portee .p1 { background: #ecd47c; }
+.grille-portee .p2 { background: #f0b485; }
+.grille-portee .p3 { background: #9dc994; }
+.grille-portee .p4 { background: #92c4d6; }
+.grille-portee .p5 { background: #e79a95; }
+.grille-portee .p6 { background: #bfa6ce; }
+.grille-portee .p7 { background: #d9c08f; }
+.grille-portee .p8 { background: #9fb0bd; }
+
+.grille-portee span:not(.moi) {
+  color: var(--ink);
+  border-color: rgba(40, 27, 7, .22);
+}
+
+.grille-portee .moi {
+  background: radial-gradient(circle at 36% 30%, #a01212, var(--bordeaux) 70%);
+  color: var(--parch);
+  font-size: 19px;
+}
+
 .legende {
   font-size: 16px;
   color: var(--muted);
@@ -1088,6 +1145,20 @@ details.repli .corps > :last-child {
   .grille-dep span {
     height: 44px;
     font-size: 17px;
+  }
+
+  .grille-portee {
+    gap: 1px;
+    padding: 5px;
+  }
+
+  .grille-portee span {
+    font-size: 11px;
+    border-radius: 2px;
+  }
+
+  .grille-portee .moi {
+    font-size: 13px;
   }
 
   .fortune-leg li {

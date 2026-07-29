@@ -115,7 +115,7 @@
                     data-mots="niveau xp expérience roue de la fortune point de statistique pv pm gain sort compétence ressource action type moteur bi-classe">La
                     montée de niveau</a></li>
                 <li><a href="#equipement"
-                    data-mots="aura enchantement forgeron cumul rareté armure pa points d'armure cuirasse portée cases">L'équipement</a>
+                    data-mots="aura enchantement forgeron cumul rareté armure pa points d'armure cuirasse portée cases distance cercle diagonale gabarit zone">L'équipement</a>
                 </li>
               </ul>
             </div>
@@ -413,6 +413,11 @@
             </div>
             <figcaption class="legende">Coût en cases de déplacement depuis la position du personnage.</figcaption>
           </figure>
+
+          <p class="legende" style="text-align:center">Attention : la portée, elle, ne se compte pas de cette
+            façon — la diagonale y éloigne vraiment la cible.
+            <a class="renvoi" style="margin:0;display:inline" href="#portee">Voir le gabarit de portée →</a>
+          </p>
 
           <h4 id="actions">5.3 — Actions, sous-actions et réactions</h4>
 
@@ -1637,8 +1642,37 @@
           <a class="renvoi" href="equipement/armures.html">Voir le catalogue des armures →</a>
 
           <h4 id="portee">16.3 — La portée</h4>
-          <p>La portée est la zone dans laquelle une action peut toucher. Elle se compte <b>en cases</b>, en cercle
-            autour de son point d'origine, et l'énoncé « zone de X » désigne le rayon de la zone d'effet.</p>
+          <p>La portée est la zone dans laquelle une action peut toucher. Elle se compte <b>en cases</b>, à vol
+            d'oiseau depuis son point d'origine : on mesure la distance en ligne droite, et on l'arrondit à la case
+            la plus proche. L'énoncé « zone de X » désigne le rayon de la zone d'effet.</p>
+
+          <div class="encart">
+            <p><b>La portée dessine un cercle, le déplacement dessine un carré.</b> En vous déplaçant, une case en
+              diagonale en coûte une seule ; en visant, la diagonale éloigne bel et bien la cible. Une créature à
+              2 cases en diagonale est à <b>2 cases de marche</b> mais à <b>3 cases de portée</b>.</p>
+          </div>
+
+          <figure class="grille-fig">
+            <div class="grille-portee" role="img"
+              aria-label="Gabarit de portée : chaque case porte sa distance au lanceur, mesurée en ligne droite et arrondie à la case la plus proche, et chaque distance a sa couleur. Les cases orthogonales comptent 1, 2, 3… tandis que la diagonale monte plus vite : 1, 3, 4, 6 aux deux, trois et quatre cases en biais. La grille va jusqu'à 8.">
+              <span class="p8">8</span><span class="p8">8</span><span class="p7">7</span><span class="p7">7</span><span class="p6">6</span><span class="p6">6</span><span class="p6">6</span><span class="p6">6</span><span class="p6">6</span><span class="p7">7</span><span class="p7">7</span><span class="p8">8</span><span class="p8">8</span>
+              <span class="p8">8</span><span class="p7">7</span><span class="p6">6</span><span class="p6">6</span><span class="p5">5</span><span class="p5">5</span><span class="p5">5</span><span class="p5">5</span><span class="p5">5</span><span class="p6">6</span><span class="p6">6</span><span class="p7">7</span><span class="p8">8</span>
+              <span class="p7">7</span><span class="p6">6</span><span class="p6">6</span><span class="p5">5</span><span class="p4">4</span><span class="p4">4</span><span class="p4">4</span><span class="p4">4</span><span class="p4">4</span><span class="p5">5</span><span class="p6">6</span><span class="p6">6</span><span class="p7">7</span>
+              <span class="p7">7</span><span class="p6">6</span><span class="p5">5</span><span class="p4">4</span><span class="p4">4</span><span class="p3">3</span><span class="p3">3</span><span class="p3">3</span><span class="p4">4</span><span class="p4">4</span><span class="p5">5</span><span class="p6">6</span><span class="p7">7</span>
+              <span class="p6">6</span><span class="p5">5</span><span class="p4">4</span><span class="p4">4</span><span class="p3">3</span><span class="p2">2</span><span class="p2">2</span><span class="p2">2</span><span class="p3">3</span><span class="p4">4</span><span class="p4">4</span><span class="p5">5</span><span class="p6">6</span>
+              <span class="p6">6</span><span class="p5">5</span><span class="p4">4</span><span class="p3">3</span><span class="p2">2</span><span class="p1">1</span><span class="p1">1</span><span class="p1">1</span><span class="p2">2</span><span class="p3">3</span><span class="p4">4</span><span class="p5">5</span><span class="p6">6</span>
+              <span class="p6">6</span><span class="p5">5</span><span class="p4">4</span><span class="p3">3</span><span class="p2">2</span><span class="p1">1</span><span class="moi">✦</span><span class="p1">1</span><span class="p2">2</span><span class="p3">3</span><span class="p4">4</span><span class="p5">5</span><span class="p6">6</span>
+              <span class="p6">6</span><span class="p5">5</span><span class="p4">4</span><span class="p3">3</span><span class="p2">2</span><span class="p1">1</span><span class="p1">1</span><span class="p1">1</span><span class="p2">2</span><span class="p3">3</span><span class="p4">4</span><span class="p5">5</span><span class="p6">6</span>
+              <span class="p6">6</span><span class="p5">5</span><span class="p4">4</span><span class="p4">4</span><span class="p3">3</span><span class="p2">2</span><span class="p2">2</span><span class="p2">2</span><span class="p3">3</span><span class="p4">4</span><span class="p4">4</span><span class="p5">5</span><span class="p6">6</span>
+              <span class="p7">7</span><span class="p6">6</span><span class="p5">5</span><span class="p4">4</span><span class="p4">4</span><span class="p3">3</span><span class="p3">3</span><span class="p3">3</span><span class="p4">4</span><span class="p4">4</span><span class="p5">5</span><span class="p6">6</span><span class="p7">7</span>
+              <span class="p7">7</span><span class="p6">6</span><span class="p6">6</span><span class="p5">5</span><span class="p4">4</span><span class="p4">4</span><span class="p4">4</span><span class="p4">4</span><span class="p4">4</span><span class="p5">5</span><span class="p6">6</span><span class="p6">6</span><span class="p7">7</span>
+              <span class="p8">8</span><span class="p7">7</span><span class="p6">6</span><span class="p6">6</span><span class="p5">5</span><span class="p5">5</span><span class="p5">5</span><span class="p5">5</span><span class="p5">5</span><span class="p6">6</span><span class="p6">6</span><span class="p7">7</span><span class="p8">8</span>
+              <span class="p8">8</span><span class="p8">8</span><span class="p7">7</span><span class="p7">7</span><span class="p6">6</span><span class="p6">6</span><span class="p6">6</span><span class="p6">6</span><span class="p6">6</span><span class="p7">7</span><span class="p7">7</span><span class="p8">8</span><span class="p8">8</span>
+            </div>
+            <figcaption class="legende">Distance en cases depuis le lanceur, une couleur par distance. La grille
+              s'arrête à 8 faute de place, mais la règle vaut aussi loin qu'il faut — un sort qui porte à 15 touche
+              tout ce qui affiche 15 ou moins.</figcaption>
+          </figure>
 
           <div class="encart">
             <p>Pour mémoire : les mouvements de base ont une portée de <b>1</b>, les invocations apparaissent dans
