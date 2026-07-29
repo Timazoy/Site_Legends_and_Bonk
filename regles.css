@@ -1,0 +1,1096 @@
+/* ==================================================================
+   LE CODEX DES RÈGLES — regles.html
+   Reprend l'habillage des règles de création (grande feuille de
+   parchemin, sceaux, encarts, cartes de formule) et y ajoute le
+   sommaire à signets collant sur la gauche.
+   ================================================================== */
+
+:root {
+  --parch: #f4ecd8;
+  --parch2: #e9dcbd;
+  --ink: #2b2116;
+  --line: #c9b892;
+  --bordeaux: #7a0808;
+  --brun: #281b07;
+  --gold: #d8b24a;
+  --muted: #6b5a3a;
+}
+
+/* ---------- ossature : sommaire + feuille ---------- */
+.codex-wrap {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 18px 12px 60px;
+  color: var(--ink);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 22px;
+  align-items: start;
+}
+
+@media (min-width: 1100px) {
+  .codex-wrap {
+    grid-template-columns: 290px minmax(0, 1fr);
+  }
+}
+
+/* la colonne de gauche : c'est elle qui colle, pas le sommaire lui-même,
+   sinon le déplacement du bloc entre bureau et mobile casse le sticky */
+.codex-slot {
+  position: sticky;
+  top: 12px;
+  max-height: calc(100vh - 24px);
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 1099.98px) {
+  .codex-slot {
+    display: none;
+  }
+}
+
+.codex-sheet {
+  position: relative;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 26px 34px 34px;
+  box-shadow: 0 6px 26px rgba(40, 27, 7, .14);
+  background:
+    repeating-linear-gradient(0deg, rgba(122, 8, 8, .014) 0 2px, transparent 2px 5px),
+    linear-gradient(170deg, #fdf8ec, #f9f2e1 55%, #f5eeda);
+  min-width: 0;
+}
+
+.codex-sheet::before {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border: 1px solid rgba(201, 184, 146, .6);
+  border-radius: 10px;
+  pointer-events: none;
+}
+
+.codex-sheet > * {
+  position: relative;
+}
+
+h1.codex-title {
+  text-align: center;
+  font-weight: 700;
+  letter-spacing: .5px;
+  margin: 6px 0 2px;
+  color: var(--brun);
+}
+
+.codex-sub {
+  text-align: center;
+  color: var(--muted);
+  font-style: italic;
+  margin-bottom: 26px;
+}
+
+/* ---------- le sommaire à signets ---------- */
+.codex-nav {
+  background: linear-gradient(160deg, var(--parch), var(--parch2));
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: 0 3px 12px rgba(40, 27, 7, .12);
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.codex-nav h2 {
+  font-size: 15px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--bordeaux);
+  font-weight: 800;
+  margin: 0;
+  padding: 14px 14px 10px;
+}
+
+.codex-cherche {
+  padding: 0 14px 12px;
+  border-bottom: 1px solid rgba(201, 184, 146, .8);
+}
+
+.codex-cherche input {
+  width: 100%;
+  font-family: inherit;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--ink);
+  background: #fffdf6;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 6px 14px;
+}
+
+.codex-cherche input::placeholder {
+  color: #a8977a;
+  font-style: italic;
+}
+
+.codex-cherche input:focus {
+  outline: none;
+  border-color: var(--bordeaux);
+  box-shadow: 0 0 0 3px rgba(122, 8, 8, .12);
+}
+
+.codex-liste {
+  overflow-y: auto;
+  padding: 10px 10px 14px;
+  min-height: 0;
+  flex: 1;
+}
+
+.codex-liste .chap {
+  margin: 0 0 4px;
+}
+
+.codex-liste .chap + .chap {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(201, 184, 146, .75);
+}
+
+.codex-liste .chap > b {
+  display: block;
+  font-size: 14px;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 0 8px 5px;
+}
+
+.codex-liste .chap > b i {
+  font-style: normal;
+  color: var(--bordeaux);
+  margin-right: 6px;
+}
+
+.codex-liste ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.codex-liste a {
+  display: block;
+  padding: 5px 10px 5px 12px;
+  border-left: 3px solid transparent;
+  border-radius: 0 8px 8px 0;
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 17px;
+  line-height: 1.3;
+}
+
+.codex-liste a:hover,
+.codex-liste a:focus-visible {
+  background: rgba(122, 8, 8, .07);
+  border-left-color: rgba(122, 8, 8, .35);
+}
+
+.codex-liste a.ici {
+  background: rgba(122, 8, 8, .10);
+  border-left-color: var(--bordeaux);
+  color: var(--bordeaux);
+  font-weight: 800;
+}
+
+.codex-liste .vide {
+  display: none;
+  padding: 10px 12px;
+  font-size: 16px;
+  font-style: italic;
+  color: var(--muted);
+}
+
+/* pendant une recherche, les intitulés de chapitre sans résultat s'effacent */
+.codex-liste .chap[hidden],
+.codex-liste li[hidden] {
+  display: none;
+}
+
+/* ---------- accès au sommaire en mobile ---------- */
+.codex-bouton {
+  display: none;
+  position: fixed;
+  right: 14px;
+  bottom: 14px;
+  z-index: 1030;
+  border: 1px solid var(--gold);
+  border-radius: 999px;
+  padding: 10px 18px;
+  font-family: inherit;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--parch);
+  background: linear-gradient(160deg, #3a2a10, var(--brun));
+  box-shadow: 0 4px 14px rgba(40, 27, 7, .45);
+}
+
+@media (max-width: 1099.98px) {
+  .codex-bouton {
+    display: block;
+  }
+}
+
+.codex-off {
+  background: linear-gradient(160deg, var(--parch), var(--parch2));
+  width: min(340px, 86vw);
+}
+
+.codex-off .offcanvas-body {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+/* dans le panneau mobile, le sommaire remplit toute la hauteur sans cadre */
+.codex-off .codex-nav {
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: transparent;
+  flex: 1;
+}
+
+/* le panneau a déjà son propre titre : celui du sommaire ferait doublon */
+.codex-off .codex-nav > h2 {
+  display: none;
+}
+
+.codex-off .codex-cherche {
+  padding-top: 12px;
+}
+
+/* ---------- un chapitre du codex ---------- */
+.chapitre {
+  scroll-margin-top: 14px;
+  margin: 0 0 12px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.chapitre::after {
+  content: "";
+  flex: 1;
+  border-top: 2px solid var(--line);
+}
+
+.chapitre .num {
+  flex: 0 0 auto;
+  font-size: 15px;
+  letter-spacing: 2px;
+  font-weight: 800;
+  color: var(--parch);
+  background: var(--brun);
+  border-radius: 999px;
+  padding: 3px 13px;
+}
+
+.chapitre h2 {
+  margin: 0;
+  font-size: 21px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  font-weight: 800;
+  color: var(--bordeaux);
+}
+
+.chapitre:not(:first-of-type) {
+  margin-top: 54px;
+}
+
+/* ---------- une règle ---------- */
+.regle {
+  scroll-margin-top: 14px;
+  margin-bottom: 46px;
+}
+
+.regle-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 6px;
+}
+
+.regle-seal {
+  flex: 0 0 auto;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--parch);
+  background: radial-gradient(circle at 36% 30%, #a01212, var(--bordeaux) 70%);
+  box-shadow: 0 0 0 3px var(--parch), 0 0 0 4px var(--line), 0 3px 8px rgba(40, 27, 7, .3);
+}
+
+.regle-head h3 {
+  margin: 0;
+  font-size: 34px;
+  font-weight: 700;
+  color: var(--brun);
+  letter-spacing: .3px;
+}
+
+.regle > hr {
+  border: none;
+  border-top: 2px solid var(--line);
+  margin: 10px 0 18px;
+  opacity: .8;
+}
+
+.regle h4 {
+  font-size: 23px;
+  font-weight: 700;
+  font-style: italic;
+  color: var(--bordeaux);
+  margin: 30px 0 10px;
+  scroll-margin-top: 14px;
+}
+
+.regle p {
+  margin: 0 0 12px;
+}
+
+.regle ul,
+.regle ol {
+  margin: 0 0 12px;
+  padding-left: 1.3em;
+}
+
+.regle li {
+  margin-bottom: 5px;
+}
+
+/* ---------- encart, exemple, pastilles (identiques aux règles de création) ---------- */
+.encart {
+  background: rgba(216, 178, 74, .14);
+  border: 1px solid rgba(122, 8, 8, .20);
+  border-left: 4px solid var(--bordeaux);
+  border-radius: 0 10px 10px 0;
+  padding: 12px 16px;
+  margin: 16px 0;
+  font-size: 19px;
+  color: var(--muted);
+}
+
+.encart b,
+.encart strong {
+  color: var(--bordeaux);
+}
+
+.encart p:last-child {
+  margin-bottom: 0;
+}
+
+.ex {
+  font-style: italic;
+  color: var(--muted);
+  font-size: 18px;
+  border-left: 2px solid var(--line);
+  padding-left: 12px;
+  margin: 10px 0 12px;
+}
+
+.ex b {
+  font-style: normal;
+  color: var(--bordeaux);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+  margin: 14px 0 16px;
+  padding: 0;
+}
+
+.chips li {
+  background: linear-gradient(160deg, var(--parch), var(--parch2));
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 5px 16px;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--brun);
+  box-shadow: 0 1px 3px rgba(40, 27, 7, .10);
+}
+
+.chips.liens li {
+  padding: 0;
+  transition: border-color .15s, box-shadow .15s, transform .15s, background .15s;
+}
+
+.chips.liens a {
+  display: block;
+  padding: 5px 16px;
+  border-radius: 999px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.chips.liens li:hover,
+.chips.liens li:focus-within {
+  background: linear-gradient(160deg, #fffdf6, var(--parch));
+  border-color: var(--bordeaux);
+  color: var(--bordeaux);
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(40, 27, 7, .16);
+}
+
+/* renvoi vers une autre page du site */
+.renvoi {
+  display: inline-block;
+  margin: 4px 0 14px;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bordeaux);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(122, 8, 8, .35);
+}
+
+.renvoi:hover {
+  color: var(--brun);
+  border-bottom-color: var(--brun);
+}
+
+/* ---------- cartes de formule et barèmes ---------- */
+.formules {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: 1fr;
+  margin: 16px 0 4px;
+}
+
+@media (min-width: 700px) {
+  .formules {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.formule {
+  background: linear-gradient(160deg, var(--parch), var(--parch2));
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 14px 16px 12px;
+  box-shadow: 0 2px 8px rgba(40, 27, 7, .10);
+  display: flex;
+  flex-direction: column;
+}
+
+.formule h5 {
+  margin: 0 0 8px;
+  font-size: 21px;
+  font-weight: 800;
+  color: var(--brun);
+  padding-bottom: 7px;
+  border-bottom: 1px solid var(--line);
+}
+
+.formule .calc {
+  display: block;
+  background: #fffdf6;
+  border: 1px dashed var(--line);
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin-bottom: 9px;
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--bordeaux);
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.formule p {
+  font-size: 17px;
+  color: var(--muted);
+  margin: 0 0 8px;
+}
+
+.formule .ex {
+  margin: auto 0 0;
+  font-size: 16px;
+}
+
+.bareme {
+  list-style: none;
+  margin: 0 0 10px;
+  padding: 10px 14px;
+  background: #fffdf6;
+  border: 1px dashed var(--line);
+  border-radius: 8px;
+}
+
+.bareme li {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+  margin: 0 0 6px;
+  font-size: 17px;
+  color: var(--muted);
+}
+
+.bareme li:last-child {
+  margin-bottom: 0;
+}
+
+.bareme .v {
+  flex: 0 0 92px;
+  text-align: right;
+  font-size: 19px;
+  font-weight: 800;
+  color: var(--bordeaux);
+  font-variant-numeric: lining-nums tabular-nums;
+  white-space: nowrap;
+}
+
+.bareme .d {
+  flex: 1;
+}
+
+.bareme b {
+  color: var(--brun);
+}
+
+/* ---------- fiches d'effets / de définitions ---------- */
+.fiches {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 1fr;
+  margin: 14px 0 18px;
+}
+
+@media (min-width: 620px) {
+  .fiches {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 1400px) {
+  .fiches.serree {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+.fiche {
+  background: linear-gradient(160deg, var(--parch), var(--parch2));
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--tc, var(--bordeaux));
+  border-radius: 0 10px 10px 0;
+  padding: 11px 15px;
+  box-shadow: 0 2px 6px rgba(40, 27, 7, .09);
+}
+
+/* seul le <b> de premier niveau est le titre de la fiche : les <b>
+   d'emphase à l'intérieur du texte doivent rester en ligne */
+.fiche > b {
+  display: block;
+  font-size: 20px;
+  color: var(--brun);
+  margin-bottom: 3px;
+}
+
+.fiche > span {
+  display: block;
+  font-size: 17px;
+  color: var(--muted);
+}
+
+.fiche span b {
+  color: var(--brun);
+}
+
+.fiche .duree {
+  display: inline-block;
+  margin-left: 8px;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: .5px;
+  color: var(--parch);
+  background: var(--tc, var(--bordeaux));
+  border-radius: 999px;
+  padding: 1px 9px;
+  vertical-align: 3px;
+}
+
+/* ---------- tableaux ---------- */
+.tbl-wrap {
+  overflow-x: auto;
+  margin: 12px 0 14px;
+  border-radius: 8px;
+}
+
+/* comme pour la grille de déplacement : dans une table de progression,
+   les chiffres elzéviriens rendent « 11 » indiscernable de « II » */
+table.tbl {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 18px;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+table.tbl th,
+table.tbl td {
+  border: 1px solid var(--line);
+  padding: 6px 12px;
+  text-align: left;
+  white-space: nowrap;
+}
+
+table.tbl th {
+  background: var(--parch2);
+  color: var(--brun);
+  font-weight: 800;
+}
+
+table.tbl td {
+  background: #fffdf6;
+}
+
+table.tbl tbody tr:hover td {
+  background: rgba(216, 178, 74, .13);
+}
+
+table.tbl .num {
+  text-align: right;
+}
+
+/* colonne de texte : c'est la seule qui a le droit de revenir à la ligne,
+   sinon un tableau chiffré partirait en largeur pour une seule phrase */
+table.tbl .txt {
+  white-space: normal;
+  min-width: 230px;
+}
+
+table.tbl .fort {
+  color: var(--bordeaux);
+  font-weight: 800;
+}
+
+table.tbl caption {
+  caption-side: top;
+  text-align: left;
+  font-size: 17px;
+  font-style: italic;
+  color: var(--muted);
+  padding-bottom: 6px;
+}
+
+/* ---------- tables repliées ---------- */
+details.repli {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: linear-gradient(160deg, var(--parch), var(--parch2));
+  margin: 14px 0 18px;
+  overflow: hidden;
+}
+
+details.repli > summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 10px 16px;
+  font-size: 19px;
+  font-weight: 800;
+  color: var(--bordeaux);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+details.repli > summary::-webkit-details-marker {
+  display: none;
+}
+
+details.repli > summary::before {
+  content: "▸";
+  font-size: 16px;
+  transition: transform .18s ease;
+}
+
+details.repli[open] > summary::before {
+  transform: rotate(90deg);
+}
+
+details.repli > summary:hover {
+  background: rgba(122, 8, 8, .06);
+}
+
+details.repli > summary .sous {
+  font-size: 16px;
+  font-weight: 600;
+  font-style: italic;
+  color: var(--muted);
+}
+
+details.repli .corps {
+  padding: 4px 16px 14px;
+  border-top: 1px solid var(--line);
+  background: rgba(255, 253, 246, .55);
+}
+
+details.repli .corps > :last-child {
+  margin-bottom: 0;
+}
+
+/* ---------- la grille de déplacement ---------- */
+.grille-fig {
+  margin: 18px 0 8px;
+  text-align: center;
+}
+
+.grille-dep {
+  display: inline-grid;
+  grid-template-columns: repeat(5, 54px);
+  gap: 3px;
+  padding: 8px;
+  background: var(--parch2);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(40, 27, 7, .14);
+}
+
+/* chiffres bâton : en chiffres elzéviriens (le réglage par défaut de la
+   police du site) le 1 se confond avec un I, ce qui est intenable dans
+   un schéma où il faut distinguer 1 de 2 */
+.grille-dep span {
+  height: 54px;
+  display: grid;
+  place-items: center;
+  font-size: 21px;
+  font-weight: 800;
+  color: var(--muted);
+  background: #fffdf6;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.grille-dep .c1 {
+  background: rgba(216, 178, 74, .34);
+  color: var(--brun);
+}
+
+.grille-dep .c2 {
+  background: rgba(216, 178, 74, .14);
+}
+
+.grille-dep .moi {
+  background: radial-gradient(circle at 36% 30%, #a01212, var(--bordeaux) 70%);
+  color: var(--parch);
+  font-size: 25px;
+}
+
+.legende {
+  font-size: 16px;
+  color: var(--muted);
+  font-style: italic;
+  margin-top: 10px;
+}
+
+/* ---------- la roue des éléments ---------- */
+.cycles {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 1fr;
+  margin: 16px 0 6px;
+}
+
+@media (min-width: 700px) {
+  .cycles {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.cycle {
+  background: #fffdf6;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 10px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(40, 27, 7, .10);
+}
+
+.cycle svg {
+  width: 100%;
+  max-width: 330px;
+  height: auto;
+  font-family: inherit;
+}
+
+.cycle svg text {
+  font-size: 17px;
+  font-weight: 800;
+  fill: #fff;
+  paint-order: stroke;
+  stroke: rgba(0, 0, 0, .45);
+  stroke-width: 3px;
+  stroke-linejoin: round;
+}
+
+.cycle svg line {
+  stroke: var(--brun);
+  stroke-width: 2.4;
+}
+
+.cycle b {
+  display: block;
+  font-size: 18px;
+  color: var(--brun);
+  margin-bottom: 2px;
+}
+
+/* ---------- la roue de la fortune ---------- */
+.fortune {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: 1fr;
+  align-items: center;
+  margin: 16px 0 6px;
+}
+
+@media (min-width: 760px) {
+  .fortune {
+    grid-template-columns: minmax(0, 300px) minmax(0, 1fr);
+  }
+}
+
+.fortune svg {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  filter: drop-shadow(0 4px 12px rgba(40, 27, 7, .25));
+}
+
+.fortune-leg {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.fortune-leg li {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 3px 0;
+  font-size: 18px;
+  border-bottom: 1px dotted rgba(201, 184, 146, .9);
+}
+
+.fortune-leg li:last-child {
+  border-bottom: 0;
+}
+
+.fortune-leg i {
+  flex: 0 0 auto;
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  border: 1px solid rgba(40, 27, 7, .35);
+  transform: translateY(1px);
+}
+
+.fortune-leg .p {
+  margin-left: auto;
+  font-weight: 800;
+  color: var(--bordeaux);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+/* ---------- le glossaire ---------- */
+.glossaire {
+  margin: 14px 0 18px;
+  columns: 1;
+}
+
+@media (min-width: 780px) {
+  .glossaire {
+    columns: 2;
+    column-gap: 26px;
+  }
+}
+
+.glossaire div {
+  break-inside: avoid;
+  margin-bottom: 9px;
+  font-size: 18px;
+  color: var(--muted);
+}
+
+.glossaire dt {
+  display: inline;
+  font-weight: 800;
+  color: var(--brun);
+}
+
+.glossaire dt::after {
+  content: " — ";
+  color: var(--line);
+}
+
+.glossaire dd {
+  display: inline;
+  margin: 0;
+}
+
+.abrevs {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 7px;
+  margin: 14px 0 16px;
+  padding: 0;
+  list-style: none;
+}
+
+.abrevs li {
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+  background: #fffdf6;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 5px 11px;
+  font-size: 16px;
+  color: var(--muted);
+}
+
+.abrevs b {
+  flex: 0 0 auto;
+  min-width: 44px;
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--bordeaux);
+}
+
+/* ---------- pied du codex ---------- */
+.codex-fin {
+  border-top: 2px solid var(--line);
+  margin-top: 10px;
+  padding-top: 18px;
+  text-align: center;
+  color: var(--muted);
+  font-style: italic;
+  font-size: 18px;
+}
+
+/* ---------- mobile ---------- */
+@media (max-width: 768px) {
+  .codex-wrap {
+    padding: 10px 8px 40px;
+  }
+
+  .codex-sheet {
+    padding: 16px 14px 22px;
+    border-radius: 12px;
+  }
+
+  .codex-sheet::before {
+    inset: 5px;
+  }
+
+  .chapitre h2 {
+    font-size: 16px;
+    letter-spacing: 1.5px;
+  }
+
+  .chapitre .num {
+    font-size: 13px;
+    padding: 2px 10px;
+  }
+
+  .chapitre:not(:first-of-type) {
+    margin-top: 40px;
+  }
+
+  .regle-head h3 {
+    font-size: 25px;
+  }
+
+  .regle-seal {
+    width: 42px;
+    height: 42px;
+    font-size: 21px;
+  }
+
+  .regle h4 {
+    font-size: 19px;
+  }
+
+  .encart,
+  .chips li {
+    font-size: 16px;
+  }
+
+  .ex,
+  .formule p,
+  .fiche span,
+  .glossaire div,
+  table.tbl {
+    font-size: 15px;
+  }
+
+  .fiche b {
+    font-size: 18px;
+  }
+
+  .bareme {
+    padding: 9px 11px;
+  }
+
+  .bareme li {
+    font-size: 15px;
+    gap: 9px;
+  }
+
+  .bareme .v {
+    flex-basis: 78px;
+    font-size: 16px;
+  }
+
+  .formule .calc {
+    font-size: 17px;
+  }
+
+  table.tbl th,
+  table.tbl td {
+    padding: 5px 9px;
+  }
+
+  details.repli > summary {
+    font-size: 17px;
+    padding: 9px 13px;
+  }
+
+  details.repli .corps {
+    padding: 4px 13px 12px;
+  }
+
+  .grille-dep {
+    grid-template-columns: repeat(5, 44px);
+  }
+
+  .grille-dep span {
+    height: 44px;
+    font-size: 17px;
+  }
+
+  .fortune-leg li {
+    font-size: 16px;
+  }
+}

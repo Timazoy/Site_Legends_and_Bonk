@@ -7,18 +7,21 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
   <link rel="stylesheet" href="./styles.css" />
+  <link rel="stylesheet" href="./regles.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap"
     rel="stylesheet" />
   <title>Les règles — Legends & Bonk</title>
-  <meta name="description" content="Découvrez les règles de Legends & Bonk, notre jeu de rôle : mécaniques de jeu, déroulement des parties et bases pour bien démarrer." />
+  <meta name="description"
+    content="Le codex des règles de Legends & Bonk : checks, combats, effets, éléments, magie, invocations, animaux, repos, satiété, négociation, montée de niveau et équipement." />
   <link rel="canonical" href="https://legendsandbonk.com/regles.html" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Legends &amp; Bonk" />
   <meta property="og:locale" content="fr_FR" />
   <meta property="og:title" content="Les règles — Legends & Bonk" />
-  <meta property="og:description" content="Découvrez les règles de Legends & Bonk, notre jeu de rôle : mécaniques de jeu, déroulement des parties et bases pour bien démarrer." />
+  <meta property="og:description"
+    content="Le codex des règles de Legends & Bonk : checks, combats, effets, éléments, magie, invocations, animaux, repos, satiété, négociation, montée de niveau et équipement." />
   <meta property="og:url" content="https://legendsandbonk.com/regles.html" />
   <meta property="og:image" content="https://legendsandbonk.com/image/og_partage.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -33,11 +36,1770 @@
 
   <!-- Contenu de la page -->
   <main>
-    <div class="container" style="margin-top: 20px;">
-      <h1 class="text-center">Les règles</h1>
-      <p class="text-center">Cette page arrive bientôt…</p>
+    <div class="codex-wrap">
+
+      <!-- ============================================================
+           LE SOMMAIRE À SIGNETS
+           Il n'existe qu'une seule fois dans la page : au-delà de
+           1100 px il vit dans la colonne collante, en dessous le
+           script le déplace dans le panneau coulissant.
+           L'attribut data-mots liste les termes qui doivent faire
+           remonter l'entrée dans la recherche.
+           ============================================================ -->
+      <div class="codex-slot" id="slotBureau">
+        <nav class="codex-nav" id="codexNav" aria-label="Sommaire des règles">
+          <h2>Le codex</h2>
+          <div class="codex-cherche">
+            <input type="search" id="chercheRegle" placeholder="Chercher une règle…"
+              aria-label="Chercher une règle dans le sommaire" autocomplete="off">
+          </div>
+          <div class="codex-liste" id="listeRegles">
+            <div class="chap">
+              <b><i>I</i>Les bases</b>
+              <ul>
+                <li><a href="#checks" data-mots="jet dé d20 difficulté réussite score bonus malus">Les checks</a></li>
+                <li><a href="#des-de-chance" data-mots="d4 chance avantage désavantage relance">Dés de chance et
+                    avantages</a></li>
+                <li><a href="#statistiques-secondaires" data-mots="vitesse perception discrétion précision déplacement">Les
+                    statistiques secondaires</a></li>
+                <li><a href="#glossaire" data-mots="lexique vocabulaire définitions abréviations sigles pv pm pa mc sat">Le
+                    glossaire</a></li>
+              </ul>
+            </div>
+            <div class="chap">
+              <b><i>II</i>Le combat</b>
+              <ul>
+                <li><a href="#combats"
+                    data-mots="tour par tour initiative phase conséquence déplacement action sous-action réaction surprise mouvements de base sauter pousser lancer flèche carquois">Le
+                    déroulement d'un combat</a></li>
+                <li><a href="#effets"
+                    data-mots="brûlé congelé éjecté foudroyé empoisonné enlisé lacéré détrempé incapacité désarmé immobilisé perce armure vol de vie faiblesse loyauté réflexion temps saignement enfumé amoureux fou ralenti engourdi contre parfait assourdi style rapide">Les
+                    effets</a></li>
+                <li><a href="#elements"
+                    data-mots="feu eau végétaux glace foudre vents terre explosion poison rejeton affinité faiblesse cycle">Les
+                    éléments et les rejetons</a></li>
+                <li><a href="#mise-au-sol"
+                    data-mots="mort agonie jet de sauvegarde constitution relever réanimer nouveau personnage niveau 0">La
+                    mise au sol et la mort</a></li>
+              </ul>
+            </div>
+            <div class="chap">
+              <b><i>III</i>La magie et les classes</b>
+              <ul>
+                <li><a href="#magie" data-mots="mana pm sort portée sagesse intelligence constitution recharge clerc druide magicien nécromancien bastioniste">Le
+                    système de la magie</a></li>
+                <li><a href="#regles-specifiques"
+                    data-mots="invocation nécromancien occultiste chaman transformation druide métamorphose arts des voleurs roublard crochetage désamorçage moisson offrandes os graisse yeux pancréas cervelle talisman bénédiction">Les
+                    règles spécifiques</a></li>
+                <li><a href="#animaux"
+                    data-mots="compagnon familier oiseau félin canidé mammifère carnivore herbivore monture vol saignement">Les
+                    animaux</a></li>
+              </ul>
+            </div>
+            <div class="chap">
+              <b><i>IV</i>La survie et le monde</b>
+              <ul>
+                <li><a href="#repos" data-mots="long repos court repos lr cr régénération camp sieste recharge">Les
+                    repos</a></li>
+                <li><a href="#satiete"
+                    data-mots="sat nourriture manger ration eau pain viande poisson légume fruit féculent synergie prix">La
+                    satiété</a></li>
+                <li><a href="#negociation" data-mots="marchand commerce charisme remise prix ristourne boutique">La
+                    négociation</a></li>
+              </ul>
+            </div>
+            <div class="chap">
+              <b><i>V</i>La progression et l'équipement</b>
+              <ul>
+                <li><a href="#level-up"
+                    data-mots="niveau xp expérience roue de la fortune point de statistique pv pm gain sort compétence ressource action type moteur bi-classe">La
+                    montée de niveau</a></li>
+                <li><a href="#equipement"
+                    data-mots="aura enchantement forgeron cumul rareté armure pa points d'armure cuirasse portée cases">L'équipement</a>
+                </li>
+              </ul>
+            </div>
+            <p class="vide" id="rienTrouve">Aucune règle ne correspond.</p>
+          </div>
+        </nav>
+      </div>
+
+      <!-- ============================================================
+           LA FEUILLE DE PARCHEMIN
+           ============================================================ -->
+      <div class="codex-sheet">
+        <h1 class="codex-title">Le codex des règles</h1>
+        <p class="codex-sub">Tout ce qu'il faut savoir pour jouer — et rien de ce qu'il faut inventer.</p>
+
+        <!-- ==================== CHAPITRE I ==================== -->
+        <div class="chapitre" id="ch-bases">
+          <span class="num">I</span>
+          <h2>Les bases</h2>
+        </div>
+
+        <!-- ---------- 1. Les checks ---------- -->
+        <section class="regle" id="checks">
+          <div class="regle-head">
+            <div class="regle-seal" aria-hidden="true">1</div>
+            <h3>Les checks</h3>
+          </div>
+          <hr>
+
+          <p>Les checks sont la principale composante du jeu de rôle. Ils consistent à atteindre une valeur donnée,
+            aussi bien en statistique qu'au dé. Il en existe deux sortes.</p>
+
+          <div class="formules">
+            <div class="formule">
+              <h5>Le check de statistique</h5>
+              <span class="calc">Valeur fixe à atteindre</span>
+              <p>Aucun dé n'est lancé : soit la statistique du personnage est assez haute, soit elle ne l'est pas.</p>
+              <p class="ex"><b>Ex :</b> les armes lourdes demandent un check de +14 en Force — il faut donc plus de
+                14 en Force pour les manier.</p>
+            </div>
+
+            <div class="formule">
+              <h5>Le check de dé</h5>
+              <span class="calc">D20 + modificateur</span>
+              <p>La valeur à atteindre est fixée par le MJ selon la difficulté de la tâche. Le jet repose sur l'une
+                des six statistiques ou sur l'une des statistiques secondaires ; le bonus ou le malus du personnage
+                sur cette statistique s'ajoute au résultat.</p>
+              <p class="ex"><b>Ex :</b> convaincre un roi demande un check à 18 en Charisme, là où un simple
+                villageois n'en demande qu'un à 8.</p>
+            </div>
+          </div>
+
+          <div class="encart">
+            <p>Chaque tranche de <b>2 points au-dessus de 10</b> sur une statistique accorde <b>+1</b> aux jets qui
+              en dépendent ; chaque point <b>en dessous de 10</b> inflige <b>−1</b>.</p>
+          </div>
+
+          <a class="renvoi" href="personnages/regles_creation.html#statistiques">Voir la répartition des statistiques
+            →</a>
+        </section>
+
+        <!-- ---------- 2. Dés de chance et avantages ---------- -->
+        <section class="regle" id="des-de-chance">
+          <div class="regle-head">
+            <div class="regle-seal" aria-hidden="true">2</div>
+            <h3>Dés de chance et avantages</h3>
+          </div>
+          <hr>
+
+          <h4>2.1 — Les dés de chance</h4>
+          <p>Les dés de chance sont des <b>D4</b> qui peuvent être ajoutés à n'importe quel lancer et à n'importe quel
+            moment, à l'exception des dés de dégâts. Avant de lancer votre dé, vous annoncez que vous ajoutez un dé
+            de chance : son résultat vient s'ajouter à celui du dé de base.</p>
+          <p>On en obtient par la <a class="renvoi" href="#roue-fortune"
+              style="margin:0;display:inline">roue de la fortune</a> en montant de niveau, ou lorsque le MJ estime
+            que vous avez fait quelque chose de bien.</p>
+
+          <h4>2.2 — Avantages et désavantages</h4>
+          <p>Dans certaines situations, le MJ peut accorder un avantage ou infliger un désavantage sur un lancer.</p>
+
+          <div class="fiches">
+            <div class="fiche" style="--tc:#2f5a3a">
+              <b>Avantage</b>
+              <span>Lancez deux fois votre dé au lieu d'une, et gardez le plus gros résultat.</span>
+            </div>
+            <div class="fiche">
+              <b>Désavantage</b>
+              <span>Lancez deux fois votre dé au lieu d'une, et gardez le plus petit résultat.</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- ---------- 3. Les statistiques secondaires ---------- -->
+        <section class="regle" id="statistiques-secondaires">
+          <div class="regle-head">
+            <div class="regle-seal" aria-hidden="true">3</div>
+            <h3>Les statistiques secondaires</h3>
+          </div>
+          <hr>
+
+          <p>Quatre statistiques se déduisent des six statistiques principales. Toutes les divisions sont
+            <b>arrondies au nombre inférieur</b>, sans exception.
+          </p>
+
+          <div class="formules">
+            <div class="formule">
+              <h5>Vitesse (Vts)</h5>
+              <span class="calc">(Force + Dextérité) ÷ 2</span>
+              <p>Définit l'ordre d'attaque en combat et le nombre de cases parcourues par tour.</p>
+              <p class="ex"><b>Ex :</b> 15 en Force et 12 en Dextérité font (15 + 12) ÷ 2 = 13,5, donc 13 de Vitesse.
+              </p>
+            </div>
+
+            <div class="formule">
+              <h5>Déplacement</h5>
+              <span class="calc">Vitesse ÷ 2</span>
+              <p>Le nombre de cases que le personnage peut parcourir en un tour.</p>
+              <p class="ex"><b>Ex :</b> 15 de Vitesse font 15 ÷ 2 = 7,5, donc 7 cases par tour.</p>
+            </div>
+
+            <div class="formule">
+              <h5>Perception</h5>
+              <span class="calc">(Sagesse + Intelligence) ÷ 2</span>
+              <p>Sert à effectuer les checks de perception.</p>
+            </div>
+
+            <div class="formule">
+              <h5>Discrétion</h5>
+              <span class="calc">(Sagesse + Dextérité) ÷ 2</span>
+              <p>Sert à effectuer les checks de discrétion.</p>
+            </div>
+          </div>
+
+          <div class="formule" style="margin-top:14px">
+            <h5>Précision</h5>
+            <span class="calc">Statistique spécifique de la classe</span>
+            <p>Sert aux checks de combat : c'est elle qui décide si votre attaque touche sa cible. En bi-classe,
+              faites la moyenne des statistiques spécifiques des deux classes.</p>
+          </div>
+        </section>
+
+        <!-- ---------- 4. Le glossaire ---------- -->
+        <section class="regle" id="glossaire">
+          <div class="regle-head">
+            <div class="regle-seal" aria-hidden="true">4</div>
+            <h3>Le glossaire</h3>
+          </div>
+          <hr>
+
+          <p>Le vocabulaire employé dans tout le reste du codex.</p>
+
+          <dl class="glossaire">
+            <div><dt>Personnage</dt><dd>ce que le joueur incarne.</dd></div>
+            <div><dt>Race</dt><dd>les différents peuples qui existent dans le monde.</dd></div>
+            <div><dt>Sous-race</dt><dd>la sous-catégorie de la race.</dd></div>
+            <div><dt>Classe</dt><dd>archétype principal du personnage, qui définit comment il se joue.</dd></div>
+            <div><dt>Type capacité</dt><dd>type de classe qui utilise des techniques.</dd></div>
+            <div><dt>Type mana</dt><dd>type de classe qui a des PM et lance des sorts.</dd></div>
+            <div><dt>Type ressource</dt><dd>type de classe qui a des ressources et utilise des compétences.</dd></div>
+            <div><dt>Ressources</dt><dd>vœux, pactes, partitions.</dd></div>
+            <div><dt>Contrat / Serment</dt><dd>les conditions du paladin et de l'occultiste.</dd></div>
+            <div><dt>Catégorie</dt><dd>archétypes de classe, qui servent à les ranger et à les différencier.</dd></div>
+            <div><dt>Buff / Nerf</dt><dd>monter ou baisser des aspects de la cible.</dd></div>
+            <div><dt>Aide</dt><dd>apporter une aide.</dd></div>
+            <div><dt>DPS</dt><dd>faire des dégâts.</dd></div>
+            <div><dt>Tank</dt><dd>prendre des dégâts.</dd></div>
+            <div><dt>Invocateur</dt><dd>faire apparaître quelque chose.</dd></div>
+            <div><dt>Heal</dt><dd>soigner et protéger.</dd></div>
+            <div><dt>Spécialité</dt><dd>chaque classe a la sienne ; son passif est basé dessus.</dd></div>
+            <div><dt>Sorts / compétences / techniques</dt><dd>ce dont le personnage est capable.</dd></div>
+            <div><dt>Passif</dt><dd>élément du personnage qui s'applique en tout temps.</dd></div>
+            <div><dt>Don</dt><dd>bonus de +2 dans une situation particulière.</dd></div>
+            <div><dt>Statistiques</dt><dd>Force, Dextérité, Constitution, Intelligence, Sagesse, Charisme.</dd></div>
+            <div><dt>Statistiques secondaires</dt><dd>Vitesse, Perception, Discrétion, Précision.</dd></div>
+            <div><dt>Caractéristiques</dt><dd>PV, PM, statistiques secondaires, etc.</dd></div>
+            <div><dt>Personnalité</dt><dd>l'histoire, les liens, le comportement, les croyances, les défauts et
+                l'apparence du personnage.</dd></div>
+            <div><dt>Comportement</dt><dd>choix parmi un spectre de possibilités définissant comment le personnage
+                agit en général.</dd></div>
+            <div><dt>Famille de…</dt><dd>grande catégorie de sorts.</dd></div>
+            <div><dt>Sous-famille de…</dt><dd>sous-catégorie de sorts.</dd></div>
+            <div><dt>Mouvements de base</dt><dd>panel d'actions prédéfinies utilisables par tout le monde.</dd></div>
+            <div><dt>Action / sous-action</dt><dd>en tour par tour, ce qui est dépensé pour faire quelque chose.</dd>
+            </div>
+            <div><dt>Auras</dt><dd>enchantements que l'on trouve naturellement sur les armes de qualité rare à super
+                épique.</dd></div>
+            <div><dt>Effets</dt><dd>ce qui s'applique sur une cible et l'affecte d'une certaine façon.</dd></div>
+            <div><dt>Effets élémentaires</dt><dd>effets basés sur un élément ou sur un rejeton.</dd></div>
+            <div><dt>Effets d'armes</dt><dd>effets portés par des armes.</dd></div>
+            <div><dt>Éléments</dt><dd>les éléments de base, avec leurs affinités et leurs faiblesses.</dd></div>
+            <div><dt>Rejeton</dt><dd>élément sans affinité ni faiblesse.</dd></div>
+            <div><dt>Portée</dt><dd>zone dans laquelle l'action peut toucher.</dd></div>
+            <div><dt>Zone de…</dt><dd>rayon de la zone d'effet.</dd></div>
+            <div><dt>Mulcret</dt><dd>la monnaie du monde.</dd></div>
+            <div><dt>Avantage / désavantage</dt><dd>lancer de plusieurs dés.</dd></div>
+          </dl>
+
+          <h4 id="abreviations">4.2 — Les abréviations</h4>
+
+          <ul class="abrevs">
+            <li><b>PV</b> points de vie</li>
+            <li><b>PM</b> points de mana</li>
+            <li><b>PA</b> points d'armure</li>
+            <li><b>Vts</b> vitesse</li>
+            <li><b>MC</b> mulcret</li>
+            <li><b>SAT</b> satiété</li>
+            <li><b>D4 / D20</b> dé et son nombre de faces</li>
+            <li><b>1T / 8T</b> nombre de tours</li>
+            <li><b>CR</b> court repos</li>
+            <li><b>LR</b> long repos</li>
+            <li><b>A</b> action</li>
+            <li><b>SA</b> sous-action</li>
+            <li><b>TTS</b> tour tout seul</li>
+            <li><b>TDA</b> tour demandant action</li>
+            <li><b>TDSA</b> tour demandant sous-action</li>
+            <li><b>CP</b> contre parfait</li>
+            <li><b>DDT</b> difficulté de toucher</li>
+            <li><b>MJ</b> maître du jeu</li>
+            <li><b>PJ</b> personnage joueur</li>
+            <li><b>PNJ</b> personnage non joueur</li>
+          </ul>
+
+          <div class="encart">
+            <p><b>Les six raretés.</b> <b>C</b> commune · <b>SC</b> super commune · <b>R</b> rare ·
+              <b>SR</b> super rare · <b>E</b> épique · <b>SE</b> super épique.
+            </p>
+          </div>
+
+          <div class="encart">
+            <p><b>TTS</b> désigne une action qui s'effectue toute seule une fois enclenchée. <b>TDA</b> et
+              <b>TDSA</b> désignent une action qui court sur plusieurs tours et réclame à chaque fois,
+              respectivement, l'action ou la sous-action du personnage.
+            </p>
+          </div>
+        </section>
+
+        <!-- ==================== CHAPITRE II ==================== -->
+        <div class="chapitre" id="ch-combat">
+          <span class="num">II</span>
+          <h2>Le combat</h2>
+        </div>
+
+        <!-- ---------- 5. Le déroulement d'un combat ---------- -->
+        <section class="regle" id="combats">
+          <div class="regle-head">
+            <div class="regle-seal" aria-hidden="true">5</div>
+            <h3>Le déroulement d'un combat</h3>
+          </div>
+          <hr>
+
+          <p>Les combats se déroulent en tour par tour. Un tour correspond à environ une minute dans le jeu.</p>
+          <p>L'ordre des joueurs et des PNJ est déterminé par un jet de dés basé sur la <b>Vitesse</b>. Si vous
+            attaquez ou êtes attaqué par surprise, le premier tour de ceux qui subissent l'attaque est sauté.</p>
+
+          <h4 id="phases">5.1 — Les trois phases d'un tour</h4>
+
+          <div class="fiches serree">
+            <div class="fiche">
+              <b>Conséquence <span class="duree">1<sup>re</sup></span></b>
+              <span>Première phase du tour, et la seule dont l'ordre est imposé. On y subit les debuffs ennemis et
+                les dégâts des effets à long terme, et c'est là que les tours sont décomptés.</span>
+            </div>
+            <div class="fiche" style="--tc:#4a6f8c">
+              <b>Déplacement</b>
+              <span>Le mouvement se fait en fonction de la Vitesse, en une seule fois. Une fois déplacé, même s'il
+                vous reste des cases disponibles, c'est trop tard.</span>
+            </div>
+            <div class="fiche" style="--tc:#b89a3e">
+              <b>Action</b>
+              <span>Se décompose en actions et sous-actions, indépendantes l'une de l'autre.</span>
+            </div>
+          </div>
+
+          <div class="encart">
+            <p>Une fois la phase de conséquence passée, <b>Déplacement</b> et <b>Action</b> peuvent être effectuées
+              dans l'ordre que vous souhaitez.</p>
+          </div>
+
+          <p class="ex"><b>Ex :</b> si le personnage porte l'effet Brûlé, il perd ses PV au début du tour, en phase
+            de conséquence.</p>
+
+          <h4 id="deplacement">5.2 — Le déplacement</h4>
+          <p>Les déplacements se font sur les axes X et Y <b>et en diagonale</b> : une case en diagonale coûte
+            exactement autant qu'une case tout droit.</p>
+
+          <figure class="grille-fig">
+            <div class="grille-dep" role="img"
+              aria-label="Grille de déplacement : les huit cases adjacentes, diagonales comprises, coûtent 1 case de déplacement ; la couronne suivante en coûte 2.">
+              <span class="c2">2</span><span></span><span class="c2">2</span><span></span><span class="c2">2</span>
+              <span></span><span class="c1">1</span><span class="c1">1</span><span class="c1">1</span><span></span>
+              <span class="c2">2</span><span class="c1">1</span><span class="moi">✦</span><span class="c1">1</span><span
+                class="c2">2</span>
+              <span></span><span class="c1">1</span><span class="c1">1</span><span class="c1">1</span><span></span>
+              <span class="c2">2</span><span></span><span class="c2">2</span><span></span><span class="c2">2</span>
+            </div>
+            <figcaption class="legende">Coût en cases de déplacement depuis la position du personnage.</figcaption>
+          </figure>
+
+          <h4 id="actions">5.3 — Actions, sous-actions et réactions</h4>
+
+          <div class="fiches">
+            <div class="fiche">
+              <b>L'action</b>
+              <span>Tout ce qui fait des dégâts, provoque un déplacement, inflige un effet causant des dégâts,
+                crée, invoque ou transforme quelque chose, ou exécute un mouvement de base.</span>
+            </div>
+            <div class="fiche" style="--tc:#4a6f8c">
+              <b>La sous-action</b>
+              <span>Les soins, les effets ne causant pas de dégâts, les buffs et nerfs, les aides, l'utilisation des
+                consommables et le dialogue.</span>
+            </div>
+          </div>
+
+          <div class="encart">
+            <p><b>Les réactions</b> sont des actifs ou des passifs utilisables à n'importe quel moment, tant que
+              leur condition est respectée.</p>
+            <p class="ex" style="margin-bottom:0"><b>Ex :</b> si vous êtes attaqué, vous pouvez lancer un dé pour
+              avoir une chance de contre-attaquer.</p>
+          </div>
+
+          <h4 id="mouvements-de-base">5.4 — Les mouvements de base</h4>
+          <p>Les mouvements de base forment un panel d'actions utilisables par tout le monde. Ils ont tous une
+            portée de 1.</p>
+
+          <div class="fiches serree">
+            <div class="fiche"><b>Ramasser</b><span>Prendre un objet au sol.</span></div>
+            <div class="fiche"><b>Équiper</b><span>Mettre en main ou sur soi un objet possédé.</span></div>
+            <div class="fiche"><b>Ranger</b><span>Remettre un objet dans son sac.</span></div>
+            <div class="fiche"><b>Sauter</b><span>Lancez un D4 et avancez en ligne droite d'autant de cases que le
+                résultat.</span></div>
+            <div class="fiche"><b>Pousser</b><span>Lancez un D4 et poussez quelque chose en ligne droite d'autant de
+                cases que le résultat.</span></div>
+            <div class="fiche"><b>Lancer</b><span>Lancez un D12 et projetez quelque chose en ligne droite d'autant de
+                cases que le résultat.</span></div>
+            <div class="fiche"><b>Relever</b><span>Remettre debout un coéquipier au sol.</span></div>
+          </div>
+
+          <p>Vous pouvez aussi effectuer toutes les actions situationnelles que vous voulez.</p>
+          <p class="ex"><b>Ex :</b> câliner, pleurer, grimper, rouler.</p>
+
+          <div class="encart">
+            <p><b>Les flèches.</b> Il vous faut un carquois pour tirer des flèches rapidement en combat. Sans
+              carquois, elles restent dans votre sac à dos.</p>
+          </div>
+        </section>
+
+        <!-- ---------- 6. Les effets ---------- -->
+        <section class="regle" id="effets">
+          <div class="regle-head">
+            <div class="regle-seal" aria-hidden="true">6</div>
+            <h3>Les effets</h3>
+          </div>
+          <hr>
+
+          <p>Un effet s'applique sur une cible et l'affecte d'une certaine façon, généralement pendant un nombre
+            de tours déterminé. Les effets élémentaires découlent d'un élément ou d'un rejeton ; les effets
+            classiques viennent d'une arme, d'une technique ou d'une situation.</p>
+
+          <h4 id="effets-elementaires">6.1 — Les effets élémentaires</h4>
+
+          <div class="fiches">
+            <div class="fiche" style="--tc:#e8402a">
+              <b>Brûlé <span class="duree">3T max</span></b>
+              <span>Le premier tour est garanti, le deuxième a ⅔ de chances de se produire et le troisième ⅓.
+                Chaque tour inflige 10 % des PV max. Peut être arrêté avec de l'eau.</span>
+            </div>
+            <div class="fiche" style="--tc:#5aa9c4">
+              <b>Congelé <span class="duree">4T</span></b>
+              <span>6 dégâts de froid par tour, et ⅓ de chances de tomber au sol à chaque case parcourue.</span>
+            </div>
+            <div class="fiche" style="--tc:#b9bcbe">
+              <b>Éjecté</b>
+              <span>Fait tomber l'arme équipée au sol, à 4 cases de la cible.</span>
+            </div>
+            <div class="fiche" style="--tc:#5240b8">
+              <b>Foudroyé <span class="duree">1T</span></b>
+              <span>Impossible de se déplacer pendant 1T, et 50 % de chances d'être dans l'impossibilité de faire
+                une action ou une sous-action pendant 1T.</span>
+            </div>
+            <div class="fiche" style="--tc:#2f9e6b">
+              <b>Empoisonné <span class="duree">5T</span></b>
+              <span>5 dégâts de poison par tour, et 50 % de chances de subir 25 % des dégâts de sa propre
+                attaque.</span>
+            </div>
+            <div class="fiche" style="--tc:#4a3a10">
+              <b>Enlisé <span class="duree">4T</span></b>
+              <span>Immobilisé. Chaque tour, lancez un D6 : sur une réussite critique, l'effet se dissipe. Sans
+                critique, il dure 4T.</span>
+            </div>
+            <div class="fiche" style="--tc:#a01212">
+              <b>Lacéré <span class="duree">combat</span></b>
+              <span>−7 % des PV max à chaque utilisation d'une action, une seule fois par tour, jusqu'à la fin du
+                combat.</span>
+            </div>
+            <div class="fiche" style="--tc:#2a7fd4">
+              <b>Détrempé <span class="duree">5T</span></b>
+              <span>Divise la Vitesse par 2 et réduit la Précision de la cible de 2.</span>
+            </div>
+          </div>
+
+          <h4 id="effets-classiques">6.2 — Les effets classiques</h4>
+
+          <div class="fiches">
+            <div class="fiche"><b>Incapacité <span class="duree">1T</span></b><span>Impossibilité de faire une
+                action ou une sous-action.</span></div>
+            <div class="fiche"><b>Désarmé</b><span>Fait tomber l'arme équipée au sol.</span></div>
+            <div class="fiche"><b>Immobilisé <span class="duree">1T</span></b><span>Impossible de se
+                déplacer.</span></div>
+            <div class="fiche"><b>Style rapide</b><span>Permet de frapper une fois de plus ce tour.</span></div>
+            <div class="fiche"><b>Perce armure</b><span>L'attaque passe outre les PA.</span></div>
+            <div class="fiche"><b>Vol de vie</b><span>L'attaque rend au lanceur 50 % des dégâts infligés en
+                PV.</span></div>
+            <div class="fiche"><b>Faiblesse</b><span>La cible prend X % de dégâts en plus lorsqu'elle est
+                attaquée.</span></div>
+            <div class="fiche"><b>Loyauté</b><span>L'arme revient dans la main après un lancer.</span></div>
+            <div class="fiche"><b>Réflexion</b><span>Renvoie à l'attaquant 75 % des dégâts de l'attaque, ainsi que
+                ses effets, après les avoir subis.</span></div>
+            <div class="fiche"><b>Temps</b><span>X % de chances d'esquiver le coup adverse.</span></div>
+            <div class="fiche"><b>Saignement <span class="duree">combat</span></b><span>−5 % des PV max par tour
+                jusqu'à la fin du combat. Également infligé par l'équipement piquant.</span></div>
+            <div class="fiche"><b>Enfumé <span class="duree">6T</span></b><span>Obscurcit fortement la vision dans
+                la zone. La fumée se dissipe avec un vent fort ou une aura de vent.</span></div>
+            <div class="fiche"><b>Amoureux <span class="duree">3T</span></b><span>La cible agit comme un pantin :
+                vous lui donnez un ordre à l'application de l'effet et elle le suit aveuglément. L'ordre ne peut pas
+                viser à la blesser elle-même, et l'effet se dissipe si vous ou un allié lui infligez des
+                dégâts.</span></div>
+            <div class="fiche"><b>Fou <span class="duree">5T</span></b><span>−4 aux jets d'Intelligence et de
+                Sagesse, et peut provoquer des visions et des altérations de la vue.</span></div>
+            <div class="fiche"><b>Ralenti</b><span>Divise la Vitesse de la cible par 2.</span></div>
+            <div class="fiche"><b>Engourdi</b><span>Enlève ⅓ des cases de déplacement.</span></div>
+            <div class="fiche"><b>Contre parfait (CP)</b><span>Réduit l'attaque de l'ennemi de 50 %.</span></div>
+            <div class="fiche"><b>Assourdi <span class="duree">1T</span></b><span>−25 % de dégâts, −3 en Précision
+                et −3 en déplacement.</span></div>
+          </div>
+        </section>
+
+        <!-- ---------- 7. Les éléments ---------- -->
+        <section class="regle" id="elements">
+          <div class="regle-head">
+            <div class="regle-seal" aria-hidden="true">7</div>
+            <h3>Les éléments et les rejetons</h3>
+          </div>
+          <hr>
+
+          <p>Les éléments font partie intégrante de la magie. Chacun possède un avantage et un désavantage sur un
+            autre, dans deux boucles indépendantes : un pentagone et un triangle. <b>La flèche pointe vers l'élément
+              qui subit.</b></p>
+
+          <div class="cycles">
+            <div class="cycle">
+              <b>La boucle des cinq</b>
+              <svg viewBox="0 0 320 320" role="img"
+                aria-label="Boucle de cinq éléments : la Foudre domine la Glace, qui domine l'Explosion, qui domine la Terre, qui domine les Vents, qui dominent la Foudre.">
+                <defs>
+                  <marker id="fl1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5"
+                    orient="auto-start-reverse">
+                    <path d="M0 0 10 5 0 10z" fill="#281b07" />
+                  </marker>
+                </defs>
+                <line x1="197.2" y1="77.0" x2="227.4" y2="99.0" marker-end="url(#fl1)" />
+                <line x1="250.4" y1="169.8" x2="238.9" y2="205.2" marker-end="url(#fl1)" />
+                <line x1="178.7" y1="249" x2="141.3" y2="249" marker-end="url(#fl1)" />
+                <line x1="81.1" y1="205.2" x2="69.6" y2="169.8" marker-end="url(#fl1)" />
+                <line x1="92.6" y1="99.0" x2="122.8" y2="77.0" marker-end="url(#fl1)" />
+                <circle cx="160" cy="50" r="40" fill="#5240b8" />
+                <text x="160" y="56" text-anchor="middle">Foudre</text>
+                <circle cx="264.6" cy="126" r="40" fill="#7fc2d6" />
+                <text x="264.6" y="132" text-anchor="middle">Glace</text>
+                <circle cx="224.7" cy="249" r="40" fill="#ef8f7d" />
+                <text x="224.7" y="255" text-anchor="middle">Explosion</text>
+                <circle cx="95.3" cy="249" r="40" fill="#4a3a10" />
+                <text x="95.3" y="255" text-anchor="middle">Terre</text>
+                <circle cx="55.4" cy="126" r="40" fill="#a9adb0" />
+                <text x="55.4" y="132" text-anchor="middle">Vents</text>
+              </svg>
+            </div>
+
+            <div class="cycle">
+              <b>La boucle des trois</b>
+              <svg viewBox="0 0 320 320" role="img"
+                aria-label="Boucle de trois éléments : le Feu domine les Végétaux, qui dominent l'Eau, qui domine le Feu.">
+                <defs>
+                  <marker id="fl2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5"
+                    orient="auto-start-reverse">
+                    <path d="M0 0 10 5 0 10z" fill="#281b07" />
+                  </marker>
+                </defs>
+                <line x1="184.0" y1="96.6" x2="226.9" y2="170.9" marker-end="url(#fl2)" />
+                <line x1="202.9" y1="212.5" x2="117.1" y2="212.5" marker-end="url(#fl2)" />
+                <line x1="93.1" y1="170.9" x2="136.0" y2="96.6" marker-end="url(#fl2)" />
+                <circle cx="160" cy="55" r="42" fill="#e8402a" />
+                <text x="160" y="61" text-anchor="middle">Feu</text>
+                <circle cx="250.9" cy="212.5" r="42" fill="#2f9e6b" />
+                <text x="250.9" y="218.5" text-anchor="middle">Végétaux</text>
+                <circle cx="69.1" cy="212.5" r="42" fill="#2a7fd4" />
+                <text x="69.1" y="218.5" text-anchor="middle">Eau</text>
+              </svg>
+            </div>
+          </div>
+
+          <div class="encart">
+            <p><b>Les rejetons</b> sont des éléments sans aucun avantage ni défaut : ils ne participent à aucune
+              boucle. Le <b>poison</b> en fait partie.</p>
+          </div>
+
+          <a class="renvoi" href="magie/livre_magie.html">Voir les sorts élémentaires dans le grand livre de la magie
+            →</a>
+        </section>
+
+        <!-- ---------- 8. La mise au sol et la mort ---------- -->
+        <section class="regle" id="mise-au-sol">
+          <div class="regle-head">
+            <div class="regle-seal" aria-hidden="true">8</div>
+            <h3>La mise au sol et la mort</h3>
+          </div>
+          <hr>
+
+          <p>Dommage… vous venez de perdre votre dernier PV. Que se passe-t-il maintenant ?</p>
+
+          <div class="encart">
+            <p>Si c'est la <b>première fois depuis le dernier long repos</b>, vous êtes mis au sol.
+              <b>Sinon, vous mourez.</b>
+            </p>
+          </div>
+
+          <h4>8.1 — Les jets de sauvegarde</h4>
+          <p>Au sol, vous disposez de trois jets de sauvegarde basés sur la <b>Constitution</b>. Vous lancez un dé
+            par tour :</p>
+
+          <ul class="bareme">
+            <li><span class="v">10 ou +</span><span class="d">une <b>réussite</b>.</span></li>
+            <li><span class="v">Moins de 10</span><span class="d">un <b>échec</b>.</span></li>
+            <li><span class="v">Dégâts subis</span><span class="d">un <b>échec</b> — même si plusieurs effets vous
+                blessent le même tour, ils ne comptent que pour un.</span></li>
+          </ul>
+
+          <div class="fiches">
+            <div class="fiche" style="--tc:#2f5a3a">
+              <b>3 réussites — vous vous relevez</b>
+              <span>Vous repartez avec 10 % de vos PV. Vos autres statistiques, PM et compteurs restent au stade où
+                ils étaient au moment de la chute, mais tous les effets négatifs infligeant des dégâts sont
+                dissipés. Un coéquipier peut aussi vous relever sans attendre les trois réussites.</span>
+            </div>
+            <div class="fiche">
+              <b>3 échecs — vous mourez</b>
+              <span>Il existe par ailleurs des situations de mort instantanée : le MJ peut prévoir des événements
+                qui vous tuent sur le champ si vous ne faites pas attention.</span>
+            </div>
+          </div>
+
+          <h4>8.2 — Après la mort</h4>
+          <p>La mort est cruelle, elle prend sans prévenir n'importe qui. Si votre personnage périt en aventure, il
+            est définitivement effacé — à moins que le MJ n'ait des plans contraires, comme une quête pour vous
+            réanimer.</p>
+          <p>Vous pourrez, si vous le souhaitez et si le MJ l'autorise, créer un nouveau personnage. Celui-ci
+            démarrera au <b>niveau 0</b> et gagnera des niveaux plus vite jusqu'à rattraper le niveau moyen de la
+            troupe.</p>
+
+          <a class="renvoi" href="personnages/regles_creation.html">Créer un nouveau personnage →</a>
+        </section>
+
+        <!-- ==================== CHAPITRE III ==================== -->
+        <div class="chapitre" id="ch-magie">
+          <span class="num">III</span>
+          <h2>La magie et les classes</h2>
+        </div>
+
+        <!-- ---------- 9. Le système de la magie ---------- -->
+        <section class="regle" id="magie">
+          <div class="regle-head">
+            <div class="regle-seal" aria-hidden="true">9</div>
+            <h3>Le système de la magie</h3>
+          </div>
+          <hr>
+
+          <p>La magie est une capacité spéciale liée au mana ambiant dans le royaume et dans tout le continent.
+            Seules certaines classes y sont sensibles et sont capables de lancer des sorts.</p>
+
+          <h4>9.1 — Les points de mana</h4>
+
+          <div class="formule">
+            <h5>Points de mana (PM)</h5>
+            <ul class="bareme">
+              <li><span class="v">75 PM</span><span class="d">de base.</span></li>
+              <li><span class="v">+ 5 PM</span><span class="d">par point <b>au-dessus</b> de 10 sur la statistique de
+                  mana de la classe.</span></li>
+              <li><span class="v">− 5 PM</span><span class="d">par point <b>en dessous</b> de 10 sur cette même
+                  statistique.</span></li>
+            </ul>
+            <p class="ex" style="margin-top:0"><b>Ex :</b> un Magicien avec 13 en Intelligence a 75 + 3 × 5 = 90 PM.
+            </p>
+          </div>
+
+          <div class="tbl-wrap">
+            <table class="tbl">
+              <caption>La statistique qui influe sur le mana dépend de la classe.</caption>
+              <thead>
+                <tr>
+                  <th>Classe</th>
+                  <th>Statistique de mana</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Clerc, Druide</td>
+                  <td class="fort">Sagesse</td>
+                </tr>
+                <tr>
+                  <td>Magicien, Nécromancien</td>
+                  <td class="fort">Intelligence</td>
+                </tr>
+                <tr>
+                  <td>Bastioniste</td>
+                  <td class="fort">Constitution</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h4>9.2 — En combat</h4>
+
+          <div class="fiches">
+            <div class="fiche" style="--tc:#4a6f8c">
+              <b>Recharge</b>
+              <span>Les PM se rechargent de <b>5 PM par tour</b>.</span>
+            </div>
+            <div class="fiche" style="--tc:#4a6f8c">
+              <b>Portée</b>
+              <span>Tous les sorts ont une portée de <b>15 cases</b>.</span>
+            </div>
+          </div>
+
+          <a class="renvoi" href="magie/livre_magie.html">Feuilleter le grand livre de la magie →</a>
+        </section>
+
+        <!-- ---------- 10. Les règles spécifiques ---------- -->
+        <section class="regle" id="regles-specifiques">
+          <div class="regle-head">
+            <div class="regle-seal" aria-hidden="true">10</div>
+            <h3>Les règles spécifiques</h3>
+          </div>
+          <hr>
+
+          <p>Certaines classes fonctionnent avec des mécaniques qui leur sont propres. Elles sont réunies ici.</p>
+
+          <h4 id="invocations">10.1 — Les invocations</h4>
+          <p>Certaines classes sont capables d'invocation. Ces invocations, allant de la puissante et unique aux
+            faibles et multiples, peuvent prendre bien des formes différentes.</p>
+          <p>Elles apparaissent dans une portée de <b>5 cases</b> du lanceur et sont contrôlées par leur maître, sauf
+            indication contraire. Une invocation contrôlée ne peut pas s'éloigner de plus de <b>20 cases</b>, et
+            peut être révoquée à tout moment.</p>
+
+          <div class="encart">
+            <p>Une invocation se décrit toujours de la même façon : <b>PV</b>, <b>PA</b>, <b>PM</b> si elle est
+              capable de magie, <b>dégâts</b>, et enfin ses <b>actions et sorts</b>.</p>
+          </div>
+
+          <div class="fiches serree">
+            <div class="fiche">
+              <b>Nécromancien</b>
+              <span>Jusqu'à 5 entités par sort, et 15 invocations au maximum sur le plateau.</span>
+            </div>
+            <div class="fiche">
+              <b>Occultiste</b>
+              <span>Une seule invocation au maximum. Les invocations puissantes lui demandent de sacrifier des
+                PV.</span>
+            </div>
+            <div class="fiche">
+              <b>Chaman</b>
+              <span>Une seule invocation au maximum, matérialisée sous forme d'esprit qui ne reste sur le plateau
+                qu'un seul tour.</span>
+            </div>
+          </div>
+
+          <h4 id="transformations">10.2 — Les transformations</h4>
+          <p>Les transformations sont propres au <b>Druide</b>. Elles lui permettent de se métamorphoser en n'importe
+            quel animal, ce qui peut être très utile en combat comme en dehors.</p>
+          <p>Au moment de se transformer, les PV du druide se convertissent en ceux de l'animal <b>en gardant le même
+              pourcentage</b> — et réciproquement au retour.</p>
+          <p class="ex"><b>Ex :</b> si le druide est à 60 % de ses PV max, la transformation démarre elle aussi à
+            60 % de ses PV max.</p>
+          <p>Les transformations se basent sur les grandes catégories d'animaux. Vous pouvez néanmoins ranger un
+            animal dans une catégorie à laquelle il n'appartient pas vraiment, tant que cela reste logique.</p>
+          <p class="ex"><b>Ex :</b> transformation en rat dans la catégorie félin/canidé, parce qu'il peut faire
+            saigner — mais avec −75 % de PV et −50 % de dégâts.</p>
+          <p>Le druide reprend les dégâts et les caractéristiques de la catégorie, à ajuster librement. Plus la
+            transformation est puissante, plus elle coûte cher en PM ; l'inverse est tout aussi vrai.</p>
+          <a class="renvoi" href="#animaux">Voir les catégories d'animaux →</a>
+
+          <h4 id="arts-des-voleurs">10.3 — Les arts des voleurs</h4>
+          <p>Les arts des voleurs recouvrent le vol, le désamorçage, le crochetage, etc.</p>
+          <div class="encart">
+            <p>Toutes les classes peuvent s'y essayer, mais seuls les <b>Roublards</b> en sont maîtres : n'importe
+              quelle autre classe lance ses jets <b>avec désavantage</b>.</p>
+          </div>
+
+          <h4 id="moisson-offrandes">10.4 — La moisson d'offrandes</h4>
+          <p>La moisson d'offrandes est la règle spécifique du <b>Chaman</b>. Contrairement aux autres classes à
+            ressource, il ne regagne pas de ressource au fil des tours de combat : il doit la récolter sur les
+            cadavres.</p>
+          <p>La moisson demande <b>une sous-action</b> et n'est réalisable qu'<b>une fois par cadavre</b>. Elle
+            permet de récupérer des offrandes plus ou moins qualitatives qui, en plus de redonner une ressource,
+            offrent au moment de leur utilisation la bénédiction d'un esprit, à vous ou à un allié.</p>
+
+          <div class="tbl-wrap">
+            <table class="tbl">
+              <caption>Chances d'obtenir chaque offrande, selon le talisman porté.</caption>
+              <thead>
+                <tr>
+                  <th rowspan="2">Offrande</th>
+                  <th colspan="3">Mono-classe</th>
+                  <th colspan="3">Bi-classe</th>
+                  <th colspan="3">Oni</th>
+                  <th rowspan="2">Bénédiction</th>
+                </tr>
+                <tr>
+                  <th>Base</th>
+                  <th>Tal. SR</th>
+                  <th>Tal. SE</th>
+                  <th>Base</th>
+                  <th>Tal. SR</th>
+                  <th>Tal. SE</th>
+                  <th>Base</th>
+                  <th>Tal. SR</th>
+                  <th>Tal. SE</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="fort">Os</td>
+                  <td class="num">80 %</td><td class="num">88 %</td><td class="num">96 %</td>
+                  <td class="num">72 %</td><td class="num">79 %</td><td class="num">86 %</td>
+                  <td class="num">84 %</td><td class="num">92 %</td><td class="num">100 %</td>
+                  <td class="txt">Rien.</td>
+                </tr>
+                <tr>
+                  <td class="fort">Graisse</td>
+                  <td class="num">50 %</td><td class="num">55 %</td><td class="num">60 %</td>
+                  <td class="num">45 %</td><td class="num">50 %</td><td class="num">54 %</td>
+                  <td class="num">63 %</td><td class="num">69 %</td><td class="num">76 %</td>
+                  <td class="txt">Résistance jusqu'au prochain tour : 10 % (5 % en bi-classe).</td>
+                </tr>
+                <tr>
+                  <td class="fort">Yeux</td>
+                  <td class="num">35 %</td><td class="num">39 %</td><td class="num">42 %</td>
+                  <td class="num">32 %</td><td class="num">35 %</td><td class="num">38 %</td>
+                  <td class="num">44 %</td><td class="num">48 %</td><td class="num">53 %</td>
+                  <td class="txt">Perception au prochain tour : +2 (+1 en bi-classe).</td>
+                </tr>
+                <tr>
+                  <td class="fort">Pancréas</td>
+                  <td class="num">20 %</td><td class="num">22 %</td><td class="num">24 %</td>
+                  <td class="num">18 %</td><td class="num">20 %</td><td class="num">22 %</td>
+                  <td class="num">25 %</td><td class="num">28 %</td><td class="num">30 %</td>
+                  <td class="txt">Soin : 10 % (5 % en bi-classe).</td>
+                </tr>
+                <tr>
+                  <td class="fort">Cervelle</td>
+                  <td class="num">15 %</td><td class="num">17 %</td><td class="num">18 %</td>
+                  <td class="num">14 %</td><td class="num">15 %</td><td class="num">17 %</td>
+                  <td class="num">19 %</td><td class="num">21 %</td><td class="num">23 %</td>
+                  <td class="txt">+1T sur l'invocation d'esprit.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <a class="renvoi" href="personnages/classes.html#classe=chaman">Voir la fiche du Chaman →</a>
+        </section>
+
+        <!-- ---------- 11. Les animaux ---------- -->
+        <section class="regle" id="animaux">
+          <div class="regle-head">
+            <div class="regle-seal" aria-hidden="true">11</div>
+            <h3>Les animaux</h3>
+          </div>
+          <hr>
+
+          <p>Il existe quatre grandes catégories d'animaux. Chacune a ses caractéristiques propres, basées sur un
+            style de combat unique.</p>
+
+          <div class="encart">
+            <p>Les animaux ont toujours <b>le même niveau que leur maître</b>. Ils gagnent en <b>Vitesse tous les
+                4 niveaux</b>, et en <b>PV et dégâts tous les 2 niveaux</b>. Ils disposent par ailleurs de
+              <b>deux emplacements d'objets animal</b>, qui peuvent servir d'armes, d'armures ou d'objets de soutien.
+            </p>
+          </div>
+
+          <h4>11.1 — Les oiseaux</h4>
+          <div class="fiches">
+            <div class="fiche" style="--tc:#7fc2d6"><b>Vol</b><span>Les oiseaux volent.</span></div>
+            <div class="fiche" style="--tc:#7fc2d6"><b>Double déplacement</b><span>Deux déplacements par tour, la
+                distance du second étant divisée par deux.</span></div>
+            <div class="fiche" style="--tc:#7fc2d6"><b>Nyctalope</b><span>Voit dans une zone de 10 autour de
+                lui.</span></div>
+            <div class="fiche" style="--tc:#7fc2d6"><b>Portée 4</b><span>Portée d'attaque de 4 cases.</span></div>
+          </div>
+          <p>Entrent dans cette catégorie tous les animaux capables de voler.</p>
+
+          <details class="repli">
+            <summary>Table de progression des oiseaux <span class="sous">— niveaux 0 à 24</span></summary>
+            <div class="corps">
+              <div class="tbl-wrap">
+                <table class="tbl">
+                  <thead>
+                    <tr>
+                      <th rowspan="2">Niveau</th>
+                      <th colspan="2">Vitesse</th>
+                      <th colspan="2">PV</th>
+                      <th colspan="2">Dégâts</th>
+                    </tr>
+                    <tr>
+                      <th>Mono</th><th>Bi</th><th>Mono</th><th>Bi</th><th>Mono</th><th>Bi</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><td class="fort">0</td><td class="num">20</td><td class="num">14</td><td class="num">40</td><td class="num">29</td><td class="num">10</td><td class="num">5</td></tr>
+                    <tr><td class="fort">2</td><td class="num">20</td><td class="num">14</td><td class="num">44</td><td class="num">31</td><td class="num">11</td><td class="num">5</td></tr>
+                    <tr><td class="fort">4</td><td class="num">22</td><td class="num">15</td><td class="num">48</td><td class="num">34</td><td class="num">12</td><td class="num">6</td></tr>
+                    <tr><td class="fort">6</td><td class="num">22</td><td class="num">15</td><td class="num">52</td><td class="num">37</td><td class="num">13</td><td class="num">6</td></tr>
+                    <tr><td class="fort">8</td><td class="num">24</td><td class="num">16</td><td class="num">57</td><td class="num">40</td><td class="num">14</td><td class="num">7</td></tr>
+                    <tr><td class="fort">10</td><td class="num">24</td><td class="num">16</td><td class="num">62</td><td class="num">44</td><td class="num">15</td><td class="num">7</td></tr>
+                    <tr><td class="fort">12</td><td class="num">26</td><td class="num">17</td><td class="num">68</td><td class="num">48</td><td class="num">16</td><td class="num">8</td></tr>
+                    <tr><td class="fort">14</td><td class="num">26</td><td class="num">17</td><td class="num">74</td><td class="num">52</td><td class="num">17</td><td class="num">8</td></tr>
+                    <tr><td class="fort">16</td><td class="num">28</td><td class="num">18</td><td class="num">81</td><td class="num">57</td><td class="num">18</td><td class="num">9</td></tr>
+                    <tr><td class="fort">18</td><td class="num">28</td><td class="num">18</td><td class="num">89</td><td class="num">62</td><td class="num">19</td><td class="num">9</td></tr>
+                    <tr><td class="fort">20</td><td class="num">30</td><td class="num">19</td><td class="num">97</td><td class="num">68</td><td class="num">20</td><td class="num">10</td></tr>
+                    <tr><td class="fort">22</td><td class="num">30</td><td class="num">19</td><td class="num">106</td><td class="num">74</td><td class="num">22</td><td class="num">11</td></tr>
+                    <tr><td class="fort">24</td><td class="num">33</td><td class="num">20</td><td class="num">116</td><td class="num">81</td><td class="num">24</td><td class="num">12</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </details>
+
+          <h4>11.2 — Les félins et les canidés</h4>
+          <div class="fiches">
+            <div class="fiche" style="--tc:#a01212"><b>Saignement</b><span>50 % de chances d'appliquer un effet de
+                saignement à chaque attaque.</span></div>
+            <div class="fiche" style="--tc:#a01212"><b>Portée 1</b><span>Portée d'attaque de 1 case.</span></div>
+          </div>
+          <p>Entrent dans cette catégorie les félins, les grands félins, les canidés, les hyènes et les ratels.</p>
+
+          <details class="repli">
+            <summary>Table de progression des félins et canidés <span class="sous">— niveaux 0 à 24</span></summary>
+            <div class="corps">
+              <div class="tbl-wrap">
+                <table class="tbl">
+                  <thead>
+                    <tr>
+                      <th rowspan="2">Niveau</th>
+                      <th colspan="2">Vitesse</th>
+                      <th colspan="2">PV</th>
+                      <th colspan="2">Dégâts</th>
+                    </tr>
+                    <tr>
+                      <th>Mono</th><th>Bi</th><th>Mono</th><th>Bi</th><th>Mono</th><th>Bi</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><td class="fort">0</td><td class="num">15</td><td class="num">10</td><td class="num">60</td><td class="num">44</td><td class="num">18</td><td class="num">9</td></tr>
+                    <tr><td class="fort">2</td><td class="num">15</td><td class="num">10</td><td class="num">66</td><td class="num">48</td><td class="num">19</td><td class="num">9</td></tr>
+                    <tr><td class="fort">4</td><td class="num">16</td><td class="num">11</td><td class="num">72</td><td class="num">52</td><td class="num">20</td><td class="num">10</td></tr>
+                    <tr><td class="fort">6</td><td class="num">16</td><td class="num">11</td><td class="num">79</td><td class="num">57</td><td class="num">22</td><td class="num">11</td></tr>
+                    <tr><td class="fort">8</td><td class="num">17</td><td class="num">12</td><td class="num">86</td><td class="num">62</td><td class="num">24</td><td class="num">12</td></tr>
+                    <tr><td class="fort">10</td><td class="num">17</td><td class="num">12</td><td class="num">94</td><td class="num">68</td><td class="num">26</td><td class="num">13</td></tr>
+                    <tr><td class="fort">12</td><td class="num">18</td><td class="num">13</td><td class="num">103</td><td class="num">74</td><td class="num">28</td><td class="num">14</td></tr>
+                    <tr><td class="fort">14</td><td class="num">18</td><td class="num">13</td><td class="num">113</td><td class="num">81</td><td class="num">30</td><td class="num">15</td></tr>
+                    <tr><td class="fort">16</td><td class="num">19</td><td class="num">14</td><td class="num">124</td><td class="num">89</td><td class="num">33</td><td class="num">16</td></tr>
+                    <tr><td class="fort">18</td><td class="num">19</td><td class="num">14</td><td class="num">136</td><td class="num">97</td><td class="num">36</td><td class="num">18</td></tr>
+                    <tr><td class="fort">20</td><td class="num">21</td><td class="num">15</td><td class="num">149</td><td class="num">106</td><td class="num">39</td><td class="num">19</td></tr>
+                    <tr><td class="fort">22</td><td class="num">21</td><td class="num">15</td><td class="num">163</td><td class="num">116</td><td class="num">42</td><td class="num">21</td></tr>
+                    <tr><td class="fort">24</td><td class="num">23</td><td class="num">16</td><td class="num">179</td><td class="num">127</td><td class="num">46</td><td class="num">23</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </details>
+
+          <h4>11.3 — Les mammifères carnivores</h4>
+          <div class="fiches">
+            <div class="fiche" style="--tc:#5a3b27"><b>Grande taille</b><span>Occupe deux cases de long.</span></div>
+            <div class="fiche" style="--tc:#5a3b27"><b>Portée 3</b><span>Portée d'attaque de 3 cases.</span></div>
+          </div>
+          <p>Entrent dans cette catégorie les ursidés, les requins, et plus généralement les super-carnivores.</p>
+
+          <details class="repli">
+            <summary>Table de progression des mammifères carnivores <span class="sous">— niveaux 0 à 24</span></summary>
+            <div class="corps">
+              <div class="tbl-wrap">
+                <table class="tbl">
+                  <thead>
+                    <tr>
+                      <th rowspan="2">Niveau</th>
+                      <th colspan="2">Vitesse</th>
+                      <th colspan="2">PV</th>
+                      <th colspan="2">Dégâts</th>
+                    </tr>
+                    <tr>
+                      <th>Mono</th><th>Bi</th><th>Mono</th><th>Bi</th><th>Mono</th><th>Bi</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><td class="fort">0</td><td class="num">6</td><td class="num">4</td><td class="num">80</td><td class="num">59</td><td class="num">30</td><td class="num">15</td></tr>
+                    <tr><td class="fort">2</td><td class="num">6</td><td class="num">4</td><td class="num">88</td><td class="num">64</td><td class="num">33</td><td class="num">16</td></tr>
+                    <tr><td class="fort">4</td><td class="num">7</td><td class="num">4</td><td class="num">96</td><td class="num">70</td><td class="num">36</td><td class="num">18</td></tr>
+                    <tr><td class="fort">6</td><td class="num">7</td><td class="num">4</td><td class="num">105</td><td class="num">77</td><td class="num">39</td><td class="num">19</td></tr>
+                    <tr><td class="fort">8</td><td class="num">8</td><td class="num">5</td><td class="num">115</td><td class="num">84</td><td class="num">42</td><td class="num">21</td></tr>
+                    <tr><td class="fort">10</td><td class="num">8</td><td class="num">5</td><td class="num">126</td><td class="num">92</td><td class="num">46</td><td class="num">23</td></tr>
+                    <tr><td class="fort">12</td><td class="num">9</td><td class="num">6</td><td class="num">138</td><td class="num">101</td><td class="num">50</td><td class="num">25</td></tr>
+                    <tr><td class="fort">14</td><td class="num">9</td><td class="num">6</td><td class="num">151</td><td class="num">111</td><td class="num">55</td><td class="num">27</td></tr>
+                    <tr><td class="fort">16</td><td class="num">10</td><td class="num">7</td><td class="num">166</td><td class="num">122</td><td class="num">60</td><td class="num">30</td></tr>
+                    <tr><td class="fort">18</td><td class="num">10</td><td class="num">7</td><td class="num">182</td><td class="num">134</td><td class="num">66</td><td class="num">33</td></tr>
+                    <tr><td class="fort">20</td><td class="num">11</td><td class="num">8</td><td class="num">200</td><td class="num">147</td><td class="num">72</td><td class="num">36</td></tr>
+                    <tr><td class="fort">22</td><td class="num">11</td><td class="num">8</td><td class="num">220</td><td class="num">161</td><td class="num">79</td><td class="num">39</td></tr>
+                    <tr><td class="fort">24</td><td class="num">12</td><td class="num">9</td><td class="num">242</td><td class="num">177</td><td class="num">86</td><td class="num">43</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </details>
+
+          <h4>11.4 — Les mammifères herbivores</h4>
+          <div class="fiches">
+            <div class="fiche" style="--tc:#2f9e6b"><b>Grande taille</b><span>Occupe deux cases de large.</span></div>
+            <div class="fiche" style="--tc:#2f9e6b"><b>Portée en éventail</b><span>2 cases devant lui et 1 case sur
+                les côtés.</span></div>
+            <div class="fiche" style="--tc:#2f9e6b"><b>Défense spéciale</b><span>Peut prendre une caractéristique de
+                défense propre à l'animal choisi.</span></div>
+          </div>
+          <p class="ex"><b>Ex :</b> le porc-épic inflige 5 dégâts à qui le touche ; l'éléphant gagne +20 % de PV mais
+            occupe 4 cases.</p>
+          <p>Entrent dans cette catégorie tous les herbivores : éléphant, vache, girafe, porc-épic, baleine…</p>
+
+          <details class="repli">
+            <summary>Table de progression des mammifères herbivores <span class="sous">— niveaux 0 à 24</span></summary>
+            <div class="corps">
+              <div class="tbl-wrap">
+                <table class="tbl">
+                  <thead>
+                    <tr>
+                      <th rowspan="2">Niveau</th>
+                      <th colspan="2">Vitesse</th>
+                      <th colspan="2">PV</th>
+                      <th colspan="2">Dégâts</th>
+                    </tr>
+                    <tr>
+                      <th>Mono</th><th>Bi</th><th>Mono</th><th>Bi</th><th>Mono</th><th>Bi</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><td class="fort">0</td><td class="num">6</td><td class="num">4</td><td class="num">120</td><td class="num">90</td><td class="num">6</td><td class="num">3</td></tr>
+                    <tr><td class="fort">2</td><td class="num">6</td><td class="num">4</td><td class="num">132</td><td class="num">99</td><td class="num">7</td><td class="num">3</td></tr>
+                    <tr><td class="fort">4</td><td class="num">7</td><td class="num">4</td><td class="num">145</td><td class="num">108</td><td class="num">7</td><td class="num">3</td></tr>
+                    <tr><td class="fort">6</td><td class="num">7</td><td class="num">4</td><td class="num">160</td><td class="num">118</td><td class="num">8</td><td class="num">4</td></tr>
+                    <tr><td class="fort">8</td><td class="num">8</td><td class="num">5</td><td class="num">174</td><td class="num">129</td><td class="num">9</td><td class="num">4</td></tr>
+                    <tr><td class="fort">10</td><td class="num">8</td><td class="num">5</td><td class="num">190</td><td class="num">141</td><td class="num">10</td><td class="num">5</td></tr>
+                    <tr><td class="fort">12</td><td class="num">9</td><td class="num">6</td><td class="num">210</td><td class="num">155</td><td class="num">11</td><td class="num">5</td></tr>
+                    <tr><td class="fort">14</td><td class="num">9</td><td class="num">6</td><td class="num">230</td><td class="num">170</td><td class="num">12</td><td class="num">6</td></tr>
+                    <tr><td class="fort">16</td><td class="num">10</td><td class="num">7</td><td class="num">254</td><td class="num">187</td><td class="num">14</td><td class="num">7</td></tr>
+                    <tr><td class="fort">18</td><td class="num">10</td><td class="num">7</td><td class="num">280</td><td class="num">205</td><td class="num">15</td><td class="num">7</td></tr>
+                    <tr><td class="fort">20</td><td class="num">11</td><td class="num">8</td><td class="num">310</td><td class="num">225</td><td class="num">17</td><td class="num">8</td></tr>
+                    <tr><td class="fort">22</td><td class="num">11</td><td class="num">8</td><td class="num">341</td><td class="num">247</td><td class="num">18</td><td class="num">9</td></tr>
+                    <tr><td class="fort">24</td><td class="num">12</td><td class="num">9</td><td class="num">375</td><td class="num">271</td><td class="num">20</td><td class="num">10</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </details>
+        </section>
+
+        <!-- ==================== CHAPITRE IV ==================== -->
+        <div class="chapitre" id="ch-survie">
+          <span class="num">IV</span>
+          <h2>La survie et le monde</h2>
+        </div>
+
+        <!-- ---------- 12. Les repos ---------- -->
+        <section class="regle" id="repos">
+          <div class="regle-head">
+            <div class="regle-seal" aria-hidden="true">12</div>
+            <h3>Les repos</h3>
+          </div>
+          <hr>
+
+          <p>Les repos sont une mécanique importante : ils régénèrent partiellement ou totalement le personnage,
+            selon celui que l'on choisit.</p>
+
+          <div class="fiches">
+            <div class="fiche" style="--tc:#5240b8">
+              <b>Long repos (LR)</b>
+              <span>Régénère <b>totalement</b> les PV, PA, PM, ressources et techniques, et réinitialise tous les
+                buffs et nerfs. Il exige <b>15 de satiété par personnage</b> et 1 litre d'eau. Un long repos, c'est
+                monter un camp et y passer la nuit.</span>
+            </div>
+            <div class="fiche" style="--tc:#4a6f8c">
+              <b>Court repos (CR)</b>
+              <span>Régénère <b>la moitié</b> des PV, PA, PM et ressources ; les techniques se rechargent du nombre
+                noté. Votre équipe peut en effectuer <b>2 par long repos</b>, sans avoir besoin de quoi que ce soit.
+                Un court repos, c'est une petite sieste.</span>
+            </div>
+          </div>
+
+          <a class="renvoi" href="#satiete">Voir comment obtenir de la satiété →</a>
+        </section>
+
+        <!-- ---------- 13. La satiété ---------- -->
+        <section class="regle" id="satiete">
+          <div class="regle-head">
+            <div class="regle-seal" aria-hidden="true">13</div>
+            <h3>La satiété</h3>
+          </div>
+          <hr>
+
+          <div class="encart">
+            <p>Un long repos coûte <b>15 de satiété (SAT) par personnage</b> et <b>1 litre d'eau</b>.</p>
+          </div>
+
+          <p>La satiété s'obtient en mangeant, et deux approches s'offrent à vous.</p>
+
+          <div class="fiches">
+            <div class="fiche" style="--tc:#b89a3e">
+              <b>La ration de survie</b>
+              <span>Donne 15 SAT d'un coup. Une valeur sûre, mais un peu plus chère que les aliments détaillés.</span>
+            </div>
+            <div class="fiche" style="--tc:#2f9e6b">
+              <b>Les aliments divers</b>
+              <span>S'achètent au détail, bien moins cher que les rations — à condition de savoir les
+                combiner.</span>
+            </div>
+          </div>
+
+          <h4>13.1 — Les quatre familles d'aliments</h4>
+          <p>Chaque famille se décline en trois niveaux de prix et de satiété : <b>3 SAT pour 57 MC</b>,
+            <b>4 SAT pour 74 MC</b> et <b>5 SAT pour 90 MC</b>.
+          </p>
+
+          <div class="tbl-wrap">
+            <table class="tbl">
+              <thead>
+                <tr>
+                  <th>Famille</th>
+                  <th>3 SAT — 57 MC</th>
+                  <th>4 SAT — 74 MC</th>
+                  <th>5 SAT — 90 MC</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="fort">Viande</td>
+                  <td>Portion de porc</td>
+                  <td>Portion de bœuf</td>
+                  <td>Portion de poulet</td>
+                </tr>
+                <tr>
+                  <td class="fort">Poisson</td>
+                  <td>Poisson d'eau douce</td>
+                  <td>Poisson d'eau de mer</td>
+                  <td>Fruit de mer</td>
+                </tr>
+                <tr>
+                  <td class="fort">Légume et fruit</td>
+                  <td>Portion de légumineuse</td>
+                  <td>Portion de légume</td>
+                  <td>Portion de fruit</td>
+                </tr>
+                <tr>
+                  <td class="fort">Féculent</td>
+                  <td>Portion de riz</td>
+                  <td>Portion de pâtes</td>
+                  <td>Portion de blé</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="encart">
+            <p><b>Le pain.</b> Une baguette ajoute 1 SAT pour 20 MC, mais il ne peut y avoir <b>qu'un seul pain par
+                repas</b>.</p>
+          </div>
+
+          <h4>13.2 — Les synergies</h4>
+          <p>Certains aliments se marient mieux que d'autres. Deux couples fonctionnent : <b>légume/fruit +
+              viande</b> et <b>féculent + poisson</b>. Ajouter du pain pousse encore la synergie.</p>
+
+          <details class="repli">
+            <summary>Table des synergies <span class="sous">— légume/fruit + viande</span></summary>
+            <div class="corps">
+              <div class="tbl-wrap">
+                <table class="tbl">
+                  <caption>Valeur de base, et valeur avec un pain entre parenthèses.</caption>
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th>Légumineuse</th>
+                      <th>Légume</th>
+                      <th>Fruit</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="fort">Porc</td>
+                      <td class="num">7 SAT <span class="fort">(10)</span></td>
+                      <td class="num">8,5 SAT <span class="fort">(12)</span></td>
+                      <td class="num">10 SAT <span class="fort">(13,5)</span></td>
+                    </tr>
+                    <tr>
+                      <td class="fort">Bœuf</td>
+                      <td class="num">8,5 SAT <span class="fort">(12)</span></td>
+                      <td class="num">10 SAT <span class="fort">(13,5)</span></td>
+                      <td class="num">11 SAT <span class="fort">(15)</span></td>
+                    </tr>
+                    <tr>
+                      <td class="fort">Poulet</td>
+                      <td class="num">10 SAT <span class="fort">(13,5)</span></td>
+                      <td class="num">11 SAT <span class="fort">(15)</span></td>
+                      <td class="num">12 SAT <span class="fort">(16,5)</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </details>
+
+          <details class="repli">
+            <summary>Table des synergies <span class="sous">— féculent + poisson</span></summary>
+            <div class="corps">
+              <div class="tbl-wrap">
+                <table class="tbl">
+                  <caption>Valeur de base, et valeur avec un pain entre parenthèses.</caption>
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th>Riz</th>
+                      <th>Pâtes</th>
+                      <th>Blé</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="fort">Poisson d'eau douce</td>
+                      <td class="num">7 SAT <span class="fort">(10)</span></td>
+                      <td class="num">8,5 SAT <span class="fort">(12)</span></td>
+                      <td class="num">10 SAT <span class="fort">(13,5)</span></td>
+                    </tr>
+                    <tr>
+                      <td class="fort">Poisson d'eau de mer</td>
+                      <td class="num">8,5 SAT <span class="fort">(12)</span></td>
+                      <td class="num">10 SAT <span class="fort">(13,5)</span></td>
+                      <td class="num">11 SAT <span class="fort">(15)</span></td>
+                    </tr>
+                    <tr>
+                      <td class="fort">Fruit de mer</td>
+                      <td class="num">10 SAT <span class="fort">(13,5)</span></td>
+                      <td class="num">11 SAT <span class="fort">(15)</span></td>
+                      <td class="num">12 SAT <span class="fort">(16,5)</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </details>
+
+          <h4>13.3 — Les prix</h4>
+
+          <details class="repli">
+            <summary>Table des prix <span class="sous">— boisson, rations et nourriture</span></summary>
+            <div class="corps">
+              <div class="tbl-wrap">
+                <table class="tbl">
+                  <thead>
+                    <tr>
+                      <th>Article</th>
+                      <th>Satiété</th>
+                      <th>Prix</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><td class="fort">1 L d'eau</td><td>—</td><td class="num">20 MC</td></tr>
+                    <tr><td class="fort">Pack ×1 ration de survie</td><td class="num">15 SAT</td><td class="num">300 MC</td></tr>
+                    <tr><td class="fort">Pack ×2 rations de survie</td><td class="num">30 SAT</td><td class="num">570 MC</td></tr>
+                    <tr><td class="fort">Pack ×4 rations de survie</td><td class="num">60 SAT</td><td class="num">1 085 MC</td></tr>
+                    <tr><td class="fort">Pack ×6 rations de survie</td><td class="num">90 SAT</td><td class="num">2 615 MC</td></tr>
+                    <tr><td class="fort">Baguette</td><td class="num">1 SAT</td><td class="num">20 MC</td></tr>
+                    <tr><td class="fort">Aliment — niveau 1</td><td class="num">3 SAT</td><td class="num">57 MC</td></tr>
+                    <tr><td class="fort">Aliment — niveau 2</td><td class="num">4 SAT</td><td class="num">74 MC</td></tr>
+                    <tr><td class="fort">Aliment — niveau 3</td><td class="num">5 SAT</td><td class="num">90 MC</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </details>
+        </section>
+
+        <!-- ---------- 14. La négociation ---------- -->
+        <section class="regle" id="negociation">
+          <div class="regle-head">
+            <div class="regle-seal" aria-hidden="true">14</div>
+            <h3>La négociation</h3>
+          </div>
+          <hr>
+
+          <p>La négociation constitue la relation principale entre les joueurs et les commerçants. La performance du
+            personnage dépend à la fois de son <b>Charisme</b> et de sa volonté de négocier.</p>
+
+          <h4>14.1 — Le Charisme décide de ce qui est possible</h4>
+
+          <ul class="bareme">
+            <li><span class="v">14 et +</span><span class="d"><b>La négociation est imposée.</b> Le personnage impose
+                sa capacité naturelle à influencer le prix : une discussion s'engage inévitablement, et la remise
+                peut être importante.</span></li>
+            <li><span class="v">12 à 13</span><span class="d"><b>La négociation est possible.</b> Le personnage peut
+                tenter de négocier, mais sa tentative peut être refusée.</span></li>
+            <li><span class="v">10 à 11</span><span class="d"><b>Pas de négociation.</b> Le marchand ne considère pas
+                le personnage comme assez charismatique pour exiger un meilleur tarif.</span></li>
+            <li><span class="v">Moins de 10</span><span class="d"><b>La négociation est défavorable.</b> Une
+                tentative ne fera qu'énerver le marchand, ce qui peut provoquer une montée des prix.</span></li>
+          </ul>
+
+          <h4>14.2 — Le déroulement</h4>
+          <p>Si une négociation est lancée, une discussion commence avec le marchand. Le joueur doit dialoguer en
+            argumentant pour obtenir une remise : plus les échanges et la créativité sont qualitatifs, plus la
+            ristourne — ou la facilité de l'obtenir — sera grande.</p>
+
+          <p>La possibilité de négocier et l'ampleur de la remise dépendent aussi de la qualité du marchand :</p>
+
+          <div class="fiches serree">
+            <div class="fiche" style="--tc:#2f5a3a"><b>Marchand novice</b><span>Facile à convaincre.</span></div>
+            <div class="fiche" style="--tc:#b89a3e"><b>Marchand classique</b><span>Neutre.</span></div>
+            <div class="fiche"><b>Marchand expert</b><span>Difficile à convaincre.</span></div>
+          </div>
+
+          <p>Le MJ peut demander un jet de dés, influencé par tout ce qui précède :</p>
+
+          <ul class="bareme">
+            <li><span class="v">Critique</span><span class="d">remise d'exception.</span></li>
+            <li><span class="v">Succès</span><span class="d">remise raisonnable.</span></li>
+            <li><span class="v">Échec</span><span class="d">rien de changé, voire augmentation des prix.</span></li>
+          </ul>
+        </section>
+
+        <!-- ==================== CHAPITRE V ==================== -->
+        <div class="chapitre" id="ch-progression">
+          <span class="num">V</span>
+          <h2>La progression et l'équipement</h2>
+        </div>
+
+        <!-- ---------- 15. La montée de niveau ---------- -->
+        <section class="regle" id="level-up">
+          <div class="regle-head">
+            <div class="regle-seal" aria-hidden="true">15</div>
+            <h3>La montée de niveau</h3>
+          </div>
+          <hr>
+
+          <p>Le MJ s'occupe de gérer la montée en niveaux : toute action peut vous faire gagner un niveau.</p>
+
+          <div class="encart">
+            <p>À chaque niveau, le personnage gagne <b>+5 % de PV</b> et <b>+5 % de PM</b>. En bi-classe, les PM ne
+              montent que de <b>2,5 % par classe</b> ayant des PM.</p>
+          </div>
+
+          <p>Les niveaux alternent ensuite deux types de gains : les niveaux impairs font tourner la
+            <b>roue de la fortune</b>, les niveaux pairs accordent <b>un point de statistique</b> — vous désignez
+            deux statistiques, et le point est attribué aléatoirement entre les deux.
+          </p>
+
+          <details class="repli">
+            <summary>Table d'expérience <span class="sous">— niveaux 1 à 20</span></summary>
+            <div class="corps">
+              <div class="tbl-wrap">
+                <table class="tbl">
+                  <thead>
+                    <tr>
+                      <th>Niveau</th>
+                      <th>XP</th>
+                      <th>Gain</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><td class="fort">1</td><td class="num">120</td><td>Roue de la fortune</td></tr>
+                    <tr><td class="fort">2</td><td class="num">150</td><td>Point de statistique</td></tr>
+                    <tr><td class="fort">3</td><td class="num">170</td><td>Roue de la fortune</td></tr>
+                    <tr><td class="fort">4</td><td class="num">210</td><td>Point de statistique</td></tr>
+                    <tr><td class="fort">5</td><td class="num">250</td><td>Roue de la fortune</td></tr>
+                    <tr><td class="fort">6</td><td class="num">300</td><td>Point de statistique</td></tr>
+                    <tr><td class="fort">7</td><td class="num">360</td><td>Roue de la fortune</td></tr>
+                    <tr><td class="fort">8</td><td class="num">430</td><td>Point de statistique</td></tr>
+                    <tr><td class="fort">9</td><td class="num">520</td><td>Roue de la fortune</td></tr>
+                    <tr><td class="fort">10</td><td class="num">620</td><td>Point de statistique</td></tr>
+                    <tr><td class="fort">11</td><td class="num">750</td><td>Roue de la fortune</td></tr>
+                    <tr><td class="fort">12</td><td class="num">890</td><td>Point de statistique</td></tr>
+                    <tr><td class="fort">13</td><td class="num">1 070</td><td>Roue de la fortune</td></tr>
+                    <tr><td class="fort">14</td><td class="num">1 280</td><td>Point de statistique</td></tr>
+                    <tr><td class="fort">15</td><td class="num">1 550</td><td>Roue de la fortune</td></tr>
+                    <tr><td class="fort">16</td><td class="num">1 850</td><td>Point de statistique</td></tr>
+                    <tr><td class="fort">17</td><td class="num">2 200</td><td>Roue de la fortune</td></tr>
+                    <tr><td class="fort">18</td><td class="num">2 600</td><td>Point de statistique</td></tr>
+                    <tr><td class="fort">19</td><td class="num">3 200</td><td>Roue de la fortune</td></tr>
+                    <tr><td class="fort">20</td><td class="num">3 850</td><td>Point de statistique</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </details>
+
+          <h4 id="roue-fortune">15.1 — La roue de la fortune</h4>
+
+          <div class="fortune">
+            <svg viewBox="0 0 220 220" role="img"
+              aria-label="Roue de la fortune : dix résultats possibles — 1200 MC 30 %, long repos 18 %, arme aléatoire 15 %, armure aléatoire 15 %, dé de chance 7 %, statistique +1 5 %, malédiction 5 %, équipement +1 rareté 3 %, enfer 1 %, paradis 1 %.">
+              <!-- les parts suivent les poids de logiciel/logiciel.js, qui font foi -->
+              <g stroke="#281b07" stroke-width="1.2">
+                <path d="M110 110 L110 10 A100 100 0 0 1 152.58 19.52 Z" fill="#2f5a3a" />
+                <path d="M110 110 L152.58 19.52 A100 100 0 0 1 178.46 37.10 Z" fill="#b89a3e" />
+                <path d="M110 110 L178.46 37.10 A100 100 0 0 1 158.18 197.63 Z" fill="#c36f2c" />
+                <path d="M110 110 L158.18 197.63 A100 100 0 0 1 128.74 208.23 Z" fill="#3f2a4f" />
+                <path d="M110 110 L128.74 208.23 A100 100 0 0 1 41.55 182.90 Z" fill="#4a5258" />
+                <path d="M110 110 L41.55 182.90 A100 100 0 0 1 10.79 97.47 Z" fill="#5a3b27" />
+                <path d="M110 110 L10.79 97.47 A100 100 0 0 1 14.89 79.10 Z" fill="#4a6f8c" />
+                <path d="M110 110 L14.89 79.10 A100 100 0 0 1 17.02 73.19 Z" fill="#5b0f0f" />
+                <path d="M110 110 L17.02 73.19 A100 100 0 0 1 19.52 67.42 Z" fill="#f5f1dd" />
+                <path d="M110 110 L19.52 67.42 A100 100 0 0 1 110 10 Z" fill="#a07a86" />
+              </g>
+              <circle cx="110" cy="110" r="18" fill="#f4ecd8" stroke="#281b07" stroke-width="2" />
+              <circle cx="110" cy="110" r="100" fill="none" stroke="#281b07" stroke-width="3" />
+            </svg>
+
+            <ul class="fortune-leg">
+              <li><i style="background:#c36f2c"></i>1 200 MC<span class="p">30 %</span></li>
+              <li><i style="background:#a07a86"></i>Long repos<span class="p">18 %</span></li>
+              <li><i style="background:#4a5258"></i>Arme aléatoire<span class="p">15 %</span></li>
+              <li><i style="background:#5a3b27"></i>Armure aléatoire<span class="p">15 %</span></li>
+              <li><i style="background:#2f5a3a"></i>Dé de chance<span class="p">7 %</span></li>
+              <li><i style="background:#b89a3e"></i>Statistique +1<span class="p">5 %</span></li>
+              <li><i style="background:#3f2a4f"></i>Malédiction<span class="p">5 %</span></li>
+              <li><i style="background:#4a6f8c"></i>Équipement +1 rareté<span class="p">3 %</span></li>
+              <li><i style="background:#5b0f0f"></i>Enfer<span class="p">1 %</span></li>
+              <li><i style="background:#f5f1dd"></i>Paradis<span class="p">1 %</span></li>
+            </ul>
+          </div>
+
+          <a class="renvoi" href="logiciel/logiciel.html">Faire tourner la roue dans le logiciel →</a>
+
+          <h4 id="gains-par-type">15.2 — Les gains selon le type de la classe</h4>
+          <p>En plus de la roue et des points de statistique, chaque classe gagne ce qui fait sa mécanique. Le rythme
+            dépend de son type.</p>
+
+          <div class="encart">
+            <p><b>Le bi-classe progresse moins vite.</b> Il conserve les mêmes gains, mais une partie des niveaux
+              saute — c'est la contrepartie de manier deux classes.</p>
+          </div>
+
+          <div class="tbl-wrap">
+            <table class="tbl">
+              <thead>
+                <tr>
+                  <th rowspan="2">Type</th>
+                  <th rowspan="2">Ce qui est gagné</th>
+                  <th colspan="2">Aux niveaux</th>
+                </tr>
+                <tr>
+                  <th>Mono-classe</th>
+                  <th>Bi-classe</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="fort">Capacité</td>
+                  <td>Action</td>
+                  <td>2 · 6 · 10 · 14 · 18</td>
+                  <td>2 · 10 · 18</td>
+                </tr>
+                <tr>
+                  <td class="fort">Mana</td>
+                  <td>Sort</td>
+                  <td>2 · 4 · 6 · 8 · 10 · 12 · 14 · 16 · 18 · 20</td>
+                  <td>2 · 6 · 10 · 14 · 18</td>
+                </tr>
+                <tr>
+                  <td class="fort" rowspan="2">Ressource</td>
+                  <td>Compétence</td>
+                  <td>2 · 5 · 8 · 11 · 14 · 17</td>
+                  <td>2 · 8 · 14</td>
+                </tr>
+                <tr>
+                  <td>Ressource</td>
+                  <td>3 · 6 · 9 · 12 · 15 · 18</td>
+                  <td>3 · 9 · 15</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <a class="renvoi" href="personnages/classes.html">Voir le type de chaque classe →</a>
+        </section>
+
+        <!-- ---------- 16. L'équipement ---------- -->
+        <section class="regle" id="equipement">
+          <div class="regle-head">
+            <div class="regle-seal" aria-hidden="true">16</div>
+            <h3>L'équipement</h3>
+          </div>
+          <hr>
+
+          <h4 id="auras">16.1 — Les auras</h4>
+          <p>Les auras sont des enchantements que l'on trouve naturellement sur les armes de qualité <b>rare à super
+              épique</b>. Un maître forgeron peut en ajouter ou en changer une contre une belle somme
+            (<b>10 000 MC</b>) — mais malgré son talent, il n'est pas capable de choisir laquelle sera appliquée.</p>
+
+          <div class="tbl-wrap">
+            <table class="tbl">
+              <caption>Nombre d'auras portées selon la rareté de l'arme, et probabilité d'en trouver une.</caption>
+              <thead>
+                <tr>
+                  <th>Rareté</th>
+                  <th>Abréviation</th>
+                  <th>Auras</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td class="fort">Commune</td><td>C</td><td>0</td></tr>
+                <tr><td class="fort">Super commune</td><td>SC</td><td>0</td></tr>
+                <tr><td class="fort">Rare</td><td>R</td><td>1 <span class="fort">(15 %)</span></td></tr>
+                <tr><td class="fort">Super rare</td><td>SR</td><td>1 <span class="fort">(20 %)</span></td></tr>
+                <tr><td class="fort">Épique</td><td>E</td><td>1 <span class="fort">(33 %)</span></td></tr>
+                <tr><td class="fort">Super épique</td><td>SE</td><td>2 <span class="fort">(50 % par aura)</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="fiches serree">
+            <div class="fiche" style="--tc:#a9adb0"><b>Vent</b><span>¼ de chances d'infliger l'effet
+                déstabilisé.</span></div>
+            <div class="fiche" style="--tc:#5240b8"><b>Foudre</b><span>¼ de chances d'infliger l'effet
+                électrifié.</span></div>
+            <div class="fiche" style="--tc:#e8402a"><b>Feu</b><span>¼ de chances d'infliger l'effet brûlure.</span>
+            </div>
+            <div class="fiche" style="--tc:#a01212"><b>Force</b><span>+20 % de dégâts.</span></div>
+            <div class="fiche" style="--tc:#2f9e6b"><b>Agilité</b><span>¼ de chances d'attaquer deux fois ce
+                tour.</span></div>
+            <div class="fiche" style="--tc:#4a6f8c"><b>Temps</b><span>¼ de chances d'esquiver le coup
+                adverse.</span></div>
+            <div class="fiche" style="--tc:#5a3b27"><b>Résistance</b><span>Confère des PA à hauteur de 20 % des PV
+                max.</span></div>
+            <div class="fiche" style="--tc:#b89a3e"><b>Vitesse</b><span>+2 en Vitesse.</span></div>
+            <div class="fiche" style="--tc:#3f2a4f"><b>Illusion</b><span>+2 en Charisme.</span></div>
+          </div>
+
+          <div class="encart">
+            <p>Si un personnage porte sur lui <b>plusieurs auras identiques</b>, leur effet se cumule — jusqu'à
+              <b>4 auras</b> maximum.
+            </p>
+          </div>
+
+          <div class="tbl-wrap">
+            <table class="tbl">
+              <caption>Effet du cumul selon la nature de l'aura.</caption>
+              <thead>
+                <tr>
+                  <th>Nombre d'auras</th>
+                  <th>1</th>
+                  <th>2</th>
+                  <th>3</th>
+                  <th>4</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="fort">Chances</td>
+                  <td class="num">¼ — 25 %</td>
+                  <td class="num">⅜ — 37,5 %</td>
+                  <td class="num">9/16 — 56 %</td>
+                  <td class="num">27/32 — 84,5 %</td>
+                </tr>
+                <tr>
+                  <td class="fort">Suppléments</td>
+                  <td class="num">20 %</td>
+                  <td class="num">30 %</td>
+                  <td class="num">45 %</td>
+                  <td class="num">65 %</td>
+                </tr>
+                <tr>
+                  <td class="fort">Ajouts</td>
+                  <td class="num">2</td>
+                  <td class="num">2</td>
+                  <td class="num">3</td>
+                  <td class="num">4</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <a class="renvoi" href="equipement/armes.html">Voir le catalogue des armes →</a>
+
+          <h4 id="armure-pa">16.2 — L'armure et les points d'armure</h4>
+          <p>Les pièces d'armure peuvent être équipées, et plusieurs pièces peuvent l'être sur le même personnage.
+            L'armure se matérialise par des <b>PA (points d'armure)</b>, calculés à partir des <b>PV max</b> du
+            personnage.</p>
+
+          <div class="formules">
+            <div class="formule">
+              <h5>Le calcul des PA</h5>
+              <span class="calc">PV max × pourcentage de la pièce</span>
+              <p>Chaque pièce d'armure indique le pourcentage qu'elle confère, selon son type et sa rareté.</p>
+              <p class="ex"><b>Ex :</b> une cuirasse lourde SR vaut 47 % ; sur un personnage à 100 PV, elle donne
+                100 × 0,47 = 47 PA.</p>
+            </div>
+
+            <div class="formule">
+              <h5>Encaisser les dégâts</h5>
+              <span class="calc">PA d'abord, PV ensuite</span>
+              <p>Lorsque les PA tombent à 0, les dégâts continuent sur les PV.</p>
+              <p class="ex"><b>Ex :</b> une attaque de 50 dégâts sur un personnage à 100 PV et 30 PA lui retire
+                30 PA et 20 PV.</p>
+            </div>
+          </div>
+
+          <a class="renvoi" href="equipement/armures.html">Voir le catalogue des armures →</a>
+
+          <h4 id="portee">16.3 — La portée</h4>
+          <p>La portée est la zone dans laquelle une action peut toucher. Elle se compte <b>en cases</b>, en cercle
+            autour de son point d'origine, et l'énoncé « zone de X » désigne le rayon de la zone d'effet.</p>
+
+          <div class="encart">
+            <p>Pour mémoire : les mouvements de base ont une portée de <b>1</b>, les invocations apparaissent dans
+              une portée de <b>5</b>, et tous les sorts portent à <b>15 cases</b>.</p>
+          </div>
+        </section>
+
+        <p class="codex-fin">Les règles sont là pour être suivies — et pour être tordues quand la table s'amuse
+          davantage ainsi.</p>
+      </div>
+    </div>
+
+    <!-- accès au sommaire en mobile : le même bloc y est déplacé par le script -->
+    <button class="codex-bouton" type="button" data-bs-toggle="offcanvas" data-bs-target="#sommaireOff"
+      aria-controls="sommaireOff">☰ Sommaire</button>
+
+    <div class="offcanvas offcanvas-start codex-off" tabindex="-1" id="sommaireOff"
+      aria-labelledby="sommaireOffTitre">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="sommaireOffTitre">Le codex</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Fermer"></button>
+      </div>
+      <div class="offcanvas-body" id="slotMobile"></div>
     </div>
   </main>
+
+  <script>
+    /* ==================================================================
+       LE SOMMAIRE DU CODEX
+       Trois comportements, sur un sommaire qui n'existe qu'une fois :
+         1. il déménage entre la colonne collante (bureau) et le panneau
+            coulissant (mobile) ;
+         2. la recherche filtre les entrées sur leur intitulé ET sur les
+            mots-clés de data-mots, pour que « saignement » trouve
+            « Les effets » ;
+         3. la règle en cours de lecture est surlignée.
+       ================================================================== */
+    (function () {
+      var nav = document.getElementById("codexNav");
+      var slotBureau = document.getElementById("slotBureau");
+      var slotMobile = document.getElementById("slotMobile");
+      var panneau = document.getElementById("sommaireOff");
+      var champ = document.getElementById("chercheRegle");
+      var liste = document.getElementById("listeRegles");
+      var rien = document.getElementById("rienTrouve");
+      var liens = Array.prototype.slice.call(liste.querySelectorAll("a[href^='#']"));
+      var chapitres = Array.prototype.slice.call(liste.querySelectorAll(".chap"));
+
+      /* ---------- 1. déménagement selon la largeur ---------- */
+      var petit = window.matchMedia("(max-width: 1099.98px)");
+
+      function placer() {
+        var cible = petit.matches ? slotMobile : slotBureau;
+        if (nav.parentNode !== cible) cible.appendChild(nav);
+      }
+      placer();
+      // addListener : repli pour les navigateurs qui ignorent addEventListener sur les MediaQueryList
+      if (petit.addEventListener) petit.addEventListener("change", placer);
+      else petit.addListener(placer);
+
+      /* en mobile, choisir une règle referme le panneau */
+      liens.forEach(function (a) {
+        a.addEventListener("click", function () {
+          if (!petit.matches) return;
+          var off = bootstrap.Offcanvas.getInstance(panneau);
+          if (off) off.hide();
+        });
+      });
+
+      /* ---------- 2. la recherche ---------- */
+      // les diacritiques sont visés par leur code, pour que le fichier reste
+      // lisible quel que soit l'éditeur qui l'ouvre
+      var DIACRITIQUES = /[\u0300-\u036f]/g;
+
+      function sansAccent(s) {
+        return s.toLowerCase().normalize("NFD").replace(DIACRITIQUES, "");
+      }
+
+      // on prépare une fois pour toutes le texte cherchable de chaque entrée
+      liens.forEach(function (a) {
+        a.dataset.cherche = sansAccent(a.textContent + " " + (a.getAttribute("data-mots") || ""));
+      });
+
+      function filtrer() {
+        var q = sansAccent(champ.value.trim());
+        var total = 0;
+
+        liens.forEach(function (a) {
+          var ok = !q || a.dataset.cherche.indexOf(q) !== -1;
+          a.parentNode.hidden = !ok;
+          if (ok) total++;
+        });
+
+        // un chapitre dont toutes les entrées sont masquées disparaît aussi
+        chapitres.forEach(function (c) {
+          var visible = c.querySelector("li:not([hidden])");
+          c.hidden = !visible;
+        });
+
+        rien.style.display = total ? "none" : "block";
+      }
+
+      champ.addEventListener("input", filtrer);
+      champ.addEventListener("keydown", function (e) {
+        if (e.key !== "Escape") return;
+        champ.value = "";
+        filtrer();
+      });
+
+      /* ---------- 3. la règle en cours de lecture ---------- */
+      var cibles = liens.map(function (a) {
+        return document.getElementById(decodeURIComponent(a.getAttribute("href").slice(1)));
+      });
+
+      var enAttente = false;
+
+      function surligner() {
+        enAttente = false;
+        var actif = 0;
+
+        /* getBoundingClientRect plutôt que offsetTop : les sections sont
+           positionnées dans .codex-sheet, leur offsetTop n'est donc pas
+           celui du document. 130 px de marge = la règle est « lue » un peu
+           avant que son titre n'atteigne le haut de l'écran. */
+        for (var i = 0; i < cibles.length; i++) {
+          if (cibles[i] && cibles[i].getBoundingClientRect().top <= 130) actif = i;
+        }
+        // tout en bas de page, c'est la dernière règle qui est lue
+        if (window.innerHeight + window.pageYOffset >= document.body.scrollHeight - 4) {
+          actif = cibles.length - 1;
+        }
+
+        liens.forEach(function (a, i) {
+          a.classList.toggle("ici", i === actif);
+        });
+
+        // en bureau, on garde l'entrée courante visible dans le sommaire
+        if (!petit.matches) {
+          var a = liens[actif];
+          if (a.offsetTop < liste.scrollTop ||
+            a.offsetTop + a.offsetHeight > liste.scrollTop + liste.clientHeight) {
+            liste.scrollTop = a.offsetTop - liste.clientHeight / 2;
+          }
+        }
+      }
+
+      window.addEventListener("scroll", function () {
+        if (enAttente) return;
+        enAttente = true;
+        requestAnimationFrame(surligner);
+      }, { passive: true });
+      window.addEventListener("resize", surligner);
+      surligner();
+
+      /* la police du site arrive après coup et fait bouger toutes les
+         sections : sans ce second passage, le surlignage reste calé sur
+         les positions mesurées en police de secours */
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(surligner);
+      window.addEventListener("load", surligner);
+    })();
+  </script>
 </body>
 
 </html>
