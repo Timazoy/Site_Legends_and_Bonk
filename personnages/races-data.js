@@ -321,7 +321,7 @@ window.RACES = {
       couleur: "#8a3f7a",
       image: "tieffelin.webp",
       forme: "cornu",
-      taille: null,
+      taille: { min: 1.5, max: 2, texte: "1,50 m à 2,00 m" },
       resume: "Trois héritages infernaux, trois profils opposés.",
       description: [
         "Les tieffelins sont les descendants de pactes passés avec des entités infernales, ou d’un ancêtre qui a eu des liens avec des diables ou des démons.",
