@@ -47,7 +47,7 @@ const TAROTS = [
   {
     num: "IV",
     nom: "L'Empereur",
-    image: null,
+    image: "empereur_tarot.webp",
     niveaux: [
       "Invoquez une armure vivante (PV : 20 ; PA : 20 ; VTS : 10 ; DDT : 10 ; Précision : 10 ; Dégâts : 20).",
       "Invoquez une armure vivante améliorée (PV : 30 ; PA : 30 ; VTS : 12 ; DDT : 12 ; Précision : 12 ; Dégâts : 25).",
@@ -137,7 +137,7 @@ const TAROTS = [
   {
     num: "XIII",
     nom: "La Mort",
-    image: null,
+    image: "mort_tarot.webp",
     niveaux: [
       "Vous sacrifiez toute votre vie et vous infligez des dégâts à hauteur de 80% de votre vie max à toutes les entités dans une zone de 3.",
       "Vous sacrifiez toute votre vie et vous infligez des dégâts à hauteur de votre vie max à toutes les entités dans une zone de 3.",
