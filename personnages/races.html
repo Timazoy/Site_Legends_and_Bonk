@@ -145,6 +145,26 @@
     .silh.avec-image img { display: block; }
     .silh.avec-image svg { display: none; }
 
+    /* Les dessins des peuples sont de la forme pure : du noir opaque sur du
+       vide. On ne les montre donc pas comme des images mais comme des
+       pochoirs — le dessin découpe un aplat de currentColor par-dessus la
+       balise, qui reste en place pour donner ses proportions à la case. La
+       silhouette dessinée prend ainsi la même encre que le pictogramme
+       qu'elle remplace, vire au bordeaux au survol et porte la couleur de la
+       race sur sa fiche, sans qu'on ait à produire dix variantes du fichier. */
+    .silh.avec-image img { visibility: hidden; }
+    .silh.avec-image::before {
+      content: ""; position: absolute; inset: 0; background: currentColor;
+      -webkit-mask: var(--dessin) center bottom / contain no-repeat;
+      mask: var(--dessin) center bottom / contain no-repeat;
+    }
+    /* faute de pochoir, l'image se montre telle quelle : le fichier porte
+       déjà l'encre brune, seul le jeu des couleurs est perdu */
+    @supports not ((-webkit-mask-image: none) or (mask-image: none)) {
+      .silh.avec-image img { visibility: visible; }
+      .silh.avec-image::before { display: none; }
+    }
+
     /* le trait de la borne basse de la fourchette de taille */
     .silh::after {
       content: ""; position: absolute; left: -8px; right: -8px;
@@ -225,7 +245,8 @@
     }
     .toise-fiche .silh { color: var(--c, #3a2f1c); }
     .toise-fiche .fantome { color: #a3947a; }
-    .toise-fiche .fantome svg { opacity: .5; }
+    .toise-fiche .fantome svg,
+    .toise-fiche .fantome.avec-image::before { opacity: .5; }
     .toise-etiq { text-align: center; font-size: 12.5px; color: var(--muted); margin: 7px 0 0; font-style: italic; }
 
     .ident { margin-top: 14px; border: 1px solid var(--line); border-radius: 9px; background: #fffdf6; overflow: hidden; }
@@ -554,12 +575,16 @@
           f[1] + '</svg>';
       }
 
-      /* le bloc silhouette : l'image si elle existe, le pictogramme sinon */
+      /* le bloc silhouette : l'image si elle existe, le pictogramme sinon.
+         --dessin porte l'URL du pochoir, que le CSS pose par-dessus la
+         balise <img> une fois celle-ci chargée. */
       function silhHTML(r, hauteur, hmin, cls) {
+        var url = r.image ? IMG + encodeURIComponent(r.image) : null;
         var st = '--h:' + hauteur + ';--hmin:' + (hmin != null ? hmin : hauteur) +
-          ';--fourchette:' + (hmin != null && hmin < hauteur ? 1 : 0);
+          ';--fourchette:' + (hmin != null && hmin < hauteur ? 1 : 0) +
+          (url ? ';--dessin:url(&quot;' + url + '&quot;)' : "");
         return '<div class="silh' + (cls ? " " + cls : "") + '" style="' + st + '">' +
-          (r.image ? '<img class="silh-img" src="' + IMG + encodeURIComponent(r.image) +
+          (url ? '<img class="silh-img" src="' + url +
             '" alt="Silhouette — ' + esc(r.nom) + '">' : "") +
           silhouetteSVG(r.forme) + '</div>';
       }
@@ -841,7 +866,7 @@
         /* L'humain est l'étalon : sur sa propre fiche, l'ombre le ferait se
            mesurer à lui-même, et sa silhouette (dessinée au haut de sa
            fourchette, 2 m) dépasserait l'humain moyen d'1,75 m. */
-        var fantome = { nom: "Humain", forme: "humanoide", image: null };
+        var fantome = { nom: "Humain", forme: "humanoide", image: "humain.webp" };
         var seul = r.slug === "humain";
         return '<div class="toise-fiche' + (seul ? " solo" : "") + '" style="--c:' + r.couleur + '">' + grads +
           (seul ? "" : silhHTML(fantome, H_HUMAIN, null, "fantome")) +

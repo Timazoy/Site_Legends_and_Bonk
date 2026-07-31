@@ -11,9 +11,10 @@
        couleur: "#a07b46",          // teinte d'accent de la race
        image: "humain.webp",        // silhouette, dans
                                     // image-db/personnages/races/
-                                    // (si le fichier manque, la page
-                                    //  dessine une silhouette de
-                                    //  remplacement, voir « forme »)
+                                    // (null tant que le dessin n'existe
+                                    //  pas : la page trace alors une
+                                    //  silhouette de remplacement, voir
+                                    //  « forme »)
        forme: "humanoide",          // silhouette de remplacement :
                                     // humanoide | elance | trapu | massif
                                     // aile | reptile | cornu | bestial
@@ -404,7 +405,7 @@ window.RACES = {
       slug: "elementari",
       nom: "Élémentari",
       couleur: "#5a7a9e",
-      image: "elementari.webp",
+      image: null,                 /* dessin à faire */
       forme: "informe",
       taille: null,
       resume: "Huit origines qui se dominent en cercle.",
@@ -476,7 +477,7 @@ window.RACES = {
       slug: "golemovi",
       nom: "Golemovi",
       couleur: "#7a7266",
-      image: "golemovi.webp",
+      image: null,                 /* dessin à faire */
       forme: "bloc",
       taille: null,
       resume: "Deux techniques de création, deux êtres opposés.",
@@ -554,7 +555,7 @@ window.RACES = {
       slug: "garou",
       nom: "Garou",
       couleur: "#8a6b3a",
-      image: "garou.webp",
+      image: null,                 /* dessin à faire */
       forme: "bestial",
       taille: null,
       resume: "L’instinct à la place de la tête, et la folie au bout.",
@@ -645,7 +646,7 @@ window.RACES = {
       slug: "graille-tout",
       nom: "Graille-Tout",
       couleur: "#b07c2f",
-      image: "graille-tout.webp",
+      image: null,                 /* dessin à faire */
       forme: "humanoide",
       taille: null,
       resume: "Aussi vieux que le monde, et toujours affamé.",

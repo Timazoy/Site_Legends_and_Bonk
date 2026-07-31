@@ -1,1 +1,5 @@
 .claude/
+
+# Dessins d'origine des silhouettes de peuples : de grands aplats a 3200x6000,
+# dont seules les versions converties (.webp) sont versionnees.
+image-db/personnages/races/*.png
