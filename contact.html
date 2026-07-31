@@ -12,13 +12,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap"
     rel="stylesheet" />
   <title>Contact — Legends & Bonk</title>
-  <meta name="description" content="Contactez l’équipe de Legends & Bonk : questions, retours et suggestions autour de notre jeu de rôle." />
+  <meta name="description"
+    content="Contactez l’équipe de Legends & Bonk : questions, retours et suggestions autour de notre jeu de rôle." />
   <link rel="canonical" href="https://legendsandbonk.com/contact.html" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Legends &amp; Bonk" />
   <meta property="og:locale" content="fr_FR" />
   <meta property="og:title" content="Contact — Legends & Bonk" />
-  <meta property="og:description" content="Contactez l’équipe de Legends & Bonk : questions, retours et suggestions autour de notre jeu de rôle." />
+  <meta property="og:description"
+    content="Contactez l’équipe de Legends & Bonk : questions, retours et suggestions autour de notre jeu de rôle." />
   <meta property="og:url" content="https://legendsandbonk.com/contact.html" />
   <meta property="og:image" content="https://legendsandbonk.com/image/og_partage.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -26,6 +28,517 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
     crossorigin="anonymous"></script>
+
+  <style>
+    /* ==========================================================
+       CONTACT — « La missive scellée »
+       Gimmick de la page : une lettre de parchemin posée sur le
+       bureau, que l'on cachette à la cire pour l'envoyer.
+       Aucune adresse e-mail n'apparaît dans cette page : le
+       formulaire passe par Web3Forms (voir le script en bas).
+       ========================================================== */
+    :root {
+      --parch: #f3e7cb;
+      --parch2: #e7d5ae;
+      --ink: #34260f;
+      --line: #c9b892;
+      --brun: #281b07;
+      --bordeaux: #7a0808;
+      --gold: #d8b24a;
+      --muted: #6b5a3a;
+      --bois1: #4a3a2e;
+      --bois2: #33261d;
+      --bois3: #1d150e;
+    }
+
+    .miss-wrap {
+      max-width: 1000px;
+      margin: 22px auto 60px;
+      padding: 0 12px;
+      color: var(--ink);
+    }
+
+    .miss-title {
+      text-align: center;
+      font-weight: 700;
+      letter-spacing: .5px;
+      margin: 4px 0 2px;
+      color: var(--brun);
+    }
+
+    .miss-sub {
+      text-align: center;
+      color: var(--muted);
+      font-style: italic;
+      margin-bottom: 18px;
+    }
+
+    /* ---- le bureau : plateau de bois sur lequel repose la lettre ---- */
+    .bureau {
+      position: relative;
+      border-radius: 14px;
+      padding: 34px 18px 42px;
+      background:
+        repeating-linear-gradient(90deg, rgba(0, 0, 0, .12) 0 2px, transparent 2px 46px),
+        linear-gradient(180deg, var(--bois1), var(--bois2) 60%, var(--bois3));
+      box-shadow: inset 0 0 60px rgba(0, 0, 0, .55), 0 10px 24px rgba(0, 0, 0, .28);
+      overflow: hidden;
+    }
+
+    /* halo de bougie, en haut à gauche */
+    .bureau::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(circle at 22% 0%, rgba(255, 177, 74, .20), transparent 55%);
+    }
+
+    /* plume posée en bas à droite du bureau (décor) */
+    .plume {
+      position: absolute;
+      right: 12px;
+      bottom: 22px;
+      width: 210px;
+      color: #e8d9a8;
+      opacity: .34;
+      pointer-events: none;
+    }
+
+    /* ---- la feuille de parchemin ---- */
+    .missive {
+      position: relative;
+      z-index: 2;
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 30px 34px 34px;
+      color: var(--ink);
+      background:
+        /* pliures horizontales : creux puis arête de lumière, très adoucis */
+        linear-gradient(180deg, transparent 30%, rgba(150, 125, 80, .10) 33%, rgba(255, 255, 255, .45) 33.7%, transparent 37%),
+        linear-gradient(180deg, transparent 63%, rgba(150, 125, 80, .09) 66%, rgba(255, 255, 255, .4) 66.7%, transparent 70%),
+        linear-gradient(160deg, var(--parch), var(--parch2));
+      border-radius: 3px;
+      box-shadow: 0 2px 0 rgba(255, 255, 255, .35) inset, 0 14px 30px rgba(0, 0, 0, .45);
+      transform: rotate(-.25deg);
+      transition: transform .5s ease, opacity .5s ease;
+    }
+
+    /* bord déchiré/irrégulier de la feuille */
+    .missive::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      border-radius: 3px;
+      pointer-events: none;
+      border: 1px solid rgba(122, 8, 8, .14);
+      box-shadow: inset 0 0 22px rgba(120, 95, 50, .22);
+    }
+
+    .missive-head {
+      text-align: center;
+      margin-bottom: 22px;
+    }
+
+    .missive-head .a-l-attention {
+      font-style: italic;
+      color: var(--muted);
+      font-size: 17px;
+      margin: 0;
+    }
+
+    .missive-head .destinataire {
+      font-size: 27px;
+      font-weight: 700;
+      color: var(--brun);
+      margin: 2px 0 10px;
+      line-height: 1.1;
+    }
+
+    /* filet ornemental sous l'en-tête */
+    .filet {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--bordeaux);
+    }
+
+    .filet::before,
+    .filet::after {
+      content: "";
+      height: 1px;
+      flex: 1;
+      background: linear-gradient(90deg, transparent, var(--line), transparent);
+    }
+
+    .filet svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* ---- les champs, écrits « à la plume » sur des lignes réglées ---- */
+    .champ {
+      margin-bottom: 20px;
+    }
+
+    .champ>label {
+      display: block;
+      font-size: 15px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: #8a6d34;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .champ .obligatoire {
+      color: var(--bordeaux);
+    }
+
+    .missive input[type="text"],
+    .missive input[type="email"],
+    .missive select,
+    .missive textarea {
+      width: 100%;
+      font-family: inherit;
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--ink);
+      background: transparent;
+      border: 0;
+      border-bottom: 1px solid var(--line);
+      padding: 5px 2px;
+      border-radius: 0;
+      transition: border-color .15s, box-shadow .15s;
+    }
+
+    .missive textarea {
+      /* lignes réglées de la feuille : le texte se pose dessus */
+      background-image: repeating-linear-gradient(180deg, transparent 0 33px, rgba(201, 184, 146, .7) 33px 34px);
+      line-height: 34px;
+      min-height: 170px;
+      resize: vertical;
+      border-bottom: 0;
+      padding: 0 2px;
+    }
+
+    .missive select {
+      appearance: none;
+      cursor: pointer;
+    }
+
+    .missive select:focus,
+    .missive input:focus,
+    .missive textarea:focus {
+      outline: 0;
+      border-bottom-color: var(--bordeaux);
+      box-shadow: 0 1px 0 var(--bordeaux);
+    }
+
+    .missive textarea:focus {
+      box-shadow: none;
+      outline: 2px solid rgba(122, 8, 8, .45);
+      outline-offset: 4px;
+    }
+
+    .missive ::placeholder {
+      color: rgba(107, 90, 58, .55);
+      font-style: italic;
+      font-weight: 500;
+    }
+
+    /* le champ « sujet » garde un chevron dessiné */
+    .champ-select {
+      position: relative;
+    }
+
+    .champ-select::after {
+      content: "";
+      position: absolute;
+      right: 6px;
+      bottom: 14px;
+      pointer-events: none;
+      width: 8px;
+      height: 8px;
+      border-right: 2px solid var(--bordeaux);
+      border-bottom: 2px solid var(--bordeaux);
+      transform: rotate(45deg);
+    }
+
+    /* piège à robots : invisible pour les humains, rempli par les spambots */
+    .miel {
+      position: absolute;
+      left: -9999px;
+      opacity: 0;
+      height: 0;
+      overflow: hidden;
+    }
+
+    /* ---- le sceau de cire : c'est le bouton d'envoi ---- */
+    .envoi {
+      text-align: center;
+      margin-top: 26px;
+    }
+
+    .btn-sceau {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      background: none;
+      border: 0;
+      padding: 4px 10px;
+      cursor: pointer;
+      font-family: inherit;
+      color: var(--brun);
+    }
+
+    .btn-sceau .cire {
+      position: relative;
+      width: 92px;
+      height: 92px;
+      display: grid;
+      place-items: center;
+      /* contour volontairement irrégulier : de la cire écrasée, pas un rond parfait */
+      border-radius: 44% 56% 51% 49% / 53% 44% 56% 47%;
+      background: radial-gradient(circle at 34% 28%, #c2432f, #8b0f0f 52%, #5a0404);
+      box-shadow: inset 0 3px 8px rgba(255, 255, 255, .28), inset 0 -8px 14px rgba(0, 0, 0, .45), 0 6px 14px rgba(0, 0, 0, .4);
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+
+    /* coulure de cire sur le côté */
+    .btn-sceau .cire::after {
+      content: "";
+      position: absolute;
+      right: 14px;
+      bottom: -9px;
+      width: 17px;
+      height: 24px;
+      border-radius: 50% 50% 60% 40% / 30% 30% 70% 70%;
+      background: radial-gradient(circle at 30% 25%, #a92a1f, #6d0808 70%);
+      box-shadow: 0 3px 6px rgba(0, 0, 0, .35);
+    }
+
+    .btn-sceau .cire span {
+      position: relative;
+      z-index: 1;
+      font-size: 25px;
+      font-weight: 700;
+      letter-spacing: .04em;
+      color: #5a0404;
+      text-shadow: 0 1px 0 rgba(255, 190, 175, .5), 0 -1px 1px rgba(0, 0, 0, .55);
+    }
+
+    .btn-sceau .mention {
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: .04em;
+    }
+
+    .btn-sceau:hover .cire {
+      transform: rotate(-4deg) scale(1.04);
+    }
+
+    .btn-sceau:active .cire {
+      transform: scale(.96);
+      box-shadow: inset 0 3px 10px rgba(0, 0, 0, .5);
+    }
+
+    .btn-sceau:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 4px;
+      border-radius: 12px;
+    }
+
+    .btn-sceau[disabled] {
+      cursor: wait;
+      opacity: .75;
+    }
+
+    /* ---- messages d'état ---- */
+    .statut {
+      margin: 18px auto 0;
+      max-width: 560px;
+      text-align: center;
+      font-size: 17px;
+      padding: 10px 16px;
+      border-radius: 10px;
+      display: none;
+    }
+
+    .statut.visible {
+      display: block;
+    }
+
+    .statut.erreur {
+      background: rgba(122, 8, 8, .10);
+      border: 1px solid rgba(122, 8, 8, .35);
+      color: #6d0a0a;
+    }
+
+    .statut.info {
+      background: rgba(216, 178, 74, .14);
+      border: 1px solid rgba(122, 8, 8, .18);
+      color: var(--muted);
+    }
+
+    /* ---- la lettre est partie : confirmation ---- */
+    .partie {
+      display: none;
+      text-align: center;
+      padding: 30px 10px 10px;
+    }
+
+    .partie svg {
+      width: 150px;
+      color: var(--brun);
+    }
+
+    .partie h2 {
+      font-size: 27px;
+      font-weight: 700;
+      color: var(--brun);
+      margin: 14px 0 6px;
+    }
+
+    .partie p {
+      color: var(--muted);
+      font-style: italic;
+      margin-bottom: 18px;
+    }
+
+    .btn-rouvrir {
+      font-family: inherit;
+      font-size: 16px;
+      font-weight: 700;
+      padding: 6px 18px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: transparent;
+      color: var(--ink);
+      cursor: pointer;
+    }
+
+    .btn-rouvrir:hover {
+      border-color: var(--bordeaux);
+      color: var(--bordeaux);
+    }
+
+    /* bascule formulaire → confirmation */
+    .missive.envoyee form {
+      display: none;
+    }
+
+    .missive.envoyee .partie {
+      display: block;
+      animation: apparait .5s ease both;
+    }
+
+    .missive.envoyee .cachet-pose {
+      animation: tampon .55s cubic-bezier(.2, 1.4, .5, 1) both;
+    }
+
+    @keyframes apparait {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    @keyframes tampon {
+      0% {
+        opacity: 0;
+        transform: scale(2.6) rotate(-18deg);
+      }
+
+      70% {
+        opacity: 1;
+        transform: scale(.92) rotate(3deg);
+      }
+
+      100% {
+        opacity: 1;
+        transform: scale(1) rotate(0);
+      }
+    }
+
+    /* mention de traitement des données */
+    .rgpd {
+      max-width: 680px;
+      margin: 16px auto 0;
+      text-align: center;
+      font-size: 15px;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    .rgpd a {
+      color: var(--bordeaux);
+    }
+
+    @media (max-width: 640px) {
+      .miss-title {
+        font-size: 1.6rem;
+      }
+
+      .bureau {
+        padding: 18px 10px 24px;
+      }
+
+      .missive {
+        padding: 22px 18px 26px;
+        transform: none;
+      }
+
+      .missive-head .destinataire {
+        font-size: 22px;
+      }
+
+      .missive input,
+      .missive select,
+      .missive textarea {
+        font-size: 17px;
+      }
+
+      .missive textarea {
+        min-height: 150px;
+      }
+
+      .plume {
+        display: none;
+      }
+
+      .btn-sceau .cire {
+        width: 78px;
+        height: 78px;
+      }
+
+      .btn-sceau .cire span {
+        font-size: 20px;
+      }
+
+      .partie svg {
+        width: 110px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      .missive.envoyee .partie,
+      .missive.envoyee .cachet-pose {
+        animation: none;
+      }
+
+      * {
+        transition: none !important;
+      }
+    }
+  </style>
 </head>
 
 <body>
@@ -33,11 +546,186 @@
 
   <!-- Contenu de la page -->
   <main>
-    <div class="container" style="margin-top: 20px;">
-      <h1 class="text-center">Contact</h1>
-      <p class="text-center">Cette page arrive bientôt…</p>
+    <div class="miss-wrap">
+      <h1 class="miss-title">Contact</h1>
+      <p class="miss-sub">Une question, une coquille repérée, une idée de règle ? Écrivez-nous une missive.</p>
+
+      <div class="bureau">
+        <!-- plume d'oie posée sur le bureau (décor) -->
+        <svg class="plume" viewBox="0 0 200 90" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M8 82c26-4 44-12 58-24" />
+          <path d="M60 60c22-20 38-44 44-56 10 16 12 40 4 56-8 16-26 26-48 24-4-8-4-16 0-24z" />
+          <path d="M104 8c-8 18-20 36-34 48M96 26c-10 12-20 22-30 30M110 36c-8 10-16 18-26 24" />
+        </svg>
+
+        <div class="missive" id="missive">
+          <div class="missive-head">
+            <p class="a-l-attention">À l’attention de</p>
+            <p class="destinataire">l’équipe de Legends &amp; Bonk</p>
+            <div class="filet" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2l2.5 7.5H22l-6 4.5 2.3 7-6.3-4.6L5.7 21 8 14 2 9.5h7.5z" />
+              </svg>
+            </div>
+          </div>
+
+          <!-- Le formulaire ne contient aucune adresse : il poste vers Web3Forms,
+               qui relaie le message. Voir CLE_WEB3FORMS dans le script. -->
+          <form id="formulaire-missive" novalidate>
+            <div class="champ">
+              <label for="nom">Votre nom <span class="obligatoire" aria-hidden="true">*</span></label>
+              <input type="text" id="nom" name="nom" required autocomplete="name"
+                placeholder="Comment doit-on vous appeler ?" />
+            </div>
+
+            <div class="champ">
+              <label for="email">Votre adresse <span class="obligatoire" aria-hidden="true">*</span></label>
+              <input type="email" id="email" name="email" required autocomplete="email"
+                placeholder="Pour que la réponse vous trouve" />
+            </div>
+
+            <div class="champ champ-select">
+              <label for="sujet">Objet de la missive</label>
+              <select id="sujet" name="sujet">
+                <option>Une question sur les règles</option>
+                <option>Une suggestion, une idée</option>
+                <option>Une erreur, une coquille sur le site</option>
+                <option>Rejoindre l’aventure / participer</option>
+                <option>Autre chose</option>
+              </select>
+            </div>
+
+            <div class="champ">
+              <label for="message">Votre message <span class="obligatoire" aria-hidden="true">*</span></label>
+              <textarea id="message" name="message" required rows="5" placeholder="Écrivez ici…"></textarea>
+            </div>
+
+            <!-- piège à robots : un humain ne voit jamais ce champ -->
+            <div class="miel" aria-hidden="true">
+              <label for="botcheck">Laissez ce champ vide</label>
+              <input type="checkbox" id="botcheck" name="botcheck" tabindex="-1" autocomplete="off" />
+            </div>
+
+            <div class="envoi">
+              <button type="submit" class="btn-sceau" id="bouton-envoi">
+                <span class="cire" aria-hidden="true"><span>L&amp;B</span></span>
+                <span class="mention" id="mention-envoi">Cacheter et envoyer</span>
+              </button>
+            </div>
+
+            <p class="statut" id="statut" role="status" aria-live="polite"></p>
+          </form>
+
+          <!-- Confirmation, affichée à la place du formulaire une fois la lettre partie -->
+          <div class="partie" id="partie">
+            <svg class="cachet-pose" viewBox="0 0 120 90" fill="none" stroke="currentColor" stroke-width="2.5"
+              stroke-linejoin="round" aria-hidden="true">
+              <rect x="6" y="14" width="108" height="66" rx="4" fill="rgba(255,255,255,.35)" />
+              <path d="M6 18l54 36 54-36" />
+              <circle cx="60" cy="54" r="15" fill="#8b0f0f" stroke="#5f0505" />
+              <path d="M60 47l2.6 7.6H70l-6 4.4 2.3 7-6.3-4.4-6.3 4.4 2.3-7-6-4.4h7.4z" fill="#f3e7cb" stroke="none" />
+            </svg>
+            <h2>Votre missive est partie.</h2>
+            <p>Nous vous répondons dès que possible, à l’adresse que vous avez laissée.</p>
+            <button type="button" class="btn-rouvrir" id="bouton-rouvrir">Écrire une autre missive</button>
+          </div>
+        </div>
+      </div>
+
+      <p class="rgpd">
+        Votre message est acheminé par <a href="https://web3forms.com/privacy" target="_blank"
+          rel="noopener">Web3Forms</a> jusqu’à notre boîte aux lettres. Il ne sert qu’à vous répondre et n’est utilisé
+        pour rien d’autre.
+      </p>
     </div>
   </main>
+
+  <script>
+    /* ==================================================================
+       ENVOI DE LA MISSIVE — via Web3Forms (aucun serveur de notre côté)
+
+       ⚠ À FAIRE : coller ci-dessous la clé d'accès obtenue sur
+       https://web3forms.com (saisir l'adresse de réception, valider le
+       mail de confirmation, copier l'« Access Key »). C'est un
+       identifiant public : il autorise seulement l'envoi VERS notre
+       adresse, et ne révèle pas cette adresse.
+       ================================================================== */
+    const CLE_WEB3FORMS = "a35983ab-2a80-4275-8409-883538771220";
+
+    (function () {
+      var form = document.getElementById("formulaire-missive");
+      var missive = document.getElementById("missive");
+      var bouton = document.getElementById("bouton-envoi");
+      var mention = document.getElementById("mention-envoi");
+      var statut = document.getElementById("statut");
+      var envoiEnCours = false;
+
+      function afficher(texte, type) {
+        statut.textContent = texte;
+        statut.className = "statut visible " + type;
+      }
+
+      function effacer() {
+        statut.textContent = "";
+        statut.className = "statut";
+      }
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        if (envoiEnCours) return;
+        effacer();
+
+        // validation native : on laisse le navigateur signaler le premier champ fautif
+        if (!form.checkValidity()) {
+          form.reportValidity();
+          return;
+        }
+
+        // la clé est un UUID : tant qu'elle n'est pas posée, rien ne part
+        if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(CLE_WEB3FORMS)) {
+          afficher("Le formulaire n’est pas encore relié à sa boîte aux lettres. Réessayez un peu plus tard.", "erreur");
+          console.error("contact.html : CLE_WEB3FORMS n’a pas été renseignée (voir le script en bas de page).");
+          return;
+        }
+
+        var donnees = new FormData(form);
+        donnees.append("access_key", CLE_WEB3FORMS);
+        donnees.append("from_name", "Legends & Bonk");
+        donnees.append("subject", "Missive — " + (donnees.get("sujet") || "Contact"));
+
+        envoiEnCours = true;
+        bouton.disabled = true;
+        mention.textContent = "Cachetage…";
+
+        fetch("https://api.web3forms.com/submit", { method: "POST", body: donnees })
+          .then(function (r) { return r.json(); })
+          .then(function (reponse) {
+            if (!reponse.success) throw new Error(reponse.message || "envoi refusé");
+            effacer();
+            missive.classList.add("envoyee");
+            missive.scrollIntoView({ behavior: "smooth", block: "center" });
+          })
+          .catch(function (err) {
+            console.error("contact.html : envoi impossible —", err.message);
+            afficher("La missive n’a pas pu partir. Vérifiez votre connexion et réessayez.", "erreur");
+          })
+          .then(function () {
+            envoiEnCours = false;
+            bouton.disabled = false;
+            mention.textContent = "Cacheter et envoyer";
+          });
+      });
+
+      // « Écrire une autre missive » : on rouvre la feuille, vierge
+      document.getElementById("bouton-rouvrir").addEventListener("click", function () {
+        form.reset();
+        missive.classList.remove("envoyee");
+        effacer();
+        document.getElementById("nom").focus();
+      });
+    })();
+  </script>
 </body>
 
 </html>
