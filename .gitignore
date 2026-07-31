@@ -1,6 +1,1 @@
 .claude/
-
-# Scans d'origine des dessins : plusieurs dizaines de Mo chacun, au-dessus de la
-# limite de GitHub. Seules les versions converties sont versionnees.
-image/Dessin_*.png
-image-db/tarot/tarot_*.png
