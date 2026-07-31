@@ -645,11 +645,12 @@
     /* ==================================================================
        ENVOI DE LA MISSIVE — via Web3Forms (aucun serveur de notre côté)
 
-       ⚠ À FAIRE : coller ci-dessous la clé d'accès obtenue sur
-       https://web3forms.com (saisir l'adresse de réception, valider le
-       mail de confirmation, copier l'« Access Key »). C'est un
-       identifiant public : il autorise seulement l'envoi VERS notre
-       adresse, et ne révèle pas cette adresse.
+       La clé ci-dessous est l'« Access Key » obtenue sur
+       https://web3forms.com. C'est un identifiant public : il autorise
+       seulement l'envoi VERS notre adresse, et ne révèle pas cette
+       adresse. Pour la changer, refaire le tour par web3forms.com
+       (saisir l'adresse de réception, valider le mail de confirmation,
+       copier la nouvelle clé).
        ================================================================== */
     const CLE_WEB3FORMS = "a35983ab-2a80-4275-8409-883538771220";
 
@@ -682,7 +683,7 @@
           return;
         }
 
-        // la clé est un UUID : tant qu'elle n'est pas posée, rien ne part
+        // garde-fou : si la clé se fait casser lors d'une retouche, rien ne part
         if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(CLE_WEB3FORMS)) {
           afficher("Le formulaire n’est pas encore relié à sa boîte aux lettres. Réessayez un peu plus tard.", "erreur");
           console.error("contact.html : CLE_WEB3FORMS n’a pas été renseignée (voir le script en bas de page).");
