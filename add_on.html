@@ -7,18 +7,22 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
   <link rel="stylesheet" href="./styles.css" />
+  <link rel="stylesheet" href="./regles.css" />
+  <link rel="stylesheet" href="./add_on.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap"
     rel="stylesheet" />
-  <title>Add-on — Legends & Bonk</title>
-  <meta name="description" content="Les add-ons de Legends & Bonk : contenus supplémentaires et extensions pour enrichir vos parties de jeu de rôle." />
+  <title>Les archives des add-ons — Legends & Bonk</title>
+  <meta name="description"
+    content="Les add-ons de Legends & Bonk : des règles, classes, races, objets et magies optionnels, créés par la communauté et rangés dans les archives." />
   <link rel="canonical" href="https://legendsandbonk.com/add_on.html" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Legends &amp; Bonk" />
   <meta property="og:locale" content="fr_FR" />
-  <meta property="og:title" content="Add-on — Legends & Bonk" />
-  <meta property="og:description" content="Les add-ons de Legends & Bonk : contenus supplémentaires et extensions pour enrichir vos parties de jeu de rôle." />
+  <meta property="og:title" content="Les archives des add-ons — Legends & Bonk" />
+  <meta property="og:description"
+    content="Les add-ons de Legends & Bonk : des règles, classes, races, objets et magies optionnels, créés par la communauté et rangés dans les archives." />
   <meta property="og:url" content="https://legendsandbonk.com/add_on.html" />
   <meta property="og:image" content="https://legendsandbonk.com/image/og_partage.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -33,11 +37,320 @@
 
   <!-- Contenu de la page -->
   <main>
-    <div class="container" style="margin-top: 20px;">
-      <h1 class="text-center">Add-on</h1>
-      <p class="text-center">Cette page arrive bientôt…</p>
+    <div class="arch-wrap">
+
+      <header class="arch-tete">
+        <h1>Les archives</h1>
+        <p class="arch-sub">Tout ce qui n'est pas dans le livre de base — et que vous pouvez y ajouter.</p>
+      </header>
+
+      <!-- ============================================================
+           LE PANNEAU D'ACCUEIL
+           Visible seulement à la racine des archives : dès qu'on entre
+           dans un dossier ou dans une fiche, le script le replie.
+           ============================================================ -->
+      <section class="arch-intro" id="archIntro">
+        <div class="arch-intro-corps">
+          <h2>C'est quoi un add-on&nbsp;?</h2>
+          <p>Un add-on est un bonus (règle, classe, race, objets, magie …etc) que vous pouvez ajouter ou non à votre
+            aventure. Elles seront créées par tout le monde et ajoutées à Legends &amp; Bonk officiellement si elle est
+            pertinente&nbsp;!</p>
+          <p class="signature">Hâte de voir ce que vous allez inventer !</p>
+        </div>
+        <a class="arch-cta" href="contact.html">Proposer un add-on</a>
+      </section>
+
+      <!-- ============================================================
+           LA BARRE DE L'EXPLORATEUR
+           Fil d'Ariane à gauche, recherche et bascule grille/liste à
+           droite ; elle reste collée en haut pendant le défilement.
+           ============================================================ -->
+      <div class="arch-bar">
+        <nav class="arch-fil" id="archFil" aria-label="Fil d'Ariane"></nav>
+        <div class="arch-outils">
+          <div class="arch-cherche">
+            <input type="search" id="archCherche" placeholder="Chercher un add-on…" autocomplete="off"
+              aria-label="Chercher un add-on dans les archives">
+          </div>
+          <div class="arch-vue" role="group" aria-label="Affichage des fiches">
+            <button type="button" data-vue="grille" aria-pressed="true" title="Affichage en grille"
+              aria-label="Affichage en grille">
+              <svg viewBox="0 0 16 16" aria-hidden="true">
+                <rect x="0" y="0" width="7" height="7" rx="1" />
+                <rect x="9" y="0" width="7" height="7" rx="1" />
+                <rect x="0" y="9" width="7" height="7" rx="1" />
+                <rect x="9" y="9" width="7" height="7" rx="1" />
+              </svg>
+            </button>
+            <button type="button" data-vue="liste" aria-pressed="false" title="Affichage en liste"
+              aria-label="Affichage en liste">
+              <svg viewBox="0 0 16 16" aria-hidden="true">
+                <rect x="0" y="1" width="16" height="2.6" rx="1.3" />
+                <rect x="0" y="6.7" width="16" height="2.6" rx="1.3" />
+                <rect x="0" y="12.4" width="16" height="2.6" rx="1.3" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ---------- vue « explorateur » ---------- -->
+      <div id="archExplorateur">
+        <section class="arch-groupe" id="grpDossiers">
+          <h2>Dossiers</h2>
+          <div class="arch-dossiers" id="archDossiers"></div>
+        </section>
+
+        <section class="arch-groupe" id="grpFiches">
+          <h2 id="archTitreFiches">Fiches<span id="archCompte"></span></h2>
+          <div class="arch-fiches" id="archFiches"></div>
+          <p class="arch-vide" id="archVide" hidden></p>
+        </section>
+      </div>
+
+      <!-- ---------- vue « fiche ouverte » ---------- -->
+      <div id="archFeuille" hidden>
+        <a class="arch-retour" href="#/" id="archRetour">← Retour aux archives</a>
+        <div class="codex-sheet" id="archContenu"></div>
+      </div>
+
     </div>
   </main>
+
+  <script src="./add_on-data.js"></script>
+  <script>
+    /* ==================================================================
+       LES ARCHIVES
+       Un explorateur à trois vues, toutes gouvernées par le hash :
+         #/                          la racine (dossiers + toutes les fiches)
+         #/regles                    un dossier
+         #/regles/mecanique-de-chance une fiche, chargée à la demande
+       Passer par le hash plutôt que par des écouteurs de clic donne
+       gratuitement les liens partageables, le bouton « précédent » et
+       l'ouverture dans un nouvel onglet.
+       ================================================================== */
+    (function () {
+      var DB = window.ADDONS;
+      var $ = function (id) { return document.getElementById(id); };
+
+      var DOSSIER = {};
+      DB.dossiers.forEach(function (d) { DOSSIER[d.id] = d; });
+
+      var TITRE = document.title;
+
+      function esc(s) {
+        return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
+          return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+        });
+      }
+
+      /* Recherche : minuscules, sans accents ni ponctuation. NFD détache
+         l'accent de sa lettre ; on retire d'abord ces accents, et seulement
+         ensuite la ponctuation — sinon « mecanique » ne trouverait pas
+         « mécanique ». Les accents détachés occupent le bloc U+0300–U+036F ;
+         il est construit par ses codes pour qu'aucun éditeur ne puisse
+         abîmer des caractères combinants écrits en clair. */
+      var DIACRITIQUES = new RegExp("[" + String.fromCharCode(768) + "-" +
+        String.fromCharCode(879) + "]", "g");
+
+      function norm(s) {
+        return String(s || "").toLowerCase().normalize("NFD")
+          .replace(DIACRITIQUES, "").replace(/[^a-z0-9]+/g, " ").trim();
+      }
+
+      DB.liste.forEach(function (a) {
+        a._q = norm([a.nom, a.auteur, a.resume, a.mots, (DOSSIER[a.dossier] || {}).nom].join(" "));
+        a._url = "#/" + a.dossier + "/" + a.slug;
+      });
+
+      function compteur(n) {
+        return n + (n > 1 ? " fiches" : " fiche");
+      }
+
+      /* ---------------- l'explorateur ---------------- */
+
+      var dossierActif = null;   // id du dossier ouvert, ou null à la racine
+      var recherche = "";
+      var vue = "grille";
+
+      function fiches() {
+        var q = norm(recherche);
+        return DB.liste.filter(function (a) {
+          if (q) return a._q.indexOf(q) >= 0;       // la recherche traverse les dossiers
+          if (dossierActif) return a.dossier === dossierActif;
+          return true;
+        });
+      }
+
+      function rendreDossiers() {
+        $("archDossiers").innerHTML = DB.dossiers.map(function (d) {
+          var n = DB.liste.filter(function (a) { return a.dossier === d.id; }).length;
+          return '<a class="dossier' + (n ? "" : " vide") + '" href="#/' + esc(d.id) + '"' +
+            ' style="--c:' + d.couleur + '">' +
+            '<b>' + esc(d.nom) + '</b>' +
+            '<span>' + esc(d.desc) + '</span>' +
+            '<span class="compte">' + compteur(n) + '</span>' +
+            '</a>';
+        }).join("");
+      }
+
+      function ficheHTML(a) {
+        var d = DOSSIER[a.dossier] || { nom: a.dossier, couleur: "#7a0808" };
+        return '<a class="arch-fiche" href="' + esc(a._url) + '" style="--c:' + d.couleur + '">' +
+          '<span class="cat">' + esc(d.nom) + '</span>' +
+          '<b>' + esc(a.nom) + '</b>' +
+          '<span class="auteur">par ' + esc(a.auteur) + '</span>' +
+          '<span class="resume">' + esc(a.resume) + '</span>' +
+          '<span class="ouvrir">Ouvrir →</span>' +
+          '</a>';
+      }
+
+      function rendreFil() {
+        var h = '<a href="#/">Les archives</a>';
+        if (recherche) {
+          h += ' <i>›</i> <b>Résultats pour « ' + esc(recherche) + ' »</b>';
+        } else if (dossierActif) {
+          h += ' <i>›</i> <b>' + esc(DOSSIER[dossierActif].nom) + '</b>';
+        }
+        $("archFil").innerHTML = h;
+      }
+
+      function rendreExplorateur() {
+        rendreFil();
+
+        // les dossiers ne s'affichent qu'à la racine, hors recherche
+        var racine = !dossierActif && !recherche;
+        $("grpDossiers").hidden = !racine;
+        $("archIntro").hidden = !racine;
+
+        var list = fiches();
+        $("archTitreFiches").firstChild.nodeValue =
+          recherche ? "Résultats" : dossierActif ? DOSSIER[dossierActif].nom : "Toutes les fiches";
+        $("archCompte").textContent = list.length ? compteur(list.length) : "";
+
+        $("archFiches").innerHTML = list.map(ficheHTML).join("");
+        $("archFiches").className = "arch-fiches" + (vue === "liste" ? " liste" : "");
+
+        var vide = $("archVide");
+        vide.hidden = list.length > 0;
+        vide.innerHTML = recherche
+          ? "Aucun add-on ne correspond à cette recherche."
+          : 'Ce dossier est encore vide. À vous d\'écrire la première page — ' +
+            '<a href="contact.html">proposez votre add-on</a>.';
+      }
+
+      /* ---------------- l'ouverture d'une fiche ---------------- */
+
+      var cache = {};
+
+      function ouvrir(a) {
+        $("archExplorateur").hidden = true;
+        $("archIntro").hidden = true;
+        $("archFeuille").hidden = false;
+        $("archRetour").setAttribute("href", "#/" + a.dossier);
+        document.title = a.nom + " — Add-on — Legends & Bonk";
+
+        var d = DOSSIER[a.dossier] || { nom: a.dossier };
+        $("archFil").innerHTML = '<a href="#/">Les archives</a> <i>›</i> ' +
+          '<a href="#/' + esc(a.dossier) + '">' + esc(d.nom) + '</a> <i>›</i> ' +
+          '<b>' + esc(a.nom) + '</b>';
+
+        if (cache[a.slug]) {
+          $("archContenu").innerHTML = cache[a.slug];
+          return;
+        }
+
+        $("archContenu").innerHTML = '<p class="codex-sub">Ouverture du dossier…</p>';
+        fetch(a.fichier).then(function (r) {
+          if (!r.ok) throw new Error("HTTP " + r.status);
+          return r.text();
+        }).then(function (html) {
+          cache[a.slug] = html;
+          // une autre fiche a pu être demandée entre-temps
+          if (lu() === a.slug) $("archContenu").innerHTML = html;
+        }).catch(function (err) {
+          console.error("add_on : fiche non chargée (" + err.message + ").");
+          $("archContenu").innerHTML = '<p class="codex-sub">Cette fiche n\'a pas pu être ouverte.' +
+            (location.protocol === "file:"
+              ? ' Le site doit être servi par un serveur local (« Go Live », ou <code>python -m http.server</code>).'
+              : ' Réessayez plus tard.') + '</p>';
+        });
+      }
+
+      /* le slug demandé par l'adresse, pour ne pas afficher une fiche
+         chargée trop tard alors qu'on a déjà navigué ailleurs */
+      function lu() {
+        return route().slug;
+      }
+
+      /* ---------------- le routage ---------------- */
+
+      function route() {
+        var h = decodeURIComponent(location.hash.replace(/^#\/?/, ""));
+        var p = h.split("/").filter(Boolean);
+        return { dossier: p[0] || null, slug: p[1] || null };
+      }
+
+      function aller() {
+        var r = route();
+
+        if (r.slug) {
+          var a = DB.liste.filter(function (x) { return x.slug === r.slug; })[0];
+          if (a) return ouvrir(a);
+          location.replace("#/");   // fiche inconnue : retour à la racine
+          return;
+        }
+
+        $("archFeuille").hidden = true;
+        $("archExplorateur").hidden = false;
+        document.title = TITRE;
+        dossierActif = DOSSIER[r.dossier] ? r.dossier : null;
+        rendreExplorateur();
+      }
+
+      /* ---------------- branchements ---------------- */
+
+      $("archCherche").addEventListener("input", function () {
+        recherche = this.value.trim();
+        // chercher depuis une fiche ouverte ramène à l'explorateur
+        if (route().slug) { location.hash = "#/"; return; }
+        rendreExplorateur();
+      });
+
+      $("archCherche").addEventListener("keydown", function (e) {
+        if (e.key !== "Escape") return;
+        this.value = "";
+        recherche = "";
+        rendreExplorateur();
+      });
+
+      Array.prototype.forEach.call(document.querySelectorAll(".arch-vue button"),
+        function (b) {
+          b.addEventListener("click", function () {
+            vue = b.getAttribute("data-vue");
+            try { localStorage.setItem("addonVue", vue); } catch (e) { /* navigation privée */ }
+            Array.prototype.forEach.call(b.parentNode.children, function (autre) {
+              autre.setAttribute("aria-pressed", autre === b ? "true" : "false");
+            });
+            $("archFiches").className = "arch-fiches" + (vue === "liste" ? " liste" : "");
+          });
+        });
+
+      try {
+        if (localStorage.getItem("addonVue") === "liste") {
+          document.querySelector('.arch-vue button[data-vue="liste"]').click();
+        }
+      } catch (e) { /* navigation privée */ }
+
+      window.addEventListener("hashchange", function () {
+        aller();
+        window.scrollTo(0, 0);
+      });
+
+      rendreDossiers();
+      aller();
+    })();
+  </script>
 </body>
 
 </html>

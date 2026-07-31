@@ -1,0 +1,697 @@
+/* ==================================================================
+   LES ARCHIVES DES ADD-ONS — add_on.html
+   Un explorateur de fichiers en parchemin : des chemises cartonnées
+   par catégorie, des fiches à l'intérieur, un fil d'Ariane et une
+   recherche. Le contenu d'un add-on, lui, s'affiche dans la même
+   feuille que le codex : l'habillage vient de regles.css, qui doit
+   donc être chargé AVANT ce fichier (c'est lui qui pose --parch,
+   --ink, --bordeaux… et les classes .regle, .encart, .formule…).
+   ================================================================== */
+
+.arch-wrap {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 18px 12px 60px;
+  color: var(--ink);
+}
+
+/* le script masque les vues avec l'attribut « hidden » : sans cette
+   règle, un display: flex posé plus bas le rendrait sans effet */
+.arch-wrap [hidden] {
+  display: none;
+}
+
+/* ---------- l'en-tête ---------- */
+.arch-tete {
+  text-align: center;
+  margin-bottom: 18px;
+}
+
+.arch-tete h1 {
+  margin: 6px 0 2px;
+  font-weight: 700;
+  letter-spacing: .5px;
+  color: var(--brun);
+}
+
+.arch-sub {
+  color: var(--muted);
+  font-style: italic;
+  margin: 0;
+}
+
+/* ---------- « C'est quoi un add-on ? » ---------- */
+/* Le panneau d'accueil : il n'existe qu'à la racine des archives,
+   le script le masque dès qu'on entre dans un dossier ou une fiche. */
+.arch-intro {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 18px;
+  background: linear-gradient(160deg, var(--parch), var(--parch2));
+  border: 1px solid var(--line);
+  border-left: 5px solid var(--bordeaux);
+  border-radius: 0 14px 14px 0;
+  box-shadow: 0 3px 14px rgba(40, 27, 7, .12);
+  padding: 18px 22px;
+  margin-bottom: 22px;
+}
+
+.arch-intro-corps {
+  flex: 1 1 420px;
+  min-width: 0;
+}
+
+.arch-intro h2 {
+  margin: 0 0 8px;
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--bordeaux);
+}
+
+.arch-intro p {
+  margin: 0 0 8px;
+  font-size: 19px;
+  color: var(--muted);
+}
+
+.arch-intro .signature {
+  margin: 0;
+  font-style: italic;
+  font-weight: 700;
+  color: var(--brun);
+}
+
+.arch-cta {
+  flex: 0 0 auto;
+  align-self: center;
+  border: 1px solid var(--gold);
+  border-radius: 999px;
+  padding: 9px 22px;
+  font-size: 18px;
+  font-weight: 700;
+  text-decoration: none;
+  color: var(--parch);
+  background: linear-gradient(160deg, #3a2a10, var(--brun));
+  box-shadow: 0 3px 10px rgba(40, 27, 7, .3);
+  transition: transform .15s, box-shadow .15s;
+}
+
+.arch-cta:hover,
+.arch-cta:focus-visible {
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 5px 14px rgba(40, 27, 7, .4);
+}
+
+/* ---------- la barre d'outils ---------- */
+/* Elle colle en haut : le fil d'Ariane reste visible pendant qu'on
+   descend dans une longue liste, comme dans un explorateur. */
+.arch-bar {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 16px;
+  padding: 10px 14px;
+  margin-bottom: 20px;
+  background: linear-gradient(160deg, #fdf8ec, var(--parch));
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  box-shadow: 0 3px 12px rgba(40, 27, 7, .12);
+}
+
+.arch-fil {
+  flex: 1 1 260px;
+  min-width: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px;
+  font-size: 19px;
+}
+
+.arch-fil a {
+  color: var(--muted);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  font-weight: 700;
+}
+
+.arch-fil a:hover,
+.arch-fil a:focus-visible {
+  color: var(--bordeaux);
+  border-bottom-color: rgba(122, 8, 8, .4);
+}
+
+.arch-fil b {
+  color: var(--brun);
+  font-weight: 800;
+}
+
+.arch-fil i {
+  font-style: normal;
+  color: var(--line);
+}
+
+.arch-outils {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+}
+
+.arch-cherche input {
+  width: min(260px, 52vw);
+  font-family: inherit;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--ink);
+  background: #fffdf6;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 6px 14px;
+}
+
+.arch-cherche input::placeholder {
+  color: #a8977a;
+  font-style: italic;
+}
+
+.arch-cherche input:focus {
+  outline: none;
+  border-color: var(--bordeaux);
+  box-shadow: 0 0 0 3px rgba(122, 8, 8, .12);
+}
+
+.arch-vue {
+  display: flex;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  overflow: hidden;
+  background: #fffdf6;
+}
+
+.arch-vue button {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 34px;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  padding: 0;
+}
+
+.arch-vue button + button {
+  border-left: 1px solid var(--line);
+}
+
+.arch-vue button:hover {
+  background: rgba(122, 8, 8, .07);
+  color: var(--bordeaux);
+}
+
+.arch-vue button[aria-pressed="true"] {
+  background: rgba(122, 8, 8, .12);
+  color: var(--bordeaux);
+}
+
+.arch-vue svg {
+  width: 17px;
+  height: 17px;
+  fill: currentColor;
+}
+
+/* la bascule grille/liste ne veut rien dire quand tout est déjà empilé */
+@media (max-width: 575.98px) {
+  .arch-vue {
+    display: none;
+  }
+}
+
+/* ---------- les groupes (Dossiers / Fiches) ---------- */
+.arch-groupe {
+  margin-bottom: 30px;
+}
+
+.arch-groupe > h2 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 12px;
+  font-size: 15px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 800;
+  color: var(--muted);
+}
+
+.arch-groupe > h2::after {
+  content: "";
+  flex: 1;
+  border-top: 1px solid var(--line);
+}
+
+.arch-groupe > h2 span {
+  font-size: 14px;
+  letter-spacing: 1px;
+  font-weight: 700;
+  color: var(--line);
+  text-transform: none;
+  font-style: italic;
+}
+
+/* ---------- les chemises cartonnées ---------- */
+.arch-dossiers {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 14px 16px;
+}
+
+/* l'onglet du dossier est un pseudo-élément posé au-dessus de la
+   chemise : d'où la marge haute, qui lui réserve sa place */
+.dossier {
+  position: relative;
+  display: block;
+  margin-top: 13px;
+  padding: 13px 15px 12px;
+  text-decoration: none;
+  color: inherit;
+  background: linear-gradient(165deg, #ead9b4, #ddc99e);
+  border: 1px solid var(--line);
+  border-radius: 3px 12px 12px 12px;
+  box-shadow: 0 2px 8px rgba(40, 27, 7, .14);
+  transition: transform .15s, box-shadow .15s, border-color .15s;
+}
+
+.dossier::before {
+  content: "";
+  position: absolute;
+  left: -1px;
+  top: -13px;
+  width: 48%;
+  height: 14px;
+  background: #ead9b4;
+  border: 1px solid var(--line);
+  border-bottom: 0;
+  border-radius: 5px 10px 0 0;
+}
+
+/* le liseré de couleur de la catégorie, glissé sous l'onglet */
+.dossier::after {
+  content: "";
+  position: absolute;
+  left: 15px;
+  right: 15px;
+  top: 8px;
+  border-top: 3px solid var(--c, var(--bordeaux));
+  border-radius: 3px;
+  opacity: .8;
+}
+
+.dossier:hover,
+.dossier:focus-visible {
+  transform: translateY(-2px);
+  border-color: var(--c, var(--bordeaux));
+  box-shadow: 0 6px 16px rgba(40, 27, 7, .22);
+}
+
+.dossier b {
+  display: block;
+  margin-top: 10px;
+  font-size: 21px;
+  color: var(--brun);
+}
+
+.dossier span {
+  display: block;
+  font-size: 16px;
+  color: var(--muted);
+  font-style: italic;
+}
+
+.dossier .compte {
+  font-style: normal;
+  font-weight: 800;
+  color: var(--c, var(--bordeaux));
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+/* un dossier vide reste visible — il dit ce qu'on attend de vous */
+.dossier.vide {
+  background: linear-gradient(165deg, #e6ddc9, #dbd0b6);
+  box-shadow: none;
+  opacity: .82;
+}
+
+.dossier.vide::before {
+  background: #e6ddc9;
+}
+
+/* ---------- les fiches ---------- */
+.arch-fiches {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(268px, 1fr));
+  gap: 16px;
+}
+
+.arch-fiche {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 14px 16px 12px;
+  text-decoration: none;
+  color: inherit;
+  background: linear-gradient(165deg, #fffdf6, var(--parch));
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--c, var(--bordeaux));
+  border-radius: 0 12px 12px 0;
+  box-shadow: 0 2px 8px rgba(40, 27, 7, .11);
+  transition: transform .15s, box-shadow .15s, border-color .15s;
+}
+
+.arch-fiche:hover,
+.arch-fiche:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(40, 27, 7, .2);
+}
+
+.arch-fiche .cat {
+  align-self: flex-start;
+  font-size: 13px;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  font-weight: 800;
+  color: #fffdf6;
+  background: var(--c, var(--bordeaux));
+  border-radius: 999px;
+  padding: 2px 11px;
+  margin-bottom: 8px;
+}
+
+.arch-fiche b {
+  font-size: 23px;
+  line-height: 1.15;
+  color: var(--brun);
+}
+
+.arch-fiche .auteur {
+  font-size: 16px;
+  font-style: italic;
+  color: var(--muted);
+  margin-bottom: 7px;
+}
+
+.arch-fiche .resume {
+  font-size: 17px;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
+.arch-fiche .ouvrir {
+  margin-top: auto;
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--bordeaux);
+}
+
+/* vue liste : la fiche se couche, comme une ligne d'explorateur.
+   Deux rangs : titre + auteur à gauche, le résumé traverse les deux. */
+@media (min-width: 576px) {
+  .arch-fiches.liste {
+    grid-template-columns: 1fr;
+    gap: 9px;
+  }
+
+  .arch-fiches.liste .arch-fiche {
+    display: grid;
+    grid-template-columns: auto minmax(0, 15em) minmax(0, 1fr) auto;
+    gap: 2px 16px;
+    padding: 9px 16px;
+    border-radius: 0 8px 8px 0;
+  }
+
+  .arch-fiches.liste .cat {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    align-self: center;
+    margin: 0;
+  }
+
+  .arch-fiches.liste b {
+    grid-column: 2;
+    grid-row: 1;
+    font-size: 20px;
+  }
+
+  .arch-fiches.liste .auteur {
+    grid-column: 2;
+    grid-row: 2;
+    margin: 0;
+    font-size: 15px;
+  }
+
+  .arch-fiches.liste .resume {
+    grid-column: 3;
+    grid-row: 1 / span 2;
+    align-self: center;
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .arch-fiches.liste .ouvrir {
+    grid-column: 4;
+    grid-row: 1 / span 2;
+    align-self: center;
+    margin: 0;
+  }
+}
+
+/* ---------- dossier vide / recherche sans résultat ---------- */
+.arch-vide {
+  text-align: center;
+  font-style: italic;
+  color: var(--muted);
+  background: rgba(216, 178, 74, .12);
+  border: 1px dashed var(--line);
+  border-radius: 12px;
+  padding: 26px 18px;
+  margin: 0;
+}
+
+.arch-vide a {
+  color: var(--bordeaux);
+  font-weight: 700;
+}
+
+/* ---------- la feuille d'un add-on ---------- */
+.arch-retour {
+  display: inline-block;
+  margin-bottom: 14px;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bordeaux);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(122, 8, 8, .35);
+}
+
+.arch-retour:hover {
+  color: var(--brun);
+  border-bottom-color: var(--brun);
+}
+
+/* le chapô d'un add-on, juste sous son titre */
+.addon-chapo {
+  font-size: 21px;
+  font-style: italic;
+  text-align: center;
+  color: var(--muted);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 12px 6px;
+  margin: 0 auto 30px;
+  max-width: 780px;
+}
+
+/* la carte d'identité de l'add-on : auteur, catégorie, ce qu'il touche */
+.addon-carte {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 26px;
+}
+
+.addon-carte li {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  background: linear-gradient(160deg, var(--parch), var(--parch2));
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 4px 16px;
+  font-size: 17px;
+  color: var(--brun);
+}
+
+.addon-carte i {
+  font-style: normal;
+  font-size: 13px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  font-weight: 800;
+  color: var(--muted);
+}
+
+/* la formule à prononcer à voix haute */
+.invocation {
+  display: block;
+  max-width: 560px;
+  margin: 18px auto 20px;
+  padding: 16px 22px;
+  text-align: center;
+  font-size: 30px;
+  font-weight: 700;
+  font-style: italic;
+  color: var(--bordeaux);
+  background: #fffdf6;
+  border: 2px dashed var(--line);
+  border-radius: 14px;
+  box-shadow: 0 2px 10px rgba(40, 27, 7, .12);
+}
+
+/* les deux issues d'un jet de chance, dans une fiche d'exemple */
+.issue {
+  display: block;
+  font-size: 17px;
+  color: var(--muted);
+  margin-top: 5px;
+}
+
+.issue i {
+  display: inline-block;
+  min-width: 104px;
+  margin-right: 8px;
+  font-style: normal;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: .5px;
+  text-align: center;
+  color: #fffdf6;
+  border-radius: 999px;
+  padding: 1px 10px;
+}
+
+.issue.bon i {
+  background: #2f5a3a;
+}
+
+.issue.mal i {
+  background: #7a0808;
+}
+
+/* ---------- mobile ---------- */
+@media (max-width: 768px) {
+  .arch-wrap {
+    padding: 10px 8px 40px;
+  }
+
+  .arch-intro {
+    padding: 14px 16px;
+    gap: 12px;
+  }
+
+  .arch-intro h2 {
+    font-size: 21px;
+  }
+
+  .arch-intro p {
+    font-size: 16px;
+  }
+
+  .arch-cta {
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+  }
+
+  .arch-bar {
+    padding: 8px 10px;
+    gap: 8px 10px;
+  }
+
+  .arch-fil {
+    font-size: 16px;
+    flex-basis: 100%;
+  }
+
+  .arch-outils {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .arch-cherche {
+    flex: 1;
+  }
+
+  .arch-cherche input {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  .arch-dossiers {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
+  }
+
+  .dossier b {
+    font-size: 18px;
+  }
+
+  .dossier span {
+    font-size: 14px;
+  }
+
+  .arch-fiches {
+    grid-template-columns: 1fr;
+  }
+
+  .arch-fiche b {
+    font-size: 20px;
+  }
+
+  .arch-fiche .resume {
+    font-size: 15px;
+  }
+
+  .addon-chapo {
+    font-size: 17px;
+    margin-bottom: 22px;
+  }
+
+  .addon-carte li {
+    font-size: 15px;
+    padding: 3px 13px;
+  }
+
+  .invocation {
+    font-size: 22px;
+    padding: 12px 16px;
+  }
+
+  .issue {
+    font-size: 15px;
+  }
+
+  .issue i {
+    min-width: 92px;
+    font-size: 12px;
+  }
+}

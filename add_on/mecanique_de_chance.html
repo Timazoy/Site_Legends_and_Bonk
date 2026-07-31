@@ -1,0 +1,153 @@
+<!-- ==================================================================
+     ADD-ON « La mécanique de chance » — par Charly
+     Ce fichier ne contient que l'intérieur de la feuille de parchemin :
+     add_on.html va le chercher et l'insère dans un .codex-sheet. Pas de
+     <head>, pas de navbar, pas de <script> : uniquement du contenu.
+     L'habillage vient de regles.css (le codex) et de add_on.css.
+     ================================================================== -->
+
+<h1 class="codex-title">La mécanique de chance</h1>
+<p class="codex-sub">Un add-on de Charly — à ajouter, ou pas, à votre aventure.</p>
+
+<ul class="addon-carte">
+  <li><i>Auteur</i> Charly</li>
+  <li><i>Type</i> Règle optionnelle</li>
+</ul>
+
+<p class="addon-chapo">La chance est une force capricieuse : elle peut élever un héros comme elle peut le
+  précipiter dans l'abîme. L'invoquer est un acte volontaire et risqué.</p>
+
+<!-- ---------- 1. La réserve ---------- -->
+<section class="regle" id="chance-reserve">
+  <div class="regle-head">
+    <div class="regle-seal" aria-hidden="true">1</div>
+    <h3>Déterminer ses Points de Chance</h3>
+  </div>
+  <hr>
+
+  <p>Au début de la partie, chaque personnage détermine sa réserve.</p>
+
+  <div class="formules">
+    <div class="formule">
+      <h5>Le Total de Points de Chance</h5>
+      <span class="calc">1D8 + 6</span>
+      <p>Le résultat est votre <b>Total de Points de Chance</b> : à la fois votre réserve de départ et le
+        plafond que vous ne pourrez plus dépasser.</p>
+      <p class="ex"><b>Ex :</b> un 5 au D8 donne un total de 11 Points de Chance.</p>
+    </div>
+
+    <div class="formule">
+      <h5>Dépenser et récupérer</h5>
+      <span class="calc">−1 par usage · +2 au CR · +4 au LR</span>
+      <p>Chaque utilisation vous coûte <b>1 Point de Chance</b>. Un <b>court repos</b> vous en rend 2, un
+        <b>long repos</b> 4.</p>
+      <p class="ex"><b>Ex :</b> avec 11 en total, quatre invocations vous laissent à 7 ; un long repos vous
+        remonte à 11, jamais au-delà.</p>
+    </div>
+  </div>
+
+  <div class="encart">
+    <p>Vos Points de Chance ne peuvent <b>jamais dépasser votre Total</b>, c'est-à-dire votre maximum
+      initial — sauf dans de très rares cas laissés à l'appréciation du MJ.</p>
+  </div>
+
+  <h4>1.1 — Le renouveau de la chance</h4>
+  <p>Lors d'un long repos, le MJ peut vous imposer un <b>renouveau de la chance</b> : vous relancez alors
+    votre Total de Points de Chance (1D8 + 6). Vous repartez du nouveau total, réserve pleine — qu'il soit
+    plus généreux ou plus cruel que le précédent.</p>
+
+  <h4>1.2 — La main du MJ</h4>
+  <p>Le MJ se réserve le droit de vous accorder des bonus ou de vous infliger des malus sur votre réserve.
+    Contrairement à la réserve elle-même, <b>ces bonus et malus survivent aux renouveaux de la chance</b>.</p>
+</section>
+
+<!-- ---------- 2. L'invocation ---------- -->
+<section class="regle" id="chance-activer">
+  <div class="regle-head">
+    <div class="regle-seal" aria-hidden="true">2</div>
+    <h3>Activer la chance</h3>
+  </div>
+  <hr>
+
+  <p>Pour invoquer la chance, le joueur doit prononcer la formule à voix haute :</p>
+
+  <b class="invocation">« Je tente ma chance ! »</b>
+
+  <h4>2.1 — Le déroulé</h4>
+  <ol>
+    <li>Le joueur prononce la formule.</li>
+    <li>Le MJ annonce ce qui est en jeu : un bonus ou un malus, toujours <b>significatif</b>.</li>
+    <li>Le joueur lance <b>2D8</b> et compare le résultat à ses <b>Points de Chance restants</b>.</li>
+  </ol>
+
+  <div class="fiches">
+    <div class="fiche" style="--tc:#2f5a3a">
+      <b>Chanceux <span class="duree">2D8 ≤ réserve</span></b>
+      <span>Le sort vous sourit : c'est le bonus annoncé par le MJ qui s'applique.</span>
+    </div>
+    <div class="fiche" style="--tc:#7a0808">
+      <b>Malchanceux <span class="duree">2D8 &gt; réserve</span></b>
+      <span>Le sort vous tourne le dos : c'est le malus annoncé par le MJ qui s'applique.</span>
+    </div>
+  </div>
+
+  <div class="encart">
+    <p>La comparaison se fait sur les Points de Chance <b>qu'il vous reste</b>, et chaque invocation en
+      retire un : plus vous tirez sur la corde, plus la chance devient improbable.</p>
+  </div>
+</section>
+
+<!-- ---------- 3. Les exemples ---------- -->
+<section class="regle" id="chance-exemples">
+  <div class="regle-head">
+    <div class="regle-seal" aria-hidden="true">3</div>
+    <h3>Exemples d'application</h3>
+  </div>
+  <hr>
+
+  <p>Voici trois situations courantes et ce que le MJ peut y mettre en jeu.</p>
+
+  <div class="fiches serree">
+    <div class="fiche" style="--tc:#a01212">
+      <b>Attaque réussie</b>
+      <span class="issue bon"><i>Chanceux</i> Les dégâts sont doublés.</span>
+      <span class="issue mal"><i>Malchanceux</i> La cible ne prend que la moitié des dégâts.</span>
+    </div>
+
+    <div class="fiche" style="--tc:#4a6b8a">
+      <b>En défense, après avoir subi une attaque</b>
+      <span class="issue bon"><i>Chanceux</i> Vous ne perdez que la moitié des PV perdus.</span>
+      <span class="issue mal"><i>Malchanceux</i> L'attaque vous inflige 50 % de dégâts en plus.</span>
+    </div>
+
+    <div class="fiche" style="--tc:#8a5aa8">
+      <b>Compétence, sort ou ressource ratée</b>
+      <span class="issue bon"><i>Chanceux</i> L'action se déclenche malgré l'échec, si les prérequis sont
+        remplis.</span>
+      <span class="issue mal"><i>Malchanceux</i> L'action échoue et affecte un allié au hasard.</span>
+    </div>
+  </div>
+
+  <p class="ex"><b>Ex :</b> il vous reste 6 Points de Chance sur 11. Vous tentez votre chance sur une
+    attaque réussie et lancez 2D8 : un 5 vous vaut des dégâts doublés, un 13 les réduit de moitié.</p>
+</section>
+
+<!-- ---------- 4. Portée et mise en garde ---------- -->
+<section class="regle" id="chance-etendue">
+  <div class="regle-head">
+    <div class="regle-seal" aria-hidden="true">4</div>
+    <h3>Utilisation étendue</h3>
+  </div>
+  <hr>
+
+  <p>La chance peut être conjurée à n'importe quel moment et dans n'importe quelle situation. Les exemples
+    ci-dessus ne sont pas une liste fermée : conjurez la chance <b>comme vous voulez, où vous voulez</b> et
+    surtout dans toutes les situations que vous voulez.</p>
+
+  <div class="encart">
+    <p>La chance n'est ni fidèle ni stable. Elle peut se montrer salvatrice… ou vous tourner le dos au pire
+      moment. Et n'oubliez pas : le MJ aussi peut vous <b>imposer</b> de conjurer votre chance.</p>
+  </div>
+</section>
+
+<p class="codex-fin">Add-on écrit par Charly — reprenez-le, tordez-le, faites-en votre affaire.</p>
