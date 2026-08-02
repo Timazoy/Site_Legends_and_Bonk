@@ -321,6 +321,8 @@
     }
     .mod.p { color: #2c5c39; border-color: rgba(63, 125, 79, .45); background: rgba(63, 125, 79, .1); }
     .mod.m { color: #7d2620; border-color: rgba(158, 43, 37, .4); background: rgba(158, 43, 37, .08); }
+    /* ni un bonus ni un malus : une portée, une distance — un simple fait */
+    .mod.n { color: #5c4d31; border-color: var(--line); background: rgba(201, 184, 146, .22); }
 
     /* une capacité, dans une carte de sous-race */
     .cap { margin-top: 10px; border-left: 3px solid var(--line); padding-left: 11px; }
@@ -387,6 +389,18 @@
     }
     .moteur b { display: block; color: var(--c, var(--brun)); letter-spacing: .06em; text-transform: uppercase; font-size: 15px; }
     .moteur span { font-size: 15px; color: var(--muted); line-height: 1.4; display: block; }
+    /* l'exception d'une classe : mise à l'écart par un filet, pour qu'on ne la
+       lise jamais comme la règle du moteur. */
+    .moteur .note {
+      display: block; margin-top: 8px; padding-top: 7px;
+      border-top: 1px dashed var(--line);
+      font-size: 15px; font-style: italic; color: var(--muted); line-height: 1.4;
+    }
+    .moteur .note b {
+      display: inline; font-style: normal; font-size: 15px;
+      text-transform: none; letter-spacing: 0; color: var(--c, var(--brun));
+    }
+    .moteur .note b::after { content: " — "; color: var(--muted); }
 
     /* ---- le damier de la zone de souffle ---- */
     .souffle {
@@ -416,6 +430,129 @@
       background: repeating-linear-gradient(45deg, #2a2118 0 5px, #3d3226 5px 10px);
     }
     @media (max-width: 560px) { .damier { --cw: 38px; } }
+
+    /* ---- les cartes de pacte des tieffelins ----
+       Les trois premières lignes d'un démon sont des pourcentages de la
+       statistique du tieffelin : elles partagent donc une seule échelle,
+       pour que ce soit la comparaison des trois démons qui saute aux yeux,
+       le chiffre exact restant lisible en bout de barre. */
+    .demons { display: grid; gap: 13px; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
+    /* colonne : le bonus de sous-race est chassé en pied, pour que les trois
+       cartes le portent à la même hauteur quelle que soit leur longueur */
+    .demon {
+      display: flex; flex-direction: column;
+      border: 1px solid var(--line); border-top: 4px solid var(--dc);
+      border-radius: 8px; background: #fffdf6; padding: 14px 17px 16px;
+    }
+    .demon-nom { font-size: 20px; font-weight: 700; color: var(--brun); letter-spacing: .02em; }
+    .demon-role { font-size: 16px; color: var(--muted); font-style: italic; }
+    .demon .ruban i { background: var(--dc); }
+
+    /* Les trois lignes partagent une seule grille (« display:contents » sur la
+       ligne) : sinon la colonne des chiffres, dimensionnée au contenu, varie
+       d'une ligne à l'autre — les pistes n'auraient plus la même longueur et
+       les barres ne seraient plus comparables entre elles. */
+    .jauges { display: grid; grid-template-columns: 58px minmax(0, 1fr) 66px; align-items: center; gap: 9px; margin: 12px 0 4px; }
+    .jauge { display: contents; }
+    .jauge-lbl { font-size: 12.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+    .jauge-piste { position: relative; height: 13px; border-radius: 7px; background: rgba(140, 112, 58, .16); }
+    /* le repère des 100 % : la statistique du tieffelin lui-même. Sans lui,
+       « 150 % de vitesse » et « 15 % des PV » seraient deux barres sans étalon. */
+    .jauge-piste::after {
+      content: ""; position: absolute; top: -3px; bottom: -3px;
+      left: calc(100% / var(--ech) * 100); border-left: 1px dashed rgba(90, 72, 40, .5);
+    }
+    .jauge-bar {
+      position: absolute; top: 0; left: 0; height: 100%; border-radius: 6px;
+      background: var(--dc); width: calc(var(--v) / var(--ech) * 100%);
+    }
+    .jauge-bar.fantome { opacity: .3; }
+    /* le chiffre est la donnée qu'on vient chercher : dans un Garamond aussi
+       fin, il lui faut du corps et du gras pour peser autant que la barre */
+    .jauge-val { font-size: 20.5px; color: var(--brun); font-weight: 700; text-align: right; white-space: nowrap; }
+    .jauge-val em { font-style: normal; font-size: 15px; font-weight: 600; color: var(--dc); }
+
+    /* ---- le gabarit d'une zone d'effet ----
+       Même vocabulaire que la grille de portée du codex (regles.css) : une
+       case par position, son chiffre est la distance au centre. Les cases se
+       dimensionnent en fraction, donc la grille tient dans une carte étroite
+       comme sur une feuille large. */
+    .zone { margin-top: 12px; }
+    .zone-grille {
+      display: grid; gap: 1.5px; padding: 5px;
+      border: 1px solid var(--line); border-radius: 7px; background: rgba(201, 184, 146, .2);
+    }
+    .zc {
+      position: relative; aspect-ratio: 1; display: grid; place-items: center;
+      border-radius: 2px; background: #fffdf6; box-shadow: inset 0 0 0 1px rgba(140, 112, 58, .16);
+      font-size: 10.5px; color: var(--muted);
+    }
+    /* la teinte du palier est posée par-dessous le chiffre, pour que celui-ci
+       reste noir sur la couronne pâle : la grille se lit sans les couleurs */
+    .zc::before { content: ""; position: absolute; inset: 0; border-radius: 2px; background: var(--dc); }
+    .zc i { position: relative; font-style: normal; }
+    .zc.hors::before { display: none; }
+    .zc.b0::before { opacity: .62; }
+    .zc.b1::before { opacity: .24; }
+    .zc.b0 { color: #fffaee; font-weight: 600; }
+    .zc.b1 { color: var(--brun); }
+    .zc.centre { background: var(--dc); color: #fffaee; font-size: 13px; box-shadow: none; }
+    .zc.centre::before { display: none; }
+
+    .zone-leg { list-style: none; margin: 8px 0 0; padding: 0; font-size: 14px; color: var(--muted); }
+    .zone-leg li { display: flex; align-items: center; gap: 8px; line-height: 1.4; margin-bottom: 4px; }
+    .zone-leg i { flex: none; width: 15px; height: 15px; border-radius: 3px; background: var(--dc); }
+    .zone-leg i.b0 { opacity: .62; }
+    .zone-leg i.b1 { opacity: .24; }
+    .zone-leg i.hors { background: #fffdf6; box-shadow: inset 0 0 0 1px rgba(140, 112, 58, .35); }
+
+    /* la table de jets des Flèches de disgrâce : une ligne par face du D6,
+       la chance de base puis celle du Styx */
+    .d6 { margin-top: 11px; border: 1px solid var(--line); border-radius: 7px; overflow: hidden; }
+    .d6-ligne {
+      display: grid; grid-template-columns: 24px minmax(0, 1fr) 52px 52px;
+      align-items: center; gap: 9px; padding: 6px 11px;
+      border-top: 1px solid #e8ddc2; font-size: 15.5px; background: #fffdf6;
+    }
+    .d6-ligne:first-child { border-top: 0; }
+    .d6-tete {
+      font-size: 12px; letter-spacing: .06em; text-transform: uppercase;
+      color: var(--muted); background: rgba(201, 184, 146, .22);
+    }
+    .d6-ch, .d6-bo { text-align: center; }
+    /* Une fraction recomposée se lit à deux étages : à la taille du texte
+       courant, chaque chiffre tombe sous les 11 px. C'est la donnée qu'on vient
+       chercher dans ce tableau, elle est donc agrandie — la règle vise .frac,
+       pour ne pas emporter avec elle les intitulés de l'en-tête. */
+    .d6 .frac { font-size: 23.5px; }
+    /* la fraction recomposée : numérateur haut, barre oblique, dénominateur bas */
+    .frac { white-space: nowrap; }
+    .frac sup, .frac sub { font-size: .66em; line-height: 0; }
+    .frac sup { vertical-align: .30em; }
+    .frac sub { vertical-align: -.02em; }
+    /* la barre de Cormorant est très étroite : on la grossit pour qu'elle
+       relie vraiment les deux étages au lieu de flotter entre eux */
+    .frac i { font-style: normal; font-size: 1.12em; margin: 0 -.03em; }
+    .d6-bo { color: var(--dc); font-weight: 700; }
+    .de { display: block; width: 22px; height: 22px; }
+    .de rect { fill: #fffdf6; stroke: rgba(140, 112, 58, .55); stroke-width: 1; }
+    .de circle { fill: var(--dc); }
+
+    /* ce que la sous-race apparentée change : mise à l'écart par un filet,
+       comme l'exception d'une classe, pour qu'on ne la lise pas comme la règle */
+    /* la carte est un flex : « margin-top:auto » colle le bonus en pied. Le
+       sélecteur passe par .demon pour battre le « .parch p » du parchemin. */
+    .demon .demon-bonus {
+      margin: auto 0 0; padding-top: 12px; border-top: 1px dashed var(--line);
+      font-size: 15px; font-style: italic; color: var(--muted); line-height: 1.45;
+    }
+    .demon-bonus b { font-style: normal; color: var(--dc); }
+    .demon-bonus b::after { content: " — "; color: var(--muted); }
+    @media (max-width: 560px) {
+      .jauges { grid-template-columns: 52px minmax(0, 1fr) 64px; gap: 7px; }
+      .d6-ligne { grid-template-columns: 22px minmax(0, 1fr) 48px 48px; gap: 7px; padding: 6px 8px; }
+      .d6-tete { font-size: 11px; letter-spacing: .03em; }
+    }
 
     /* navigation d'une race à l'autre, en bas de fiche */
     .voisins { display: flex; justify-content: space-between; gap: 12px; margin-top: 22px; }
@@ -823,10 +960,12 @@
       function moteursHTML(r) {
         if (!r.moteurs) return "";
         var C = { Capacites: "#a8712f", Ressource: "#3f7d8a", Mana: "#5f5a8a" };
-        return '<h2>Selon le moteur de votre classe</h2>' +
+        return '<h2>Selon le type de votre classe</h2>' +
           '<div class="moteurs">' + r.moteurs.map(function (m) {
             return '<div class="moteur" style="--c:' + (C[m.id] || "#6b5a3a") + '"><b>' + esc(m.nom) + '</b>' +
-              '<span>' + esc(m.texte) + '</span></div>';
+              '<span>' + esc(m.texte) + '</span>' +
+              (m.note ? '<em class="note"><b>' + esc(m.note.pour) + '</b>' + esc(m.note.texte) + '</em>' : "") +
+              '</div>';
           }).join("") + '</div>' +
           '<a class="retour" style="margin:10px 0 0" href="classes.html">Voir les classes →</a>';
       }
@@ -854,6 +993,129 @@
             '</ul>' +
           '</div>' +
           (r.souffle.note ? '<p class="note">' + esc(r.souffle.note) + '</p>' : "");
+      }
+
+      /* ⅓ et ⅔ (U+2153, U+2154) manquent à Cormorant Garamond — contrairement
+         à ½, ¼ et ¾ — et le navigateur va donc les chercher dans le serif du
+         système, plus gras. Dans un tableau où une colonne est en gras, le ⅓
+         d'à côté a l'air mis en valeur par erreur. On recompose donc les
+         fractions avec les chiffres de la fonte du site. */
+      var FRACTIONS = { "½": [1, 2], "⅓": [1, 3], "⅔": [2, 3], "¼": [1, 4], "¾": [3, 4] };
+      function fracHTML(s) {
+        var f = FRACTIONS[s];
+        if (!f) return esc(s);
+        return '<span class="frac" role="img" aria-label="' + f[0] + ' sur ' + f[1] + '">' +
+          '<sup>' + f[0] + '</sup><i>⁄</i><sub>' + f[1] + '</sub></span>';
+      }
+
+      /* une face de dé, dessinée : les caractères ⚀ à ⚅ manquent à trop de
+         polices pour qu'on leur confie la table de jets */
+      var PIPS = [[[1, 1]], [[0, 0], [2, 2]], [[0, 0], [1, 1], [2, 2]],
+        [[0, 0], [2, 0], [0, 2], [2, 2]], [[0, 0], [2, 0], [1, 1], [0, 2], [2, 2]],
+        [[0, 0], [2, 0], [0, 1], [2, 1], [0, 2], [2, 2]]];
+      function deHTML(n) {
+        return '<svg class="de" viewBox="0 0 22 22" role="img" aria-label="Face ' + n + ' du dé">' +
+          '<rect x="1.5" y="1.5" width="19" height="19" rx="4"/>' +
+          PIPS[n - 1].map(function (p) {
+            return '<circle cx="' + (5.5 + p[0] * 5.5) + '" cy="' + (5.5 + p[1] * 5.5) + '" r="1.9"/>';
+          }).join("") + '</svg>';
+      }
+
+      /* le gabarit d'une zone d'effet, sur le modèle de celui du chapitre 16.3
+         des règles : une case par position, chacune portant sa distance au
+         centre. Cette distance se mesure à vol d'oiseau puis s'arrondit à la
+         case la plus proche — la zone dessine donc un cercle, pas un carré. */
+      function zoneHTML(d) {
+        var z = d.zone, R = z.rayon, cases = "";
+        function palier(dist) {
+          for (var i = 0; i < z.paliers.length; i++) if (dist <= z.paliers[i].max) return i;
+          return -1;                                   /* hors de la zone */
+        }
+        for (var y = -R; y <= R; y++) {
+          for (var x = -R; x <= R; x++) {
+            if (!x && !y) { cases += '<span class="zc centre">✦</span>'; continue; }
+            var dist = Math.round(Math.hypot(x, y)), p = palier(dist);
+            cases += '<span class="zc' + (p < 0 ? " hors" : " b" + p) + '"><i>' + dist + '</i></span>';
+          }
+        }
+
+        var bas = 1, leg = z.paliers.map(function (p, i) {
+          var haut = p.max, etiq = bas + " à " + haut + " cases";
+          bas = haut + 1;
+          return '<li><i class="b' + i + '"></i>' + esc(etiq) + ' — ' + esc(p.quoi) + '</li>';
+        }).join("");
+
+        return '<div class="zone">' +
+          '<div class="zone-grille" style="grid-template-columns:repeat(' + (2 * R + 1) + ',1fr)"' +
+            ' role="img" aria-label="Gabarit de la zone de ' + R + ' autour d’' + esc(d.nom) +
+            ' : chaque case porte sa distance au centre, mesurée en cercle, et sa couleur donne le surcoût de déplacement.">' +
+            cases +
+          '</div>' +
+          '<ul class="zone-leg">' + leg +
+            '<li><i class="centre"></i>' + esc(d.nom) + ', au centre du dôme</li>' +
+            '<li><i class="hors"></i>Au-delà de ' + R + ' cases — hors de la zone</li>' +
+          '</ul></div>';
+      }
+
+      /* les cartes de pacte des tieffelins : trois démons, dont les
+         statistiques se lisent en proportion de celles de l'invocateur */
+      function invocationHTML(r) {
+        if (!r.invocation) return "";
+        var inv = r.invocation, ech = inv.echelle || 150;
+
+        var cartes = inv.demons.map(function (d) {
+          var b = '<div class="demon" style="--dc:' + d.couleur + '">' +
+            '<div class="ruban"><i></i>Renforcé par le ' + esc(d.pour) + '</div>' +
+            '<div class="demon-nom">' + esc(d.nom) + '</div>' +
+            (d.role ? '<div class="demon-role">' + esc(d.role) + '</div>' : "");
+
+          b += '<div class="jauges">' + d.jauges.map(function (j) {
+            return '<div class="jauge">' +
+              '<span class="jauge-lbl">' + esc(j.l) + '</span>' +
+              '<span class="jauge-piste">' +
+                (j.bonus ? '<span class="jauge-bar fantome" style="--v:' + j.bonus + '"></span>' : "") +
+                '<span class="jauge-bar" style="--v:' + j.v + '"></span>' +
+              '</span>' +
+              /* la valeur du bonus n'entre pas dans la colonne : elle en ferait
+                 varier la largeur, donc celle des pistes, d'une carte à
+                 l'autre. Elle est portée par la jauge fantôme et par la ligne
+                 de bonus, en pied de carte. */
+              '<span class="jauge-val">' + j.v + ' %</span>' +
+            '</div>';
+          }).join("") + '</div>';
+
+          b += '<div class="mods"><span class="mod n">Portée ' + d.portee + '</span>' +
+            (d.precision
+              ? '<span class="mod ' + (d.precision > 0 ? "p" : "m") + '">Précision ' +
+                (d.precision > 0 ? "+" : "−") + Math.abs(d.precision) + '</span>'
+              : "") + '</div>';
+
+          b += capsHTML({ capacites: [d.capacite] });
+
+          if (d.zone) b += zoneHTML(d);
+
+          if (d.d6) {
+            b += '<div class="d6" role="table" aria-label="Effets des Flèches de disgrâce">' +
+              '<div class="d6-ligne d6-tete" role="row"><span></span><span>Effet</span>' +
+              '<span class="d6-ch">Base</span><span class="d6-bo">' + esc(d.d6.colonne) + '</span></div>' +
+              d.d6.faces.map(function (f, i) {
+                return '<div class="d6-ligne" role="row">' + deHTML(i + 1) +
+                  '<span>' + esc(f.effet) + '</span>' +
+                  '<span class="d6-ch">' + fracHTML(f.chance) + '</span>' +
+                  '<span class="d6-bo">' + fracHTML(f.bonus) + '</span></div>';
+              }).join("") + '</div>';
+          }
+
+          return b + '<p class="demon-bonus"><b>' + esc(d.pour) + '</b>' + esc(d.bonus) + '</p></div>';
+        }).join("");
+
+        return '<h2>L’invocation</h2>' +
+          '<div class="sous-intro" style="--sc:' + r.couleur + '">' +
+            '<div class="kicker">Règle commune</div><p>' + esc(inv.regle) + '</p></div>' +
+          '<div class="demons" style="--ech:' + ech + '">' + cartes + '</div>' +
+          '<p class="note">Les jauges se lisent en pourcentage de la statistique du tieffelin, ' +
+          'sur une même échelle graduée jusqu’à ' + ech + ' % ; le pointillé marque les 100 %, ' +
+          'c’est-à-dire l’invocateur lui-même.</p>';
       }
 
       /* la toise de la fiche : la race, et l'ombre d'un humain d'1,75 m */
@@ -903,6 +1165,8 @@
         if (r.souffle) corps += souffleHTML(r);
         corps += moteursHTML(r);
         corps += sousHTML(r);
+        /* après les sous-races : chaque démon renvoie à l'une d'elles */
+        corps += invocationHTML(r);
 
         return '<a class="retour" href="#">← Retour à l’échelle</a>' +
           '<div class="fiche-grid">' +

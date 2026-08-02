@@ -56,7 +56,28 @@
          grille: ["XXX", ".X.", ".O."],   // X = touchée, O = le drakéide
          note: "…"
        },
-       moteurs: [ { id:"Capacites", texte:"…" }, … ]   // onis
+       invocation: {                // tieffelins : les cartes de pacte
+         regle: "…",                // la règle commune, au-dessus des cartes
+         echelle: 150,              // le haut des jauges, en %
+         demons: [ {
+           nom: "Ravage", couleur: "#…", role: "Le fauve",
+           jauges: [ { l:"PV", v:15, bonus:100 } ],  // en % du tieffelin ;
+                                    // « bonus » = la valeur atteinte grâce
+                                    // à la sous-race, en jauge fantôme
+           portee: 2, precision: -2,              // precision facultative
+           capacite: { nom:"…", cout:"{2}", texte:["…"] },
+           zone: { rayon:6,                        // gabarit de la zone d'effet,
+                                                   // mesurée en cercle comme la
+                                                   // portée (règles, 16.3)
+             paliers: [ { max:2, quoi:"…" } ] },   // du plus proche au plus loin
+           d6: { colonne:"Styx", faces:[ { effet:"…", chance:"½", bonus:"⅔" } ] },
+           pour: "Tieffelin du Tartar",           // la sous-race qui renforce
+           bonus: "…"                             // ce qu'elle change
+         } ]
+       },
+       moteurs: [ { id:"Capacites", texte:"…",        // onis
+                    note: { pour:"Classe", texte:"…" } }, … ]  // note = l'exception
+                                                    // d'une classe, en pied de carte
      }
 
    ⚠ Ne pas écrire de HTML dans les textes : ils sont échappés
@@ -352,7 +373,104 @@ window.RACES = {
           plus: ["Force +1", "Dextérité +1", "Constitution +1"],
           moins: ["Intelligence −1", "Sagesse −1", "Charisme −1"]
         }
-      ]
+      ],
+      /* Les trois mini-démons. Leurs trois premières lignes sont des
+         pourcentages de la statistique correspondante du tieffelin : elles
+         partagent donc l'échelle des jauges, et chaque démon reçoit son
+         bonus d'une sous-race différente. */
+      invocation: {
+        regle: "Les tieffelins peuvent invoquer un mini-démon. Il en existe trois, et vous choisissez lequel au moment de l’invocation. Une fois par CR : quand l’invocation apparaît, vous payez — et donc perdez — en PV actuels le nombre de PV max de l’invocation.",
+        echelle: 150,
+        demons: [
+          {
+            nom: "Ravage",
+            couleur: "#9e3b2f",
+            role: "Le fauve",
+            jauges: [
+              { l: "PV", v: 15 },
+              { l: "Vitesse", v: 150 },
+              { l: "Dégâts", v: 80, bonus: 100 }
+            ],
+            portee: 2,
+            capacite: {
+              nom: "Coups en cascade",
+              cout: "{2}",
+              texte: [
+                "Vous foncez sur un ennemi situé à une portée de 2 de vous et vous l’attaquez. S’il y a ensuite un autre ennemi que vous n’avez pas déjà attaqué ce tour, vous pouvez lui foncer dessus et l’attaquer lui aussi, et ainsi de suite.",
+                "Si, quand vous foncez sur votre premier adversaire, il n’y a pas la possibilité de foncer sur un autre, vous gagnez un style rapide sur l’attaque ainsi que ½ chance d’infliger un effet de faiblesse de 20 %."
+              ]
+            },
+            pour: "Tieffelin du Tartar",
+            bonus: "les dégâts de Ravage passent de 80 % à 100 %."
+          },
+          {
+            nom: "Abri",
+            couleur: "#3f6b8a",
+            role: "Le rempart",
+            jauges: [
+              { l: "PV", v: 30 },
+              { l: "Vitesse", v: 80 },
+              { l: "Dégâts", v: 40 }
+            ],
+            portee: 3,
+            precision: -2,
+            capacite: {
+              nom: "Dôme Abaddon",
+              cout: "{1}",
+              texte: [
+                "Abri crée autour de lui une zone de 6 pendant 3T : les ennemis y dépensent davantage de déplacement, et d’autant plus qu’ils s’approchent d’Abri.",
+                "La zone accorde aussi un effet de résistance de 5 % par case plus proche d’Abri (à 3 cases d’Abri, l’effet de résistance est donc de 15 %)."
+              ]
+            },
+            /* Le surcoût de déplacement se lit sur le gabarit, comme la portée
+               au chapitre 16.3 des règles : la zone est un cercle, pas un
+               carré, donc les couronnes s'y dessinent arrondies. */
+            zone: {
+              rayon: 6,
+              paliers: [
+                { max: 3, quoi: "Déplacements triplés" },
+                { max: 6, quoi: "Déplacements doublés" }
+              ]
+            },
+            /* « tieffelin classique » est le mot du document : sans lui, on
+               lirait « renforcé par le tieffelin », donc par n'importe lequel */
+            pour: "Tieffelin classique",
+            bonus: "la résistance du dôme passe de 5 % à 7 % par case."
+          },
+          {
+            nom: "Déchéance",
+            couleur: "#6b4a8a",
+            role: "L’archer",
+            jauges: [
+              { l: "PV", v: 10 },
+              { l: "Vitesse", v: 100 },
+              { l: "Dégâts", v: 50 }
+            ],
+            portee: 10,
+            precision: 2,
+            capacite: {
+              nom: "Flèches de disgrâce",
+              cout: "{2}",
+              texte: [
+                "Crée et tire un projectile qui a un effet aléatoire selon le résultat d’un D6. La capacité n’est pas comptée comme utilisée si l’effet n’arrive pas à s’appliquer."
+              ]
+            },
+            d6: {
+              colonne: "Styx",
+              faces: [
+                { effet: "Empoisonné", chance: "½", bonus: "⅔" },
+                { effet: "Incapacité", chance: "½", bonus: "⅔" },
+                { effet: "Faiblesse de 25 %", chance: "½", bonus: "⅔" },
+                { effet: "Saignement", chance: "½", bonus: "⅔" },
+                { effet: "Amoureux", chance: "⅓", bonus: "½" },
+                { effet: "Vol de vie de 10 PV", chance: "½", bonus: "⅔" }
+              ]
+            },
+            pour: "Tieffelin du Styx",
+            bonus: "chaque effet s’applique avec la probabilité de la colonne de droite."
+          }
+        ]
+      }
     },
 
     /* ======================================================== PIAF */
@@ -768,7 +886,10 @@ window.RACES = {
       moteurs: [
         { id: "Capacites", nom: "Capacités", texte: "Récupère l’équivalent d’un CR d’une capacité en consommant 4 points de satiété au lieu de 5." },
         { id: "Ressource", nom: "Ressource", texte: "Récupère une ressource tous les 4T en combat au lieu de 5T." },
-        { id: "Mana", nom: "Mana", texte: "Récupère 6 PM par tour en combat au lieu de 5 PM." }
+        {
+          id: "Mana", nom: "Mana", texte: "Récupère 6 PM par tour en combat au lieu de 5 PM.",
+          note: { pour: "Hématomancien", texte: "chaque tranche absorbée sur le 1D8 vaut 4 % des PV max de la cible au lieu de 3 %." }
+        }
       ],
       sousTitre: "Lignées",
       sousIntro: "Chaque lignée arrive avec ses six statistiques déjà réparties : 17 dans sa spécialité, 7 dans son point faible.",
