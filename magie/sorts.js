@@ -105,6 +105,16 @@ const FAMILLES = [
           { nom: "Perce armure légère", cout: "PM (75)", desc: ["Attaque en ignorant les PA pendant 1T."] },
           { nom: "Perce armure forte", cout: "PM (95)", desc: ["Attaque en ignorant les PA pendant 2T."] }
         ]
+      },
+      {
+        titre: "Sous-famille de réflexion",
+        intro: "Tous les sorts de cette sous-famille peuvent être rallongés d'un ou plusieurs tours, pour la moitié du coût du sort à chaque tour ajouté.",
+        sorts: [
+          { nom: "Miroir cassé", cout: "PM (40)", desc: ["Renvoie 25% des dégâts de l'attaque à l'attaquant après les avoir subis, pendant 2T."] },
+          { nom: "Miroir fumé", cout: "PM (55)", desc: ["Renvoie 25% des dégâts ainsi que les effets de l'attaque à l'attaquant après les avoir subis, pendant 2T."] },
+          { nom: "Miroir", cout: "PM (60)", desc: ["Renvoie 50% des dégâts de l'attaque à l'attaquant après les avoir subis, pendant 2T."] },
+          { nom: "Miroir sans tain", cout: "PM (75)", desc: ["Renvoie 50% des dégâts ainsi que les effets de l'attaque à l'attaquant après les avoir subis, pendant 2T."] }
+        ]
       }
     ]
   },
@@ -133,6 +143,27 @@ const FAMILLES = [
           { nom: "Projection de 70 kg", cout: "PM (40)", desc: ["Envoie l'objet à une distance de 20 cases."] },
           { nom: "Projection de 150 kg", cout: "PM (50)", desc: ["Envoie l'objet à une distance de 10 cases."] }
         ]
+      },
+      {
+        titre: "Sous-famille de ruée chargée",
+        intro: "Pour chaque tour passé immobile jusqu'au prochain déplacement, vous gagnez une part de vos déplacements en plus pour celui-ci.",
+        sorts: [
+          { nom: "Petite ruée chargée", cout: "PM (15)", desc: ["Gain de ⅙ des déplacements par tour d'immobilité."] },
+          { nom: "Ruée chargée", cout: "PM (30)", desc: ["Gain de ¼ des déplacements par tour d'immobilité."] },
+          { nom: "Longue ruée chargée", cout: "PM (45)", desc: ["Gain de ½ des déplacements par tour d'immobilité."] }
+        ]
+      },
+      {
+        titre: "Sous-famille de permutation", sorts: [
+          { nom: "Permutation de personne", cout: "PM (40)", desc: ["Vous échangez la place de deux personnes dans la distance de vos sorts."] },
+          { nom: "Permutation d'objet", cout: "PM (20)", desc: ["Vous échangez la place de deux objets dans la distance de vos sorts."] }
+        ]
+      },
+      {
+        titre: "Sous-famille de saut", sorts: [
+          { nom: "Saut des nuages", cout: "PM (20)", desc: ["Vous sautez dans une zone équivalente à vos déplacements, ce qui les consomme. À la retombée, 2D4 de dégâts sur une zone de 3."] },
+          { nom: "Saut des cieux", cout: "PM (35)", desc: ["Vous sautez dans une zone équivalente à vos déplacements +1D4, ce qui les consomme. À la retombée, 3D4 de dégâts sur une zone de 3."] }
+        ]
       }
     ]
   },
@@ -150,6 +181,22 @@ const FAMILLES = [
         titre: "Sous-famille de fumigène", sorts: [
           { nom: "Fumigène", cout: "PM (25)", desc: ["Fait apparaître une boule de fumée de 4 de large, rendant impossible la vision à travers et la compliquant à l'intérieur même. La fumée dure 6T à moins qu'elle ne soit dissipée par un vent fort ou une aura de vent."] },
           { nom: "Fumigène empoisonné", cout: "PM (40)", desc: ["Fait apparaître une boule de fumée empoisonnée de 3 de large, rendant impossible la vision à travers et la compliquant à l'intérieur même. Toute personne à l'intérieur a l'effet empoisonné. La fumée dure 6T à moins qu'elle ne soit dissipée par un vent fort ou une aura de vent."] }
+        ]
+      },
+      {
+        titre: "Sous-famille de pas de plume", sorts: [
+          { nom: "Pas de plume", cout: "PM (10)", desc: ["Supprime les bruits émis par le corps et son équipement pendant 1T, sur un maximum de 3 cases de déplacement."] },
+          { nom: "Fouetté de pas de plume", cout: "PM (20)", desc: ["Supprime les bruits émis par le corps et son équipement pendant 1T."] },
+          { nom: "Course pas de plume", cout: "PM (30)", desc: ["Supprime les bruits émis par le corps et son équipement pendant 2T."] }
+        ]
+      },
+      {
+        titre: "Sous-famille de morphose",
+        intro: "Portée de 1 case, durée de 5T : seule votre apparence change, et vous devez déjà avoir vu ce en quoi vous vous transformez. Un dé de Sagesse fixe la qualité du déguisement, qui pèse sur le duel entre la Perception de l'ennemi et votre Charisme, celui qui décide s'il vous démasque. Pauvre (moins de 10) : +2 pour lui. Bon (10 à 16 compris) : ni bonus ni malus. Magnifique (au-dessus de 16) : +2 pour vous.",
+        sorts: [
+          { nom: "Morphose interraciale", cout: "PM (20)", desc: ["Vous vous morphosez en un autre individu de votre race."] },
+          { nom: "Morphose humanoïde", cout: "PM (40)", desc: ["Vous vous morphosez en un autre individu humanoïde."] },
+          { nom: "Morphose universelle", cout: "PM (60)", desc: ["Vous vous morphosez en n'importe quoi que vous avez déjà vu."] }
         ]
       }
     ]
@@ -169,6 +216,25 @@ const FAMILLES = [
           { nom: "Sentiments", cout: "PM (60)", desc: ["Rend la cible amoureuse du lanceur, ½ chance de s'appliquer."] },
           { nom: "Amoureux", cout: "PM (80)", desc: ["Rend la cible amoureuse du lanceur, ¾ chances de s'appliquer."] },
           { nom: "Coup de foudre", cout: "PM (120)", desc: ["Rend la cible amoureuse du lanceur."] }
+        ]
+      },
+      {
+        titre: "Sous-famille de discussion mentale",
+        intro: "Vous prononcez une phrase directement dans l'esprit d'une personne, qui peut ensuite vous répondre gratuitement. Chaque phrase supplémentaire demande un test de Précision au lanceur, avec un malus cumulatif propre au sort.",
+        sorts: [
+          { nom: "Courte discussion mentale", cout: "PM (15)", desc: ["Phrase de 7 mots, malus cumulatif de -3."] },
+          { nom: "Discussion mentale", cout: "PM (25)", desc: ["Phrase de 14 mots, malus cumulatif de -3."] },
+          { nom: "Longue discussion mentale", cout: "PM (35)", desc: ["Phrase de 11 mots, malus cumulatif de -1."] },
+          { nom: "Véritable discussion mentale", cout: "PM (50)", desc: ["Phrase sans limite de mots, malus cumulatif de -2."] }
+        ]
+      },
+      {
+        titre: "Sous-famille d'altération de l'esprit",
+        intro: "Vous créez la vision de votre choix dans l'esprit d'une personne. Si la cible n'est pas consentante, elle doit réussir un jet de Perception pour y résister. Le sort peut viser plusieurs cibles, en payant le coût pour chacune.",
+        sorts: [
+          { nom: "Vision floue", cout: "PM (25)", desc: ["La cible résiste avec une Perception supérieure à 11."] },
+          { nom: "Vision", cout: "PM (35)", desc: ["La cible résiste avec une Perception supérieure à 15."] },
+          { nom: "Vision réaliste", cout: "PM (45)", desc: ["La cible résiste avec une Perception supérieure à 18."] }
         ]
       },
       {
