@@ -304,6 +304,13 @@
 
     /* ---- en dessous de 1100 px, le pantin devient un tiroir du bas ---- */
     @media (max-width: 1100px) {
+      /* le tiroir occupe toute la largeur en bas : le sceau de retour en
+         haut n'a plus de coin où se poser, et l'atelier se parcourt de
+         toute façon par ses étapes */
+      .haut-page {
+        display: none;
+      }
+
       .pantin {
         position: fixed; left: 0; right: 0; bottom: 0; top: auto; z-index: 1030;
         border-radius: 12px 12px 0 0; border-bottom: 0;

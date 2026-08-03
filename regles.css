@@ -241,6 +241,16 @@ h1.codex-title {
   }
 }
 
+/* ---------- le sceau de retour en haut ---------- */
+/* Le sceau lui-même vit dans styles.css : commun.js le pose sur toutes les
+   pages longues. Ici on le remonte seulement, pour qu'il ne tombe pas sur
+   le bouton « Sommaire » qui occupe déjà le coin droit en mobile. */
+@media (max-width: 1099.98px) {
+  .haut-page {
+    bottom: 70px;
+  }
+}
+
 .codex-off {
   background: linear-gradient(160deg, var(--parch), var(--parch2));
   width: min(340px, 86vw);

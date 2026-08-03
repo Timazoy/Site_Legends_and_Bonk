@@ -76,4 +76,50 @@
   Promise.all([charger("footer.html"), domPret]).then(function (resultats) {
     document.body.appendChild(fragment(resultats[0]));
   }).catch(echec);
+
+  /* ---------- Le sceau de retour en haut ----------
+     Il n'a rien à faire sur une page qui tient dans un écran ou deux : on le
+     réserve aux pages longues (au moins deux écrans et demi à dérouler), et
+     on ne le montre qu'une fois la lecture engagée. L'habillage est dans
+     styles.css ; une page peut le décaler ou le masquer depuis sa propre
+     feuille (le codex le remonte au-dessus de son bouton « Sommaire »). */
+  domPret.then(function () {
+    var sceau = document.createElement("button");
+    sceau.type = "button";
+    sceau.className = "haut-page";
+    sceau.id = "hautPage";
+    sceau.textContent = "↑";
+    sceau.setAttribute("aria-label", "Revenir en haut de la page");
+    sceau.title = "Revenir en haut";
+    document.body.appendChild(sceau);
+
+    var LONGUE = 2.5;   // hauteur de page minimale, en écrans
+    var DEPART = 600;   // px parcourus avant que le sceau se montre
+    var enAttente = false;
+
+    function juger() {
+      enAttente = false;
+      var assezLongue = document.documentElement.scrollHeight > window.innerHeight * LONGUE;
+      sceau.classList.toggle("vu", assezLongue && (window.pageYOffset || 0) > DEPART);
+    }
+
+    window.addEventListener("scroll", function () {
+      if (enAttente) return;
+      enAttente = true;
+      requestAnimationFrame(juger);
+    }, { passive: true });
+
+    // le contenu de plusieurs pages est construit par script : la hauteur
+    // n'est pas connue au chargement
+    window.addEventListener("resize", juger);
+    window.addEventListener("load", juger);
+
+    sceau.addEventListener("click", function () {
+      var doux = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      window.scrollTo({ top: 0, behavior: doux ? "smooth" : "auto" });
+      sceau.blur();
+    });
+
+    juger();
+  });
 })();

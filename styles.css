@@ -147,6 +147,54 @@ footer {
   padding: 10px;
 }
 
+/* ===== Le sceau de retour en haut ===== */
+/* Posé par commun.js sur toutes les pages, mais il ne se montre que sur
+   celles qui sont assez longues pour qu'un retour en haut ait un sens, et
+   seulement une fois la lecture engagée. Une page qui occupe déjà le coin
+   bas-droite (le « Sommaire » du codex, le tiroir du pantin) le décale ou
+   le masque depuis sa propre feuille de style. */
+.haut-page {
+  position: fixed;
+  right: 14px;
+  bottom: 14px;
+  z-index: 1030;
+  width: 52px;
+  height: 52px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-family: inherit;
+  font-size: 26px;
+  line-height: 1;
+  color: #f4ecd8;
+  background: radial-gradient(circle at 36% 30%, #a01212, #7a0808 70%);
+  box-shadow: 0 0 0 3px #f4ecd8, 0 0 0 4px #c9b892, 0 3px 10px rgba(40, 27, 7, .4);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: opacity .2s ease, transform .2s ease, visibility .2s;
+}
+
+.haut-page.vu {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+
+.haut-page:hover,
+.haut-page:focus-visible {
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .haut-page {
+    transition: none;
+  }
+}
+
 /* Responsive font size for mobile */
 @media (max-width: 768px) {
   html, body {
