@@ -602,7 +602,7 @@
         <p class="echelle-legende">
           <span>Toise graduée tous les 50 cm.</span>
           <span>Le trait rouge en pointillé marque le bas de la fourchette de taille.</span>
-          <span>Les peuples pâles n’ont pas de taille précisée : ils sont posés à hauteur humanoïde.</span>
+          <span>Les peuples pâles n’ont pas de taille précisée : ils sont posés d’après leur dessin, ou à hauteur humanoïde faute de mieux.</span>
           <span id="glisser" style="display:none">Faites glisser la frise pour voir les peuples suivants.</span>
         </p>
       </div>
@@ -619,7 +619,8 @@
       var LISTE = DB.liste;
       var IMG = "../image-db/personnages/races/";
       var HMAX = 3.1;            /* hauteur de la planche, en mètres */
-      var H_VARIABLE = 1.85;     /* où poser un peuple sans taille donnée */
+      var H_VARIABLE = 1.85;     /* où poser un peuple sans taille donnée
+                                    ni hauteur relevée sur son dessin */
       var H_HUMAIN = 1.75;       /* l'ombre de comparaison, sur la fiche */
 
       function esc(s) {
@@ -662,7 +663,13 @@
       /* ============ préparation des données ============ */
       LISTE.forEach(function (r) {
         var t = r.taille;
-        r._h = t ? t.max : H_VARIABLE;
+        /* Un peuple sans taille déclarée dont la silhouette est dessinée est
+           posé à la hauteur relevée sur le dessin (« hauteurDessin »), et non
+           à la hauteur de convention. Sa taille reste inconnue pour autant :
+           il garde son étiquette « taille libre », son affichage pâle et sa
+           place dans le groupe de tête de la frise — c'est le trait du
+           dessinateur qu'on montre, pas une mesure. */
+        r._h = t ? t.max : (r.hauteurDessin || H_VARIABLE);
         r._hmin = t ? t.min : null;
         /* « 1,50 m à 2,00 m » → « 1,50–2 m », pour tenir sous la silhouette */
         r._court = t ? t.texte.replace("environ ", "~").replace(" m à ", "–").split(",00").join("")
@@ -674,13 +681,17 @@
 
       /* L'humain ouvre la frise : c'est l'étalon auquel tout le reste se
          compare, y compris l'ombre posée sur les fiches.
-         Viennent ensuite les tailles libres. Elles sont posées à une hauteur
-         de convention, pas mesurées : les laisser dispersées entre les peuples
-         à l'échelle laisse croire qu'on peut les comparer à eux. Groupées en
-         tête, elles se lisent pour ce qu'elles sont — le reste de la frise
+         Viennent ensuite les tailles libres. Qu'elles soient posées à une
+         hauteur de convention ou à celle relevée sur leur dessin, elles ne
+         sont pas mesurées : les laisser dispersées entre les peuples à
+         l'échelle laisse croire qu'on peut les comparer à eux. Groupées en
+         tête, elles se lisent pour ce qu'elles sont. Chacun des deux groupes
          monte ensuite du plus petit peuple au plus grand. */
       LISTE = LISTE.filter(function (r) { return r.slug === "humain"; })
-        .concat(LISTE.filter(function (r) { return !r.taille; }))
+        .concat(LISTE.filter(function (r) { return !r.taille; })
+          .sort(function (a, b) {
+            return (a._h - b._h) || a.nom.localeCompare(b.nom, "fr");
+          }))
         .concat(LISTE.filter(function (r) { return r.taille && r.slug !== "humain"; })
           .sort(function (a, b) {
             /* à taille maximale égale, le peuple dont la fourchette part de

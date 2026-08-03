@@ -23,6 +23,14 @@
                                     // null si le document ne la donne pas :
                                     // la race est alors posée sur la toise
                                     // en pointillé, à hauteur humanoïde
+       hauteurDessin: 2.05,         // facultatif, et seulement pour une race
+                                    // à « taille: null » : hauteur à laquelle
+                                    // poser la silhouette, en mètres, relevée
+                                    // sur le dessin. Ne change que le rendu —
+                                    // la race reste sans taille déclarée et
+                                    // garde son étiquette « taille libre ».
+                                    // Sans ce champ, la page pose la race à
+                                    // 1,85 m par défaut.
        poids: "60 à 120 kg",        // facultatif
        longevite: "…",              // facultatif
        resume: "…",                 // une ligne, sous le nom
@@ -677,9 +685,10 @@ window.RACES = {
       slug: "golemovi",
       nom: "Golemovi",
       couleur: "#7a7266",
-      image: null,                 /* dessin à faire */
+      image: "golemovi.webp",
       forme: "bloc",
       taille: null,
+      hauteurDessin: 2.55,         /* relevée sur le dessin */
       resume: "Deux techniques de création, deux êtres opposés.",
       description: [
         "Les golemovi sont des golems dotés de conscience. Ils sont rares car la technique pour les créer a pratiquement été oubliée de tous.",
@@ -764,9 +773,10 @@ window.RACES = {
       slug: "garou",
       nom: "Garou",
       couleur: "#8a6b3a",
-      image: null,                 /* dessin à faire */
+      image: "garou.webp",
       forme: "bestial",
       taille: null,
+      hauteurDessin: 2.05,         /* relevée sur le dessin */
       resume: "L’instinct à la place de la tête, et la folie au bout.",
       description: [
         "Les garous sont une race mi-humanoïde mi-animale se caractérisant par l’instinct animal. La rage animale leur permet de passer outre les limitations de leur corps humain et de se rapprocher de leur partie animale.",
@@ -861,9 +871,10 @@ window.RACES = {
       slug: "graille-tout",
       nom: "Graille-Tout",
       couleur: "#b07c2f",
-      image: null,                 /* dessin à faire */
+      image: "graille-tout.webp",
       forme: "humanoide",
       taille: null,
+      hauteurDessin: 1.30,         /* relevée sur le dessin */
       resume: "Aussi vieux que le monde, et toujours affamé.",
       description: [
         "Les graille-tout forment une race pratiquement aussi ancienne que le monde lui-même. Ils ont vu le monde changer maintes et maintes fois, mais sont toujours restés fidèles à eux-mêmes et à leur but simple : manger."
