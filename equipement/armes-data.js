@@ -3458,7 +3458,7 @@ window.EQUIP_ARMES = {
         "Un bâton spécialisé dans les sorts de la famille de création et les bastionistes l’apprécient particulièrement:",
         "> Ajoute la sous-famille des golems aux sorts possibles.",
         "OU",
-        "> -30% de mana nécessaire pour les sorts de la famille de création. +20% de mana nécessaire pour les autres types de sorts."
+        "> -30% de mana nécessaire pour les sorts de la famille de création et les sorts de bastionistes. +20% de mana nécessaire pour les autres types de sorts."
       ],
       "images": [
         "Baton_de_creation.webp"
