@@ -16,7 +16,15 @@
        description: ["paragraphe", …],
        ressource: {                // facultatif (classes de type Ressource)
          nom: "Partitions",
-         texte: ["paragraphe", …]
+         texte: ["paragraphe", …],
+         // Le stock de départ se calcule, comme les PV et les PM : il dépend
+         // d'une statistique et de paliers. « paliers » se lit du plus haut
+         // au plus bas, on garde le premier dont « min » est atteint — le
+         // dernier fait donc office de plancher. C'est la traduction chiffrée
+         // de la prose ci-dessus, pour l'outil de création.
+         stat: "Charisme",
+         paliers: [ { min: 12, valeur: 2 }, { min: 0, valeur: 1 } ],
+         recup: "la moitié du maximum à chaque court repos, +1 tous les 5T en combat"
        },
        passif:   { nom: "Tu es à moi !", texte: ["…"] },
        biclasse: { nom: "Tu es un peu à moi !", texte: ["…"] },
@@ -38,13 +46,33 @@
        lien: { href: "…", texte: "…" },   // facultatif : renvoi vers une autre page
        important: ["…"],           // facultatif : encadré d'avertissement
        precision: "Force",      // caractéristique dont dépend la précision
+       statMana: "Sagesse",     // classes de type Mana : statistique qui règle
+                                // les PM. null = la classe manie la magie sans
+                                // PM du tout (hématomancien, qui paie en PV).
+                                // Absent = la classe n'a pas de mana.
        equipement: [            // texte simple, ou objet pour renvoyer au catalogue :
          "Une moyenne potion de guérison",
          { nom: "Marteau de combat [C]",       // ce qui devient cliquable
            lien: "../equipement/armes.html#marteau-de-combat",  // ancre = nom de l'objet
            apres: "avec 25 flèches dedans" }   // facultatif : suite non cliquable
        ],
-       equipementChoix: true       // facultatif : « au choix entre » les entrées
+       equipementChoix: true,      // facultatif : « au choix entre » les entrées
+       variantes: {                // facultatif : deux façons de jouer LA MÊME
+                                   // classe, à trancher à la création — le
+                                   // pendant des sous-races. Seul le magicien
+                                   // en a aujourd'hui.
+         titre: "Voie",
+         intro: "…",               // facultatif
+         liste: [
+           { nom: "Magicien spécialisé",
+             note: "…",            // facultatif : une ligne sous le nom
+             texte: ["…"],         // facultatif : prose de la variante
+             plus:  ["…"],         // pastilles vertes
+             moins: ["…"],         // pastilles rouges
+             mods: { biclasseInterdit: true }   // ce que l'outil de création
+           }                                    // en tire (aides_creation.html)
+         ]
+       }
      }
 
    ⚠ Ne pas écrire de HTML dans les textes : ils sont échappés
@@ -150,6 +178,9 @@ window.CLASSES = {
       ],
       ressource: {
         nom: "Partitions",
+        stat: "Charisme",
+        paliers: [{ min: 12, valeur: 2 }, { min: 0, valeur: 1 }],
+        recup: "la moitié du maximum à chaque court repos, +1 tous les 5T en combat",
         texte: [
           "Il utilise des partitions pour lancer ses compétences : elles reposent sur son charisme. Si le charisme est supérieur ou égal à 12, il aura 2 partitions ; s'il est inférieur, ce sera 1 partition.",
           "Les partitions sont ensuite gagnées tout au long de l'aventure, par la montée de niveau (voir règle de montée de niveaux, section « type ressource »).",
@@ -205,6 +236,7 @@ window.CLASSES = {
         notes: [SORTS_PROPRES, GAIN_SORTS]
       },
       precision: "Sagesse",
+      statMana: "Sagesse",
       equipement: [
         { nom: "Sceptre-Tintus [C]", lien: "../equipement/armes.html#sceptre-tintus" }
       ]
@@ -238,6 +270,7 @@ window.CLASSES = {
       },
       lien: { href: "../regles.html#transformations", texte: "Voir la règle des transformations" },
       precision: "Sagesse",
+      statMana: "Sagesse",
       equipement: [
         { nom: "Hachette [C]", lien: "../equipement/armes.html#hachette" }
       ]
@@ -307,6 +340,7 @@ window.CLASSES = {
       },
       lien: { href: "../regles.html#invocations", texte: "Voir la règle des invocations" },
       precision: "Intelligence",
+      statMana: "Intelligence",
       equipement: [
         { nom: "Faux [C]", lien: "../equipement/armes.html#faux" }
       ]
@@ -368,7 +402,33 @@ window.CLASSES = {
         ]
       },
       important: ["Du fait de sa grande connexion avec la magie, le magicien peut uniquement manier des armes magiques."],
+      variantes: {
+        titre: "Voie",
+        intro: "Le magicien tranche à la création : garder tout le Grand Livre, ou n'en garder qu'un élément mais pouvoir y écrire.",
+        liste: [
+          {
+            nom: "Magicien polyvalent",
+            note: "tout le Grand Livre, mais rien à soi",
+            texte: ["Il puise dans l'intégralité du Grand Livre de la Magie, sans distinction d'élément. En contrepartie, il ne crée jamais aucun sort."],
+            plus: ["Accès à tous les éléments du Grand Livre de la Magie", "Reste libre de prendre une seconde classe"],
+            moins: ["Ne peut créer aucun sort"]
+          },
+          {
+            nom: "Magicien spécialisé",
+            note: "un seul élément, mais le sien",
+            texte: ["Il choisit un élément — pyromancien, hydromancien, géomancien… ou un élément oublié qu'il invente — et n'en sort plus. En échange, il devient le seul magicien capable d'écrire ses propres sorts."],
+            plus: ["Peut créer ses propres sorts, dans son élément", "Garde le gain de mana plein, malgré le statut de bi-classe"],
+            moins: [
+              "Perd l'accès à tous les autres éléments du Grand Livre",
+              "Compte déjà comme un bi-classe : impossible de prendre une seconde classe",
+              "Utilise le passif de bi-classe (D10) au lieu du passif classique (D20)"
+            ],
+            mods: { biclasseInterdit: true }
+          }
+        ]
+      },
       precision: "Intelligence",
+      statMana: "Intelligence",
       equipement: [
         { nom: "Bâton de magie [C]", lien: "../equipement/armes.html#baton-de-magie" },
         { nom: "Épée magique [C]", lien: "../equipement/armes.html#epee-magique" }
@@ -423,6 +483,9 @@ window.CLASSES = {
       ],
       ressource: {
         nom: "Pactes",
+        stat: "Charisme",
+        paliers: [{ min: 12, valeur: 2 }, { min: 0, valeur: 1 }],
+        recup: "la moitié du maximum à chaque court repos, +1 tous les 5T en combat",
         texte: [
           "Il utilise des pactes pour lancer ses compétences : ils reposent sur son charisme. Si le charisme est supérieur ou égal à 12, il aura 2 pactes ; s'il est inférieur, ce sera 1 pacte.",
           "Les pactes sont ensuite gagnés tout au long de l'aventure, par la montée de niveau (voir règle de montée de niveaux, section « type ressource »).",
@@ -469,6 +532,9 @@ window.CLASSES = {
       ],
       ressource: {
         nom: "Vœux",
+        stat: "Charisme",
+        paliers: [{ min: 12, valeur: 2 }, { min: 0, valeur: 1 }],
+        recup: "la moitié du maximum à chaque court repos, +1 tous les 5T en combat",
         texte: [
           "Il utilise des vœux pour lancer ses compétences : ils reposent sur son charisme. Si le charisme est supérieur ou égal à 12, il aura 2 vœux ; s'il est inférieur, ce sera 1 vœu.",
           "Les vœux sont ensuite gagnés tout au long de l'aventure, par la montée de niveau (voir règle de montée de niveaux, section « type ressource »).",
@@ -612,6 +678,9 @@ window.CLASSES = {
       ],
       ressource: {
         nom: "Pioches",
+        stat: "Sagesse",
+        paliers: [{ min: 14, valeur: 4 }, { min: 13, valeur: 3 }, { min: 12, valeur: 2 }, { min: 0, valeur: 1 }],
+        recup: "la moitié du maximum à chaque court repos, +1 tous les 5T en combat",
         texte: [
           "Il utilise des pioches pour récupérer des cartes de tarot, qui servent ensuite à lancer ses compétences : les pioches reposent sur sa sagesse.",
           "Si la sagesse est inférieure à 12, ce sera 1 pioche. Si elle est égale à 12, il aura 2 pioches. Si elle est égale à 13, il aura 3 pioches. Si elle est supérieure ou égale à 14, il aura 4 pioches.",
@@ -688,6 +757,7 @@ window.CLASSES = {
       },
       lien: { href: "../magie/grimoire_sanguinolent.html", texte: "Ouvrir le Grand Livre Sanguin" },
       precision: "Constitution",
+      statMana: null,          /* paie ses sorts en PV, pas en PM */
       equipement: [
         { nom: "Couteau de chasse [C]", lien: "../equipement/armes.html#couteau-de-chasse" }
       ]
@@ -707,6 +777,9 @@ window.CLASSES = {
       ],
       ressource: {
         nom: "Décoctions",
+        stat: "Intelligence",
+        paliers: [{ min: 13, valeur: 3 }, { min: 0, valeur: 2 }],
+        recup: "la moitié du maximum à chaque court repos, +1 tous les 5T en combat",
         texte: [
           "Il utilise des décoctions pour lancer ses compétences : elles reposent sur son intelligence. Si l'intelligence est supérieure ou égale à 13, il aura 3 décoctions ; si elle est inférieure, ce sera 2 décoctions.",
           "Les décoctions sont ensuite gagnées tout au long de l'aventure, par la montée de niveau (voir règle de montée de niveaux, section « type ressource »).",
@@ -799,6 +872,10 @@ window.CLASSES = {
       ],
       ressource: {
         nom: "Offrandes",
+        stat: "Sagesse",
+        paliers: [{ min: 14, valeur: 4 }, { min: 13, valeur: 3 }, { min: 0, valeur: 2 }],
+        /* le chaman est le seul à ne rien récupérer tous les 5T */
+        recup: "par la moisson d'offrandes sur un cadavre, à chaque court repos — et rien tous les 5T, contrairement aux autres classes ressource",
         texte: [
           "Il utilise des offrandes pour lancer ses compétences : elles reposent sur sa sagesse. Si la sagesse est supérieure ou égale à 14, il aura 4 offrandes ; à 13, il aura 3 offrandes ; si elle est inférieure, ce sera 2 offrandes.",
           "Les offrandes sont ensuite gagnées tout au long de l'aventure, par la montée de niveau (voir règle de montée de niveaux, section « type ressource »).",
@@ -861,6 +938,7 @@ window.CLASSES = {
         notes: [SORTS_PROPRES, GAIN_SORTS]
       },
       precision: "Force",
+      statMana: "Constitution",
       equipement: [
         { nom: "Le Mini Cracheur [C]", lien: "../equipement/armes.html#le-mini-cracheur" }
       ]

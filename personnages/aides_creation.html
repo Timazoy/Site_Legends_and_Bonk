@@ -11,14 +11,14 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap"
     rel="stylesheet" />
-  <title>Les aides de création — Legends & Bonk</title>
-  <meta name="description" content="Les aides de création de personnage de Legends & Bonk : conseils et outils pour créer votre héros de jeu de rôle." />
+  <title>L'aide de création — Legends &amp; Bonk</title>
+  <meta name="description" content="L'outil de création de personnage de Legends & Bonk : choisis ta race, ta classe, répartis tes statistiques, et vois ta fiche se remplir en direct." />
   <link rel="canonical" href="https://legendsandbonk.com/personnages/aides_creation.html" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Legends &amp; Bonk" />
   <meta property="og:locale" content="fr_FR" />
-  <meta property="og:title" content="Les aides de création — Legends & Bonk" />
-  <meta property="og:description" content="Les aides de création de personnage de Legends & Bonk : conseils et outils pour créer votre héros de jeu de rôle." />
+  <meta property="og:title" content="L'aide de création — Legends & Bonk" />
+  <meta property="og:description" content="L'outil de création de personnage de Legends & Bonk : choisis ta race, ta classe, répartis tes statistiques, et vois ta fiche se remplir en direct." />
   <meta property="og:url" content="https://legendsandbonk.com/personnages/aides_creation.html" />
   <meta property="og:image" content="https://legendsandbonk.com/image/og_partage.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -26,18 +26,373 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
     crossorigin="anonymous"></script>
+
+  <style>
+    :root {
+      --brun: #281b07; --bordeaux: #7a0808; --gold: #d8b24a; --muted: #6b5a3a;
+      --parch: #f3e7cb; --parch2: #e9dabb; --ink: #34260f; --line: #c9b892;
+      --or2: #c69f35; --or3: #7d5f16;
+      --vert: #3f7d4f; --rouge: #9e2b25;
+    }
+
+    /* Tous les chiffres de l'outil passent en chiffres bâtons alignés :
+       le Cormorant sort par défaut des chiffres elzéviriens, où « 14 » se
+       lit « I4 ». Sur une page qui ne fait que compter, c'est illisible.
+       Même parti pris que les pages d'équipement et les archives. */
+    .st-val, .st-mod, .st-calc, .c-val, .c-tot, .st-b,
+    .p-sv, .p-sm, .p-sd, .p-v, .p-d, .p-etiq, .choix-meta,
+    .past, #pantin-resume {
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+
+    /* ---- bandeau « en cours de test », temporaire ----
+       Rayé comme un ruban de chantier, pour qu'on ne le confonde pas avec
+       le reste de la page et qu'on pense à le retirer. */
+    .crea-test {
+      display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 10px;
+      margin: 14px 0 18px; padding: 10px 14px; border-radius: 8px;
+      border: 1px solid rgba(122, 8, 8, .35);
+      background:
+        repeating-linear-gradient(135deg,
+          rgba(122, 8, 8, .10) 0 12px, rgba(122, 8, 8, .04) 12px 24px);
+      font-size: 15px; line-height: 1.5; color: var(--ink);
+    }
+    .ct-cartouche {
+      flex: 0 0 auto; padding: 3px 10px; border-radius: 4px;
+      background: var(--bordeaux); color: #f3e2b6;
+      font-size: 13px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+    }
+    .ct-texte { flex: 1 1 260px; min-width: 0; }
+    .crea-test a { color: var(--bordeaux); }
+
+    /* ================= mise en page générale ================= */
+    .crea-wrap { max-width: 1260px; margin: 20px auto 60px; padding: 0 12px; color: var(--ink); }
+    .crea-title { text-align: center; font-weight: 700; letter-spacing: .5px; margin: 4px 0 2px; color: var(--brun); }
+    .crea-sub { text-align: center; color: var(--muted); font-style: italic; margin: 0 0 20px; font-size: 19px; }
+
+    .crea-grid { display: grid; grid-template-columns: minmax(0, 1fr) 348px; gap: 22px; align-items: start; }
+    @media (max-width: 1100px) { .crea-grid { grid-template-columns: minmax(0, 1fr); } }
+
+    /* ================= le fil des étapes ================= */
+    .stepper { display: flex; gap: 8px; margin-bottom: 18px; }
+    .pas {
+      flex: 1; display: flex; align-items: center; gap: 9px; padding: 9px 12px;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--parch);
+      font-family: inherit; font-size: 16px; color: var(--muted); cursor: pointer;
+      transition: background .15s ease, color .15s ease, border-color .15s ease;
+    }
+    .pas-n {
+      flex: 0 0 26px; height: 26px; border-radius: 50%; display: grid; place-items: center;
+      background: rgba(122, 8, 8, .12); color: var(--bordeaux); font-weight: 700; font-size: 15px;
+    }
+    .pas-t { text-align: left; line-height: 1.15; }
+    .pas:hover:not(:disabled) { border-color: var(--or2); color: var(--ink); }
+    .pas.actif { background: var(--brun); color: #f0e4c4; border-color: var(--brun); }
+    .pas.actif .pas-n { background: var(--gold); color: var(--brun); }
+    .pas.ferme { opacity: .45; cursor: not-allowed; }
+
+    .nav-etapes { display: flex; justify-content: space-between; gap: 10px; margin-top: 22px; }
+    .nav-etapes button {
+      padding: 8px 20px; border-radius: 7px; border: 1px solid var(--or3);
+      background: linear-gradient(180deg, #f6e8bf, #e2cf9c); color: var(--brun);
+      font-family: inherit; font-size: 16px; cursor: pointer;
+    }
+    .nav-etapes button:disabled { opacity: .4; cursor: not-allowed; }
+    .nav-etapes button:hover:not(:disabled) { background: linear-gradient(180deg, #fdf3d6, #ead9ab); }
+
+    /* ================= le contenu d'une étape ================= */
+    .etape {
+      border: 1px solid var(--line); border-radius: 10px; padding: 18px 18px 22px;
+      background: var(--parch);
+      background-image:
+        radial-gradient(circle at 18% 12%, rgba(255, 255, 255, .5), transparent 42%),
+        radial-gradient(circle at 84% 88%, rgba(120, 92, 40, .09), transparent 46%);
+      box-shadow: inset 0 0 0 1px rgba(255, 250, 232, .7), 0 5px 14px rgba(0, 0, 0, .12);
+    }
+    .e-titre { font-size: 24px; font-weight: 700; color: var(--brun); display: flex; align-items: center; gap: 11px; margin: 0 0 8px; }
+    .e-num {
+      flex: 0 0 34px; height: 34px; border-radius: 50%; display: grid; place-items: center;
+      background: var(--bordeaux); color: #f3e2b6; font-size: 19px;
+    }
+    .e-intro { font-size: 17px; color: var(--muted); line-height: 1.5; margin: 0 0 14px; }
+    .e-sous { font-size: 20px; color: var(--brun); font-weight: 700; margin: 24px 0 8px; }
+    .e-rien { font-size: 17px; color: var(--muted); font-style: italic; margin: 14px 0; }
+    .e-aide { font-size: 15px; color: var(--muted); margin: 16px 0 0; }
+
+    .encadre {
+      margin: 16px 0 0; padding: 11px 14px; border-radius: 8px; font-size: 16px; line-height: 1.5;
+      background: rgba(198, 159, 53, .13); border-left: 3px solid var(--or2); color: var(--ink);
+    }
+    .encadre.alerte { background: rgba(158, 43, 37, .11); border-left-color: var(--rouge); }
+    /* l'invite à choisir une variante : elle bloque la suite, donc elle se
+       voit, mais sans le ton d'une erreur */
+    .encadre.attente {
+      margin: 0 0 12px; background: rgba(122, 8, 8, .09); border-left-color: var(--bordeaux);
+      font-style: italic;
+    }
+    .encadre ul { margin: 6px 0 0; padding-left: 20px; }
+    .encadre strong { display: block; margin-bottom: 4px; color: var(--brun); }
+
+    .lien-bouton {
+      border: 0; background: none; padding: 0; font-family: inherit; font-size: 15px;
+      color: var(--bordeaux); text-decoration: underline; cursor: pointer;
+    }
+
+    /* ================= les grilles de choix ================= */
+    .choix-grille { display: grid; grid-template-columns: repeat(auto-fill, minmax(148px, 1fr)); gap: 10px; }
+    .choix-grille.choix-petit { grid-template-columns: repeat(auto-fill, minmax(196px, 1fr)); }
+    .choix-grille.choix-classe { grid-template-columns: repeat(auto-fill, minmax(152px, 1fr)); }
+
+    .choix {
+      position: relative; display: flex; flex-direction: column; align-items: center; gap: 4px;
+      padding: 10px 9px 11px; border: 1px solid var(--line); border-radius: 9px;
+      background: #fbf4e2; font-family: inherit; color: var(--ink); cursor: pointer; text-align: center;
+      transition: border-color .15s ease, box-shadow .15s ease, transform .12s ease;
+    }
+    .choix:hover:not(:disabled) { border-color: var(--teinte, var(--or2)); transform: translateY(-2px); }
+    .choix.actif {
+      border-color: var(--teinte, var(--bordeaux)); border-width: 2px; padding: 9px 8px 10px;
+      box-shadow: 0 0 0 3px rgba(198, 159, 53, .22);
+    }
+    .choix.actif2 { border-color: var(--or2); border-width: 2px; padding: 9px 8px 10px; box-shadow: 0 0 0 3px rgba(122, 8, 8, .14); }
+    .choix.bloquee { opacity: .34; cursor: not-allowed; filter: grayscale(1); }
+    .choix-nom { font-size: 17px; font-weight: 700; color: var(--brun); line-height: 1.15; }
+    .choix-note { font-size: 13.5px; color: var(--muted); line-height: 1.3; }
+    .choix-meta { font-size: 12.5px; color: var(--or3); line-height: 1.3; letter-spacing: .02em; }
+    .choix-img { width: 100%; max-width: 96px; aspect-ratio: 1; object-fit: cover; border-radius: 6px; border: 1px solid var(--line); }
+    .choix-rang {
+      position: absolute; top: -8px; right: -8px; min-width: 26px; height: 26px; padding: 0 5px;
+      border-radius: 13px; background: var(--bordeaux); color: #f3e2b6;
+      font-size: 13px; display: grid; place-items: center; box-shadow: 0 1px 4px rgba(0, 0, 0, .3);
+    }
+    .choix-pastilles { display: flex; flex-wrap: wrap; gap: 4px; justify-content: center; margin-top: 3px; }
+    .past { font-size: 11.5px; padding: 2px 6px; border-radius: 10px; line-height: 1.25; }
+    .past.plus { background: rgba(63, 125, 79, .15); color: #2f5e3b; }
+    .past.moins { background: rgba(158, 43, 37, .13); color: #7c231e; }
+
+    .choix-silh { display: block; height: 62px; color: var(--teinte, var(--muted)); }
+
+    /* ================= le pochoir des silhouettes ================= */
+    /* Les dessins des peuples sont de la forme pure : du noir opaque sur du
+       vide. On ne les montre donc pas comme des images mais comme des
+       pochoirs, exactement comme sur l'échelle des peuples — le dessin
+       découpe un aplat de currentColor, ce qui lui donne la couleur de sa
+       race sans qu'on ait à produire une variante du fichier. */
+    .p-silh, .choix-silh .p-silh {
+      position: relative; height: 100%;
+      display: flex; align-items: flex-end; justify-content: center;
+    }
+    .p-silh svg, .p-silh img { display: block; height: 100%; width: auto; }
+    .p-silh img { visibility: hidden; }
+    .p-silh.avec-image svg { display: none; }
+    .p-silh.avec-image::before {
+      content: ""; position: absolute; inset: 0; background: currentColor;
+      -webkit-mask: var(--dessin) center bottom / contain no-repeat;
+      mask: var(--dessin) center bottom / contain no-repeat;
+    }
+    @supports not ((-webkit-mask-image: none) or (mask-image: none)) {
+      .p-silh.avec-image img { visibility: visible; }
+      .p-silh.avec-image::before { display: none; }
+    }
+    .p-silh-vide { opacity: .28; }
+
+    /* ================= l'étape 3 : la répartition ================= */
+    .compteur {
+      display: flex; align-items: baseline; gap: 10px; margin: 0 0 16px;
+      padding: 9px 15px; border-radius: 9px; background: rgba(122, 8, 8, .08);
+      border: 1px solid rgba(122, 8, 8, .2);
+    }
+    .compteur .c-val { font-size: 34px; font-weight: 700; color: var(--bordeaux); line-height: 1; }
+    .compteur .c-lab { font-size: 17px; color: var(--ink); }
+    .compteur .c-tot { font-size: 14px; color: var(--muted); margin-left: auto; }
+    .compteur.fini { background: rgba(63, 125, 79, .12); border-color: rgba(63, 125, 79, .3); }
+    .compteur.fini .c-val { color: var(--vert); }
+    .compteur.trop { background: rgba(158, 43, 37, .16); border-color: var(--rouge); }
+
+    .stats-table { display: flex; flex-direction: column; gap: 5px; }
+    .st-ligne {
+      display: grid; grid-template-columns: 128px auto 48px 44px 1fr; align-items: center; gap: 10px;
+      padding: 7px 11px; border-radius: 7px; background: #fbf4e2; border: 1px solid var(--line);
+    }
+    .st-nom { font-size: 17px; font-weight: 700; color: var(--brun); }
+    .st-boutons { display: flex; gap: 5px; }
+    .st-b {
+      width: 32px; height: 32px; border-radius: 6px; border: 1px solid var(--or3);
+      background: linear-gradient(180deg, #f6e8bf, #e2cf9c); color: var(--brun);
+      font-family: inherit; font-size: 20px; line-height: 1; cursor: pointer;
+    }
+    .st-b:hover:not(:disabled) { background: linear-gradient(180deg, #fdf3d6, #ead9ab); }
+    .st-b:disabled { opacity: .32; cursor: not-allowed; }
+    .st-val { font-size: 25px; font-weight: 700; color: var(--bordeaux); text-align: right; }
+    .st-mod { font-size: 16px; color: var(--muted); text-align: center; }
+    .st-calc { font-size: 13px; color: var(--muted); text-align: right; }
+    .st-fixe { font-size: 14px; color: var(--muted); font-style: italic; }
+
+    .metier-choix { display: flex; flex-wrap: wrap; gap: 7px; }
+    .mb {
+      padding: 6px 13px; border-radius: 16px; border: 1px solid var(--line);
+      background: #fbf4e2; font-family: inherit; font-size: 15px; color: var(--ink); cursor: pointer;
+    }
+    .mb:hover { border-color: var(--or2); }
+    .mb.actif { background: var(--brun); color: #f0e4c4; border-color: var(--brun); }
+
+    /* ================= le pantin ================= */
+    .pantin {
+      position: sticky; top: 14px;
+      border: 1px solid var(--line); border-radius: 10px; background: var(--parch2);
+      box-shadow: inset 0 0 0 1px rgba(255, 250, 232, .6), 0 5px 14px rgba(0, 0, 0, .12);
+      overflow: hidden;
+    }
+    /* le bandeau est un bouton pleine largeur : sur PC il ne sert à rien
+       (la fiche est toujours dépliée), d'où le curseur par défaut. */
+    .pantin-tete {
+      display: flex; align-items: center; gap: 10px; width: 100%;
+      margin: 0; padding: 9px 13px; border: 0;
+      background: var(--brun); color: #f0e4c4;
+      font-family: inherit; text-align: left; cursor: default;
+    }
+    /* désactivé sur PC : il ne doit pas pour autant griser, c'est un titre */
+    .pantin-tete:disabled { cursor: default; opacity: 1; color: #f0e4c4; }
+    .pt-titre { font-size: 17px; letter-spacing: .05em; font-weight: 700; white-space: nowrap; }
+    #pantin-resume {
+      font-size: 12.5px; color: rgba(240, 228, 196, .8); margin-left: auto; text-align: right;
+      min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .pt-chevron { display: none; }
+    #pantin-corps { padding: 13px; max-height: calc(100vh - 90px); overflow-y: auto; }
+
+    .p-haut { display: flex; align-items: flex-end; gap: 12px; padding-bottom: 11px; border-bottom: 1px solid var(--line); }
+    .p-haut .p-silh { flex: 0 0 76px; height: 116px; }
+    .p-ident { padding-bottom: 4px; min-width: 0; }
+    .p-nom { font-size: 20px; font-weight: 700; color: var(--brun); line-height: 1.15; }
+    .p-sous { font-size: 14px; color: var(--muted); line-height: 1.3; }
+    .p-vide { font-size: 15px; color: var(--muted); font-style: italic; margin: 13px 0 0; line-height: 1.5; }
+
+    .p-bloc { margin-top: 14px; }
+    .p-bloc h3 {
+      font-size: 13px; letter-spacing: .09em; text-transform: uppercase; color: var(--or3);
+      margin: 0 0 7px; padding-bottom: 4px; border-bottom: 1px solid rgba(201, 184, 146, .7);
+    }
+
+    .p-radar { display: block; width: 100%; max-width: 216px; margin: 0 auto 6px; }
+    .p-grille { fill: none; stroke: rgba(122, 92, 40, .22); stroke-width: 1; }
+    .p-axe { stroke: rgba(122, 92, 40, .3); stroke-width: 1; }
+    .p-forme { fill: rgba(122, 8, 8, .22); stroke: var(--bordeaux); stroke-width: 1.6; stroke-linejoin: round; }
+    .p-etiq { fill: var(--muted); font-size: 11px; font-family: inherit; text-anchor: middle; }
+
+    .p-stats { display: flex; flex-direction: column; gap: 3px; }
+    .p-stat { display: grid; grid-template-columns: 1fr 30px 30px; align-items: baseline; gap: 4px; font-size: 15px; }
+    .p-sn { color: var(--ink); }
+    .p-sv { font-weight: 700; color: var(--bordeaux); text-align: right; font-size: 17px; }
+    .p-sm { color: var(--muted); text-align: right; font-size: 13px; }
+    .p-sd { grid-column: 1 / -1; font-size: 11.5px; color: var(--muted); margin: -2px 0 3px; }
+
+    .p-ligne { display: grid; grid-template-columns: 1fr auto; gap: 4px; margin-bottom: 6px; }
+    .p-l { font-size: 15px; color: var(--ink); }
+    .p-v { font-size: 17px; font-weight: 700; color: var(--bordeaux); }
+    .p-d { grid-column: 1 / -1; font-size: 11.5px; color: var(--muted); line-height: 1.35; }
+
+    .p-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+    .p-liste li {
+      font-size: 13px; line-height: 1.4; padding: 4px 8px; border-radius: 5px;
+      background: rgba(251, 244, 226, .8); border-left: 3px solid var(--line); color: var(--ink);
+    }
+    .p-liste.p-ok li { border-left-color: var(--or2); }
+    .p-liste li.p-plus { border-left-color: var(--vert); }
+    .p-liste li.p-moins { border-left-color: var(--rouge); }
+    .p-avert { font-size: 12px; color: var(--muted); font-style: italic; margin: 0 0 6px; line-height: 1.4; }
+
+    /* ---- en dessous de 1100 px, le pantin devient un tiroir du bas ---- */
+    @media (max-width: 1100px) {
+      .pantin {
+        position: fixed; left: 0; right: 0; bottom: 0; top: auto; z-index: 1030;
+        border-radius: 12px 12px 0 0; border-bottom: 0;
+        box-shadow: 0 -4px 20px rgba(0, 0, 0, .28);
+      }
+      /* toute la barre devient la poignée du tiroir : large cible au pouce */
+      .pantin-tete { cursor: pointer; padding: 11px 13px; }
+      .pantin-tete:hover, .pantin-tete:focus-visible { background: #33230a; }
+      .pantin-tete:focus-visible { outline: 2px solid var(--gold); outline-offset: -3px; }
+      .pantin-tete:active { background: #1e1405; }
+      .pt-chevron {
+        display: block; flex: 0 0 auto; font-size: 18px; line-height: 1;
+        transition: transform .18s ease;
+      }
+      .pantin.ouvert .pt-chevron { transform: rotate(180deg); }
+      #pantin-resume { margin-left: 0; flex: 1; }
+      #pantin-corps { display: none; max-height: 66vh; }
+      .pantin.ouvert #pantin-corps { display: block; }
+      /* de quoi ne pas cacher le bas de la page sous le tiroir */
+      .crea-wrap { padding-bottom: 74px; }
+    }
+
+    @media (max-width: 620px) {
+      .stepper { gap: 5px; }
+      .pas { flex-direction: column; gap: 3px; padding: 7px 5px; font-size: 13px; text-align: center; }
+      .pas-t { text-align: center; }
+      .st-ligne { grid-template-columns: 1fr auto; row-gap: 4px; }
+      .st-nom { grid-column: 1; }
+      .st-boutons { grid-column: 2; grid-row: 1; }
+      .st-val { grid-column: 1; grid-row: 2; text-align: left; }
+      .st-mod { grid-column: 2; grid-row: 2; text-align: right; }
+      .st-calc { grid-column: 1 / -1; text-align: left; }
+      .choix-grille { grid-template-columns: repeat(auto-fill, minmax(124px, 1fr)); }
+    }
+  </style>
 </head>
 
 <body>
   <script src="../commun.js"></script>
 
-  <!-- Contenu de la page -->
   <main>
-    <div class="container" style="margin-top: 20px;">
-      <h1 class="text-center">Les aides de création</h1>
-      <p class="text-center">Cette page arrive bientôt…</p>
+    <div class="crea-wrap" id="crea">
+      <!-- Bandeau à retirer quand l'outil sera considéré comme fiable :
+           supprimer ce bloc et la règle .crea-test de la feuille ci-dessus. -->
+      <div class="crea-test" role="status">
+        <span class="ct-cartouche">En cours de test</span>
+        <span class="ct-texte">Cet outil est tout neuf : ses calculs peuvent encore comporter des
+          erreurs. En cas de doute, les <a href="regles_creation.html">règles de création</a> font foi.
+          Si tu repères une valeur fausse, <a href="../contact.html">signale-la</a>.</span>
+      </div>
+
+      <h1 class="crea-title">L'aide de création</h1>
+      <p class="crea-sub">Le pantin d'atelier — ton personnage se compose sous tes yeux.</p>
+
+      <div class="crea-grid">
+        <div>
+          <nav class="stepper" id="stepper" aria-label="Étapes de la création"></nav>
+
+          <section class="etape" id="etape1"></section>
+          <section class="etape" id="etape2" hidden></section>
+          <section class="etape" id="etape3" hidden></section>
+
+          <div class="nav-etapes">
+            <button type="button" id="prec">← Étape précédente</button>
+            <button type="button" id="suiv">Étape suivante →</button>
+          </div>
+        </div>
+
+        <aside class="pantin" id="pantin">
+          <!-- En mobile, la fiche est un tiroir : c'est le bandeau ENTIER qui
+               l'ouvre et le referme, pas seulement le chevron. D'où un vrai
+               <button> qui prend toute la largeur, plutôt qu'un <div> flanqué
+               d'un petit bouton difficile à viser au pouce. -->
+          <button type="button" class="pantin-tete" id="pantin-bascule"
+            aria-expanded="true" aria-controls="pantin-corps">
+            <span class="pt-titre">La fiche</span>
+            <span id="pantin-resume">à créer</span>
+            <span class="pt-chevron" aria-hidden="true">▲</span>
+          </button>
+          <div id="pantin-corps"></div>
+        </aside>
+      </div>
     </div>
   </main>
+
+  <script src="races-data.js"></script>
+  <script src="classes-data.js"></script>
+  <script src="silhouettes.js"></script>
+  <script src="creation-outil.js"></script>
 </body>
 
 </html>

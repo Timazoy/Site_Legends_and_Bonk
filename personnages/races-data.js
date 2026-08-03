@@ -43,6 +43,28 @@
            texte: ["…"],            // facultatif : prose de la variante
            plus:  ["Précision +1"], // pastilles vertes
            moins: ["Dégâts subis +10 %"],  // pastilles rouges
+           mods: {                  // facultatif : la traduction CHIFFRÉE des
+                                    // pastilles ci-dessus, pour l'outil de
+                                    // création (aides_creation.html).
+                                    // Les pastilles restent la source affichée ;
+                                    // « mods » ne sert qu'à calculer.
+                                    // Tout ce qui n'y figure pas (immunités,
+                                    // pourcentages, bonus conditionnels) est
+                                    // simplement rappelé sans être calculé.
+             stat:   { force:+1 },        // statistiques primaires : s'appliquent
+                                          // AVANT la répartition des points
+             second: { vitesse:-1 },      // statistiques secondaires : s'appliquent
+                                          // APRÈS le calcul (vitesse, perception,
+                                          // discretion, precision, deplacement)
+             pointsBonus: 1,              // points de statistique en plus
+             plafond: { constitution:20 },// relève le plafond de 15 à la création
+             pmBase: 90,                  // remplace les 75 PM de base
+             magieInterdite: true,        // interdit les classes de type Mana
+             metier: true                 // humain de métier : +3 dans UNE
+                                          // statistique au choix, appliqué
+                                          // après la répartition, donc sans
+                                          // subir le plafond de 15
+           },
            capacites: [ { nom:"…", cout:"{1} [1 par CR]", texte:["…"] } ],
            transformation: { effets: ["…"] },   // garous
            stats: { force:17, … }   // onis : hexagone de statistiques
@@ -51,6 +73,15 @@
        roue: { cycles: [ ["feu","vegetaux","eau"], … ] },
                                     // élémentari : chaque tableau est un
                                     // cycle où A est très efficace contre B
+       regles: {                    // facultatif : ce que la RACE change aux
+                                    // règles de création, pour l'outil
+         points: 14,                // remplace les 19 points à répartir
+         pointsBonus: 3,            // ou simplement s'ajoute aux 19
+         instinct: true,            // garous : Sagesse et Intelligence sont
+                                    // remplacées par une seule Instinct
+         statsFixes: true,          // onis : les stats viennent de la sous-race
+         biclasseInterdit: true     // onis
+       },
        rage: true,                  // garous : jauge de folie
        souffle: {                   // drakéides : le damier de la zone
          grille: ["XXX", ".X.", ".O."],   // X = touchée, O = le drakéide
@@ -76,8 +107,16 @@
          } ]
        },
        moteurs: [ { id:"Capacites", texte:"…",        // onis
-                    note: { pour:"Classe", texte:"…" } }, … ]  // note = l'exception
-                                                    // d'une classe, en pied de carte
+                    note: { pour:"Classe", texte:"…" } }, … ]
+                                    // « note » = l'exception d'une classe. Elle
+                                    // REMPLACE la règle générale pour cette
+                                    // classe, elle ne s'y ajoute pas : ni
+                                    // l'hématomancien (pas de PM) ni le chaman
+                                    // (pas de regain au tour) ne peuvent
+                                    // profiter du moteur écrit au-dessus.
+                                    // races.html l'affiche en pied de carte ;
+                                    // l'outil de création, lui, n'affiche que
+                                    // celle qui s'applique au personnage.
      }
 
    ⚠ Ne pas écrire de HTML dans les textes : ils sont échappés
@@ -118,6 +157,24 @@ window.RACES = {
           titre: "Métier",
           texte: ["Les humains peuvent avoir un métier, ce qui leur donnera un +3 (après l’attribution des points, cette fois) dans une statistique en rapport avec le métier."]
         }
+      ],
+      sousTitre: "Origine",
+      sousIntro: "L’humain choisit entre la polyvalence pure et un métier qui l’a déjà façonné : les deux avantages ne se cumulent pas.",
+      sousRaces: [
+        {
+          nom: "Humain",
+          note: "le généraliste",
+          texte: ["Rien ne le prédispose à quoi que ce soit, et c’est précisément ce qui lui laisse le champ libre : trois points de plus à placer où il veut."],
+          plus: ["+3 points de statistique à attribuer"],
+          mods: { pointsBonus: 3 }
+        },
+        {
+          nom: "Humain de métier",
+          note: "déjà façonné par son travail",
+          texte: ["Il a passé sa vie à faire quelque chose, et son corps s’en souvient. Le métier se choisit avec le MJ ; le +3 s’applique à la statistique qui lui correspond, une fois les points répartis."],
+          plus: ["+3 dans la statistique du métier", "Ce +3 s’ajoute après la répartition : il peut dépasser le plafond de 15"],
+          mods: { metier: true }
+        }
       ]
     },
 
@@ -148,24 +205,29 @@ window.RACES = {
         {
           nom: "Elfe",
           plus: ["Précision +2 sur n’importe quelle attaque"],
-          moins: ["Dégâts subis +20 %"]
+          moins: ["Dégâts subis +20 %"],
+          mods: { second: { precision: +2 } }
         },
         {
           nom: "Haut elfe",
           plus: ["Précision +3 sur les attaques de longue distance"],
-          moins: ["Dégâts subis +30 % au corps à corps"]
+          moins: ["Dégâts subis +30 % au corps à corps"],
+          /* pas de mods : la précision n'est gagnée qu'à longue distance,
+             elle dépend de l'attaque et non de la fiche */
         },
         {
           nom: "Elfe noir",
           plus: ["Précision +3 sur les attaques de corps à corps"],
-          moins: ["Dégâts subis +30 % à longue distance"]
+          moins: ["Dégâts subis +30 % à longue distance"],
+          /* pas de mods : précision conditionnelle, comme le haut elfe */
         },
         {
           nom: "Demi elfe",
           hybride: ["Humain", "Elfe"],
           note: "Étant un mélange entre un humain et un elfe, il a des oreilles un peu moins grandes que ses confrères.",
           plus: ["Précision +1 sur n’importe quelle attaque", "+1 point de statistique à attribuer"],
-          moins: ["Dégâts subis +10 %"]
+          moins: ["Dégâts subis +10 %"],
+          mods: { second: { precision: +1 }, pointsBonus: 1 }
         }
       ]
     },
@@ -198,24 +260,28 @@ window.RACES = {
         {
           nom: "Nain",
           plus: ["15 % de chance d’appliquer l’effet incapacité en attaquant"],
-          moins: ["Vitesse −1"]
+          moins: ["Vitesse −1"],
+          mods: { second: { vitesse: -1 } }
         },
         {
           nom: "Nain des collines",
           plus: ["15 % de chance d’appliquer l’effet incapacité en attaquant", "Force +1"],
-          moins: ["Vitesse −1", "Charisme −1"]
+          moins: ["Vitesse −1", "Charisme −1"],
+          mods: { stat: { force: +1, charisme: -1 }, second: { vitesse: -1 } }
         },
         {
           nom: "Nain des montagnes",
           plus: ["15 % de chance d’appliquer l’effet incapacité en attaquant", "Force +2"],
-          moins: ["Vitesse −1", "Intelligence −2"]
+          moins: ["Vitesse −1", "Intelligence −2"],
+          mods: { stat: { force: +2, intelligence: -2 }, second: { vitesse: -1 } }
         },
         {
           nom: "Halfelin",
           hybride: ["Elfe", "Nain"],
           note: "Étant un mélange entre un elfe et un nain, il a des oreilles un peu en pointe et il est un peu plus grand que ses confrères.",
           plus: ["7,5 % de chance d’appliquer l’effet incapacité en attaquant", "Précision +1 sur n’importe quelle attaque"],
-          moins: ["Déplacement −1", "Dégâts subis +10 %"]
+          moins: ["Déplacement −1", "Dégâts subis +10 %"],
+          mods: { second: { precision: +1, deplacement: -1 } }
         }
       ]
     },
@@ -254,6 +320,7 @@ window.RACES = {
           hybride: ["Humain", "Orc"],
           note: "Étant un mélange entre un humain et un orc, il a une teinte de peau plus claire et il est un peu plus petit que ses confrères.",
           plus: ["Dégâts +10 %", "+1 point de statistique à attribuer"],
+          mods: { pointsBonus: 1 },
           moins: ["D6 : sur 1 ou 2, vous subissez 15 % des dégâts infligés", "Accées uniqument aux armes de corps à corps et de lancer"]
         }
       ]
@@ -361,17 +428,20 @@ window.RACES = {
         {
           nom: "Tieffelin",
           plus: ["Force +1", "Charisme +1"],
-          moins: ["Constitution −1", "Intelligence −1"]
+          moins: ["Constitution −1", "Intelligence −1"],
+          mods: { stat: { force: +1, charisme: +1, constitution: -1, intelligence: -1 } }
         },
         {
           nom: "Tieffelin du Styx",
           plus: ["Intelligence +1", "Sagesse +1", "Charisme +1"],
-          moins: ["Force −1", "Dextérité −1", "Constitution −1"]
+          moins: ["Force −1", "Dextérité −1", "Constitution −1"],
+          mods: { stat: { intelligence: +1, sagesse: +1, charisme: +1, force: -1, dexterite: -1, constitution: -1 } }
         },
         {
           nom: "Tieffelin du Tartar",
           plus: ["Force +1", "Dextérité +1", "Constitution +1"],
-          moins: ["Intelligence −1", "Sagesse −1", "Charisme −1"]
+          moins: ["Intelligence −1", "Sagesse −1", "Charisme −1"],
+          mods: { stat: { force: +1, dexterite: +1, constitution: +1, intelligence: -1, sagesse: -1, charisme: -1 } }
         }
       ],
       /* Les trois mini-démons. Leurs trois premières lignes sont des
@@ -498,22 +568,26 @@ window.RACES = {
         {
           nom: "Piaf",
           plus: ["Vol pendant 3T à chaque CR"],
-          moins: ["Sagesse −1"]
+          moins: ["Sagesse −1"],
+          mods: { stat: { sagesse: -1 } }
         },
         {
           nom: "Albatros",
           plus: ["Vol pendant 5T à chaque CR", "Constitution +1"],
-          moins: ["Sagesse −2", "Vitesse −1"]
+          moins: ["Sagesse −2", "Vitesse −1"],
+          mods: { stat: { constitution: +1, sagesse: -2 }, second: { vitesse: -1 } }
         },
         {
           nom: "Hibou",
           plus: ["Vol pendant 3T à chaque CR", "Sagesse +1", "Discrétion +2", "Nyctalope : voit dans le noir sur 15 cases"],
-          moins: ["Force −1", "Constitution −1"]
+          moins: ["Force −1", "Constitution −1"],
+          mods: { stat: { sagesse: +1, force: -1, constitution: -1 }, second: { discretion: +2 } }
         },
         {
           nom: "Faucon",
           plus: ["Vol pendant 2T à chaque CR", "Perception +2", "Vitesse +1", "Déplacement +2"],
-          moins: ["Sagesse −2", "Intelligence −2"]
+          moins: ["Sagesse −2", "Intelligence −2"],
+          mods: { stat: { sagesse: -2, intelligence: -2 }, second: { perception: +2, vitesse: +1, deplacement: +2 } }
         }
       ]
     },
@@ -550,42 +624,50 @@ window.RACES = {
         {
           id: "feu", nom: "Feu", couleur: "#c85a28",
           plus: ["Sorts de feu : −20 % de PM", "D4 : +2,5 % de dégâts par point à chaque attaque"],
-          moins: ["Discrétion −4", "L’eau lui inflige +40 % de dégâts"]
+          moins: ["Discrétion −4", "L’eau lui inflige +40 % de dégâts"],
+          mods: { second: { discretion: -4 } }
         },
         {
           id: "eau", nom: "Eau", couleur: "#3f7d9e",
           plus: ["Sorts d’eau : −20 % de PM", "Quand un ennemi attaque, lancez une pièce : face, il a −2 en précision ; pile, −1"],
-          moins: ["Force −2", "Les végétaux lui infligent +40 % de dégâts"]
+          moins: ["Force −2", "Les végétaux lui infligent +40 % de dégâts"],
+          mods: { stat: { force: -2 } }
         },
         {
           id: "vegetaux", nom: "Végétaux", couleur: "#5f8f4a",
           plus: ["Sorts de végétaux : −20 % de PM", "D6 : régénère ce pourcentage de PV chaque tour"],
-          moins: ["Constitution −2", "Le feu lui inflige +40 % de dégâts"]
+          moins: ["Constitution −2", "Le feu lui inflige +40 % de dégâts"],
+          mods: { stat: { constitution: -2 } }
         },
         {
           id: "glace", nom: "Glace", couleur: "#8fc4dd",
           plus: ["Sorts de glace : −20 % de PM", "Au moment de se déplacer, lancez une pièce : face, +2 aux déplacements ; pile, +1"],
-          moins: ["Dextérité −2", "La foudre lui inflige +40 % de dégâts"]
+          moins: ["Dextérité −2", "La foudre lui inflige +40 % de dégâts"],
+          mods: { stat: { dexterite: -2 } }
         },
         {
           id: "foudre", nom: "Foudre", couleur: "#c69f35",
           plus: ["Sorts de foudre : −20 % de PM", "Champ électromagnétique de 2 autour de lui : applique immobilisé à l’ennemi qui y entre"],
-          moins: ["Discrétion −2", "Le vent lui inflige +40 % de dégâts"]
+          moins: ["Discrétion −2", "Le vent lui inflige +40 % de dégâts"],
+          mods: { second: { discretion: -2 } }
         },
         {
           id: "vent", nom: "Vent", couleur: "#8fae9c",
           plus: ["Sorts de vent : −20 % de PM", "À la fin de votre tour, lancez une pièce : face, vous volez d’une case de haut jusqu’à votre prochain tour"],
-          moins: ["Force −2", "La terre lui inflige +40 % de dégâts"]
+          moins: ["Force −2", "La terre lui inflige +40 % de dégâts"],
+          mods: { stat: { force: -2 } }
         },
         {
           id: "terre", nom: "Terre", couleur: "#8a6b3f",
           plus: ["Sorts de terre : −20 % de PM", "D4 : +2,5 % de résistance par point quand vous êtes attaqué"],
-          moins: ["Dextérité −2", "L’explosion lui inflige +40 % de dégâts"]
+          moins: ["Dextérité −2", "L’explosion lui inflige +40 % de dégâts"],
+          mods: { stat: { dexterite: -2 } }
         },
         {
           id: "explosion", nom: "Explosion", couleur: "#b0562a",
           plus: ["Sorts d’explosion : −20 % de PM", "Quand touché au corps à corps, D4 : renvoie 2,5 % de son attaque par point"],
-          moins: ["Discrétion −4", "La glace lui inflige +40 % de dégâts"]
+          moins: ["Discrétion −4", "La glace lui inflige +40 % de dégâts"],
+          mods: { second: { discretion: -4 } }
         }
       ]
     },
@@ -615,12 +697,18 @@ window.RACES = {
         {
           nom: "Golemovi alchimique",
           plus: ["Constitution +2", "La constitution n’est pas limitée à 15 à la création : vous pouvez monter jusqu’à 20"],
-          moins: ["Incapable d’utiliser de la magie", "Intelligence −1"]
+          moins: ["Incapable d’utiliser de la magie", "Intelligence −1"],
+          mods: {
+            stat: { constitution: +2, intelligence: -1 },
+            plafond: { constitution: 20 },
+            magieInterdite: true
+          }
         },
         {
           nom: "Golemovi magique",
           plus: ["90 PM de base au lieu de 75", "Sagesse +1"],
-          moins: ["Constitution −2"]
+          moins: ["Constitution −2"],
+          mods: { stat: { sagesse: +1, constitution: -2 }, pmBase: 90 }
         }
       ]
     },
@@ -653,17 +741,20 @@ window.RACES = {
         {
           nom: "Goliath",
           plus: ["Réaction à 1 attaque par CR : D6, −10 % de dégâts par point"],
-          moins: ["Dextérité −1"]
+          moins: ["Dextérité −1"],
+          mods: { stat: { dexterite: -1 } }
         },
         {
           nom: "Goliath des collines",
           plus: ["Réaction à 2 attaques par CR : D6, −10 % de dégâts par point"],
-          moins: ["Dextérité −1", "Intelligence −1"]
+          moins: ["Dextérité −1", "Intelligence −1"],
+          mods: { stat: { dexterite: -1, intelligence: -1 } }
         },
         {
           nom: "Goliath des montagnes",
           plus: ["Réaction à 2 attaques par CR : D6, −10 % de dégâts par point", "Constitution +2"],
-          moins: ["Dextérité −2", "Sagesse −2"]
+          moins: ["Dextérité −2", "Sagesse −2"],
+          mods: { stat: { constitution: +2, dexterite: -2, sagesse: -2 } }
         }
       ]
     },
@@ -692,6 +783,7 @@ window.RACES = {
         "Les garous n’ont pas de sagesse ni d’intelligence comme les autres races : ils possèdent l’instinct animal, qui rassemble les deux.",
         "Les garous ont 14 points de compétence au lieu de 19 pour les autres classes."
       ],
+      regles: { points: 14, instinct: true },
       rage: true,
       sousTitre: "Sous-races",
       sousIntro: "Toutes les sous-races partagent la même transformation : {1} [1 par CR]. " + TRANSFO_DUREE,
@@ -700,6 +792,7 @@ window.RACES = {
           nom: "Canidé",
           plus: ["Perception +2", "Force +1"],
           moins: ["Précision −1", "Charisme −2"],
+          mods: { stat: { force: +1, charisme: -2 }, second: { perception: +2, precision: -1 } },
           transformation: {
             effets: [
               "Perception +50 %", "Dégâts +30 %",
@@ -712,6 +805,7 @@ window.RACES = {
           nom: "Ursidae",
           plus: ["Force +2", "Constitution +1"],
           moins: ["Discrétion −1", "Précision −2"],
+          mods: { stat: { force: +2, constitution: +1 }, second: { discretion: -1, precision: -2 } },
           transformation: {
             effets: [
               "Dégâts +50 %", "Résistance +30 %",
@@ -724,6 +818,7 @@ window.RACES = {
           nom: "Pachyderme",
           plus: ["Constitution +2", "Instinct +1"],
           moins: ["Perception −1", "Discrétion −2"],
+          mods: { stat: { constitution: +2, instinct: +1 }, second: { perception: -1, discretion: -2 } },
           transformation: {
             effets: [
               "Résistance +50 %", "Mana +30 %",
@@ -736,6 +831,7 @@ window.RACES = {
           nom: "Cervidé",
           plus: ["Instinct +2", "Vitesse +1"],
           moins: ["Constitution −1", "Perception −2"],
+          mods: { stat: { instinct: +2, constitution: -1 }, second: { vitesse: +1, perception: -2 } },
           transformation: {
             effets: [
               "Mana +50 %", "Vitesse +30 %",
@@ -748,6 +844,7 @@ window.RACES = {
           nom: "Ornithurae",
           plus: ["Vitesse +2", "Perception +1"],
           moins: ["Charisme −1", "Constitution −2"],
+          mods: { stat: { charisme: -1, constitution: -2 }, second: { vitesse: +2, perception: +1 } },
           transformation: {
             effets: [
               "Vitesse +50 %", "Perception +30 %",
@@ -788,13 +885,15 @@ window.RACES = {
           nom: "Graille-Tout Végétal",
           texte: ["Ils peuvent manger tout ce qui est d’origine végétale ou faunique non carnée.", GT_MJ],
           plus: ["Satiété de 30", "Dextérité +1"],
-          moins: ["Charisme −2"]
+          moins: ["Charisme −2"],
+          mods: { stat: { dexterite: +1, charisme: -2 } }
         },
         {
           nom: "Graille-Tout Minéral",
           texte: ["Ils peuvent manger tout ce qui est d’origine minérale et naturelle.", GT_MJ],
           plus: ["Satiété maximale de 25", "Force +1"],
-          moins: ["Sagesse −2"]
+          moins: ["Sagesse −2"],
+          mods: { stat: { force: +1, sagesse: -2 } }
         }
       ]
     },
@@ -828,7 +927,8 @@ window.RACES = {
             { nom: "Coup de langue", cout: "{1} [1 par CR]", texte: ["Avec une portée de 10, ce coup applique l’effet désarmé à la cible."] }
           ],
           plus: ["Ses écailles l’immunisent à l’effet incapacité", "Discrétion +2"],
-          moins: ["Constitution −3", "Force −2"]
+          moins: ["Constitution −3", "Force −2"],
+          mods: { stat: { constitution: -3, force: -2 }, second: { discretion: +2 } }
         },
         {
           nom: "Varan komodo",
@@ -836,7 +936,8 @@ window.RACES = {
             { nom: "Toxine", cout: "{1} [1 par CR]", texte: ["Transmise par sa morsure, elle inflige 1 % des PV max en dégâts à la cible. Cette toxine double à chaque tour jusqu’à se stabiliser au 5ᵉ tour (16 %) et elle dure jusqu’à la fin du combat."] }
           ],
           plus: ["Les écailles du varan le rendent insensible au poison", "Perception +2"],
-          moins: ["Vitesse −2", "Dextérité −2"]
+          moins: ["Vitesse −2", "Dextérité −2"],
+          mods: { stat: { dexterite: -2 }, second: { perception: +2, vitesse: -2 } }
         },
         {
           nom: "Krokodile",
@@ -852,7 +953,8 @@ window.RACES = {
             }
           ],
           plus: ["Les écailles du krokodile lui octroient une insensibilité au saignement", "Force +2", "Constitution +2"],
-          moins: ["Vitesse −2", "Intelligence −2", "Précision −2"]
+          moins: ["Vitesse −2", "Intelligence −2", "Précision −2"],
+          mods: { stat: { force: +2, constitution: +2, intelligence: -2 }, second: { vitesse: -2, precision: -2 } }
         }
       ]
     },
@@ -861,6 +963,7 @@ window.RACES = {
     {
       slug: "oni",
       nom: "Oni",
+      regles: { statsFixes: true, biclasseInterdit: true },
       couleur: "#8a3a4a",
       image: "oni.webp",
       forme: "cornu",
@@ -885,7 +988,13 @@ window.RACES = {
       ],
       moteurs: [
         { id: "Capacites", nom: "Capacités", texte: "Récupère l’équivalent d’un CR d’une capacité en consommant 4 points de satiété au lieu de 5." },
-        { id: "Ressource", nom: "Ressource", texte: "Récupère une ressource tous les 4T en combat au lieu de 5T." },
+        {
+          id: "Ressource", nom: "Ressource", texte: "Récupère une ressource tous les 4T en combat au lieu de 5T.",
+          note: {
+            pour: "Chaman",
+            texte: "ne regagnant rien au fil des tours, il ne profite pas des 4T : son avantage d'oni passe par de meilleures chances à la moisson d'offrandes (colonne « Oni » de la table)."
+          }
+        },
         {
           id: "Mana", nom: "Mana", texte: "Récupère 6 PM par tour en combat au lieu de 5 PM.",
           note: { pour: "Hématomancien", texte: "chaque tranche absorbée sur le 1D8 vaut 4 % des PV max de la cible au lieu de 3 %." }
