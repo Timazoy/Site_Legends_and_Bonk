@@ -317,6 +317,17 @@ window.EQUIP_POTIONS = {
       ],
       prix: [700, 1785, 2800]
     },
+    {
+      slug: "philtre-amour", nom: "Philtre d'amour", categorie: "Ruse & exploration",
+      glow: "#a172b8", img: "philtre-amour.webp",
+      tiers: [
+        { nom: "Faible", roll: "1 à 8", effet: "25 % de chance d'appliquer l'effet amoureux à la cible." },
+        { nom: "Moyen", roll: "9 à 16", effet: "50 % de chance d'appliquer l'effet amoureux à la cible." },
+        { nom: "Fort", roll: "17 à 19", effet: "75 % de chance d'appliquer l'effet amoureux à la cible." },
+        { nom: "Totale", roll: "20", effet: "100 % de chance d'appliquer l'effet amoureux à la cible." }
+      ],
+      prix: [750, 1913, 3000]
+    },
 
     /* ---------- Spéciales ---------- */
     {
