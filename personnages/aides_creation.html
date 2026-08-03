@@ -45,26 +45,6 @@
       font-variant-numeric: lining-nums tabular-nums;
     }
 
-    /* ---- bandeau « en cours de test », temporaire ----
-       Rayé comme un ruban de chantier, pour qu'on ne le confonde pas avec
-       le reste de la page et qu'on pense à le retirer. */
-    .crea-test {
-      display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 10px;
-      margin: 14px 0 18px; padding: 10px 14px; border-radius: 8px;
-      border: 1px solid rgba(122, 8, 8, .35);
-      background:
-        repeating-linear-gradient(135deg,
-          rgba(122, 8, 8, .10) 0 12px, rgba(122, 8, 8, .04) 12px 24px);
-      font-size: 15px; line-height: 1.5; color: var(--ink);
-    }
-    .ct-cartouche {
-      flex: 0 0 auto; padding: 3px 10px; border-radius: 4px;
-      background: var(--bordeaux); color: #f3e2b6;
-      font-size: 13px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
-    }
-    .ct-texte { flex: 1 1 260px; min-width: 0; }
-    .crea-test a { color: var(--bordeaux); }
-
     /* ================= mise en page générale ================= */
     .crea-wrap { max-width: 1260px; margin: 20px auto 60px; padding: 0 12px; color: var(--ink); }
     .crea-title { text-align: center; font-weight: 700; letter-spacing: .5px; margin: 4px 0 2px; color: var(--brun); }
@@ -159,16 +139,32 @@
     .choix-nom { font-size: 17px; font-weight: 700; color: var(--brun); line-height: 1.15; }
     .choix-note { font-size: 13.5px; color: var(--muted); line-height: 1.3; }
     .choix-meta { font-size: 12.5px; color: var(--or3); line-height: 1.3; letter-spacing: .02em; }
+    /* Le moteur de la classe, dans la teinte que lui donne la galerie des
+       classes : c'est la première chose à savoir d'une classe, avant même sa
+       spécialité, puisque c'est lui que la race peut interdire. */
+    .cls-moteur {
+      font-size: 12px; text-transform: uppercase; letter-spacing: .07em; font-weight: 700;
+      color: var(--c); border: 1px solid var(--c); border-radius: 4px; padding: 1px 7px;
+    }
     .choix-img { width: 100%; max-width: 96px; aspect-ratio: 1; object-fit: cover; border-radius: 6px; border: 1px solid var(--line); }
     .choix-rang {
       position: absolute; top: -8px; right: -8px; min-width: 26px; height: 26px; padding: 0 5px;
       border-radius: 13px; background: var(--bordeaux); color: #f3e2b6;
       font-size: 13px; display: grid; place-items: center; box-shadow: 0 1px 4px rgba(0, 0, 0, .3);
     }
-    .choix-pastilles { display: flex; flex-wrap: wrap; gap: 4px; justify-content: center; margin-top: 3px; }
-    .past { font-size: 11.5px; padding: 2px 6px; border-radius: 10px; line-height: 1.25; }
-    .past.plus { background: rgba(63, 125, 79, .15); color: #2f5e3b; }
-    .past.moins { background: rgba(158, 43, 37, .13); color: #7c231e; }
+    .choix-pastilles { display: flex; flex-wrap: wrap; gap: 5px; justify-content: center; margin-top: 4px; }
+    /* Les pastilles disent les bonus et les malus : c'est l'information qu'on
+       compare d'une variante à l'autre, donc elle se lit sans plisser les yeux.
+       On reste juste sous la note (13.5px) pour garder la hiérarchie. */
+    .past { font-size: 13px; padding: 3px 8px; border-radius: 11px; line-height: 1.3; }
+    .past.plus { background: rgba(63, 125, 79, .18); color: #2a5535; }
+    .past.moins { background: rgba(158, 43, 37, .16); color: #71201b; }
+    /* Une capacité, pas un chiffre : ni vert ni rouge, mais l'or de la maison,
+       souligné d'un trait pour qu'on la distingue même en noir et blanc. */
+    .past.capa {
+      background: rgba(198, 159, 53, .2); color: var(--or3);
+      border: 1px solid rgba(125, 95, 22, .35); padding: 2px 8px; font-weight: 600;
+    }
 
     .choix-silh { display: block; height: 62px; color: var(--teinte, var(--muted)); }
 
@@ -300,6 +296,9 @@
     .p-liste.p-ok li { border-left-color: var(--or2); }
     .p-liste li.p-plus { border-left-color: var(--vert); }
     .p-liste li.p-moins { border-left-color: var(--rouge); }
+    /* Même or que les pastilles « capa » de la grille : une capacité garde sa
+       couleur de la vignette jusqu'à la fiche. */
+    .p-liste li.p-capas { border-left-color: var(--or2); }
     .p-avert { font-size: 12px; color: var(--muted); font-style: italic; margin: 0 0 6px; line-height: 1.4; }
 
     /* ---- en dessous de 1100 px, le pantin devient un tiroir du bas ---- */
@@ -353,15 +352,6 @@
 
   <main>
     <div class="crea-wrap" id="crea">
-      <!-- Bandeau à retirer quand l'outil sera considéré comme fiable :
-           supprimer ce bloc et la règle .crea-test de la feuille ci-dessus. -->
-      <div class="crea-test" role="status">
-        <span class="ct-cartouche">En cours de test</span>
-        <span class="ct-texte">Cet outil est tout neuf : ses calculs peuvent encore comporter des
-          erreurs. En cas de doute, les <a href="regles_creation.html">règles de création</a> font foi.
-          Si tu repères une valeur fausse, <a href="../contact.html">signale-la</a>.</span>
-      </div>
-
       <h1 class="crea-title">L'aide de création</h1>
       <p class="crea-sub">Le pantin d'atelier — ton personnage se compose sous tes yeux.</p>
 

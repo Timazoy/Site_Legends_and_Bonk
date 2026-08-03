@@ -22,6 +22,11 @@
 
   var RACES = (window.RACES && window.RACES.liste) || [];
   var CLASSES = (window.CLASSES && window.CLASSES.liste) || [];
+  /* Les trois moteurs — Capacités, Mana, Ressource — avec leur couleur. La
+     galerie des classes les présente sous ce nom ; l'outil reprend les mêmes
+     mots et les mêmes teintes pour qu'on passe d'une page à l'autre sans
+     réapprendre le code. */
+  var MOTEURS = (window.CLASSES && window.CLASSES.types) || [];
 
   var IMG_RACES = "../image-db/personnages/races/";
   var IMG_CLASSES = "../image-db/personnages/classes/";
@@ -78,6 +83,10 @@
   function sousRaceDe(race, i) {
     if (!race || !race.sousRaces || i == null) return null;
     return race.sousRaces[i] || null;
+  }
+  function moteurDe(c) {
+    for (var i = 0; i < MOTEURS.length; i++) if (MOTEURS[i].id === c.type) return MOTEURS[i];
+    return null;
   }
 
   /* ==================================================================
@@ -261,39 +270,115 @@
     }
 
     /* --- ce que l'outil a compté, et ce qu'il laisse à la table --- */
-    /* La première liste est fabriquée à partir des mods : elle dit
-       exactement ce qui est entré dans les chiffres ci-dessus. */
+    /* Chaque chose que « mods » fait vraiment entrer dans les chiffres reçoit
+       une clé et une phrase par défaut. Les clés servent juste après : une
+       pastille de la fiche de race qui parle de la même chose vient prendre
+       la place de la phrase, parce qu'elle est souvent plus précise
+       (« Précision +2 SUR N'IMPORTE QUELLE ATTAQUE »). Le point important est
+       qu'elle ne part alors PAS dans « à appliquer à la table » : le joueur
+       appliquerait le bonus une seconde fois. */
+    var compte = [];   /* [{ cle, texte }] dans l'ordre d'affichage */
+    function noter(cle_, texte) { compte.push({ cle: cle_, texte: texte }); }
+
     if (mods.stat) Object.keys(mods.stat).forEach(function (k) {
       var d = r.stats[k];
-      r.comptes.push((d ? d.def.nom : k) + " " + signe(mods.stat[k]) + " (avant répartition)");
+      noter("stat." + k, (d ? d.def.nom : k) + " " + signe(mods.stat[k]) + " (avant répartition)");
     });
     if (mods.second) Object.keys(mods.second).forEach(function (k) {
       var n = r.second[k] ? r.second[k].nom : (k === "deplacement" ? "Déplacements" : k);
-      r.comptes.push(n + " " + signe(mods.second[k]));
+      noter("second." + k, n + " " + signe(mods.second[k]));
     });
-    if (mods.pointsBonus) r.comptes.push(signe(mods.pointsBonus) + " point de statistique à répartir");
-    if (regles.pointsBonus) r.comptes.push(signe(regles.pointsBonus) + " points de statistique à répartir");
-    if (regles.points) r.comptes.push(regles.points + " points à répartir au lieu de " + POINTS);
+    function ptsBonus(n) {
+      return signe(n) + " point" + (Math.abs(n) > 1 ? "s" : "") + " de statistique à répartir";
+    }
+    /* Le garou ne répartit pas sur six statistiques mais sur cinq : la fiche
+       le montre déjà, encore faut-il dire pourquoi. C'est bien l'outil qui
+       l'applique — la liste des statistiques change à la source. */
+    if (regles.instinct) {
+      noter("instinct", "Sagesse et Intelligence remplacées par une seule statistique, Instinct : " +
+        liste.length + " statistiques à répartir au lieu de " + SIX.length);
+    }
+    if (mods.pointsBonus) noter("pointsBonus", ptsBonus(mods.pointsBonus));
+    if (regles.pointsBonus) noter("pointsBonus", ptsBonus(regles.pointsBonus));
+    if (regles.points) noter("points", regles.points + " points à répartir au lieu de " + POINTS);
+    /* Le +3 de l'humain de métier est bien appliqué (voir plus haut), mais il
+       ne vient ni de mods.stat ni des points : sans cette ligne il ne serait
+       annoncé nulle part dans le récapitulatif. */
+    if (mods.metier) {
+      var sm = e.metier && r.stats[e.metier];
+      noter("metier", sm
+        ? sm.def.nom + " +3 (métier, appliqué après la répartition : il échappe au plafond de " + PLAFOND + ")"
+        : "+3 dans la statistique du métier, une fois choisie (après la répartition : ce +3 échappe au plafond de " + PLAFOND + ")");
+    }
     if (mods.plafond) Object.keys(mods.plafond).forEach(function (k) {
       var d = r.stats[k];
-      r.comptes.push((d ? d.def.nom : k) + " peut monter jusqu'à " + mods.plafond[k] + " à la création");
+      noter("plafond." + k, (d ? d.def.nom : k) + " peut monter jusqu'à " + mods.plafond[k] + " à la création");
     });
-    if (mods.pmBase) r.comptes.push(mods.pmBase + " PM de base au lieu de " + PM_BASE);
+    if (mods.pmBase) noter("pmBase", mods.pmBase + " PM de base au lieu de " + PM_BASE);
 
-    /* La seconde liste reprend les pastilles de la fiche de race qui ne se
-       calculent pas. On écarte simplement celles de la forme « Stat ±N »,
-       déjà traduites dans mods ci-dessus. Ce filtre ne sert qu'à
-       l'affichage : il ne rentre dans aucun calcul. */
-    var chiffree = /^(Force|Dextérité|Constitution|Intelligence|Sagesse|Charisme|Instinct|Vitesse|Perception|Discrétion|Précision|Déplacement) [+−-]\d+$/;
+    /* À quelle clé une pastille correspond-elle, si elle correspond à
+       quelque chose ? On ne reconnaît jamais que ce que « mods » déclare
+       vraiment : une pastille ne peut donc pas être classée « déjà comptée »
+       si rien ne la compte. Dans le doute, elle part à la table — c'est le
+       sens le moins coûteux : un rappel en trop plutôt qu'un bonus oublié. */
+    function cleDePastille(t) {
+      var m = t.match(/^([A-Za-zÀ-ÿ]+) [+−-]\d+/);
+      if (m) {
+        var k = cle(m[1]);
+        if (mods.stat && mods.stat[k] !== undefined) return "stat." + k;
+        if (mods.second && mods.second[k] !== undefined) return "second." + k;
+      }
+      if ((mods.pointsBonus || regles.pointsBonus) && /points? de statistique/i.test(t)) return "pointsBonus";
+      if (mods.pmBase && /PM de base/i.test(t)) return "pmBase";
+      /* les deux pastilles de l'humain de métier : celle qui nomme le métier,
+         et celle qui explique que son +3 passe outre le plafond */
+      if (mods.metier && /métier|répartition/i.test(t)) return "metier";
+      var trouve = null;
+      if (mods.plafond) Object.keys(mods.plafond).forEach(function (k) {
+        var nom = r.stats[k] ? r.stats[k].def.nom : k;
+        if (t.toLowerCase().indexOf(nom.toLowerCase()) >= 0 && /limit|plafond|jusqu/i.test(t)) {
+          trouve = "plafond." + k;
+        }
+      });
+      return trouve;
+    }
+
+    /* On range les pastilles : celles que « mods » couvre remplacent la
+       phrase par défaut de leur clé, les autres s'en vont à la table.
+       « capas » n'est pas de la partie : une capacité dorée est une action
+       que le joueur déclenche quand il veut, pas un effet qu'il devrait
+       penser à appliquer. Elle se signale par sa pastille, comme le souffle
+       du drakéide ou la transformation du garou — qui ne sont pas non plus
+       dans cette liste. */
+    var repris = {};
     ["plus", "moins"].forEach(function (champ) {
       ((sr && sr[champ]) || []).forEach(function (t) {
-        if (!chiffree.test(t.trim())) r.aAppliquer.push({ texte: t, sens: champ });
+        t = t.trim();
+        var k = cleDePastille(t);
+        if (!k) { r.aAppliquer.push({ texte: t, sens: champ }); return; }
+        (repris[k] || (repris[k] = [])).push(t);
+      });
+      /* Une RACE peut porter un effet qui vaut quelle que soit la variante —
+         les écailles du drakéide, par exemple. Il n'a pas de vignette où se
+         poser, mais il doit se retrouver sur la fiche comme les autres. */
+      ((race && race[champ]) || []).forEach(function (t) {
+        r.aAppliquer.push({ texte: t, sens: champ });
       });
       /* la voie de classe entre dans la même liste : aucun de ses effets ne
          se met en chiffres sur une fiche */
       ((r.variante && r.variante[champ]) || []).forEach(function (t) {
         r.aAppliquer.push({ texte: t, sens: champ });
       });
+    });
+
+    var vus = {};
+    compte.forEach(function (c) {
+      if (!repris[c.cle]) { r.comptes.push(c.texte); return; }
+      /* plusieurs pastilles peuvent parler d'une même clé (le métier en a
+         deux) : on les sort toutes, une seule fois */
+      if (vus[c.cle]) return;
+      vus[c.cle] = 1;
+      repris[c.cle].forEach(function (t) { r.comptes.push(t); });
     });
 
     return r;
@@ -555,8 +640,8 @@
 
   function dessinerEtape1() {
     var h = '<h2 class="e-titre"><span class="e-num">1</span> La race</h2>' +
-      '<p class="e-intro">On commence par là : la race décide du nombre de points que tu auras à répartir, ' +
-      'et parfois des classes qui te seront ouvertes.</p><div class="choix-grille">';
+      '<p class="e-intro">La race est le corps qui contiendra ton personnage : ' +
+      'chacune apporte son lot d\'effets, qui n\'appartiennent qu\'à elle.</p><div class="choix-grille">';
 
     RACES.forEach(function (race) {
       var actif = etat.race === race.slug;
@@ -583,11 +668,26 @@
           h += '<button type="button" class="choix choix-sous' + (actif ? " actif" : "") + '" ' +
             'data-sous="' + i + '" style="--teinte:' + esc(sr.couleur || race.couleur || "#6b5a3a") + '">' +
             '<span class="choix-nom">' + esc(sr.nom) + '</span>';
-          var p = (sr.plus || []).concat(sr.moins || []);
-          if (p.length) {
+          var p = (sr.plus || []).concat(sr.moins || [], sr.capas || [], sr.capacites || []);
+          if (p.length || sr.transformation || race.invocation) {
             h += '<span class="choix-pastilles">';
             (sr.plus || []).forEach(function (t) { h += '<span class="past plus">' + esc(t) + '</span>'; });
             (sr.moins || []).forEach(function (t) { h += '<span class="past moins">' + esc(t) + '</span>'; });
+            /* Les pastilles dorées ne sont pas des modificateurs de chiffres
+               mais des capacités : le vol des piafs, la transformation des
+               garous, le souffle des drakéides. Une seule couleur pour toutes,
+               pour qu'on repère « cette variante sait faire quelque chose »
+               sans lire. Une entrée de « capacites » a un coût et se déclenche
+               par définition : son nom suffit ici, le détail est sur la page
+               races. */
+            (sr.capas || []).forEach(function (t) { h += '<span class="past capa">' + esc(t) + '</span>'; });
+            (sr.capacites || []).forEach(function (c) { h += '<span class="past capa">' + esc(c.nom) + '</span>'; });
+            if (sr.transformation) h += '<span class="past capa">Transformation animale</span>';
+            /* L'invocation appartient à la race : les trois lignées de
+               tieffelins peuvent appeler n'importe lequel des trois
+               mini-démons, seul le bonus qui l'accompagne dépend de la
+               lignée. La pastille est donc la même sur les trois vignettes. */
+            if (race.invocation) h += '<span class="past capa">Invocation d\'un mini-démon</span>';
             h += '</span>';
           }
           if (sr.stats) {
@@ -643,10 +743,16 @@
       if (etat.classe === c.slug) etats.push("actif");
       if (etat.classe2 === c.slug) etats.push("actif2");
       if (bloquee) etats.push("bloquee");
+      var mot = moteurDe(c);
       h += '<button type="button" class="choix choix-cls ' + etats.join(" ") + '" ' +
         'data-classe="' + esc(c.slug) + '"' + (bloquee ? ' disabled' : "") + '>' +
         '<img class="choix-img" src="' + IMG_CLASSES + encodeURIComponent(c.image) + '" alt="" loading="lazy">' +
         '<span class="choix-nom">' + esc(c.nom) + '</span>' +
+        /* « typeAffiche » l'emporte quand la classe ne rentre pas franchement
+           dans sa case : le magicien est « Polyvalent (mana) », l'hématomancien
+           « Mana (spécial) ». */
+        '<span class="cls-moteur" style="--c:' + esc((mot && mot.couleur) || "#6b5a3a") + '">' +
+        esc(c.typeAffiche || (mot && mot.nom) || c.type) + '</span>' +
         '<span class="choix-note">' + esc(c.specialite) + '</span>' +
         '<span class="choix-meta">Précision : ' + esc(c.precision) +
         (typeof c.statMana === "string" ? " · Mana : " + esc(c.statMana) : "") +

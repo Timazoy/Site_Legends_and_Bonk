@@ -38,6 +38,15 @@
        apparence: ["…"],
        caracteristiques: ["…"],
        important: ["…"],            // facultatif : encadré d'avertissement
+       plus: ["…"], moins: ["…"],   // facultatif : les mêmes listes qu'une
+                                    // sous-race, mais valables pour TOUTES
+                                    // les variantes de la race. Faute de
+                                    // vignette où se poser, elles ne font pas
+                                    // de pastille : l'outil de création les
+                                    // range dans « à appliquer à la table ».
+                                    // Pas de « capas » ici : une capacité ne
+                                    // se lit que sur une pastille, et il n'y
+                                    // en a pas à ce niveau.
        blocs: [ { titre:"…", texte:["…"] } ],        // facultatif
        sousTitre: "Sous-races",     // titre du bloc de variantes
        sousIntro: "…",              // facultatif
@@ -51,6 +60,14 @@
            texte: ["…"],            // facultatif : prose de la variante
            plus:  ["Précision +1"], // pastilles vertes
            moins: ["Dégâts subis +10 %"],  // pastilles rouges
+           capas: ["Vol pendant 3T à chaque CR"],  // pastilles dorées : ce que
+                                    // le joueur ACTIVE — le vol des piafs, la
+                                    // transformation des garous. Un passif
+                                    // reste dans « plus », même s'il n'est pas
+                                    // chiffré : c'est le fait de déclencher qui
+                                    // décide de la couleur, pas la forme.
+                                    // Affiché par races.html ET par l'outil de
+                                    // création : les deux pages lisent ce champ.
            mods: {                  // facultatif : la traduction CHIFFRÉE des
                                     // pastilles ci-dessus, pour l'outil de
                                     // création (aides_creation.html).
@@ -179,7 +196,7 @@ window.RACES = {
         {
           nom: "Humain de métier",
           note: "déjà façonné par son travail",
-          texte: ["Il a passé sa vie à faire quelque chose, et son corps s’en souvient. Le métier se choisit avec le MJ ; le +3 s’applique à la statistique qui lui correspond, une fois les points répartis."],
+          texte: ["Il a passé sa vie à faire quelque chose, et son corps s’en souvient. Le métier est choisi par le joueur et doit être en raccord avec la statistique souhaitée ; le +3 s’applique à la statistique qui lui correspond, une fois les points répartis."],
           plus: ["+3 dans la statistique du métier", "Ce +3 s’ajoute après la répartition : il peut dépasser le plafond de 15"],
           mods: { metier: true }
         }
@@ -214,7 +231,9 @@ window.RACES = {
           nom: "Elfe",
           plus: ["Précision +2 sur n’importe quelle attaque"],
           moins: ["Dégâts subis +20 %"],
-          mods: { second: { precision: +2 } }
+          /* pas de mods : comme chez ses deux cousins, ce +2 se joue sur
+             l'attaque et non sur la Précision de la fiche. « N'importe
+             quelle attaque » dit quand il s'applique, pas où il s'inscrit. */
         },
         {
           nom: "Haut elfe",
@@ -235,7 +254,9 @@ window.RACES = {
           note: "Étant un mélange entre un humain et un elfe, il a des oreilles un peu moins grandes que ses confrères.",
           plus: ["Précision +1 sur n’importe quelle attaque", "+1 point de statistique à attribuer"],
           moins: ["Dégâts subis +10 %"],
-          mods: { second: { precision: +1 }, pointsBonus: 1 }
+          /* la précision part à la table comme chez l'elfe ; le point de
+             statistique, lui, se compte bel et bien à la création */
+          mods: { pointsBonus: 1 }
         }
       ]
     },
@@ -289,7 +310,10 @@ window.RACES = {
           note: "Étant un mélange entre un elfe et un nain, il a des oreilles un peu en pointe et il est un peu plus grand que ses confrères.",
           plus: ["7,5 % de chance d’appliquer l’effet incapacité en attaquant", "Précision +1 sur n’importe quelle attaque"],
           moins: ["Déplacement −1", "Dégâts subis +10 %"],
-          mods: { second: { precision: +1, deplacement: -1 } }
+          /* la précision part à la table, comme chez ses cousins elfes : elle
+             se joue sur l'attaque et non sur la fiche. Le déplacement, lui,
+             est bien une valeur de fiche. */
+          mods: { second: { deplacement: -1 } }
         }
       ]
     },
@@ -302,7 +326,7 @@ window.RACES = {
       image: "orc.webp",
       forme: "massif",
       taille: { min: 1.8, max: 2.1, texte: "1,80 m à 2,10 m" },
-      resume: "Frappe fort — parfois sur lui-même.",
+      resume: "Frappe fort, et parfois même un peu trop pour lui-même.",
       description: [
         "Les orcs sont originaires de régions sauvages et inhospitalières, souvent caractérisées par des montagnes abruptes, des jungles profondes ou des plaines arides.",
         "Leur culture met en avant la survie par la force et la camaraderie, et ils sont réputés pour leur endurance exceptionnelle. Bien que certains voient les orcs comme des sauvages, ils suivent des codes d’honneur stricts et vénèrent leurs ancêtres."
@@ -321,7 +345,7 @@ window.RACES = {
         {
           nom: "Orc",
           plus: ["Dégâts +20 %"],
-          moins: ["D6 : sur 1 ou 2, vous subissez 30 % des dégâts infligés", "Accées uniqument aux armes de corps à corps"]
+          moins: ["D6 : sur 1 ou 2, vous subissez 30 % des dégâts infligés", "Accès uniquement aux armes de corps à corps"]
         },
         {
           nom: "Demi orc",
@@ -329,7 +353,7 @@ window.RACES = {
           note: "Étant un mélange entre un humain et un orc, il a une teinte de peau plus claire et il est un peu plus petit que ses confrères.",
           plus: ["Dégâts +10 %", "+1 point de statistique à attribuer"],
           mods: { pointsBonus: 1 },
-          moins: ["D6 : sur 1 ou 2, vous subissez 15 % des dégâts infligés", "Accées uniqument aux armes de corps à corps et de lancer"]
+          moins: ["D6 : sur 1 ou 2, vous subissez 15 % des dégâts infligés", "Accès uniquement aux armes de corps à corps et de lancer"]
         }
       ]
     },
@@ -342,7 +366,7 @@ window.RACES = {
       image: "drakeide.webp",
       forme: "reptile",
       taille: { min: 1.8, max: 2.1, texte: "1,80 m à 2,10 m" },
-      resume: "Un souffle par lignée, et des écailles qui repoussent aussi les bienfaits.",
+      resume: "Un souffle par lignée, et des écailles qui repoussent aussi les effets.",
       description: [
         "Les drakéides sont des humanoïdes descendants des dragons, mais ils n’ont ni queue ni ailes. Leur héritage draconique se manifeste dans leur apparence, leurs capacités naturelles et leur affinité pour les éléments.",
         "Ils voient leur vie comme un parcours pour prouver leur valeur et honorer leur lignage."
@@ -356,8 +380,12 @@ window.RACES = {
         "Leur lignée leur confère aussi une résistance à un type d’effet correspondant à leur souffle."
       ],
       important: [
-        "Leurs épaisses écailles les rendent aussi moins sensibles à tous types de buff : ils ont une chance sur deux qu’ils échouent."
+        "Leurs épaisses écailles les rendent aussi moins sensibles à tous les types de bonus : ils ont une chance sur deux qu’ils échouent."
       ],
+      /* Vaut pour les six lignées : l'effet est porté par la race, pas par la
+         variante, donc il n'a pas de pastille — l'outil le range quand même
+         dans « à appliquer à la table ». */
+      moins: ["1 chance sur 2 que les bonus lancés sur lui échouent"],
       /* le damier du docx, lu de haut en bas : X = case soufflée,
          O = le drakéide, . = case épargnée */
       souffle: {
@@ -419,7 +447,7 @@ window.RACES = {
       image: "tieffelin.webp",
       forme: "cornu",
       taille: { min: 1.5, max: 2, texte: "1,50 m à 2,00 m" },
-      resume: "Trois héritages infernaux, trois profils opposés.",
+      resume: "Trois héritages infernaux, trois profils opposés. Sans oublié le mini-démon.",
       description: [
         "Les tieffelins sont les descendants de pactes passés avec des entités infernales, ou d’un ancêtre qui a eu des liens avec des diables ou des démons.",
         "Ce passé infernal leur confère un aspect physique qui les rend différents des autres races, marqués par leur connexion aux Royaumes inférieurs."
@@ -575,25 +603,30 @@ window.RACES = {
       sousRaces: [
         {
           nom: "Piaf",
-          plus: ["Vol pendant 3T à chaque CR"],
+          capas: ["Vol pendant 3T à chaque CR"],
           moins: ["Sagesse −1"],
           mods: { stat: { sagesse: -1 } }
         },
         {
           nom: "Albatros",
-          plus: ["Vol pendant 5T à chaque CR", "Constitution +1"],
+          capas: ["Vol pendant 5T à chaque CR"],
+          plus: ["Constitution +1"],
           moins: ["Sagesse −2", "Vitesse −1"],
           mods: { stat: { constitution: +1, sagesse: -2 }, second: { vitesse: -1 } }
         },
         {
           nom: "Hibou",
-          plus: ["Vol pendant 3T à chaque CR", "Sagesse +1", "Discrétion +2", "Nyctalope : voit dans le noir sur 15 cases"],
+          capas: ["Vol pendant 3T à chaque CR"],
+          /* Nyctalope reste vert : c'est un passif, il ne se déclenche pas.
+             L'or est réservé à ce que le joueur décide d'activer. */
+          plus: ["Sagesse +1", "Discrétion +2", "Nyctalope : voit dans le noir sur 15 cases"],
           moins: ["Force −1", "Constitution −1"],
           mods: { stat: { sagesse: +1, force: -1, constitution: -1 }, second: { discretion: +2 } }
         },
         {
           nom: "Faucon",
-          plus: ["Vol pendant 2T à chaque CR", "Perception +2", "Vitesse +1", "Déplacement +2"],
+          capas: ["Vol pendant 2T à chaque CR"],
+          plus: ["Perception +2", "Vitesse +1", "Déplacement +2"],
           moins: ["Sagesse −2", "Intelligence −2"],
           mods: { stat: { sagesse: -2, intelligence: -2 }, second: { perception: +2, vitesse: +1, deplacement: +2 } }
         }
@@ -608,7 +641,7 @@ window.RACES = {
       image: null,                 /* dessin à faire */
       forme: "informe",
       taille: null,
-      resume: "Huit origines qui se dominent en cercle.",
+      resume: "Les êtres de l’élément, à la fois puissants et vulnérables.",
       description: [
         "Les élémentari sont des êtres mystérieux. Nous ignorons d’où ils viennent et comment ils apparaissent ; les rumeurs semblent dire que ce sont des êtres envoyés d’anciennes divinités maintenant oubliées.",
         "Mais une chose est sûre : ce sont des êtres complexes dotés d’une conscience semblable à celle d’un humain. Ils préfèrent explorer le monde et découvrir tous ses secrets à n’importe quoi d’autre. Leur curiosité débordante fait d’eux de parfaits aventuriers."
@@ -731,7 +764,7 @@ window.RACES = {
       forme: "massif",
       taille: { min: 2.1, max: 2.4, texte: "2,10 m à 2,40 m" },
       poids: "130 à 180 kg",
-      resume: "Encaisse en réaction, au jugé d’un D6.",
+      resume: "Peuple des montagnes, ils sont à la fois forts et endurants.",
       description: [
         "Les goliaths sont des créatures impressionnantes aux origines mystérieuses, souvent associées aux géants et aux esprits des montagnes.",
         "Ils vivent en tribus nomades dans des endroits reculés, comme les sommets enneigés et les vallées rocheuses, où seules les races les plus résistantes peuvent survivre. La culture des goliaths valorise la force, le courage et l’autosuffisance, et ils respectent profondément la nature et les éléments."
@@ -749,19 +782,22 @@ window.RACES = {
       sousRaces: [
         {
           nom: "Goliath",
-          plus: ["Réaction à 1 attaque par CR : D6, −10 % de dégâts par point"],
+          /* la réaction se déclenche, et un nombre de fois compté par CR :
+             c'est une capacité, comme le vol du piaf */
+          capas: ["Réaction à 1 attaque par CR : D6, −10 % de dégâts par point"],
           moins: ["Dextérité −1"],
           mods: { stat: { dexterite: -1 } }
         },
         {
           nom: "Goliath des collines",
-          plus: ["Réaction à 2 attaques par CR : D6, −10 % de dégâts par point"],
+          capas: ["Réaction à 2 attaques par CR : D6, −10 % de dégâts par point"],
           moins: ["Dextérité −1", "Intelligence −1"],
           mods: { stat: { dexterite: -1, intelligence: -1 } }
         },
         {
           nom: "Goliath des montagnes",
-          plus: ["Réaction à 2 attaques par CR : D6, −10 % de dégâts par point", "Constitution +2"],
+          capas: ["Réaction à 2 attaques par CR : D6, −10 % de dégâts par point"],
+          plus: ["Constitution +2"],
           moins: ["Dextérité −2", "Sagesse −2"],
           mods: { stat: { constitution: +2, dexterite: -2, sagesse: -2 } }
         }
@@ -777,7 +813,7 @@ window.RACES = {
       forme: "bestial",
       taille: null,
       hauteurDessin: 2.05,         /* relevée sur le dessin */
-      resume: "L’instinct à la place de la tête, et la folie au bout.",
+      resume: "Entre l’humain et l’animal, les garous sont des créatures sauvages et instinctives.",
       description: [
         "Les garous sont une race mi-humanoïde mi-animale se caractérisant par l’instinct animal. La rage animale leur permet de passer outre les limitations de leur corps humain et de se rapprocher de leur partie animale.",
         "Ils vivent souvent en marge de la société moderne, conservant leur tribu et leur meute pour les garous les plus sociaux."
@@ -895,14 +931,16 @@ window.RACES = {
         {
           nom: "Graille-Tout Végétal",
           texte: ["Ils peuvent manger tout ce qui est d’origine végétale ou faunique non carnée.", GT_MJ],
-          plus: ["Satiété de 30", "Dextérité +1"],
+          /* le régime est un passif, pas une capacité : il vaut tout le temps
+             et ne se déclenche pas — d'où le vert, et la table */
+          plus: ["Mange tout ce qui est d’origine végétale ou faunique non carnée", "Satiété maximale de 30", "Dextérité +1"],
           moins: ["Charisme −2"],
           mods: { stat: { dexterite: +1, charisme: -2 } }
         },
         {
           nom: "Graille-Tout Minéral",
           texte: ["Ils peuvent manger tout ce qui est d’origine minérale et naturelle.", GT_MJ],
-          plus: ["Satiété maximale de 25", "Force +1"],
+          plus: ["Mange tout ce qui est d’origine minérale et naturelle", "Satiété maximale de 25", "Force +1"],
           moins: ["Sagesse −2"],
           mods: { stat: { force: +1, sagesse: -2 } }
         }
@@ -917,7 +955,7 @@ window.RACES = {
       image: "kroakoa.webp",
       forme: "reptile",
       taille: { min: 1.8, max: 2.2, texte: "1,80 m à 2,20 m" },
-      resume: "Une morsure et des écailles par sous-race.",
+      resume: "Reptiles humanoïdes, à la fois dangereux et exotiques.",
       description: [
         "Les kroakoa sont des créatures écailleuses, à la fois grandioses et tropicales, souvent fascinées par les profondeurs aqueuses et la perception des autres.",
         "Ils sont très territorialistes et protecteurs : ce sont de très farouches guerriers, aussi bons en repérage qu’en combat."
@@ -979,7 +1017,7 @@ window.RACES = {
       image: "oni.webp",
       forme: "cornu",
       taille: { min: 2, max: 3, texte: "2,00 m à 3,00 m" },
-      resume: "Six lignées, six profils déjà écrits.",
+      resume: "Six lignées, six profils déjà écrits dans le destin.",
       description: [
         "Les oni sont une race ancienne issue des forces primordiales. Leur peuple, au fil des âges, s’est scindé en différentes lignées spécialisées, afin d’optimiser la survie et l’efficacité de leur société.",
         "Ils vivent dans de vastes cités appelées Arc-en-Ville, des lieux où chaque oni se voit attribuer un rôle précis selon sa lignée. La cohésion du groupe et la spécialisation de chacun sont au cœur de leur culture."
