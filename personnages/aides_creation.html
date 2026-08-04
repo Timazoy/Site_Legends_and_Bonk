@@ -50,7 +50,7 @@
     .crea-title { text-align: center; font-weight: 700; letter-spacing: .5px; margin: 4px 0 2px; color: var(--brun); }
     .crea-sub { text-align: center; color: var(--muted); font-style: italic; margin: 0 0 20px; font-size: 19px; }
 
-    .crea-grid { display: grid; grid-template-columns: minmax(0, 1fr) 348px; gap: 22px; align-items: start; }
+    .crea-grid { display: grid; grid-template-columns: minmax(0, 1fr) 372px; gap: 22px; align-items: start; }
     @media (max-width: 1100px) { .crea-grid { grid-template-columns: minmax(0, 1fr); } }
 
     /* ================= le fil des étapes ================= */
@@ -253,7 +253,7 @@
     .pantin-tete:disabled { cursor: default; opacity: 1; color: #f0e4c4; }
     .pt-titre { font-size: 17px; letter-spacing: .05em; font-weight: 700; white-space: nowrap; }
     #pantin-resume {
-      font-size: 12.5px; color: rgba(240, 228, 196, .8); margin-left: auto; text-align: right;
+      font-size: 13.5px; color: rgba(240, 228, 196, .8); margin-left: auto; text-align: right;
       min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
     }
     .pt-chevron { display: none; }
@@ -262,13 +262,13 @@
     .p-haut { display: flex; align-items: flex-end; gap: 12px; padding-bottom: 11px; border-bottom: 1px solid var(--line); }
     .p-haut .p-silh { flex: 0 0 76px; height: 116px; }
     .p-ident { padding-bottom: 4px; min-width: 0; }
-    .p-nom { font-size: 20px; font-weight: 700; color: var(--brun); line-height: 1.15; }
-    .p-sous { font-size: 14px; color: var(--muted); line-height: 1.3; }
-    .p-vide { font-size: 15px; color: var(--muted); font-style: italic; margin: 13px 0 0; line-height: 1.5; }
+    .p-nom { font-size: 22px; font-weight: 700; color: var(--brun); line-height: 1.15; }
+    .p-sous { font-size: 15.5px; color: var(--muted); line-height: 1.3; }
+    .p-vide { font-size: 16.5px; color: var(--muted); font-style: italic; margin: 13px 0 0; line-height: 1.5; }
 
     .p-bloc { margin-top: 14px; }
     .p-bloc h3 {
-      font-size: 13px; letter-spacing: .09em; text-transform: uppercase; color: var(--or3);
+      font-size: 14px; letter-spacing: .09em; text-transform: uppercase; color: var(--or3);
       margin: 0 0 7px; padding-bottom: 4px; border-bottom: 1px solid rgba(201, 184, 146, .7);
     }
 
@@ -276,23 +276,23 @@
     .p-grille { fill: none; stroke: rgba(122, 92, 40, .22); stroke-width: 1; }
     .p-axe { stroke: rgba(122, 92, 40, .3); stroke-width: 1; }
     .p-forme { fill: rgba(122, 8, 8, .22); stroke: var(--bordeaux); stroke-width: 1.6; stroke-linejoin: round; }
-    .p-etiq { fill: var(--muted); font-size: 11px; font-family: inherit; text-anchor: middle; }
+    .p-etiq { fill: var(--muted); font-size: 12px; font-family: inherit; text-anchor: middle; }
 
     .p-stats { display: flex; flex-direction: column; gap: 3px; }
-    .p-stat { display: grid; grid-template-columns: 1fr 30px 30px; align-items: baseline; gap: 4px; font-size: 15px; }
+    .p-stat { display: grid; grid-template-columns: 1fr 34px 34px; align-items: baseline; gap: 4px; font-size: 16.5px; }
     .p-sn { color: var(--ink); }
-    .p-sv { font-weight: 700; color: var(--bordeaux); text-align: right; font-size: 17px; }
-    .p-sm { color: var(--muted); text-align: right; font-size: 13px; }
-    .p-sd { grid-column: 1 / -1; font-size: 11.5px; color: var(--muted); margin: -2px 0 3px; }
+    .p-sv { font-weight: 700; color: var(--bordeaux); text-align: right; font-size: 19px; }
+    .p-sm { color: var(--muted); text-align: right; font-size: 14.5px; }
+    .p-sd { grid-column: 1 / -1; font-size: 13px; color: var(--muted); margin: -2px 0 3px; }
 
     .p-ligne { display: grid; grid-template-columns: 1fr auto; gap: 4px; margin-bottom: 6px; }
-    .p-l { font-size: 15px; color: var(--ink); }
-    .p-v { font-size: 17px; font-weight: 700; color: var(--bordeaux); }
-    .p-d { grid-column: 1 / -1; font-size: 11.5px; color: var(--muted); line-height: 1.35; }
+    .p-l { font-size: 16.5px; color: var(--ink); }
+    .p-v { font-size: 19px; font-weight: 700; color: var(--bordeaux); }
+    .p-d { grid-column: 1 / -1; font-size: 13px; color: var(--muted); line-height: 1.35; }
 
     .p-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
     .p-liste li {
-      font-size: 13px; line-height: 1.4; padding: 4px 8px; border-radius: 5px;
+      font-size: 14.5px; line-height: 1.45; padding: 5px 9px; border-radius: 5px;
       background: rgba(251, 244, 226, .8); border-left: 3px solid var(--line); color: var(--ink);
     }
     .p-liste.p-ok li { border-left-color: var(--or2); }
@@ -301,7 +301,7 @@
     /* Même or que les pastilles « capa » de la grille : une capacité garde sa
        couleur de la vignette jusqu'à la fiche. */
     .p-liste li.p-capas { border-left-color: var(--or2); }
-    .p-avert { font-size: 12px; color: var(--muted); font-style: italic; margin: 0 0 6px; line-height: 1.4; }
+    .p-avert { font-size: 13.5px; color: var(--muted); font-style: italic; margin: 0 0 6px; line-height: 1.4; }
 
     /* ---- en dessous de 1100 px, le pantin devient un tiroir du bas ---- */
     @media (max-width: 1100px) {
