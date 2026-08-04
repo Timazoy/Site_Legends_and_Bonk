@@ -671,15 +671,27 @@
         return h;
       }
 
+      /* Une entrée des listes du Grand Livre : soit du texte simple, soit un
+         renvoi vers le livre ({ nom, lien, apres }) — la même forme que les
+         entrées d'équipement, qui pointent vers le catalogue des armes.
+         « apres » sert aux précisions qui ne font pas partie du nom visé :
+         le bastioniste a la Famille de Création « (sauf création élémentaire) »,
+         et ce bout-là ne doit pas entrer dans le lien. */
+      function entreeLivre(e) {
+        if (typeof e === "string") return '<li>' + esc(e) + '</li>';
+        return '<li><a class="eq-lien" href="' + esc(e.lien) + '">' + esc(e.nom) + '</a>' +
+          (e.apres ? " " + esc(e.apres) : "") + '</li>';
+      }
+
       function grimoireHTML(g) {
         if (!g) return "";
         var h = '<h2>Sorts</h2><p>' + prose(g.intro) + '</p>';
         var cols = "";
-        if (g.famille) cols += '<section><h3>Famille</h3><ul><li>' + esc(g.famille) + '</li></ul></section>';
+        if (g.famille) cols += '<section><h3>Famille</h3><ul>' + entreeLivre(g.famille) + '</ul></section>';
         if (g.sousFamilles) cols += '<section><h3>Sous-familles</h3><ul>' +
-          g.sousFamilles.map(function (s) { return '<li>' + esc(s) + '</li>'; }).join("") + '</ul></section>';
+          g.sousFamilles.map(entreeLivre).join("") + '</ul></section>';
         if (g.sorts) cols += '<section><h3>Sorts accessibles</h3><ul>' +
-          g.sorts.map(function (s) { return '<li>' + esc(s) + '</li>'; }).join("") + '</ul></section>';
+          g.sorts.map(entreeLivre).join("") + '</ul></section>';
         if (cols) h += '<div class="livre">' + cols + '</div>';
         if (g.notes) h += '<div class="notes">' + paras(g.notes) + '</div>';
         return h;

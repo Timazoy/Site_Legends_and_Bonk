@@ -36,9 +36,13 @@
        },
        grimoire: {                 // facultatif (classes qui puisent au Grand Livre)
          intro: "…",
-         famille: "Famille de Résistance",
-         sousFamilles: ["…"],
-         sorts: ["…"],
+         // Les trois listes acceptent du texte simple, ou un renvoi vers le
+         // Grand Livre — même forme que « equipement » ci-dessous. Voir
+         // LIVRE_MAGIE plus bas pour les trois formes d'ancre.
+         famille: { nom: "Famille de Création", lien: LIVRE_MAGIE + "#famille=creation",
+                    apres: "(sauf création élémentaire)" },   // « apres » facultatif
+         sousFamilles: [ { nom: "…", lien: LIVRE_MAGIE + "#groupe=…" } ],
+         sorts:        [ { nom: "…", lien: LIVRE_MAGIE + "#sort=…" } ],
          notes: ["…"]
        },
        blocs: [ { titre: "…", texte: ["…"] } ],   // facultatif : contenu libre
@@ -78,6 +82,17 @@
    ⚠ Ne pas écrire de HTML dans les textes : ils sont échappés
    automatiquement.
    ================================================================== */
+
+/* Adresse du Grand Livre de la Magie, pour les renvois du bloc « grimoire ».
+   Trois formes d'ancre, selon le niveau visé — le livre s'ouvre à la page,
+   allume la ligne et écrit son nom dans sa barre de recherche :
+     #famille=attaque              une famille entière
+     #groupe=sous-famille-du-feu   une sous-famille
+     #sort=petite-boule-de-feu     un sort
+   L'ancre, c'est le nom écrit dans magie/sorts.js, sans accent ni majuscule et
+   les espaces en tirets. Pour la retrouver sans se tromper : ouvrir le livre,
+   chercher le nom dans sa barre de recherche, copier la barre d'adresse. */
+var LIVRE_MAGIE = "../magie/livre_magie.html";
 
 /* Phrases qui reviennent à l'identique d'une classe à l'autre. */
 var SATIETE = "Les personnages de type Capacités peuvent récupérer l'équivalent d'un CR d'une capacité en consommant 5 points de satiété.";
@@ -230,9 +245,21 @@ window.CLASSES = {
       },
       grimoire: {
         intro: "Le clerc a accès à un panel de sorts du « Grand Livre de Magie » :",
-        famille: "Famille de Résistance",
-        sousFamilles: ["Sous-famille de lumière", "Sous-famille de fumigène", "Sous-famille de l'amour"],
-        sorts: ["Soin mineur", "Transfert de dégâts", "Trompe la mort", "Plume", "Chloroforme", "Lévitation légère", "Mad men"],
+        famille: { nom: "Famille de Résistance", lien: LIVRE_MAGIE + "#famille=resistance" },
+        sousFamilles: [
+          { nom: "Sous-famille de lumière", lien: LIVRE_MAGIE + "#groupe=sous-famille-de-lumiere" },
+          { nom: "Sous-famille de fumigène", lien: LIVRE_MAGIE + "#groupe=sous-famille-de-fumigene" },
+          { nom: "Sous-famille de l'amour", lien: LIVRE_MAGIE + "#groupe=sous-famille-de-l-amour" }
+        ],
+        sorts: [
+          { nom: "Soin mineur", lien: LIVRE_MAGIE + "#sort=soin-mineur" },
+          { nom: "Transfert de dégâts", lien: LIVRE_MAGIE + "#sort=transfert-de-degats" },
+          { nom: "Trompe la mort", lien: LIVRE_MAGIE + "#sort=trompe-la-mort" },
+          { nom: "Plume", lien: LIVRE_MAGIE + "#sort=plume" },
+          { nom: "Chloroforme", lien: LIVRE_MAGIE + "#sort=chloroforme" },
+          { nom: "Lévitation légère", lien: LIVRE_MAGIE + "#sort=levitation-legere" },
+          { nom: "Mad men", lien: LIVRE_MAGIE + "#sort=mad-men" }
+        ],
         notes: [SORTS_PROPRES, GAIN_SORTS]
       },
       precision: "Sagesse",
@@ -263,9 +290,18 @@ window.CLASSES = {
       },
       grimoire: {
         intro: "Le druide a accès à un panel de sorts du « Grand Livre de Magie » :",
-        famille: "Famille de Soutien",
-        sousFamilles: ["Sous-famille du lecteur", "Sous-famille des végétaux", "Sous-famille de terre", "Sous-famille de vent"],
-        sorts: ["Plaque de fer", "Crush"],
+        famille: { nom: "Famille de Soutien", lien: LIVRE_MAGIE + "#famille=soutien" },
+        sousFamilles: [
+          { nom: "Sous-famille du lecteur", lien: LIVRE_MAGIE + "#groupe=sous-famille-du-lecteur" },
+          { nom: "Sous-famille des végétaux", lien: LIVRE_MAGIE + "#groupe=sous-famille-des-vegetaux" },
+          { nom: "Sous-famille de terre", lien: LIVRE_MAGIE + "#groupe=sous-famille-de-terre" },
+          // le livre écrit « du vent », pas « de vent »
+          { nom: "Sous-famille du vent", lien: LIVRE_MAGIE + "#groupe=sous-famille-du-vent" }
+        ],
+        sorts: [
+          { nom: "Plaque de fer", lien: LIVRE_MAGIE + "#sort=plaque-de-fer" },
+          { nom: "Crush", lien: LIVRE_MAGIE + "#sort=crush" }
+        ],
         notes: [SORTS_PROPRES, GAIN_SORTS]
       },
       lien: { href: "../regles.html#transformations", texte: "Voir la règle des transformations" },
@@ -333,9 +369,19 @@ window.CLASSES = {
       },
       grimoire: {
         intro: "Le nécromancien a accès à un panel de sorts du « Grand Livre de Magie » :",
-        famille: "Famille de l'Esprit",
-        sousFamilles: ["Sous-famille de projection", "Sous-famille de poison"],
-        sorts: ["Trompe la mort", "Mad men", "Empressement", "Fumigène empoisonné"],
+        // le livre écrit « Famille d'Esprit », pas « Famille de l'Esprit »
+        famille: { nom: "Famille d'Esprit", lien: LIVRE_MAGIE + "#famille=esprit" },
+        sousFamilles: [
+          { nom: "Sous-famille de projection", lien: LIVRE_MAGIE + "#groupe=sous-famille-de-projection" },
+          // le livre écrit « du poison », pas « de poison »
+          { nom: "Sous-famille du poison", lien: LIVRE_MAGIE + "#groupe=sous-famille-du-poison" }
+        ],
+        sorts: [
+          { nom: "Trompe la mort", lien: LIVRE_MAGIE + "#sort=trompe-la-mort" },
+          { nom: "Mad men", lien: LIVRE_MAGIE + "#sort=mad-men" },
+          { nom: "Empressement", lien: LIVRE_MAGIE + "#sort=empressement" },
+          { nom: "Fumigène empoisonné", lien: LIVRE_MAGIE + "#sort=fumigene-empoisonne" }
+        ],
         notes: [SORTS_PROPRES, GAIN_SORTS]
       },
       lien: { href: "../regles.html#invocations", texte: "Voir la règle des invocations" },
@@ -427,6 +473,11 @@ window.CLASSES = {
           }
         ]
       },
+      /* Pas de bloc « grimoire » : le magicien n'a pas un panel de sorts mais
+         le livre entier. Il n'a donc rien à relier ligne par ligne, d'où ce
+         renvoi vers la couverture — le pendant de celui de l'hématomancien
+         vers le Grand Livre Sanguin. */
+      lien: { href: LIVRE_MAGIE, texte: "Ouvrir le Grand Livre de la Magie" },
       precision: "Intelligence",
       statMana: "Intelligence",
       equipement: [
@@ -932,9 +983,24 @@ window.CLASSES = {
       },
       grimoire: {
         intro: "Le bastioniste a accès à un panel de sorts du « Grand Livre de Magie » :",
-        famille: "Famille de Création (sauf création élémentaire)",
-        sousFamilles: ["Sous-famille de protection", "Sous-famille d'armure", "Sous-famille de projection"],
-        sorts: ["Trompe la mort", "Transfert de dégâts", "Fumigène", "Création élémentaire de terre"],
+        // la restriction passe dans « apres » : elle n'appartient pas au nom visé
+        famille: {
+          nom: "Famille de Création", lien: LIVRE_MAGIE + "#famille=creation",
+          apres: "(sauf création élémentaire)"
+        },
+        sousFamilles: [
+          { nom: "Sous-famille de protection", lien: LIVRE_MAGIE + "#groupe=sous-famille-de-protection" },
+          { nom: "Sous-famille d'armure", lien: LIVRE_MAGIE + "#groupe=sous-famille-d-armure" },
+          { nom: "Sous-famille de projection", lien: LIVRE_MAGIE + "#groupe=sous-famille-de-projection" }
+        ],
+        sorts: [
+          { nom: "Trompe la mort", lien: LIVRE_MAGIE + "#sort=trompe-la-mort" },
+          { nom: "Transfert de dégâts", lien: LIVRE_MAGIE + "#sort=transfert-de-degats" },
+          { nom: "Fumigène", lien: LIVRE_MAGIE + "#sort=fumigene" },
+          // l'exception à la restriction ci-dessus : dans le livre, ce sort de
+          // la sous-famille des élémentaires s'appelle simplement « Terre »
+          { nom: "Création élémentaire de terre", lien: LIVRE_MAGIE + "#sort=terre" }
+        ],
         notes: [SORTS_PROPRES, GAIN_SORTS]
       },
       precision: "Force",
