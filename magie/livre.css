@@ -82,6 +82,9 @@
 .suggestions-sort.ouvert { display: block; }
 
 .suggestions-sort li {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
   padding: 7px 14px;
   font-family: "IM Fell English", serif;
   font-style: italic;
@@ -89,6 +92,26 @@
   color: #3b2a15;
   cursor: pointer;
   border-bottom: 1px solid rgba(107, 80, 31, .22);
+}
+
+/* Le nom prend la place, la mention reste collée à droite. Les sorts n'ont
+   pas de mention : leur ligne est simplement le cas sans .sugg-type. */
+.suggestions-sort li .sugg-nom {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.suggestions-sort li .sugg-type {
+  flex: none;
+  font-size: .74rem;
+  font-style: normal;
+  letter-spacing: .06em;
+  text-transform: lowercase;
+  color: #8a6c30;
+  opacity: .85;
 }
 
 .suggestions-sort li:last-child { border-bottom: none; }
@@ -391,7 +414,12 @@
 
 .sort-desc p { margin: 0; }
 
-.sort.sort-hit {
+/* Surbrillance d'arrivée : elle vise un bloc, quel qu'il soit — un sort, mais
+   aussi un titre de famille ou de sous-famille depuis qu'on peut les chercher
+   et leur faire des liens. Pour un groupe, seul son titre s'allume : ses sorts
+   peuvent déborder sur la page suivante, une surbrillance de groupe entier n'y
+   serait qu'à moitié visible. */
+.blk.sort-hit {
   background: rgba(216, 172, 60, .35);
   outline: 2px solid rgba(155, 108, 16, .65);
   outline-offset: 3px;

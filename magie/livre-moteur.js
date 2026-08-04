@@ -37,7 +37,7 @@ let nbFeuilles = 0;
 let feuillesTournees = 0;
 let cote = "droite";          // mobile : moitié du livre affichée à l'écran
 let pagesContenu = [];        // { html, fam } — la page 0 est le sommaire
-let indexSorts = [];          // { nom, page, id, fam }
+let indexRecherche = [];      // { nom, type, page, id, ancre, ancreLongue, fam }
 let zTimer = null;
 let surbrillanceTimer = null;
 let resizeTimer = null;
@@ -111,17 +111,19 @@ function sortHTML(sort, fam) {
 function blocsFamille(fam) {
   const blocs = [];
   blocs.push({
-    html: '<div class="blk"><div class="fam-titre" style="color:' + fam.couleur + '">' + esc(fam.nom)
+    html: '<div class="blk" id="fam-' + slug(fam.id) + '">'
+      + '<div class="fam-titre" style="color:' + fam.couleur + '">' + esc(fam.nom)
       + '</div><div class="fam-orne" style="color:' + fam.couleur + '">✦ ❦ ✦</div></div>',
-    garderAvecSuivant: true, estTitreFamille: true
+    garderAvecSuivant: true, estTitreFamille: true, famille: fam
   });
   fam.sections.forEach(sec => {
     if (sec.titre) {
       blocs.push({
-        html: '<div class="blk"><div class="sec-titre" style="color:' + fam.couleur + '">' + esc(sec.titre) + " :</div>"
+        html: '<div class="blk" id="grp-' + slug(fam.id + "-" + sec.titre) + '">'
+          + '<div class="sec-titre" style="color:' + fam.couleur + '">' + esc(sec.titre) + " :</div>"
           + (sec.intro ? '<div class="sec-intro">' + esc(sec.intro) + "</div>" : "")
           + "</div>",
-        garderAvecSuivant: true
+        garderAvecSuivant: true, groupe: sec, fam: fam
       });
     }
     sec.sorts.forEach(sort => {
@@ -179,7 +181,7 @@ function paginerLivre() {
   document.body.appendChild(mesureur);
 
   pagesContenu = [null];   // la page 0 est réservée au sommaire
-  indexSorts = [];
+  indexRecherche = [];
 
   LIVRE.familles.forEach(fam => {
     const pagesFam = paginerFamille(fam);
@@ -187,12 +189,38 @@ function paginerLivre() {
     pagesFam.forEach((blocs, pi) => {
       const suite = pi > 0 ? suiteHTML(fam) : "";
       pagesContenu.push({ html: suite + blocs.map(b => b.html).join(""), fam: fam });
+      // Les trois niveaux du livre sont cherchables et liables : le sort, la
+      // sous-famille qui le regroupe, et la famille entière. On les indexe ici,
+      // au moment où l'on sait sur quelle page chaque bloc a atterri.
+      // Deux ancres par entrée (voir ancreDe) : la courte est jolie, la longue
+      // départage les homonymes (« Foudre » existe en Attaque et en Création).
+      const p = pagesContenu.length - 1;
       blocs.forEach(b => {
         if (b.sort) {
-          indexSorts.push({
-            nom: b.sort.nom.replace(/^— /, ""),
-            page: pagesContenu.length - 1,
+          const nom = b.sort.nom.replace(/^— /, "");
+          indexRecherche.push({
+            nom: nom, type: "sort", page: p,
             id: "sort-" + slug(fam.id + "-" + b.sort.nom),
+            ancre: slug(nom),
+            ancreLongue: slug(fam.id + "-" + nom),
+            fam: fam
+          });
+        } else if (b.famille) {
+          indexRecherche.push({
+            nom: fam.nom, type: "famille", page: p,
+            id: "fam-" + slug(fam.id),
+            // l'ancre d'une famille, c'est son identifiant de données :
+            // #famille=attaque, plus court et plus stable que son nom affiché
+            ancre: slug(fam.id),
+            ancreLongue: slug(fam.id),
+            fam: fam
+          });
+        } else if (b.groupe) {
+          indexRecherche.push({
+            nom: b.groupe.titre, type: "groupe", page: p,
+            id: "grp-" + slug(fam.id + "-" + b.groupe.titre),
+            ancre: slug(b.groupe.titre),
+            ancreLongue: slug(fam.id + "-" + b.groupe.titre),
             fam: fam
           });
         }
@@ -474,6 +502,32 @@ function allerAPage(i) {
   majPan();
 }
 
+/* Ouverture SANS feuilletage, pour une arrivée par lien : on veut le livre
+   déjà ouvert à la bonne page, pas dix secondes de pages qui tournent depuis
+   la couverture. On pose l'état final d'un coup, transition coupée, puis on
+   la rend aux feuilles pour que la navigation suivante s'anime normalement. */
+function sauterAFeuille(cible) {
+  cible = Math.max(0, Math.min(nbFeuilles, cible));
+  clearTimeout(zTimer);
+  sheets.forEach((s, i) => {
+    s.style.transition = "none";
+    s.classList.toggle("flipped", i < cible);
+  });
+  void book.offsetWidth;   // force la prise en compte avant de rendre la transition
+  sheets.forEach(s => { s.style.transition = ""; });
+  feuillesTournees = cible;
+  majZ();          // remet aussi zVol et finVol au repos : rien n'est en vol
+  majVisibilite();
+  prechauffer();
+  majEtat();
+}
+
+function sauterAPage(i) {
+  if (i % 2 === 0) { cote = "droite"; sauterAFeuille(i / 2 + 1); }
+  else { cote = "gauche"; sauterAFeuille((i + 3) / 2); }
+  sansAnimation(majPan);   // sur mobile, pas de glissement de la double page non plus
+}
+
 // Page de contenu actuellement sous les yeux (pour la retrouver après reconstruction)
 function pageCourante() {
   if (feuillesTournees <= 0 || feuillesTournees >= nbFeuilles) return null;
@@ -581,16 +635,42 @@ function fermerSuggestions() {
   champ.setAttribute("aria-expanded", "false");
 }
 
+// Mention affichée à droite d'une suggestion. Les sorts n'en portent pas :
+// c'est le cas normal, et la liste resterait lisible sans aucune mention.
+const MENTION = { famille: "famille", groupe: "sous-famille" };
+
+/* Résultats d'une recherche, dans l'ordre où on veut les proposer.
+   Familles et sous-familles passent devant : elles sont rares (8 et 34 face à
+   126 sorts) et c'est le résultat le plus large. Taper « feu » doit d'abord
+   proposer la sous-famille du feu, pas la noyer sous ses propres sorts. */
+function resultats(q) {
+  const hits = indexRecherche.filter(s => normaliser(s.nom).includes(q));
+  return hits.filter(s => s.type !== "sort").concat(hits.filter(s => s.type === "sort"));
+}
+
 function afficherSuggestions() {
   const q = normaliser(champ.value);
   datalist.innerHTML = "";
   suggIndex = -1;
   if (!q) { datalist.classList.remove("ouvert"); champ.setAttribute("aria-expanded", "false"); return; }
-  const hits = indexSorts.filter(s => normaliser(s.nom).includes(q)).slice(0, 12);
+  const hits = resultats(q).slice(0, 12);
   if (!hits.length) { datalist.classList.remove("ouvert"); champ.setAttribute("aria-expanded", "false"); return; }
   hits.forEach(s => {
     const li = document.createElement("li");
-    li.textContent = s.nom;
+    const nom = document.createElement("span");
+    nom.className = "sugg-nom";
+    nom.textContent = s.nom;
+    li.appendChild(nom);
+    if (MENTION[s.type]) {
+      const t = document.createElement("span");
+      t.className = "sugg-type";
+      t.textContent = MENTION[s.type];
+      li.appendChild(t);
+    }
+    // le nom seul, pour le champ : le textContent du <li> contiendrait
+    // aussi la mention (« Sous-famille du feusous-famille »)
+    li.dataset.nom = s.nom;
+    li.entree = s;   // suivie telle quelle au clic comme à la touche Entrée
     li.setAttribute("role", "option");
     // pointerdown : on choisit avant que le champ ne perde le focus,
     // et ça couvre aussi bien la souris que le tactile.
@@ -598,7 +678,9 @@ function afficherSuggestions() {
       e.preventDefault();
       champ.value = s.nom;
       fermerSuggestions();
-      chercherSort();
+      // on passe l'entrée choisie : la relire depuis le texte du champ
+      // pourrait retomber sur une autre entrée du même nom
+      chercherSort(s);
     });
     datalist.appendChild(li);
   });
@@ -611,24 +693,88 @@ function majSuggActive() {
     li.classList.toggle("actif", i === suggIndex));
 }
 
-function chercherSort() {
-  const q = normaliser(champ.value);
-  if (!q) return;
-  const hit = indexSorts.find(s => normaliser(s.nom) === q)
-    || indexSorts.find(s => normaliser(s.nom).includes(q));
-  if (!hit) return;
-  allerAPage(hit.page);
+/* ---------- Liens directs ----------
+   Les trois niveaux du livre ont leur lien, le mot-clé dit lequel :
+     #sort=petite-boule-de-feu     un sort
+     #famille=attaque              une famille entière
+     #groupe=sous-famille-du-feu   une sous-famille
+   Le livre s'ouvre à la page visée, l'allume, et écrit son nom dans la barre
+   de recherche. L'ancre suit le NOM et non le numéro de page : la pagination
+   change entre PC et mobile (et à chaque sort ajouté), un lien en numéro de
+   page se périmerait. On n'a rien à écrire à la main : chercher met l'URL à
+   jour, il n'y a plus qu'à copier la barre d'adresse. */
+let cibleCourante = null;   // ex. "famille=attaque" — ce que porte l'URL
+
+/* Ancre à publier, mot-clé compris : le nom seul quand il est unique dans son
+   niveau (« sort=foudre » ne suffirait pas ici), préfixé de la famille quand
+   deux entrées du même niveau portent le même nom — c'est le cas de « Foudre »,
+   sort d'Attaque ET de Création, d'où « sort=attaque-foudre ». Les homonymes
+   se comptent PAR NIVEAU : un sort et une sous-famille du même nom ne se
+   gênent pas, leurs mots-clés les séparent déjà. */
+function ancreDe(hit) {
+  const homonymes = indexRecherche.filter(s => s.type === hit.type && s.ancre === hit.ancre).length;
+  return hit.type + "=" + (homonymes > 1 ? hit.ancreLongue : hit.ancre);
+}
+
+function cibleDepuisAncre(type, a) {
+  const s = slug(decodeURIComponent(a));
+  const niveau = indexRecherche.filter(x => x.type === type);
+  return niveau.find(x => x.ancreLongue === s)
+    || niveau.find(x => x.ancre === s)
+    || null;
+}
+
+function cibleDepuisHash() {
+  const m = location.hash.match(/^#(sort|famille|groupe)=(.+)$/);
+  return m ? cibleDepuisAncre(m[1], m[2]) : null;
+}
+
+// immediat : arrivée par lien, le livre s'ouvre déjà à la page.
+// Sinon on laisse le feuilletage se faire avant d'allumer la surbrillance.
+function montrerCible(hit, immediat) {
+  if (immediat) sauterAPage(hit.page); else allerAPage(hit.page);
   document.querySelectorAll(".sort-hit").forEach(el => el.classList.remove("sort-hit"));
   const el = document.getElementById(hit.id);
-  if (el) {
-    clearTimeout(surbrillanceTimer);
-    // attendre la fin du feuilletage avant d'allumer la surbrillance
-    surbrillanceTimer = setTimeout(() => {
-      el.classList.add("sort-hit");
-      setTimeout(() => el.classList.remove("sort-hit"), 3500);
-    }, 600);
+  if (!el) return;
+  clearTimeout(surbrillanceTimer);
+  surbrillanceTimer = setTimeout(() => {
+    el.classList.add("sort-hit");
+    setTimeout(() => el.classList.remove("sort-hit"), 3500);
+  }, immediat ? 0 : 600);
+}
+
+// cible : entrée d'index choisie dans les suggestions. Sans elle, on résout
+// le texte tapé dans le champ, dans le même ordre que les suggestions.
+function chercherSort(cible) {
+  let hit = cible;
+  if (!hit) {
+    const q = normaliser(champ.value);
+    if (!q) return;
+    hit = indexRecherche.find(s => normaliser(s.nom) === q) || resultats(q)[0];
+  }
+  if (!hit) return;
+  montrerCible(hit, false);
+  // Affecter location.hash crée une entrée d'historique : le bouton Retour
+  // ramène à ce qu'on consultait avant. hashchange va se déclencher, d'où
+  // cibleCourante posée AVANT pour qu'il reconnaisse notre propre écriture.
+  const a = ancreDe(hit);
+  if (a !== cibleCourante) {
+    cibleCourante = a;
+    location.hash = a;
   }
 }
+
+// Retour / Suivant du navigateur, ou lien collé dans la barre d'adresse
+// d'une page déjà ouverte : le livre suit l'URL.
+window.addEventListener("hashchange", () => {
+  const hit = cibleDepuisHash();
+  if (!hit) { cibleCourante = null; return; }
+  const a = ancreDe(hit);
+  if (a === cibleCourante) return;   // c'est nous qui venons de l'écrire
+  cibleCourante = a;
+  champ.value = hit.nom;
+  montrerCible(hit, false);
+});
 
 champ.addEventListener("input", afficherSuggestions);
 champ.addEventListener("focus", afficherSuggestions);
@@ -644,11 +790,14 @@ champ.addEventListener("keydown", e => {
     suggIndex = (suggIndex - 1 + n) % n;
     majSuggActive();
   } else if (e.key === "Enter") {
-    if (suggIndex >= 0 && datalist.children[suggIndex]) {
-      champ.value = datalist.children[suggIndex].textContent;
-    }
+    // La suggestion surlignée porte son entrée d'index : on la suit
+    // directement, et son nom (dataset.nom) plutôt que son textContent,
+    // qui contiendrait aussi la mention « famille » / « sous-famille ».
+    const li = suggIndex >= 0 ? datalist.children[suggIndex] : null;
+    const choisie = li ? li.entree : null;
+    if (li) champ.value = li.dataset.nom;
     fermerSuggestions();
-    chercherSort();
+    chercherSort(choisie);
   } else if (e.key === "Escape") {
     fermerSuggestions();
   }
@@ -743,10 +892,22 @@ window.addEventListener("resize", () => {
 });
 
 function demarrer() {
-  // Ouverture directe via l'URL : livre_magie.html#p=5 ouvre à la page 5
-  const m = location.hash.match(/^#p=(\d+)/);
   construireGrimoire();
-  if (m) allerAPage(Math.min(pagesContenu.length - 1, Math.max(0, parseInt(m[1], 10) - 1)));
+
+  // Ouverture directe via l'URL : #sort= / #famille= / #groupe= (lien partageable)
+  const hit = cibleDepuisHash();
+  if (hit) {
+    cibleCourante = ancreDe(hit);
+    champ.value = hit.nom;   // on montre POURQUOI le livre s'est ouvert là
+    montrerCible(hit, true);
+    return;
+  }
+
+  // Ancienne forme, gardée pour les liens déjà partagés : #p=5 ouvre à la
+  // page 5. Fragile (la pagination diffère entre PC et mobile) : préférer
+  // #sort= pour tout nouveau lien.
+  const m = location.hash.match(/^#p=(\d+)/);
+  if (m) sauterAPage(Math.min(pagesContenu.length - 1, Math.max(0, parseInt(m[1], 10) - 1)));
 }
 
 // La pagination mesure du texte : il faut que les polices soient prêtes
