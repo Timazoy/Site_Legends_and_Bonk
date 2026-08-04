@@ -200,6 +200,9 @@
     }
 
     .etape h3 {
+      /* certains h3 servent d'ancre profonde : on leur laisse la même marge
+         de défilement qu'une étape entière */
+      scroll-margin-top: 18px;
       font-size: 23px;
       font-weight: 700;
       font-style: italic;
@@ -712,7 +715,8 @@
           </div>
           <hr>
 
-          <p>Vient ensuite la classe, l'étape la plus importante. Vous la choisissez parmi celles
+          <p>Vient ensuite la classe, l'étape la plus importante car c'est elle qui va définir les capacités et les
+            compétences du personnage. Vous la choisissez parmi celles
             disponibles :</p>
 
           <ul class="chips liens">
@@ -743,12 +747,14 @@
               entre les joueurs d'une même partie.</p>
           </div>
 
-          <h3>2.2 — Le bi-classe</h3>
+          <!-- ancre profonde : l'aide de création renvoie ici depuis son étape 2 -->
+          <h3 id="bi-classe">2.2 — Le bi-classe</h3>
           <p>Si vous le souhaitez, vous pouvez manier une seconde classe en plus de la première.
             En contrepartie, les deux classes retenues :</p>
           <ul>
             <li>perdent l'accès à certains éléments de leur progression — voir
-              <a href="../regles.html#gains-par-type">les gains selon le type de la classe</a> ;</li>
+              <a href="../regles.html#gains-par-type">les gains selon le type de la classe</a> ;
+            </li>
             <li>utilisent leurs passifs de bi-classe au lieu de leurs passifs classiques ;</li>
             <li>ne donnent droit qu'à <b>une seule</b> des deux armes que chacune propose.</li>
           </ul>
@@ -790,7 +796,8 @@
                 après la répartition — c'est le seul bonus autorisé à dépasser 15 ;</li>
               <li>le <b>demi-elfe</b> et le <b>demi-orc</b> gagnent <b>1 point</b> de plus ;</li>
               <li>le <a href="races.html#race=garou">garou</a> n'a que <b>14 points</b>, et répartit sur
-                <b>cinq</b> statistiques : son <b>Instinct</b> tient lieu de Sagesse et d'Intelligence ;</li>
+                <b>cinq</b> statistiques : son <b>Instinct</b> tient lieu de Sagesse et d'Intelligence ;
+              </li>
               <li>l'<a href="races.html#race=oni">oni</a> ne répartit rien du tout : sa lignée lui impose
                 ses six statistiques ;</li>
               <li>le <b>golemovi alchimique</b> peut monter sa Constitution jusqu'à <b>20</b> dès la création,
@@ -805,7 +812,8 @@
           </div>
 
           <p class="chips-note">Vous pouvez faire ces calculs à la main, ou laisser
-            <a href="aides_creation.html">l'outil de création</a> les tenir à jour pendant que vous répartissez.</p>
+            <a href="aides_creation.html">l'outil de création</a> les tenir à jour pendant que vous répartissez.
+          </p>
         </section>
 
         <!-- ============ ÉTAPE 4 — LES CARACTÉRISTIQUES ============ -->

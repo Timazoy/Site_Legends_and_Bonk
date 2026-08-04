@@ -49,7 +49,7 @@
   /* Le garou remplace Sagesse et Intelligence par une seule Instinct : il
      répartit donc sur cinq statistiques, pas six. */
   var CINQ = [SIX[0], SIX[1], SIX[2],
-    { cle: "instinct", nom: "Instinct", court: "INS" }, SIX[5]];
+  { cle: "instinct", nom: "Instinct", court: "INS" }, SIX[5]];
 
   /* ============ petits outils ============ */
 
@@ -364,11 +364,12 @@
       ((race && race[champ]) || []).forEach(function (t) {
         r.aAppliquer.push({ texte: t, sens: champ });
       });
-      /* la voie de classe entre dans la même liste : aucun de ses effets ne
-         se met en chiffres sur une fiche */
-      ((r.variante && r.variante[champ]) || []).forEach(function (t) {
-        r.aAppliquer.push({ texte: t, sens: champ });
-      });
+      /* La voie de classe, elle, ne descend nulle part. Ses pastilles ne
+         parlent pas de ce qu'il faudra appliquer en jeu mais de ce que la
+         voie autorise ou ferme — accès au Grand Livre, droit de créer des
+         sorts, bi-classe. Ça se décide ici, à l'étape 2, et la vignette de
+         la voie le dit déjà : le répéter dans la fiche brouillait deux
+         listes qui ne parlent que de chiffres et d'effets de table. */
     });
 
     var vus = {};
@@ -499,7 +500,7 @@
       (r.race && r.sousRace && r.sousRace.nom !== r.race.nom ? esc(r.race.nom) + " · " : "") +
       (r.classe
         ? esc(r.variante ? r.variante.nom : r.classe.nom) +
-          (r.classe2 ? " / " + esc(r.classe2.nom) : "")
+        (r.classe2 ? " / " + esc(r.classe2.nom) : "")
         : "classe à choisir") +
       '</div></div></div>';
 
@@ -724,8 +725,18 @@
       return;
     }
 
-    h += '<p class="e-intro">La classe fixe la statistique dont dépend ta précision, et, si elle manie la magie, ' +
-      'celle qui règle tes points de mana.</p>';
+    h += '<p class="e-intro">Ensuite la classe, l\'étape la plus importante car c\'est elle qui va définir les capacités et les compétences du personnage. Vous la choisissez parmi celles disponibles.</p>';
+
+    /* Le bi-classe surprend deux fois : rien ne l'impose, et rien n'oblige
+       à trancher maintenant. Autant le dire avant la grille plutôt que de
+       laisser la règle se découvrir au clic. */
+    h += '<p class="e-intro">Vous pouvez aussi en prendre une seconde — mais pas d\'inquiétude : ' +
+      'rien ne vous y oblige, et rien ne presse non plus. Le bi-classe se décide à la création ' +
+      'ou plus tard, lors d\'une montée de niveau. Il se paie, en revanche : les deux classes ' +
+      'progressent moins vite, troquent leurs passifs contre ceux de bi-classe et ne donnent droit ' +
+      'qu\'à une seule de leurs deux armes. Certaines races et certaines voies de classe le ferment ' +
+      'tout à fait. Pour le détail, voyez ' +
+      '<a href="regles_creation.html#bi-classe">la règle du bi-classe</a>.</p>';
 
     if (r.magieInterdite) {
       h += '<div class="encadre alerte">Le ' + esc(r.sousRace.nom) + ' est incapable d\'utiliser de la magie : ' +
@@ -735,6 +746,13 @@
       h += '<div class="encadre alerte"><strong>' + esc(r.biclassePar || "Bi-classe fermé") +
         '</strong>Pas de seconde classe possible : ' + esc(r.biclasseRaison || "") + '</div>';
     }
+
+    /* Une consigne de manipulation se lit AVANT d'agir. Sous la grille, elle
+       n'arrivait qu'après le premier clic — et hors écran, vu la hauteur des
+       dix-neuf vignettes. Le « — fermé ici » disparaît : quand le bi-classe
+       est interdit, l'encadré rouge juste au-dessus vient de le dire. */
+    h += '<p class="e-aide">Un clic pose la classe principale, un clic sur une autre ouvre le ' +
+      'bi-classe. Reclique pour retirer.</p>';
 
     h += '<div class="choix-grille choix-classe">';
     CLASSES.forEach(function (c) {
@@ -763,9 +781,6 @@
         '</button>';
     });
     h += '</div>';
-
-    h += '<p class="e-aide">Un clic pose la classe principale. Un clic sur une seconde classe ouvre le bi-classe' +
-      (r.biclasseInterdit ? " — fermé ici" : "") + '. Reclique pour retirer.</p>';
 
     /* la voie de la classe principale, quand elle en a une */
     if (r.varianteRequise) {

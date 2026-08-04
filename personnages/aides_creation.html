@@ -99,8 +99,10 @@
     .e-rien { font-size: 17px; color: var(--muted); font-style: italic; margin: 14px 0; }
     .e-aide { font-size: 15px; color: var(--muted); margin: 16px 0 0; }
 
+    /* marge en haut ET en bas : l'encadré est souvent suivi d'une grille de
+       vignettes, et il se collait à la première rangée. */
     .encadre {
-      margin: 16px 0 0; padding: 11px 14px; border-radius: 8px; font-size: 16px; line-height: 1.5;
+      margin: 16px 0; padding: 11px 14px; border-radius: 8px; font-size: 16px; line-height: 1.5;
       background: rgba(198, 159, 53, .13); border-left: 3px solid var(--or2); color: var(--ink);
     }
     .encadre.alerte { background: rgba(158, 43, 37, .11); border-left-color: var(--rouge); }
