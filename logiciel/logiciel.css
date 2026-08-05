@@ -213,6 +213,47 @@
   .butin-resultat .butin-objet { font-size: 19px; }
 }
 
+/* ==================================================================
+   LES NOTICES « FONCTIONNEMENT »
+
+   Le texte des trois fenêtres d'explication. Les modals sont écrits
+   à l'intérieur d'un conteneur .text-center : sans le text-align
+   ci-dessous, listes et paragraphes s'afficheraient centrés, donc
+   illisibles. Le reste n'est que du rythme de lecture.
+   ================================================================== */
+
+.notice {
+  text-align: left;
+}
+
+.notice p {
+  margin-bottom: .7rem;
+}
+
+/* les intertitres : discrets, ils balisent sans concurrencer le titre
+   de la fenêtre */
+.notice h6 {
+  margin: 1.1rem 0 .4rem;
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #7a0808;
+}
+
+.notice ul {
+  margin-bottom: 0;
+  padding-left: 1.1rem;
+}
+
+.notice li {
+  margin-bottom: .35rem;
+}
+
+.notice li:last-child {
+  margin-bottom: 0;
+}
+
 /* ---- animations réduites : le ruban ne défile pas ----
    logiciel-ui.js coupe déjà le défilement, on neutralise ici ce qui
    reste (le sursaut de la carte gagnante). */

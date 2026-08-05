@@ -13,13 +13,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap"
     rel="stylesheet" />
   <title>Le logiciel — Legends & Bonk</title>
-  <meta name="description" content="Le logiciel de Legends & Bonk : un outil pour gérer vos personnages et vos parties de jeu de rôle." />
+  <meta name="description"
+    content="Le logiciel de Legends & Bonk : un outil pour gérer vos personnages et vos parties de jeu de rôle." />
   <link rel="canonical" href="https://legendsandbonk.com/logiciel/logiciel.html" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Legends &amp; Bonk" />
   <meta property="og:locale" content="fr_FR" />
   <meta property="og:title" content="Le logiciel — Legends & Bonk" />
-  <meta property="og:description" content="Le logiciel de Legends & Bonk : un outil pour gérer vos personnages et vos parties de jeu de rôle." />
+  <meta property="og:description"
+    content="Le logiciel de Legends & Bonk : un outil pour gérer vos personnages et vos parties de jeu de rôle." />
   <meta property="og:url" content="https://legendsandbonk.com/logiciel/logiciel.html" />
   <meta property="og:image" content="https://legendsandbonk.com/image/og_partage.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -76,15 +78,53 @@
                       <!-- Modal -->
                       <div class="modal fade" id="armeModal" tabindex="-1" aria-labelledby="armeModalLabel"
                         aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                           <div class="modal-content">
                             <div class="modal-header">
                               <h1 class="modal-title fs-5" id="armeModalLabel">Le générateur d'armes</h1>
                               <button type="button" class="btn-close" data-bs-dismiss="modal"
                                 aria-label="Close"></button>
                             </div>
-                            <div class="modal-body">
-                              Ici le texte du modal expliquant le fonctionnement du générateur d'armes.
+                            <div class="modal-body notice">
+                              <p>Le générateur tire une arme au hasard parmi celles du catalogue qui
+                                correspondent à vos critères, comme si vous ouvriez un coffre.</p>
+
+                              <h6>Ce que vous choisissez</h6>
+                              <ul>
+                                <li><strong>Grande catégorie</strong> — la famille de l'arme : sa portée
+                                  (courte, moyenne, longue), un bâton magique, un bouclier ou un objet animal.</li>
+                                <li><strong>Petite catégorie</strong> — affine la famille : classique, petite
+                                  arme, arme de lancer, arme lourde. Facultative : sans elle, toute la famille
+                                  peut sortir.</li>
+                                <li><strong>Catégorie spéciale</strong> — talisman, arme magique, musicale ou
+                                  médicale. Elle <strong>prime sur les deux autres</strong> : si vous la
+                                  renseignez, la famille et la sous-famille sont ignorées.</li>
+                                <li><strong>Rareté minimum et maximum</strong> — la fourchette dans laquelle le
+                                  tirage a lieu. Les deux sont obligatoires.</li>
+                              </ul>
+
+                              <h6>Comment se fait le tirage</h6>
+                              <ul>
+                                <li>La rareté est tirée <strong>en premier</strong>, dans votre fourchette. Le
+                                  logiciel choisit ensuite une arme parmi celles qui existent à cette rareté.</li>
+                                <li>La fourchette n'est pas équitable : plus le minimum descend, plus les
+                                  raretés communes l'emportent. Pour viser haut, remontez le minimum.</li>
+                                <li>L'enchantement dépend de la rareté obtenue : en dessous de Rare, une arme
+                                  n'en porte jamais, et elle n'en cumule jamais plus de deux.</li>
+                                <li>Les objets qui ne se trouvent qu'en boutique sont écartés d'office : ils ne
+                                  tombent jamais ici.</li>
+                              </ul>
+
+                              <h6>À l'écran</h6>
+                              <ul>
+                                <li>Le résultat tombe dans l'écran de butin, en bas de la page. Les cartes qui
+                                  défilent sont toutes des armes qui pouvaient réellement sortir avec vos
+                                  critères.</li>
+                                <li>Le tirage est décidé <strong>avant</strong> l'animation : cliquer sur la
+                                  bande abrège l'attente sans rien changer au résultat.</li>
+                                <li>Si aucune arme n'existe à la rareté tirée, le logiciel le dit au lieu
+                                  d'inventer : relancez, ou élargissez la fourchette.</li>
+                              </ul>
                             </div>
                             <div class="modal-footer">
                               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
@@ -170,15 +210,53 @@
                       <!-- Modal -->
                       <div class="modal fade" id="armureModal" tabindex="-1" aria-labelledby="armureModalLabel"
                         aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                           <div class="modal-content">
                             <div class="modal-header">
                               <h1 class="modal-title fs-5" id="armureModalLabel">Le générateur d'armures</h1>
                               <button type="button" class="btn-close" data-bs-dismiss="modal"
                                 aria-label="Close"></button>
                             </div>
-                            <div class="modal-body">
-                              Ici le texte du modal expliquant le fonctionnement du générateur d'armures.
+                            <div class="modal-body notice">
+                              <p>Même moteur que le générateur d'armes, avec un seul critère de famille. Deux
+                                boutons voisins complètent la panoplie : les flèches et les potions.</p>
+
+                              <h6>Ce que vous choisissez</h6>
+                              <ul>
+                                <li><strong>Catégorie</strong> — armure légère, moyenne ou lourde. Obligatoire.</li>
+                                <li><strong>Rareté minimum et maximum</strong> — la fourchette du tirage.
+                                  Obligatoires elles aussi.</li>
+                              </ul>
+
+                              <h6>Comment se fait le tirage</h6>
+                              <ul>
+                                <li>La rareté d'abord, l'armure ensuite : le logiciel tire une rareté dans
+                                  votre fourchette, puis choisit une armure qui se porte à cette rareté.</li>
+                                <li>Plus le minimum est bas, plus le tirage penche vers le commun.</li>
+                                <li>L'enchantement suit la rareté obtenue : rien en dessous de Rare, deux au
+                                  maximum.</li>
+                                <li>Les pièces réservées à la boutique ne tombent jamais.</li>
+                              </ul>
+
+                              <h6>Les deux boutons du bas</h6>
+                              <ul>
+                                <li><strong>Flèches</strong> — aucun critère à remplir. Chaque type de flèche
+                                  est testé séparément, avec sa propre chance d'apparaître et sa propre
+                                  quantité : plusieurs types peuvent sortir d'un coup… ou aucun. La liste
+                                  s'affiche dans une petite fenêtre.</li>
+                                <li><strong>Potion</strong> — aucun critère non plus : tout le rayon peut tomber. Le
+                                  format est tiré à part, et les petits flacons
+                                  sortent bien plus souvent que les grands. La potion magique vierge, elle, ne
+                                  se trouve qu'en un seul format.</li>
+                              </ul>
+
+                              <h6>À l'écran</h6>
+                              <ul>
+                                <li>L'armure et la potion tombent dans l'écran de butin, en bas de la page ;
+                                  ce qui défile devant le curseur pouvait réellement sortir.</li>
+                                <li>Le tirage précède l'animation : cliquer sur la bande abrège l'attente sans
+                                  toucher au résultat.</li>
+                              </ul>
                             </div>
                             <div class="modal-footer">
                               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
@@ -223,14 +301,16 @@
                       </div>
 
                       <button type="button" class="btn"
-                        style="margin-top: 10px; background-color: #7a0808; color: white;" id="btnArmure">Générer</button>
+                        style="margin-top: 10px; background-color: #7a0808; color: white;"
+                        id="btnArmure">Générer</button>
                       <hr>
                       <div class="container text-center">
                         <div class="row align-items-start">
 
                           <div class="col">
                             <button type="button" class="btn"
-                              style="margin-top: 10px; background-color: #7a0808; color: white;" id="btnFleches">Flèches</button>
+                              style="margin-top: 10px; background-color: #7a0808; color: white;"
+                              id="btnFleches">Flèches</button>
 
                             <!-- Modal -->
                             <div class="modal fade" id="flechesgenModal" tabindex="-1"
@@ -256,7 +336,8 @@
 
                           <div class="col">
                             <button type="button" class="btn"
-                              style="margin-top: 10px; background-color: #7a0808; color: white;" id="btnPotion">Potion</button>
+                              style="margin-top: 10px; background-color: #7a0808; color: white;"
+                              id="btnPotion">Potion</button>
                           </div>
                         </div>
                       </div>
@@ -396,14 +477,44 @@
                     <!-- Modal -->
                     <div class="modal fade" id="degatsModal" tabindex="-1" aria-labelledby="degatsModalLabel"
                       aria-hidden="true">
-                      <div class="modal-dialog modal-dialog-centered">
+                      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                         <div class="modal-content">
                           <div class="modal-header">
                             <h1 class="modal-title fs-5" id="degatsModalLabel">Le calculateur de dégâts</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                           </div>
-                          <div class="modal-body">
-                            Ici le texte du modal expliquant le fonctionnement du calculateur de dégâts.
+                          <div class="modal-body notice">
+                            <p>Le calculateur joue le coup à votre place : il tire les dégâts réellement
+                              infligés à partir des dégâts maximum de l'arme, puis teste l'effet de statut si
+                              vous en attendez un.</p>
+
+                            <h6>Ce que vous remplissez</h6>
+                            <ul>
+                              <li><strong>Dégâts maximum</strong> — la valeur inscrite sur l'arme. Seul champ
+                                obligatoire.</li>
+                              <li><strong>Pourcentage en plus</strong> — un bonus quelconque : enchantement,
+                                compétence, effet en cours. Il s'applique après le tirage, sur les dégâts
+                                obtenus. Laissez vide s'il n'y en a pas.</li>
+                              <li><strong>Chance en % d'effet</strong> — la probabilité que l'effet de statut
+                                prenne. Laissée vide, aucun jet n'est fait.</li>
+                            </ul>
+
+                            <h6>Les deux boutons</h6>
+                            <ul>
+                              <li><strong>Classique</strong> — pour la mêlée et le tir courant : le coup porte
+                                entre la moitié des dégâts maximum et le maximum.</li>
+                              <li><strong>Flèche</strong> — fourchette plus haute et plus serrée : une flèche
+                                ne part jamais à moitié de sa force.</li>
+                            </ul>
+
+                            <h6>À savoir</h6>
+                            <ul>
+                              <li>Le résultat est arrondi à l'entier inférieur : le pourcentage ne fait jamais
+                                gagner une décimale de dégât.</li>
+                              <li>Le jet d'effet est indépendant du jet de dégâts : un statut réussi n'augmente
+                                pas le coup, et un coup faible n'empêche pas le statut.</li>
+                              <li>Un clic vaut un coup. Pour deux attaques, cliquez deux fois.</li>
+                            </ul>
                           </div>
                           <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
