@@ -638,9 +638,10 @@ window.RACES = {
       slug: "elementari",
       nom: "Élémentari",
       couleur: "#5a7a9e",
-      image: null,                 /* dessin à faire */
+      image: "elementari.webp",
       forme: "informe",
       taille: null,
+      hauteurDessin: 2.05,         /* relevée sur le dessin */
       resume: "Les êtres de l’élément, à la fois puissants et vulnérables.",
       description: [
         "Les élémentari sont des êtres mystérieux. Nous ignorons d’où ils viennent et comment ils apparaissent ; les rumeurs semblent dire que ce sont des êtres envoyés d’anciennes divinités maintenant oubliées.",
@@ -910,7 +911,7 @@ window.RACES = {
       image: "graille-tout.webp",
       forme: "humanoide",
       taille: null,
-      hauteurDessin: 1.30,         /* relevée sur le dessin */
+      hauteurDessin: 1.45,         /* relevée sur le dessin */
       resume: "Aussi vieux que le monde, et toujours affamé.",
       description: [
         "Les graille-tout forment une race pratiquement aussi ancienne que le monde lui-même. Ils ont vu le monde changer maintes et maintes fois, mais sont toujours restés fidèles à eux-mêmes et à leur but simple : manger."
