@@ -1,6 +1,7 @@
 "use strict";
 
-/* Codes utilisés dans les dictionnaires ci-dessous :
+/* Codes utilisés par les générateurs et par les menus de logiciel.html.
+   Ce sont eux qu'on retrouve dans le champ "codes" du catalogue des armes :
    Raretés          c, sc, r, sr, e, se (de la plus commune à la plus rare)
    Grandes cat.     acd/amd/ald (courte/moyenne/longue distance),
                     bou (bouclier), bat (bâton magique), ani (objet animal)
@@ -175,9 +176,9 @@ const rangRarete = { c: 1, sc: 2, r: 3, sr: 4, e: 5, se: 6 };
 function loot(minrar, maxrar) {
   // min au-dessus de max : les fonctions C/SC/R/SR ne couvriraient aucun cas
   // et renverraient une rareté undefined, on préfère le dire clairement.
-  if (!rangRarete[minrar] || !rangRarete[maxrar]) return { error: "Rareté inconnue" };
+  if (!rangRarete[minrar] || !rangRarete[maxrar]) return { error: "Rareté inconnue." };
   if (rangRarete[minrar] > rangRarete[maxrar]) {
-    return { error: "La rareté minimum doit être inférieure ou égale à la rareté maximum" };
+    return { error: "La rareté minimum doit être inférieure ou égale à la rareté maximum." };
   }
 
   if (minrar === maxrar) return [maxrar, ench(maxrar)];
@@ -190,157 +191,71 @@ function loot(minrar, maxrar) {
   return E();
 }
 
-// dictionnaire des armes
-const armes = {
-  //Armes courtes distances classiques
-  "Épée": ["acd", "cl", "x", "c", "se"],
-  "Katana": ["acd", "cl", "x", "r", "se"],
-  "Rapière": ["acd", "cl", "x", "sc", "e"],
-  "Cimeterre": ["acd", "cl", "x", "sc", "se"],
-  "Nunchaku": ["acd", "cl", "x", "c", "sr"],
-  "Tomahawk": ["acd", "cl", "x", "c", "sr"],
-  "Parapluie": ["acd", "cl", "x", "sc", "e"],
-  "Lame de sang": ["acd", "cl", "x", "r", "se"],
-  "Épée daab": ["acd", "cl", "x", "sc", "e"],
-  "Khépesh": ["acd", "cl", "x", "r", "se"],
-  //... Petite armes
-  "Couteau de boucher": ["acd", "pa", "x", "c", "r"],
-  "Marteau": ["acd", "pa", "x", "c", "r"],
-  "Dague": ["acd", "pa", "x", "c", "se"],
-  "Griffes": ["acd", "pa", "x", "sc", "e"],
-  "Glaive": ["acd", "pa", "x", "c", "se"],
-  "Scie à métaux": ["acd", "pa", "x", "r", "e"],
-  "Batinette en bois": ["acd", "pa", "x", "c", "sr"],
-  "Waki-zashi": ["acd", "pa", "x", "r", "se"],
-  "Lame de tungstène": ["acd", "pa", "x", "c", "e"],
-  "Katar": ["acd", "pa", "x", "c", "e"],
-  //... ... Talismans
-  "Corne de barbare": ["acd", "pa", "ta", "r", "se"],
-  "Recueil de poésie du barde": ["acd", "pa", "ta", "r", "se"],
-  "Bannière du guerrier": ["acd", "pa", "ta", "r", "se"],
-  "Longue vue de l'archer": ["acd", "pa", "ta", "r", "se"],
-  "Dague sacrificielle de l'occultiste": ["acd", "pa", "ta", "r", "se"],
-  "Texte sacré du paladin": ["acd", "pa", "ta", "r", "se"],
-  "Sifflet de dressage du roôdeur": ["acd", "pa", "ta", "r", "se"],
-  "Gant de velours de roublard": ["acd", "pa", "ta", "r", "se"],
-  "Chapelet du moine": ["acd", "pa", "ta", "r", "se"],
-  "Le paquet de carte du cartomancien": ["acd", "pa", "ta", "r", "se"],
-  "Herbiers de l'apothicaire": ["acd", "pa", "ta", "r", "se"],
-  "L'aiguille à coudre du pneuma-chir": ["acd", "pa", "ta", "r", "se"],
-  "Couteau d'éviscération du chaman": ["acd", "pa", "ta", "r", "se"],
-  //... Lancer
-  "Hachette": ["acd", "la", "x", "c", "e"],
-  "Paire de faucille": ["acd", "la", "x", "c", "e"],
-  "Couteau de lancer": ["acd", "la", "x", "sc", "e"],
-  "Couteau de chasse": ["acd", "la", "x", "c", "r"],
-  //... Lourdes
-  "Fléaux": ["acd", "lo", "x", "c", "sr"],
-  "Masse d'armes": ["acd", "lo", "x", "c", "e"],
-  "Masse en métal": ["acd", "lo", "x", "c", "sc"],
-  "Grande scie à métaux": ["acd", "lo", "x", "sc", "e"],
-  "Batte en bois": ["acd", "lo", "x", "c", "e"],
-  //Armes moyenne distance classiques
-  "Hallebarde": ["amd", "cl", "x", "sc", "e"],
-  "Faux": ["amd", "cl", "x", "c", "se"],
-  "Bâton de combat": ["amd", "cl", "x", "c", "sr"],
-  "Marteau de combat": ["amd", "cl", "x", "c", "sr"],
-  "Lance de joute": ["amd", "cl", "x", "r", "se"],
-  "Aiguille": ["amd", "cl", "x", "c", "se"],
-  "Perche-lance": ["amd", "cl", "x", "sr", "se"],
-  "La guisarme": ["amd", "cl", "x", "r", "se"],
-  "Fourche-lance": ["amd", "cl", "x", "c", "se"],
-  "Sceptre-tintus": ["amd", "cl", "x", "c", "se"],
-  //... Lancer
-  "Trident": ["amd", "la", "x", "r", "se"],
-  "Lance": ["amd", "la", "x", "c", "se"],
-  "Chaine blade": ["amd", "la", "x", "r", "se"],
-  "Harpon": ["amd", "la", "x", "c", "se"],
-  //... Lourdes
-  "Claymore large": ["amd", "lo", "x", "c", "e"],
-  "Labrys": ["amd", "lo", "x", "r", "se"],
-  "Épée à deux mains": ["amd", "lo", "x", "r", "se"],
-  "Hache de nain": ["amd", "lo", "x", "c", "e"],
-  "Marteau propulseur": ["amd", "lo", "x", "sc", "e"],
-  "Sang-battant": ["amd", "lo", "x", "sc", "e"],
-  // Longue distance classiques
-  "Arc": ["ald", "cl", "x", "c", "se"],
-  "Carquois": ["ald", "cl", "x", "c", "se"],
-  "Kunais": ["ald", "cl", "x", "c", "e"],
-  "Bolas": ["ald", "cl", "x", "c", "sc"],
-  "Boomerang": ["ald", "cl", "x", "c", "sr"],
-  "Chakram": ["ald", "cl", "x", "c", "se"],
-  "Canne à pêche": ["ald", "cl", "x", "c", "se"],
-  "Arbalète": ["ald", "cl", "x", "r", "se"],
-  "Shuriken géant": ["ald", "cl", "x", "sc", "se"],
-  "Javelot": ["ald", "cl", "x", "sc", "se"],
-  "Lance pierre": ["ald", "cl", "x", "c", "se"],
-  "Paquet de cartes": ["ald", "cl", "x", "c", "e"],
-  //Armes magiques
-  "Épée magique": ["acd", "cl", "ma", "c", "se"],
-  "Dague magique": ["acd", "pa", "ma", "c", "se"],
-  "Épée à dents magique": ["acd", "lo", "ma", "r", "se"],
-  "Lance magique": ["amd", "cl", "ma", "c", "se"],
-  "Hache magique": ["amd", "lo", "ma", "r", "se"],
-  "Bouclier magique": ["bou", "cl", "ma", "c", "se"],
-  "Cracheur énergétique": ["ald", "cl", "ma", "c", "sr"],
-  "Disperseur luminique": ["ald", "cl", "ma", "c", "se"],
-  "Mousquet baïonnette": ["ald", "cl", "ma", "sc", "e"],
-  "Lumino-désoudeur": ["ald", "cl", "ma", "r", "se"],
-  "Le mini cracheur": ["ald", "pa", "ma", "c", "sr"],
-  //Bâtons magiques
-  "Bâton de magie": ["bat", "x", "ma", "c", "se"],
-  "Bâton de soutien": ["bat", "x", "ma", "r", "se"],
-  "Bâton d'action": ["bat", "x", "ma", "r", "se"],
-  "Bâton de résistance": ["bat", "x", "ma", "r", "se"],
-  "Bâton de déplacement": ["bat", "x", "ma", "r", "se"],
-  "Bâton de furtivité": ["bat", "x", "ma", "r", "se"],
-  "Bâton de l'esprit": ["bat", "x", "ma", "r", "se"],
-  "Bâton flamboyant": ["bat", "x", "ma", "r", "se"],
-  "Bâton glacé": ["bat", "x", "ma", "r", "se"],
-  "Bâton foudroyant": ["bat", "x", "ma", "r", "se"],
-  "Bâton empoisonné": ["bat", "x", "ma", "r", "se"],
-  "Bâton explosif": ["bat", "x", "ma", "r", "se"],
-  "Bâton aquatique": ["bat", "x", "ma", "r", "se"],
-  "Bâton éolien": ["bat", "x", "ma", "r", "se"],
-  "Bâton terrestre": ["bat", "x", "ma", "r", "se"],
-  "Bâton végétal": ["bat", "x", "ma", "r", "se"],
-  "Bâton de création": ["bat", "x", "ma", "r", "se"],
-  "Bâton sanguinolent": ["bat", "x", "ma", "r", "se"],
-  "Bâton des éléments oubliés": ["bat", "x", "ma", "r", "se"],
-  //Armes musicales
-  "La luth hache": ["acd", "cl", "mu", "r", "se"],
-  "Pelle guitard": ["amd", "cl", "mu", "c", "se"],
-  "Maracas piquant": ["ald", "cl", "mu", "c", "r"],
-  "Pifano sarbacane": ["ald", "cl", "mu", "c", "sr"],
-  "Lyree arbalète": ["ald", "cl", "mu", "sr", "se"],
-  "Arc harpe": ["ald", "cl", "mu", "c", "se"],
-  "Bouclier tambourin": ["bou", "cl", "mu", "c", "se"],
-  //Armes médicales
-  "Épée lambique": ["acd", "cl", "me", "c", "se"],
-  "Lance'xactrice": ["amd", "la", "me", "r", "se"],
-  "Arc fruitier": ["ald", "cl", "me", "c", "se"],
-  "Fiole de lancer": ["ald", "cl", "me", "c", "se"],
-  "Bouclier cucurbite": ["bou", "cl", "me", "c", "se"],
-  //Boucliers
-  "Bouclier léger": ["bou", "cl", "x", "sc", "e"],
-  "Bouclier": ["bou", "cl", "x", "c", "se"],
-  "Bouclier mirroir": ["bou", "cl", "x", "r", "e"],
-  "Bouclier lourd": ["bou", "cl", "x", "r", "se"],
-  "Bouclier du berserker": ["bou", "cl", "x", "r", "e"],
-  "Bouclier vortex": ["bou", "cl", "x", "c", "se"],
-  "Bouclier absorbant": ["bou", "cl", "x", "sc", "e"],
-  "Bouclier piquant": ["bou", "cl", "x", "c", "se"],
-  //Objet animal
-  "Griffes métalliques": ["ani", "x", "x", "r", "e"],
-  "Carapace en métal": ["ani", "x", "x", "r", "e"],
-  "Ailes de fer": ["ani", "x", "x", "r", "e"],
-  "Griffes dorées": ["ani", "x", "x", "r", "e"],
-  "Carapace en or": ["ani", "x", "x", "r", "e"],
-  "Ailes d'or": ["ani", "x", "x", "r", "e"]
+/* ==================================================================
+   LES CATALOGUES SONT LA SOURCE UNIQUE
+
+   Les listes d'objets ne sont plus recopiées ici : elles sont lues
+   dans equipement/armes-data.js, armures-data.js et potions-data.js,
+   que logiciel.html charge juste avant ce fichier. Ajouter un objet
+   au catalogue suffit pour qu'il sorte au tirage — il n'y a plus deux
+   fichiers à tenir d'accord.
+
+   Ce qui reste ici, ce sont les règles de tirage : les probabilités
+   de rareté, les chances d'enchantement, les tailles de potion. Le
+   catalogue dit ce qui existe, le logiciel dit ce qui tombe.
+   ================================================================== */
+
+// Un catalogue contient aussi ce qui ne se trouve pas : les objets
+// marqués "butin": false s'achètent en boutique mais ne tombent jamais
+// au tirage. Ils sont écartés d'entrée.
+function catalogue(nomGlobal) {
+  const db = window[nomGlobal];
+  const objets = (db && db.objets) || [];
+  return objets.filter(function (o) { return o.butin !== false; });
+}
+
+// Le catalogue écrit les raretés en majuscules ("SE"), le générateur en
+// minuscules ("se").
+function bornesRarete(objet) {
+  const tiers = objet.tiers || [];
+  if (!tiers.length) return null;
+  return [String(tiers[0]).toLowerCase(),
+          String(tiers[tiers.length - 1]).toLowerCase()];
+}
+
+// Message unique quand un catalogue n'a pas été chargé : sans lui le
+// générateur n'a rien à tirer, autant le dire au lieu de renvoyer un vide.
+function catalogueAbsent(quoi) {
+  return { error: "Le catalogue des " + quoi + " n'a pas pu être chargé." };
+}
+
+// Dictionnaire des armes construit depuis le catalogue :
+// nom -> [grande cat., petite cat., cat. spéciale, rareté min, rareté max]
+// Les trois premiers codes viennent du champ "codes" du catalogue, les
+// deux derniers de ses paliers de rareté.
+const armes = (function () {
+  const dico = {};
+  catalogue("EQUIP_ARMES").forEach(function (o) {
+    const bornes = bornesRarete(o);
+    if (!o.codes || !bornes) return;   // les flèches n'ont pas de codes
+    dico[o.nom] = o.codes.concat(bornes);
+  });
+  return dico;
+})();
+
+// La catégorie spéciale prime : une arme demandée par sa spécialité se
+// moque de sa distance. Sorti de getArmes pour que « ce qui pouvait
+// tomber » applique exactement le même filtre.
+function armeDeCategorie(a, GrandeCategorie, PetiteCategorie, CatégorieSpéciales) {
+  return CatégorieSpéciales == "x"
+    ? a[0] == GrandeCategorie && (a[1] == PetiteCategorie || PetiteCategorie == "x")
+    : a[2] == CatégorieSpéciales;
 }
 
 function getArmes(GrandeCategorie, PetiteCategorie, CatégorieSpéciales, RaretéMin, RaretéMax) {
   const rar = rangRarete;
+
+  if (Object.keys(armes).length === 0) return catalogueAbsent("armes");
 
   const rarfinal = loot(RaretéMin, RaretéMax);
   if (rarfinal.error) return rarfinal;
@@ -349,50 +264,42 @@ function getArmes(GrandeCategorie, PetiteCategorie, CatégorieSpéciales, Raret�
   // rareté ([3] à [4]) accepte la rareté tirée, puis on en choisit une au hasard.
   const compatibles = Object.keys(armes).filter(function (nom) {
     const a = armes[nom];
-    const bonneCategorie = CatégorieSpéciales == "x"
-      ? a[0] == GrandeCategorie && (a[1] == PetiteCategorie || PetiteCategorie == "x")
-      : a[2] == CatégorieSpéciales;
-    return bonneCategorie
+    return armeDeCategorie(a, GrandeCategorie, PetiteCategorie, CatégorieSpéciales)
       && rar[a[3]] <= rar[rarfinal[0]] && rar[a[4]] >= rar[rarfinal[0]];
   });
 
   if (compatibles.length === 0) {
-    return { error: "Aucune arme trouvée avec ces critères ou la rareté " + rarfinal[0] };
+    return { error: "Aucune arme ne correspond à ces critères pour la rareté tirée ("
+      + rarfinal[0].toUpperCase() + ")." };
   }
 
   return [compatibles[rand(0, compatibles.length - 1)], rarfinal];
 }
 
-const armures = {
-  //Armures légères
-  "Casque léger": ["ale", "c", "sr"],
-  "Cuirasse légère": ["ale", "c", "sr"],
-  "Jambière légère": ["ale", "c", "r"],
-  "Le chèche du désert": ["ale", "c", "sr"],
-  "Cape du désert": ["ale", "c", "sr"],
-  "Jupe du désert": ["ale", "c", "sr"],
-  "Cape magique discrète": ["ale", "c", "se"],
-  //Armures moyennes
-  "Casque": ["amo", "sc", "e"],
-  "Cuirasse": ["amo", "sc", "e"],
-  "Jambière": ["amo", "sc", "sr"],
-  "Casque isolant": ["amo", "c", "e"],
-  "Cuirasse isolante": ["amo", "c", "e"],
-  "Jambière isolante": ["amo", "c", "sr"],
-  //Armures lourdes
-  "Casque lourd": ["alo", "c", "se"],
-  "Cuirasse lourde": ["alo", "c", "se"],
-  "Jambière lourde": ["alo", "c", "se"],
-  "Casque à cornes de fourrure": ["alo", "sc", "e"],
-  "Plastron de fourrure": ["alo", "sc", "e"],
-  "Jambière de fourrure": ["alo", "sc", "e"],
-  "Casque berserker": ["alo", "sc", "e"],
-  "Plastron berserker": ["alo", "sc", "e"],
-  "Jambière berserker": ["alo", "sc", "e"]
-}
+// Les armures se rangent sur leur seule grande catégorie, lisible
+// directement dans le catalogue.
+const CODES_ARMURES = {
+  "Armures légères": "ale",
+  "Armures moyennes": "amo",
+  "Armures lourdes": "alo"
+};
+
+// nom -> [catégorie, rareté min, rareté max]
+const armures = (function () {
+  const dico = {};
+  catalogue("EQUIP_ARMURES").forEach(function (o) {
+    const code = CODES_ARMURES[o.categorie];
+    const bornes = bornesRarete(o);
+    if (!code || !bornes) return;
+    dico[o.nom] = [code].concat(bornes);
+  });
+  return dico;
+})();
 
 function getArmures(Categorie, RaretéMin, RaretéMax) {
   const rar = rangRarete;
+
+  if (Object.keys(armures).length === 0) return catalogueAbsent("armures");
 
   const rarfinal = loot(RaretéMin, RaretéMax);
   if (rarfinal.error) return rarfinal;
@@ -405,88 +312,106 @@ function getArmures(Categorie, RaretéMin, RaretéMax) {
   });
 
   if (compatibles.length === 0) {
-    return { error: "Aucune armure trouvée avec ces critères ou la rareté " + rarfinal[0] };
+    return { error: "Aucune armure ne correspond à ces critères pour la rareté tirée ("
+      + rarfinal[0].toUpperCase() + ")." };
   }
 
   return [compatibles[rand(0, compatibles.length - 1)], rarfinal];
 }
 
-const potions = ["Potion de guérison",
-  "Potion d'annulation de statut",
-  "Potion de saignement",
-  "Potion d'invisibilité",
-  "Potion de lecture de pensée",
-  "Potion de respiration aquatique",
-  "Potion de résistance",
-  "Philtre d'amour",
-  "Potion de vol",
-  "Potion de perce armure",
-  "Potion de sommeil angélique",
-  "Potion de langage animal",
-  "Potion de mana",
-  "Potion de force",
-  "Potion de vitesse",
-  "Potion de téléportation",
-  "Potion d'inversion",
-  "Potion d'action",
-  "Potion de sous action",
-  "Potion de résistance élémentaire",
-  "Potion de résistance au feu",
-  "Potion de résistance à la glace",
-  "Potion de résistance à la foudre",
-  "Potion de résistance à l'empoisonnement",
-  "Potion de résistance à la terre",
-  "Potion de résistance aux plantes",
-  "Potion de résistance à l'eau",
-  "Potion de résistance au vent",
-  "Potion de poison",
-  "Potion magique vierge"]
+/* ------------------------------------------------------------------
+   CE QUI POUVAIT TOMBER
+
+   Les générateurs ne renvoient qu'un objet. L'écran de butin, lui, a
+   besoin de savoir ce qui aurait pu sortir avec les mêmes critères
+   pour remplir son ruban : ce qui défile devant le joueur est ainsi
+   toujours quelque chose qu'il pouvait réellement obtenir.
+
+   Même filtre de catégorie que les getX, mais sur toute la fourchette
+   de rareté demandée au lieu de la seule rareté tirée : une arme qui
+   n'existe qu'en Épique reste dans le ruban d'un tirage C→SE, même si
+   le dé a fini par donner Commun.
+   ------------------------------------------------------------------ */
+
+function armesPossibles(GrandeCategorie, PetiteCategorie, CatégorieSpéciales, RaretéMin, RaretéMax) {
+  const rar = rangRarete;
+  if (!rar[RaretéMin] || !rar[RaretéMax]) return [];
+
+  return Object.keys(armes).filter(function (nom) {
+    const a = armes[nom];
+    return armeDeCategorie(a, GrandeCategorie, PetiteCategorie, CatégorieSpéciales)
+      && rar[a[3]] <= rar[RaretéMax] && rar[a[4]] >= rar[RaretéMin];
+  });
+}
+
+function armuresPossibles(Categorie, RaretéMin, RaretéMax) {
+  const rar = rangRarete;
+  if (!rar[RaretéMin] || !rar[RaretéMax]) return [];
+
+  return Object.keys(armures).filter(function (nom) {
+    const a = armures[nom];
+    return a[0] == Categorie
+      && rar[a[1]] <= rar[RaretéMax] && rar[a[2]] >= rar[RaretéMin];
+  });
+}
+
+const potions = catalogue("EQUIP_POTIONS").map(function (o) { return o.nom; });
+
+// Le générateur de potions n'a pas de critères : tout le rayon peut tomber.
+function potionsPossibles() {
+  return potions.slice();
+}
+
+// Les tailles vendues sont celles du catalogue ; leurs chances de sortie,
+// elles, sont une règle de tirage et restent ici.
+const taillesPotion = (function () {
+  const q = (window.EQUIP_POTIONS && window.EQUIP_POTIONS.quantites) || [];
+  return q.length === 3
+    ? q.map(function (t) { return t.nom; })
+    : ["Petite", "Moyenne", "Grande"];
+})();
+
+// Le tirage brut, en deux morceaux : l'écran de butin a besoin du nom
+// seul pour retrouver l'illustration au catalogue, la taille ne se
+// collant devant qu'à l'affichage.
+function tirerPotion() {
+  if (potions.length === 0) return { error: catalogueAbsent("potions").error };
+
+  const n = rand(0, potions.length - 1);
+  // la potion vierge ne se trouve qu'en petit format : elle n'a pas de taille
+  if (potions[n] == "Potion magique vierge") {
+    return { nom: potions[n], taille: "" };
+  }
+
+  const taille = rand(1, 100);
+  return {
+    nom: potions[n],
+    taille: taille <= 80 ? taillesPotion[0]
+      : taille <= 95 ? taillesPotion[1]
+        : taillesPotion[2]
+  };
+}
 
 function getPotion() {
-  const n = rand(0, potions.length - 1);
-  if (potions[n] == "Potion magique vierge") {
-    return potions[n];
-  }
-  else {
-    const taille = rand(1, 100);
-    if (taille <= 80) {
-      return "Petite " + potions[n];
-    }
-    else if (taille <= 95) {
-      return "Moyenne " + potions[n];
-    }
-    else {
-      return "Grande " + potions[n];
-    }
-  }
+  const p = tirerPotion();
+  if (p.error) return p.error;
+  return p.taille ? p.taille + " " + p.nom : p.nom;
 }
 
-const flèches = {
-  "Flèche": [70, 3, 8],
-  "Tête large": [30, 1, 5],
-  "Grosse flèche": [15, 1, 2],
-  "Flèche de lumière": [8, 1, 1],
-  "Flèche de feu": [20, 1, 3],
-  "Flèche fumigène": [30, 1, 5],
-  "Flèche empoisonnée": [25, 1, 4],
-  "Flèche de glace": [20, 1, 3],
-  "Flèche de foudre": [20, 1, 3],
-  "Flèche de vent": [20, 1, 3],
-  "Flèche d'eau": [20, 1, 3],
-  "Flèche végétale": [20, 1, 3],
-  "Flèche de terre": [20, 1, 3],
-  "Flèche de folie": [25, 1, 4],
-  "Flèche explosive": [20, 1, 3],
-  "Flèche perçante": [20, 1, 3],
-  "Flèche saignante": [15, 1, 2],
-  "Flèche d'amour": [10, 1, 1],
-  "Flèche de lenteur": [25, 1, 4]
-}
+// nom -> [chance sur 100 d'en trouver, quantité min, quantité max]
+const flèches = (function () {
+  const dico = {};
+  catalogue("EQUIP_ARMES").forEach(function (o) {
+    if (typeof o.drop !== "number" || !o.quantite) return;
+    dico[o.nom] = [o.drop, o.quantite[0], o.quantite[1]];
+  });
+  return dico;
+})();
 
 function getFlèches() {
   const result = {};
 
-
+  if (Object.keys(flèches).length === 0) return catalogueAbsent("flèches");
 
   for (let i = 0; i < Object.keys(flèches).length; i++) {
     let choix = Object.keys(flèches)[i];

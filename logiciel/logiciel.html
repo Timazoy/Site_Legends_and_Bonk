@@ -7,6 +7,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
   <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="./logiciel.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap"
@@ -149,25 +150,8 @@
                       <button type="button" class="btn"
                         style="margin-top: 10px; background-color: #7a0808; color: white;" id="btnArme">Générer</button>
                     </div>
-
-                    <!-- Modal -->
-                    <div class="modal fade" id="armegenModal" tabindex="-1" aria-labelledby="armegenModalLabel"
-                      aria-hidden="true">
-                      <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="armegenModalLabel">L'arme générée</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                          </div>
-                          <div class="modal-body">
-                            <!-- Contenu de l'arme générée grâce à la fonction getArme-->
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                    <!-- Le résultat ne s'affiche plus dans un modal : il tombe
+                         dans l'écran de butin commun, plus bas dans la page. -->
                   </div>
                 </div>
                 <div class="col-12 col-md-6 armures-responsive-margin">
@@ -274,50 +258,11 @@
                             <button type="button" class="btn"
                               style="margin-top: 10px; background-color: #7a0808; color: white;" id="btnPotion">Potion</button>
                           </div>
-
-                          <!-- Modal -->
-                          <div class="modal fade" id="potiongenModal" tabindex="-1"
-                            aria-labelledby="potiongenModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">
-                              <div class="modal-content">
-                                <div class="modal-header">
-                                  <h1 class="modal-title fs-5" id="potiongenModalLabel">La potion générée</h1>
-                                  <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                  <!-- Contenu de la potion générées grâce à la fonction getFlèches-->
-                                </div>
-                                <div class="modal-footer">
-                                  <button type="button" class="btn btn-secondary"
-                                    data-bs-dismiss="modal">Fermer</button>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
                         </div>
                       </div>
                     </div>
-
-                    <!-- Modal -->
-                    <div class="modal fade" id="armuregenModal" tabindex="-1" aria-labelledby="armuregenModalLabel"
-                      aria-hidden="true">
-                      <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="armuregenModalLabel">L'armure générée</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                          </div>
-                          <div class="modal-body">
-                            <!-- Contenu de l'armure générée grâce à la fonction getArmure-->
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
+                    <!-- Armures et potions tombent elles aussi dans l'écran
+                         de butin commun : plus de modal de résultat ici. -->
                   </div>
                 </div>
 
@@ -745,14 +690,38 @@
             </div>
           </div>
         </div>
+
+        <!-- L'ÉCRAN DE BUTIN
+             Il sert deux choses :
+               - l'ouverture de caisse des trois générateurs d'objets
+                 (armes, armures, potions) ;
+               - TOUS les messages d'erreur de la page, quel que soit
+                 l'outil — c'est pour ça qu'il est placé ici, sous les
+                 trois onglets, et non dans l'un d'eux : depuis « Divers »,
+                 une banderole rangée dans card1 serait invisible.
+             Il reste caché tant que rien n'a été lancé, et se referme
+             quand on change d'onglet. Le ruban est purement décoratif
+             (aria-hidden), c'est la ligne de résultat qui parle. -->
+        <div class="butin" id="butin" hidden>
+          <p class="butin-titre" id="butinTitre"></p>
+          <div class="butin-piste" id="butinPiste" title="Cliquer pour passer l'animation">
+            <div class="butin-ruban" id="butinRuban" aria-hidden="true"></div>
+            <div class="butin-curseur"></div>
+          </div>
+          <p class="butin-resultat" id="butinResultat" role="status" aria-live="polite"></p>
+        </div>
       </div>
     </div>
 
   </main>
   <div style="margin-top: 20px;"></div>
 
-  <!-- Scripts : logiciel.js = regles du jeu, logiciel-ui.js = interface.
+  <!-- Scripts : les catalogues d'abord (ce sont eux qui listent les objets
+       à tirer), puis logiciel.js = regles du jeu, logiciel-ui.js = interface.
        Ils doivent rester en fin de body (le DOM doit exister). -->
+  <script src="../equipement/armes-data.js"></script>
+  <script src="../equipement/armures-data.js"></script>
+  <script src="../equipement/potions-data.js"></script>
   <script src="./logiciel.js"></script>
   <script src="./logiciel-ui.js"></script>
 </body>

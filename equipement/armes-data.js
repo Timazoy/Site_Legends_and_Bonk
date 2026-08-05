@@ -1,4 +1,33 @@
-/* Généré depuis Armes.docx + images_armes_1 + classification logiciel.js + Prix armes .docx — ne pas éditer à la main de préférence. */
+/* Catalogue des armes — SOURCE UNIQUE.
+   Généré au départ depuis Armes.docx + images_armes_1 + Prix armes .docx,
+   puis complété à la main : c'est désormais ce fichier qu'on édite.
+
+   Il alimente à la fois la page armes.html ET le générateur de butin de
+   logiciel/logiciel.js. Ajouter une arme ici suffit, il n'y a plus de
+   seconde liste à tenir à jour.
+
+   Deux champs servent uniquement au générateur :
+
+   "codes": [grande catégorie, petite catégorie, catégorie spéciale]
+       grande     acd / amd / ald  (courte / mi- / longue distance),
+                  bou (bouclier), bat (bâton magique), ani (objet animal)
+       petite     cl (classique), pa (petite arme), la (lancer), lo (lourde)
+       spéciale   ta (talisman), ma (magique), mu (musicale), me (médicale)
+       "x" = sans objet. Une arme magique garde sa vraie grande et petite
+       catégorie : la dague magique sort aussi bien en « courte / petite arme »
+       qu'en « magique ».
+
+   "drop" et "quantite" (flèches uniquement)
+       chance sur 100 d'en trouver dans un tirage, et fourchette [min, max]
+       du nombre obtenu.
+
+   "butin": false
+       l'objet s'achète mais ne se trouve pas : il reste au catalogue et
+       le générateur ne le tire jamais. Sans ce champ, tout objet est
+       supposé pouvoir tomber au butin.
+
+   La fourchette de rareté du générateur est lue directement dans "tiers"
+   (du premier au dernier), il n'y a rien à renseigner en plus. */
 window.EQUIP_ARMES = {
   "raretes": {
     "C": {
@@ -54,6 +83,7 @@ window.EQUIP_ARMES = {
       "nom": "Épée",
       "categorie": "Courte distance",
       "sousCategorie": "Classique",
+      "codes": ["acd", "cl", "x"],
       "tiers": [
         "C",
         "SC",
@@ -89,6 +119,7 @@ window.EQUIP_ARMES = {
       "nom": "Katana",
       "categorie": "Courte distance",
       "sousCategorie": "Classique",
+      "codes": ["acd", "cl", "x"],
       "tiers": [
         "R",
         "SR",
@@ -120,6 +151,7 @@ window.EQUIP_ARMES = {
       "nom": "Rapière",
       "categorie": "Courte distance",
       "sousCategorie": "Classique",
+      "codes": ["acd", "cl", "x"],
       "tiers": [
         "SC",
         "R",
@@ -151,6 +183,7 @@ window.EQUIP_ARMES = {
       "nom": "Cimeterre",
       "categorie": "Courte distance",
       "sousCategorie": "Classique",
+      "codes": ["acd", "cl", "x"],
       "tiers": [
         "SC",
         "R",
@@ -185,6 +218,7 @@ window.EQUIP_ARMES = {
       "nom": "Nunchaku",
       "categorie": "Courte distance",
       "sousCategorie": "Classique",
+      "codes": ["acd", "cl", "x"],
       "tiers": [
         "C",
         "SC",
@@ -216,6 +250,7 @@ window.EQUIP_ARMES = {
       "nom": "Tomahawk",
       "categorie": "Courte distance",
       "sousCategorie": "Classique",
+      "codes": ["acd", "cl", "x"],
       "tiers": [
         "C",
         "SC",
@@ -248,6 +283,7 @@ window.EQUIP_ARMES = {
       "nom": "Parapluie",
       "categorie": "Courte distance",
       "sousCategorie": "Classique",
+      "codes": ["acd", "cl", "x"],
       "tiers": [
         "SC",
         "R",
@@ -279,6 +315,7 @@ window.EQUIP_ARMES = {
       "nom": "Lame de sang",
       "categorie": "Courte distance",
       "sousCategorie": "Classique",
+      "codes": ["acd", "cl", "x"],
       "tiers": [
         "R",
         "SR",
@@ -346,6 +383,7 @@ window.EQUIP_ARMES = {
       "nom": "Épée daab",
       "categorie": "Courte distance",
       "sousCategorie": "Classique",
+      "codes": ["acd", "cl", "x"],
       "tiers": [
         "SC",
         "R",
@@ -377,6 +415,7 @@ window.EQUIP_ARMES = {
       "nom": "Khépesh",
       "categorie": "Courte distance",
       "sousCategorie": "Classique",
+      "codes": ["acd", "cl", "x"],
       "tiers": [
         "R",
         "SR",
@@ -408,6 +447,7 @@ window.EQUIP_ARMES = {
       "nom": "Couteau de boucher",
       "categorie": "Courte distance",
       "sousCategorie": "Petites armes",
+      "codes": ["acd", "pa", "x"],
       "tiers": [
         "C",
         "SC",
@@ -436,6 +476,7 @@ window.EQUIP_ARMES = {
       "nom": "Marteau",
       "categorie": "Courte distance",
       "sousCategorie": "Petites armes",
+      "codes": ["acd", "pa", "x"],
       "tiers": [
         "C",
         "SC",
@@ -464,6 +505,7 @@ window.EQUIP_ARMES = {
       "nom": "Dague",
       "categorie": "Courte distance",
       "sousCategorie": "Petites armes",
+      "codes": ["acd", "pa", "x"],
       "tiers": [
         "C",
         "SC",
@@ -501,6 +543,7 @@ window.EQUIP_ARMES = {
       "nom": "Griffes",
       "categorie": "Courte distance",
       "sousCategorie": "Petites armes",
+      "codes": ["acd", "pa", "x"],
       "tiers": [
         "SC",
         "R",
@@ -532,6 +575,7 @@ window.EQUIP_ARMES = {
       "nom": "Glaive",
       "categorie": "Courte distance",
       "sousCategorie": "Petites armes",
+      "codes": ["acd", "pa", "x"],
       "tiers": [
         "C",
         "SC",
@@ -567,6 +611,7 @@ window.EQUIP_ARMES = {
       "nom": "Scie à métaux",
       "categorie": "Courte distance",
       "sousCategorie": "Petites armes",
+      "codes": ["acd", "pa", "x"],
       "tiers": [
         "R",
         "SR",
@@ -592,9 +637,10 @@ window.EQUIP_ARMES = {
       ]
     },
     {
-      "nom": "Battinette en bois",
+      "nom": "Batinette en bois",
       "categorie": "Courte distance",
       "sousCategorie": "Petites armes",
+      "codes": ["acd", "pa", "x"],
       "tiers": [
         "C",
         "SC",
@@ -626,6 +672,7 @@ window.EQUIP_ARMES = {
       "nom": "Waki-zashi",
       "categorie": "Courte distance",
       "sousCategorie": "Petites armes",
+      "codes": ["acd", "pa", "x"],
       "tiers": [
         "R",
         "SR",
@@ -657,6 +704,7 @@ window.EQUIP_ARMES = {
       "nom": "Lame de tungstène",
       "categorie": "Courte distance",
       "sousCategorie": "Petites armes",
+      "codes": ["acd", "pa", "x"],
       "tiers": [
         "C",
         "SC",
@@ -691,6 +739,7 @@ window.EQUIP_ARMES = {
       "nom": "Katar",
       "categorie": "Courte distance",
       "sousCategorie": "Petites armes",
+      "codes": ["acd", "pa", "x"],
       "tiers": [
         "C",
         "SC",
@@ -725,6 +774,7 @@ window.EQUIP_ARMES = {
       "nom": "Hachette",
       "categorie": "Courte distance",
       "sousCategorie": "De lancer",
+      "codes": ["acd", "la", "x"],
       "tiers": [
         "C",
         "SC",
@@ -758,6 +808,7 @@ window.EQUIP_ARMES = {
       "nom": "Paire de faucilles",
       "categorie": "Courte distance",
       "sousCategorie": "De lancer",
+      "codes": ["acd", "la", "x"],
       "tiers": [
         "C",
         "SC",
@@ -793,6 +844,7 @@ window.EQUIP_ARMES = {
       "nom": "Couteau de lancer",
       "categorie": "Courte distance",
       "sousCategorie": "De lancer",
+      "codes": ["acd", "la", "x"],
       "tiers": [
         "SC",
         "R",
@@ -831,6 +883,7 @@ window.EQUIP_ARMES = {
       "nom": "Couteau de chasse",
       "categorie": "Courte distance",
       "sousCategorie": "De lancer",
+      "codes": ["acd", "la", "x"],
       "tiers": [
         "C",
         "SC",
@@ -863,6 +916,7 @@ window.EQUIP_ARMES = {
       "nom": "Fléaux",
       "categorie": "Courte distance",
       "sousCategorie": "Lourdes",
+      "codes": ["acd", "lo", "x"],
       "tiers": [
         "C",
         "SC",
@@ -894,6 +948,7 @@ window.EQUIP_ARMES = {
       "nom": "Masse d’armes",
       "categorie": "Courte distance",
       "sousCategorie": "Lourdes",
+      "codes": ["acd", "lo", "x"],
       "tiers": [
         "C",
         "SC",
@@ -926,6 +981,7 @@ window.EQUIP_ARMES = {
       "nom": "Masse en métal",
       "categorie": "Courte distance",
       "sousCategorie": "Lourdes",
+      "codes": ["acd", "lo", "x"],
       "tiers": [
         "C",
         "SC"
@@ -949,6 +1005,7 @@ window.EQUIP_ARMES = {
       "nom": "Grande scie à métaux",
       "categorie": "Courte distance",
       "sousCategorie": "Lourdes",
+      "codes": ["acd", "lo", "x"],
       "tiers": [
         "SC",
         "R",
@@ -980,6 +1037,7 @@ window.EQUIP_ARMES = {
       "nom": "Batte en bois",
       "categorie": "Courte distance",
       "sousCategorie": "Lourdes",
+      "codes": ["acd", "lo", "x"],
       "tiers": [
         "C",
         "SC",
@@ -1014,6 +1072,7 @@ window.EQUIP_ARMES = {
       "nom": "Hallebarde",
       "categorie": "Mi-distance",
       "sousCategorie": "Classique",
+      "codes": ["amd", "cl", "x"],
       "tiers": [
         "SC",
         "R",
@@ -1043,6 +1102,7 @@ window.EQUIP_ARMES = {
       "nom": "Faux",
       "categorie": "Mi-distance",
       "sousCategorie": "Classique",
+      "codes": ["amd", "cl", "x"],
       "tiers": [
         "C",
         "SC",
@@ -1081,6 +1141,7 @@ window.EQUIP_ARMES = {
       "nom": "Bâton de combat",
       "categorie": "Mi-distance",
       "sousCategorie": "Classique",
+      "codes": ["amd", "cl", "x"],
       "tiers": [
         "C",
         "SC",
@@ -1112,6 +1173,7 @@ window.EQUIP_ARMES = {
       "nom": "Marteau de combat",
       "categorie": "Mi-distance",
       "sousCategorie": "Classique",
+      "codes": ["amd", "cl", "x"],
       "tiers": [
         "C",
         "SC",
@@ -1143,6 +1205,7 @@ window.EQUIP_ARMES = {
       "nom": "Lance de joute",
       "categorie": "Mi-distance",
       "sousCategorie": "Classique",
+      "codes": ["amd", "cl", "x"],
       "tiers": [
         "R",
         "SR",
@@ -1175,6 +1238,7 @@ window.EQUIP_ARMES = {
       "nom": "Aiguille",
       "categorie": "Mi-distance",
       "sousCategorie": "Classique",
+      "codes": ["amd", "cl", "x"],
       "tiers": [
         "C",
         "SC",
@@ -1213,6 +1277,7 @@ window.EQUIP_ARMES = {
       "nom": "Perche de séchage",
       "categorie": "Mi-distance",
       "sousCategorie": "Classique",
+      "codes": ["amd", "cl", "x"],
       "tiers": [
         "SR",
         "E",
@@ -1242,6 +1307,7 @@ window.EQUIP_ARMES = {
       "nom": "La Guisarme",
       "categorie": "Mi-distance",
       "sousCategorie": "Classique",
+      "codes": ["amd", "cl", "x"],
       "tiers": [
         "R",
         "SR",
@@ -1274,6 +1340,7 @@ window.EQUIP_ARMES = {
       "nom": "Fourche-lance",
       "categorie": "Mi-distance",
       "sousCategorie": "Classique",
+      "codes": ["amd", "cl", "x"],
       "tiers": [
         "C",
         "SC",
@@ -1314,6 +1381,7 @@ window.EQUIP_ARMES = {
       "nom": "Sceptre-tintus",
       "categorie": "Mi-distance",
       "sousCategorie": "Classique",
+      "codes": ["amd", "cl", "x"],
       "tiers": [
         "C",
         "SC",
@@ -1365,6 +1433,7 @@ window.EQUIP_ARMES = {
       "nom": "Trident",
       "categorie": "Mi-distance",
       "sousCategorie": "De lancer",
+      "codes": ["amd", "la", "x"],
       "tiers": [
         "R",
         "SR",
@@ -1398,6 +1467,7 @@ window.EQUIP_ARMES = {
       "nom": "Lance",
       "categorie": "Mi-distance",
       "sousCategorie": "De lancer",
+      "codes": ["amd", "la", "x"],
       "tiers": [
         "C",
         "SC",
@@ -1436,6 +1506,7 @@ window.EQUIP_ARMES = {
       "nom": "Chaine blade",
       "categorie": "Mi-distance",
       "sousCategorie": "De lancer",
+      "codes": ["amd", "la", "x"],
       "tiers": [
         "R",
         "SR",
@@ -1468,6 +1539,7 @@ window.EQUIP_ARMES = {
       "nom": "Harpon",
       "categorie": "Mi-distance",
       "sousCategorie": "De lancer",
+      "codes": ["amd", "la", "x"],
       "tiers": [
         "C",
         "SC",
@@ -1507,6 +1579,7 @@ window.EQUIP_ARMES = {
       "nom": "Claymore large",
       "categorie": "Mi-distance",
       "sousCategorie": "Lourdes",
+      "codes": ["amd", "lo", "x"],
       "tiers": [
         "C",
         "SC",
@@ -1541,6 +1614,7 @@ window.EQUIP_ARMES = {
       "nom": "Labrys",
       "categorie": "Mi-distance",
       "sousCategorie": "Lourdes",
+      "codes": ["amd", "lo", "x"],
       "tiers": [
         "R",
         "SR",
@@ -1570,6 +1644,7 @@ window.EQUIP_ARMES = {
       "nom": "Épée à deux mains",
       "categorie": "Mi-distance",
       "sousCategorie": "Lourdes",
+      "codes": ["amd", "lo", "x"],
       "tiers": [
         "R",
         "SR",
@@ -1601,6 +1676,7 @@ window.EQUIP_ARMES = {
       "nom": "Hache de nain",
       "categorie": "Mi-distance",
       "sousCategorie": "Lourdes",
+      "codes": ["amd", "lo", "x"],
       "tiers": [
         "C",
         "SC",
@@ -1635,6 +1711,7 @@ window.EQUIP_ARMES = {
       "nom": "Marteau propulseur",
       "categorie": "Mi-distance",
       "sousCategorie": "Lourdes",
+      "codes": ["amd", "lo", "x"],
       "tiers": [
         "SC",
         "R",
@@ -1668,6 +1745,7 @@ window.EQUIP_ARMES = {
       "nom": "Sang-battant",
       "categorie": "Mi-distance",
       "sousCategorie": "Lourdes",
+      "codes": ["amd", "lo", "x"],
       "tiers": [
         "SC",
         "R",
@@ -1699,6 +1777,7 @@ window.EQUIP_ARMES = {
       "nom": "Arc",
       "categorie": "Longue distance",
       "sousCategorie": "Classique",
+      "codes": ["ald", "cl", "x"],
       "tiers": [
         "C",
         "SC",
@@ -1736,6 +1815,7 @@ window.EQUIP_ARMES = {
       "nom": "Carquois",
       "categorie": "Longue distance",
       "sousCategorie": "Classique",
+      "codes": ["ald", "cl", "x"],
       "tiers": [
         "C",
         "SC",
@@ -1771,6 +1851,7 @@ window.EQUIP_ARMES = {
       "nom": "Kunais",
       "categorie": "Longue distance",
       "sousCategorie": "Classique",
+      "codes": ["ald", "cl", "x"],
       "tiers": [
         "C",
         "SC",
@@ -1809,6 +1890,7 @@ window.EQUIP_ARMES = {
       "nom": "Bolas",
       "categorie": "Longue distance",
       "sousCategorie": "Classique",
+      "codes": ["ald", "cl", "x"],
       "tiers": [
         "C",
         "SC"
@@ -1834,6 +1916,7 @@ window.EQUIP_ARMES = {
       "nom": "Boomerang",
       "categorie": "Longue distance",
       "sousCategorie": "Classique",
+      "codes": ["ald", "cl", "x"],
       "tiers": [
         "C",
         "SC",
@@ -1865,6 +1948,7 @@ window.EQUIP_ARMES = {
       "nom": "Chakram",
       "categorie": "Longue distance",
       "sousCategorie": "Classique",
+      "codes": ["ald", "cl", "x"],
       "tiers": [
         "C",
         "SC",
@@ -1900,6 +1984,7 @@ window.EQUIP_ARMES = {
       "nom": "Canne à pêche",
       "categorie": "Longue distance",
       "sousCategorie": "Classique",
+      "codes": ["ald", "cl", "x"],
       "tiers": [
         "C",
         "SC",
@@ -1937,6 +2022,7 @@ window.EQUIP_ARMES = {
       "nom": "Arbalète",
       "categorie": "Longue distance",
       "sousCategorie": "Classique",
+      "codes": ["ald", "cl", "x"],
       "tiers": [
         "R",
         "SR",
@@ -1968,6 +2054,7 @@ window.EQUIP_ARMES = {
       "nom": "Shuriken géant",
       "categorie": "Longue distance",
       "sousCategorie": "Classique",
+      "codes": ["ald", "cl", "x"],
       "tiers": [
         "SC",
         "R",
@@ -2003,6 +2090,7 @@ window.EQUIP_ARMES = {
       "nom": "Javelot",
       "categorie": "Longue distance",
       "sousCategorie": "Classique",
+      "codes": ["ald", "cl", "x"],
       "tiers": [
         "SC",
         "R",
@@ -2037,6 +2125,7 @@ window.EQUIP_ARMES = {
       "nom": "Lance pierre",
       "categorie": "Longue distance",
       "sousCategorie": "Classique",
+      "codes": ["ald", "cl", "x"],
       "tiers": [
         "C",
         "SC",
@@ -2087,6 +2176,7 @@ window.EQUIP_ARMES = {
       "nom": "Paquet de cartes",
       "categorie": "Longue distance",
       "sousCategorie": "Classique",
+      "codes": ["ald", "cl", "x"],
       "tiers": [
         "C",
         "SC",
@@ -2121,6 +2211,7 @@ window.EQUIP_ARMES = {
       "nom": "Corne du Barbare",
       "categorie": "Talismans",
       "sousCategorie": null,
+      "codes": ["acd", "pa", "ta"],
       "tiers": [
         "R",
         "SR",
@@ -2150,6 +2241,7 @@ window.EQUIP_ARMES = {
       "nom": "Recueil de poésie du Barde",
       "categorie": "Talismans",
       "sousCategorie": null,
+      "codes": ["acd", "pa", "ta"],
       "tiers": [
         "R",
         "SR",
@@ -2179,6 +2271,7 @@ window.EQUIP_ARMES = {
       "nom": "Bannière du Guerrier",
       "categorie": "Talismans",
       "sousCategorie": null,
+      "codes": ["acd", "pa", "ta"],
       "tiers": [
         "R",
         "SR",
@@ -2208,6 +2301,7 @@ window.EQUIP_ARMES = {
       "nom": "Longue vue de l’Archer",
       "categorie": "Talismans",
       "sousCategorie": null,
+      "codes": ["acd", "pa", "ta"],
       "tiers": [
         "R",
         "SR",
@@ -2237,6 +2331,7 @@ window.EQUIP_ARMES = {
       "nom": "Dague sacrificielle de l’Occultiste",
       "categorie": "Talismans",
       "sousCategorie": null,
+      "codes": ["acd", "pa", "ta"],
       "tiers": [
         "R",
         "SR",
@@ -2266,6 +2361,7 @@ window.EQUIP_ARMES = {
       "nom": "Texte sacré du Paladin",
       "categorie": "Talismans",
       "sousCategorie": null,
+      "codes": ["acd", "pa", "ta"],
       "tiers": [
         "R",
         "SR",
@@ -2295,6 +2391,7 @@ window.EQUIP_ARMES = {
       "nom": "Sifflet de dressage du Rôdeur",
       "categorie": "Talismans",
       "sousCategorie": null,
+      "codes": ["acd", "pa", "ta"],
       "tiers": [
         "R",
         "SR",
@@ -2324,6 +2421,7 @@ window.EQUIP_ARMES = {
       "nom": "Gant de velours du Roublard",
       "categorie": "Talismans",
       "sousCategorie": null,
+      "codes": ["acd", "pa", "ta"],
       "tiers": [
         "R",
         "SR",
@@ -2353,6 +2451,7 @@ window.EQUIP_ARMES = {
       "nom": "Chapelet du Moine",
       "categorie": "Talismans",
       "sousCategorie": null,
+      "codes": ["acd", "pa", "ta"],
       "tiers": [
         "R",
         "SR",
@@ -2382,6 +2481,7 @@ window.EQUIP_ARMES = {
       "nom": "Le paquet de cartes du Cartomancien",
       "categorie": "Talismans",
       "sousCategorie": null,
+      "codes": ["acd", "pa", "ta"],
       "tiers": [
         "R",
         "SR",
@@ -2411,6 +2511,7 @@ window.EQUIP_ARMES = {
       "nom": "Herbiers de l'Apothicaire",
       "categorie": "Talismans",
       "sousCategorie": null,
+      "codes": ["acd", "pa", "ta"],
       "tiers": [
         "R",
         "SR",
@@ -2440,6 +2541,7 @@ window.EQUIP_ARMES = {
       "nom": "L'aiguille à coudre du Pneuma-chir",
       "categorie": "Talismans",
       "sousCategorie": null,
+      "codes": ["acd", "pa", "ta"],
       "tiers": [
         "R",
         "SR",
@@ -2469,6 +2571,7 @@ window.EQUIP_ARMES = {
       "nom": "Couteau d'éviscération du Chaman",
       "categorie": "Talismans",
       "sousCategorie": null,
+      "codes": ["acd", "pa", "ta"],
       "tiers": [
         "R",
         "SR",
@@ -2498,6 +2601,7 @@ window.EQUIP_ARMES = {
       "nom": "Épée magique",
       "categorie": "Magiques",
       "sousCategorie": "Courte distance",
+      "codes": ["acd", "cl", "ma"],
       "tiers": [
         "C",
         "SC",
@@ -2533,6 +2637,7 @@ window.EQUIP_ARMES = {
       "nom": "Épée à dents magique",
       "categorie": "Magiques",
       "sousCategorie": "Courte distance",
+      "codes": ["acd", "lo", "ma"],
       "tiers": [
         "R",
         "SR",
@@ -2564,6 +2669,7 @@ window.EQUIP_ARMES = {
       "nom": "Dague magique",
       "categorie": "Magiques",
       "sousCategorie": "Courte distance",
+      "codes": ["acd", "pa", "ma"],
       "tiers": [
         "C",
         "SC",
@@ -2601,6 +2707,7 @@ window.EQUIP_ARMES = {
       "nom": "Lance magique",
       "categorie": "Magiques",
       "sousCategorie": "Mi-distance",
+      "codes": ["amd", "cl", "ma"],
       "tiers": [
         "C",
         "SC",
@@ -2638,6 +2745,7 @@ window.EQUIP_ARMES = {
       "nom": "Hache magique",
       "categorie": "Magiques",
       "sousCategorie": "Mi-distance",
+      "codes": ["amd", "lo", "ma"],
       "tiers": [
         "R",
         "SR",
@@ -2667,6 +2775,7 @@ window.EQUIP_ARMES = {
       "nom": "Cracheur énergétique",
       "categorie": "Magiques",
       "sousCategorie": "Longue distance",
+      "codes": ["ald", "cl", "ma"],
       "tiers": [
         "C",
         "SC",
@@ -2698,6 +2807,7 @@ window.EQUIP_ARMES = {
       "nom": "Disperseur luminique",
       "categorie": "Magiques",
       "sousCategorie": "Longue distance",
+      "codes": ["ald", "cl", "ma"],
       "tiers": [
         "C",
         "SC",
@@ -2735,6 +2845,7 @@ window.EQUIP_ARMES = {
       "nom": "Mousquet baïonnette",
       "categorie": "Magiques",
       "sousCategorie": "Longue distance",
+      "codes": ["ald", "cl", "ma"],
       "tiers": [
         "SC",
         "R",
@@ -2784,6 +2895,7 @@ window.EQUIP_ARMES = {
       "nom": "Lumino-désoudeur",
       "categorie": "Magiques",
       "sousCategorie": "Longue distance",
+      "codes": ["ald", "cl", "ma"],
       "tiers": [
         "R",
         "SR",
@@ -2817,6 +2929,7 @@ window.EQUIP_ARMES = {
       "nom": "Le mini Cracheur",
       "categorie": "Magiques",
       "sousCategorie": "Longue distance",
+      "codes": ["ald", "pa", "ma"],
       "tiers": [
         "C",
         "SC",
@@ -2852,6 +2965,7 @@ window.EQUIP_ARMES = {
       "nom": "Bouclier magique",
       "categorie": "Magiques",
       "sousCategorie": "Boucliers",
+      "codes": ["bou", "cl", "ma"],
       "tiers": [
         "C",
         "SC",
@@ -2889,6 +3003,7 @@ window.EQUIP_ARMES = {
       "nom": "Bâton de magie",
       "categorie": "Bâtons magiques",
       "sousCategorie": null,
+      "codes": ["bat", "x", "ma"],
       "tiers": [
         "C",
         "SC",
@@ -2924,6 +3039,7 @@ window.EQUIP_ARMES = {
       "nom": "Bâton de soutien",
       "categorie": "Bâtons magiques",
       "sousCategorie": null,
+      "codes": ["bat", "x", "ma"],
       "tiers": [
         "R",
         "SR",
@@ -2958,6 +3074,7 @@ window.EQUIP_ARMES = {
       "nom": "Bâton d’action",
       "categorie": "Bâtons magiques",
       "sousCategorie": null,
+      "codes": ["bat", "x", "ma"],
       "tiers": [
         "R",
         "SR",
@@ -2992,6 +3109,7 @@ window.EQUIP_ARMES = {
       "nom": "Bâton de résistance",
       "categorie": "Bâtons magiques",
       "sousCategorie": null,
+      "codes": ["bat", "x", "ma"],
       "tiers": [
         "R",
         "SR",
@@ -3026,6 +3144,7 @@ window.EQUIP_ARMES = {
       "nom": "Bâton de déplacement",
       "categorie": "Bâtons magiques",
       "sousCategorie": null,
+      "codes": ["bat", "x", "ma"],
       "tiers": [
         "R",
         "SR",
@@ -3060,6 +3179,7 @@ window.EQUIP_ARMES = {
       "nom": "Bâton de furtivité",
       "categorie": "Bâtons magiques",
       "sousCategorie": null,
+      "codes": ["bat", "x", "ma"],
       "tiers": [
         "R",
         "SR",
@@ -3094,6 +3214,7 @@ window.EQUIP_ARMES = {
       "nom": "Bâton de l’esprit",
       "categorie": "Bâtons magiques",
       "sousCategorie": null,
+      "codes": ["bat", "x", "ma"],
       "tiers": [
         "R",
         "SR",
@@ -3128,6 +3249,7 @@ window.EQUIP_ARMES = {
       "nom": "Bâton flamboyant",
       "categorie": "Bâtons magiques",
       "sousCategorie": null,
+      "codes": ["bat", "x", "ma"],
       "tiers": [
         "R",
         "SR",
@@ -3162,6 +3284,7 @@ window.EQUIP_ARMES = {
       "nom": "Bâton glacé",
       "categorie": "Bâtons magiques",
       "sousCategorie": null,
+      "codes": ["bat", "x", "ma"],
       "tiers": [
         "R",
         "SR",
@@ -3196,6 +3319,7 @@ window.EQUIP_ARMES = {
       "nom": "Bâton foudroyant",
       "categorie": "Bâtons magiques",
       "sousCategorie": null,
+      "codes": ["bat", "x", "ma"],
       "tiers": [
         "R",
         "SR",
@@ -3230,6 +3354,7 @@ window.EQUIP_ARMES = {
       "nom": "Bâton empoisonné",
       "categorie": "Bâtons magiques",
       "sousCategorie": null,
+      "codes": ["bat", "x", "ma"],
       "tiers": [
         "R",
         "SR",
@@ -3264,6 +3389,7 @@ window.EQUIP_ARMES = {
       "nom": "Bâton explosif",
       "categorie": "Bâtons magiques",
       "sousCategorie": null,
+      "codes": ["bat", "x", "ma"],
       "tiers": [
         "R",
         "SR",
@@ -3298,6 +3424,7 @@ window.EQUIP_ARMES = {
       "nom": "Bâton aquatique",
       "categorie": "Bâtons magiques",
       "sousCategorie": null,
+      "codes": ["bat", "x", "ma"],
       "tiers": [
         "R",
         "SR",
@@ -3332,6 +3459,7 @@ window.EQUIP_ARMES = {
       "nom": "Bâton éolien",
       "categorie": "Bâtons magiques",
       "sousCategorie": null,
+      "codes": ["bat", "x", "ma"],
       "tiers": [
         "R",
         "SR",
@@ -3366,6 +3494,7 @@ window.EQUIP_ARMES = {
       "nom": "Bâton terrestre",
       "categorie": "Bâtons magiques",
       "sousCategorie": null,
+      "codes": ["bat", "x", "ma"],
       "tiers": [
         "R",
         "SR",
@@ -3400,6 +3529,7 @@ window.EQUIP_ARMES = {
       "nom": "Bâton végétal",
       "categorie": "Bâtons magiques",
       "sousCategorie": null,
+      "codes": ["bat", "x", "ma"],
       "tiers": [
         "R",
         "SR",
@@ -3434,6 +3564,7 @@ window.EQUIP_ARMES = {
       "nom": "Bâton de création",
       "categorie": "Bâtons magiques",
       "sousCategorie": null,
+      "codes": ["bat", "x", "ma"],
       "tiers": [
         "R",
         "SR",
@@ -3468,6 +3599,7 @@ window.EQUIP_ARMES = {
       "nom": "Bâton Sanguinolent",
       "categorie": "Bâtons magiques",
       "sousCategorie": null,
+      "codes": ["bat", "x", "ma"],
       "tiers": [
         "R",
         "SR",
@@ -3502,6 +3634,7 @@ window.EQUIP_ARMES = {
       "nom": "Bâton des éléments oubliés",
       "categorie": "Bâtons magiques",
       "sousCategorie": null,
+      "codes": ["bat", "x", "ma"],
       "tiers": [
         "R",
         "SR",
@@ -3536,6 +3669,7 @@ window.EQUIP_ARMES = {
       "nom": "La Luth hache",
       "categorie": "Musicales",
       "sousCategorie": "Courte distance",
+      "codes": ["acd", "cl", "mu"],
       "tiers": [
         "R",
         "SR",
@@ -3565,6 +3699,7 @@ window.EQUIP_ARMES = {
       "nom": "Pelle guitare",
       "categorie": "Musicales",
       "sousCategorie": "Mi-distance",
+      "codes": ["amd", "cl", "mu"],
       "tiers": [
         "C",
         "SC",
@@ -3600,6 +3735,7 @@ window.EQUIP_ARMES = {
       "nom": "Maracas piquant",
       "categorie": "Musicales",
       "sousCategorie": "Longue distance",
+      "codes": ["ald", "cl", "mu"],
       "tiers": [
         "C",
         "SC",
@@ -3629,6 +3765,7 @@ window.EQUIP_ARMES = {
       "nom": "Pifano sarbacane",
       "categorie": "Musicales",
       "sousCategorie": "Longue distance",
+      "codes": ["ald", "cl", "mu"],
       "tiers": [
         "C",
         "SC",
@@ -3661,6 +3798,7 @@ window.EQUIP_ARMES = {
       "nom": "Lyree arbalète",
       "categorie": "Musicales",
       "sousCategorie": "Longue distance",
+      "codes": ["ald", "cl", "mu"],
       "tiers": [
         "SR",
         "E",
@@ -3689,6 +3827,7 @@ window.EQUIP_ARMES = {
       "nom": "Arc harpe",
       "categorie": "Musicales",
       "sousCategorie": "Longue distance",
+      "codes": ["ald", "cl", "mu"],
       "tiers": [
         "C",
         "SC",
@@ -3726,6 +3865,7 @@ window.EQUIP_ARMES = {
       "nom": "Bouclier tambourin",
       "categorie": "Musicales",
       "sousCategorie": "Boucliers",
+      "codes": ["bou", "cl", "mu"],
       "tiers": [
         "C",
         "SC",
@@ -3761,6 +3901,7 @@ window.EQUIP_ARMES = {
       "nom": "L’Épée lambique",
       "categorie": "Médicales",
       "sousCategorie": "Courte distance",
+      "codes": ["acd", "cl", "me"],
       "tiers": [
         "C",
         "SC",
@@ -3796,6 +3937,7 @@ window.EQUIP_ARMES = {
       "nom": "Lance’xactrise",
       "categorie": "Médicales",
       "sousCategorie": "Mi-distance",
+      "codes": ["amd", "la", "me"],
       "tiers": [
         "R",
         "SR",
@@ -3828,6 +3970,7 @@ window.EQUIP_ARMES = {
       "nom": "Arc fruitier",
       "categorie": "Médicales",
       "sousCategorie": "Longue distance",
+      "codes": ["ald", "cl", "me"],
       "tiers": [
         "C",
         "SC",
@@ -3865,6 +4008,7 @@ window.EQUIP_ARMES = {
       "nom": "Fiole de lancer",
       "categorie": "Médicales",
       "sousCategorie": "Longue distance",
+      "codes": ["ald", "cl", "me"],
       "tiers": [
         "C",
         "SC",
@@ -3903,6 +4047,7 @@ window.EQUIP_ARMES = {
       "nom": "Bouclier cucurbite",
       "categorie": "Médicales",
       "sousCategorie": "Boucliers",
+      "codes": ["bou", "cl", "me"],
       "tiers": [
         "C",
         "SC",
@@ -3938,6 +4083,7 @@ window.EQUIP_ARMES = {
       "nom": "Bouclier léger",
       "categorie": "Boucliers",
       "sousCategorie": null,
+      "codes": ["bou", "cl", "x"],
       "tiers": [
         "SC",
         "R",
@@ -3969,6 +4115,7 @@ window.EQUIP_ARMES = {
       "nom": "Bouclier",
       "categorie": "Boucliers",
       "sousCategorie": null,
+      "codes": ["bou", "cl", "x"],
       "tiers": [
         "C",
         "SC",
@@ -4003,9 +4150,10 @@ window.EQUIP_ARMES = {
       ]
     },
     {
-      "nom": "Bouclier miroire",
+      "nom": "Bouclier miroir",
       "categorie": "Boucliers",
       "sousCategorie": null,
+      "codes": ["bou", "cl", "x"],
       "tiers": [
         "R",
         "SR",
@@ -4034,6 +4182,7 @@ window.EQUIP_ARMES = {
       "nom": "Bouclier lourd",
       "categorie": "Boucliers",
       "sousCategorie": null,
+      "codes": ["bou", "cl", "x"],
       "tiers": [
         "R",
         "SR",
@@ -4066,6 +4215,7 @@ window.EQUIP_ARMES = {
       "nom": "Bouclier du berserker",
       "categorie": "Boucliers",
       "sousCategorie": null,
+      "codes": ["bou", "cl", "x"],
       "tiers": [
         "R",
         "SR",
@@ -4100,6 +4250,7 @@ window.EQUIP_ARMES = {
       "nom": "Bouclier vortex",
       "categorie": "Boucliers",
       "sousCategorie": null,
+      "codes": ["bou", "cl", "x"],
       "tiers": [
         "C",
         "SC",
@@ -4138,6 +4289,7 @@ window.EQUIP_ARMES = {
       "nom": "Bouclier absorbant",
       "categorie": "Boucliers",
       "sousCategorie": null,
+      "codes": ["bou", "cl", "x"],
       "tiers": [
         "SC",
         "R",
@@ -4167,6 +4319,7 @@ window.EQUIP_ARMES = {
       "nom": "Bouclier piquant",
       "categorie": "Boucliers",
       "sousCategorie": null,
+      "codes": ["bou", "cl", "x"],
       "tiers": [
         "C",
         "SC",
@@ -4202,9 +4355,10 @@ window.EQUIP_ARMES = {
       ]
     },
     {
-      "nom": "Les griffes métallique",
+      "nom": "Griffes métalliques",
       "categorie": "Objets animal",
       "sousCategorie": null,
+      "codes": ["ani", "x", "x"],
       "tiers": [
         "R",
         "SR",
@@ -4228,9 +4382,10 @@ window.EQUIP_ARMES = {
       ]
     },
     {
-      "nom": "La carapace en métal",
+      "nom": "Carapace en métal",
       "categorie": "Objets animal",
       "sousCategorie": null,
+      "codes": ["ani", "x", "x"],
       "tiers": [
         "R",
         "SR",
@@ -4254,9 +4409,10 @@ window.EQUIP_ARMES = {
       ]
     },
     {
-      "nom": "Les ails de fer",
+      "nom": "Ailes de fer",
       "categorie": "Objets animal",
       "sousCategorie": null,
+      "codes": ["ani", "x", "x"],
       "tiers": [
         "R",
         "SR",
@@ -4280,9 +4436,10 @@ window.EQUIP_ARMES = {
       ]
     },
     {
-      "nom": "Les griffes dorée",
+      "nom": "Griffes dorées",
       "categorie": "Objets animal",
       "sousCategorie": null,
+      "codes": ["ani", "x", "x"],
       "tiers": [
         "R",
         "SR",
@@ -4306,9 +4463,10 @@ window.EQUIP_ARMES = {
       ]
     },
     {
-      "nom": "La carapace en or",
+      "nom": "Carapace en or",
       "categorie": "Objets animal",
       "sousCategorie": null,
+      "codes": ["ani", "x", "x"],
       "tiers": [
         "R",
         "SR",
@@ -4332,9 +4490,10 @@ window.EQUIP_ARMES = {
       ]
     },
     {
-      "nom": "Les ails d’or",
+      "nom": "Ailes d’or",
       "categorie": "Objets animal",
       "sousCategorie": null,
+      "codes": ["ani", "x", "x"],
       "tiers": [
         "R",
         "SR",
@@ -4361,6 +4520,8 @@ window.EQUIP_ARMES = {
       "nom": "Flèche",
       "categorie": "Flèches",
       "sousCategorie": null,
+      "drop": 70,
+      "quantite": [3, 8],
       "tiers": [],
       "paliers": {},
       "prix": 80,
@@ -4376,6 +4537,8 @@ window.EQUIP_ARMES = {
       "nom": "Têtes larges",
       "categorie": "Flèches",
       "sousCategorie": null,
+      "drop": 30,
+      "quantite": [1, 5],
       "tiers": [],
       "paliers": {},
       "prix": 140,
@@ -4391,6 +4554,8 @@ window.EQUIP_ARMES = {
       "nom": "Grosses flèches",
       "categorie": "Flèches",
       "sousCategorie": null,
+      "drop": 15,
+      "quantite": [1, 2],
       "tiers": [],
       "paliers": {},
       "prix": 225,
@@ -4408,6 +4573,8 @@ window.EQUIP_ARMES = {
       "nom": "Flèches de lumière",
       "categorie": "Flèches",
       "sousCategorie": null,
+      "drop": 8,
+      "quantite": [1, 1],
       "tiers": [],
       "paliers": {},
       "flavor": "Et la lumière fut.",
@@ -4422,6 +4589,8 @@ window.EQUIP_ARMES = {
       "nom": "Flèches de feu",
       "categorie": "Flèches",
       "sousCategorie": null,
+      "drop": 20,
+      "quantite": [1, 3],
       "tiers": [],
       "paliers": {},
       "prix": 225,
@@ -4437,6 +4606,8 @@ window.EQUIP_ARMES = {
       "nom": "Flèches fumigènes",
       "categorie": "Flèches",
       "sousCategorie": null,
+      "drop": 30,
+      "quantite": [1, 5],
       "tiers": [],
       "paliers": {},
       "prix": 180,
@@ -4453,6 +4624,8 @@ window.EQUIP_ARMES = {
       "nom": "Flèches empoisonnées",
       "categorie": "Flèches",
       "sousCategorie": null,
+      "drop": 25,
+      "quantite": [1, 4],
       "tiers": [],
       "paliers": {},
       "prix": 225,
@@ -4468,6 +4641,8 @@ window.EQUIP_ARMES = {
       "nom": "Flèches de glace",
       "categorie": "Flèches",
       "sousCategorie": null,
+      "drop": 20,
+      "quantite": [1, 3],
       "tiers": [],
       "paliers": {},
       "prix": 195,
@@ -4483,6 +4658,8 @@ window.EQUIP_ARMES = {
       "nom": "Flèches de foudre",
       "categorie": "Flèches",
       "sousCategorie": null,
+      "drop": 20,
+      "quantite": [1, 3],
       "tiers": [],
       "paliers": {},
       "prix": 225,
@@ -4498,6 +4675,8 @@ window.EQUIP_ARMES = {
       "nom": "Flèches de vent",
       "categorie": "Flèches",
       "sousCategorie": null,
+      "drop": 20,
+      "quantite": [1, 3],
       "tiers": [],
       "paliers": {},
       "prix": 180,
@@ -4513,6 +4692,8 @@ window.EQUIP_ARMES = {
       "nom": "Flèches d’eau",
       "categorie": "Flèches",
       "sousCategorie": null,
+      "drop": 20,
+      "quantite": [1, 3],
       "tiers": [],
       "paliers": {},
       "prix": 180,
@@ -4528,6 +4709,8 @@ window.EQUIP_ARMES = {
       "nom": "Flèches végétales",
       "categorie": "Flèches",
       "sousCategorie": null,
+      "drop": 20,
+      "quantite": [1, 3],
       "tiers": [],
       "paliers": {},
       "prix": 195,
@@ -4543,6 +4726,8 @@ window.EQUIP_ARMES = {
       "nom": "Flèches de terre",
       "categorie": "Flèches",
       "sousCategorie": null,
+      "drop": 20,
+      "quantite": [1, 3],
       "tiers": [],
       "paliers": {},
       "prix": 195,
@@ -4558,6 +4743,8 @@ window.EQUIP_ARMES = {
       "nom": "Flèches de folie",
       "categorie": "Flèches",
       "sousCategorie": null,
+      "drop": 25,
+      "quantite": [1, 4],
       "tiers": [],
       "paliers": {},
       "prix": 180,
@@ -4573,6 +4760,8 @@ window.EQUIP_ARMES = {
       "nom": "Flèches explosives",
       "categorie": "Flèches",
       "sousCategorie": null,
+      "drop": 20,
+      "quantite": [1, 3],
       "tiers": [],
       "paliers": {},
       "prix": 225,
@@ -4590,6 +4779,8 @@ window.EQUIP_ARMES = {
       "nom": "Flèches perçantes",
       "categorie": "Flèches",
       "sousCategorie": null,
+      "drop": 20,
+      "quantite": [1, 3],
       "tiers": [],
       "paliers": {},
       "prix": 195,
@@ -4605,6 +4796,7 @@ window.EQUIP_ARMES = {
       "nom": "Flèches temporelles",
       "categorie": "Flèches",
       "sousCategorie": null,
+      "butin": false,
       "tiers": [],
       "paliers": {},
       "prix": 400,
@@ -4620,6 +4812,8 @@ window.EQUIP_ARMES = {
       "nom": "Flèches saignantes",
       "categorie": "Flèches",
       "sousCategorie": null,
+      "drop": 15,
+      "quantite": [1, 2],
       "tiers": [],
       "paliers": {},
       "prix": 225,
@@ -4635,6 +4829,8 @@ window.EQUIP_ARMES = {
       "nom": "Flèches d’amour",
       "categorie": "Flèches",
       "sousCategorie": null,
+      "drop": 10,
+      "quantite": [1, 1],
       "tiers": [],
       "paliers": {},
       "prix": 250,
@@ -4650,6 +4846,8 @@ window.EQUIP_ARMES = {
       "nom": "Flèches de lenteur",
       "categorie": "Flèches",
       "sousCategorie": null,
+      "drop": 25,
+      "quantite": [1, 4],
       "tiers": [],
       "paliers": {},
       "prix": 180,

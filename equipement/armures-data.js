@@ -1,4 +1,19 @@
-/* Généré depuis Armures.docx + Armures_illustrations + Prix armures.docx — ne pas éditer à la main de préférence. */
+/* Catalogue des armures — SOURCE UNIQUE.
+   Généré au départ depuis Armures.docx + Armures_illustrations +
+   Prix armures.docx, puis complété à la main : c'est ce fichier qu'on édite.
+
+   Il alimente à la fois armures.html ET le générateur de butin de
+   logiciel/logiciel.js. Ajouter une armure ici suffit.
+
+   Le générateur déduit tout du contenu existant : la catégorie
+   (« Armures légères » → ale, moyennes → amo, lourdes → alo) et la
+   fourchette de rareté (du premier au dernier des "tiers"). Un seul
+   champ lui est propre :
+
+   "butin": false
+       l'armure s'achète mais ne se trouve pas : elle reste au catalogue
+       et le générateur ne la tire jamais. Sans ce champ, toute armure
+       est supposée pouvoir tomber au butin. */
 window.EQUIP_ARMURES = {
  "raretes": {
   "C":  { "nom": "Commun",       "couleur": "#000000" },
@@ -89,6 +104,7 @@ window.EQUIP_ARMURES = {
    "nom": "Cotte de maille",
    "categorie": "Armures légères",
    "sousCategorie": "Divers",
+   "butin": false,
    "tiers": ["SC", "R", "SR"],
    "paliers": {
     "SC": "+12,5% des PV en PA",
