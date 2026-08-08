@@ -683,7 +683,16 @@
           (e.apres ? " " + esc(e.apres) : "") + '</li>';
       }
 
-      function grimoireHTML(g) {
+      /* La classe puise-t-elle dans le Grand Livre de la Magie ? On le
+         demande aux renvois eux-mêmes plutôt qu'à une liste tenue à la main :
+         l'hématomancien a bien un bloc « grimoire », mais qui ne pointe nulle
+         part (ses sorts sont dans le Grand Livre Sanguin). */
+      function viseLeGrandLivre(g) {
+        return [].concat(g.famille || [], g.sousFamilles || [], g.sorts || [])
+          .some(function (e) { return e && e.lien && e.lien.indexOf(LIVRE_MAGIE) === 0; });
+      }
+
+      function grimoireHTML(g, c) {
         if (!g) return "";
         var h = '<h2>Sorts</h2><p>' + prose(g.intro) + '</p>';
         var cols = "";
@@ -693,6 +702,14 @@
         if (g.sorts) cols += '<section><h3>Sorts accessibles</h3><ul>' +
           g.sorts.map(entreeLivre).join("") + '</ul></section>';
         if (cols) h += '<div class="livre">' + cols + '</div>';
+        /* Juste sous les trois tableaux, tant qu'on a les sorts sous les yeux :
+           ceux-ci mènent au livre entrée par entrée, celui-là l'ouvre d'un coup,
+           filtré sur la seule classe consultée (le filtre par classe du livre
+           se lit dans l'adresse). */
+        if (viseLeGrandLivre(g)) {
+          h += '<p><a class="lien-page" href="' + esc(LIVRE_MAGIE + "?classes=" + c.slug) +
+            '">Ouvrir le Grand Livre sur ses seuls sorts →</a></p>';
+        }
         if (g.notes) h += '<div class="notes">' + paras(g.notes) + '</div>';
         return h;
       }
@@ -733,7 +750,7 @@
           '</div>';
 
         corps += pouvoirsHTML(c.pouvoirs);
-        corps += grimoireHTML(c.grimoire);
+        corps += grimoireHTML(c.grimoire, c);
         (c.blocs || []).forEach(function (b) { corps += '<h2>' + esc(b.titre) + '</h2>' + paras(b.texte); });
         corps += elementsHTML(c.elements);
 

@@ -8,6 +8,7 @@
     integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
   <link rel="stylesheet" href="../styles.css" />
   <link rel="stylesheet" href="./livre.css" />
+  <link rel="stylesheet" href="./filtre-classes.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=IM+Fell+English+SC&family=IM+Fell+English:ital@0;1&display=swap"
@@ -43,6 +44,15 @@
           <input type="text" id="rechercheSort" placeholder="✦ Chercher un sort…" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="listeSorts" />
           <ul class="suggestions-sort" id="listeSorts" role="listbox"></ul>
         </div>
+
+        <!-- Filtre par classe : le panneau (portraits, bilan, notes) est
+             rempli par filtre-classes.js. -->
+        <div class="filtre-classes">
+          <button type="button" class="filtre-bouton" id="filtreBouton" aria-expanded="false" aria-controls="filtrePanneau">
+            <span class="filtre-icone" aria-hidden="true">✦</span>Classes
+          </button>
+          <div class="filtre-panneau" id="filtrePanneau" hidden></div>
+        </div>
       </div>
 
       <div class="book-scene">
@@ -71,8 +81,13 @@
   </main>
 
   <!-- Les sorts et les textes du livre (objet LIVRE), puis le moteur
-       partagé avec le grimoire sanguinolent. -->
+       partagé avec le grimoire sanguinolent.
+       Entre les deux, le filtre par classe : il lit les accès dans
+       classes-data.js (le même fichier que la galerie des classes) et pose
+       le contenu filtré AVANT que le moteur ne construise le livre. -->
   <script src="./sorts.js"></script>
+  <script src="../personnages/classes-data.js"></script>
+  <script src="./filtre-classes.js"></script>
   <script src="./livre-moteur.js"></script>
 </body>
 

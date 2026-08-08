@@ -43,6 +43,12 @@
                     apres: "(sauf création élémentaire)" },   // « apres » facultatif
          sousFamilles: [ { nom: "…", lien: LIVRE_MAGIE + "#groupe=…" } ],
          sorts:        [ { nom: "…", lien: LIVRE_MAGIE + "#sort=…" } ],
+         // Une restriction écrite dans « apres » se lit à l'œil mais pas à la
+         // machine : le filtre par classe du Grand Livre a besoin de la même
+         // chose en clair. Les sous-familles listées ici sont retirées de la
+         // famille accordée ci-dessus — les sorts nommés un par un dans
+         // « sorts » y échappent (c'est ainsi que le bastioniste garde Terre).
+         exclutGroupes: ["sous-famille-des-elementaires"],   // facultatif
          notes: ["…"]
        },
        blocs: [ { titre: "…", texte: ["…"] } ],   // facultatif : contenu libre
@@ -988,6 +994,8 @@ window.CLASSES = {
           nom: "Famille de Création", lien: LIVRE_MAGIE + "#famille=creation",
           apres: "(sauf création élémentaire)"
         },
+        // la même restriction, en clair pour le filtre par classe du livre
+        exclutGroupes: ["sous-famille-des-elementaires"],
         sousFamilles: [
           { nom: "Sous-famille de protection", lien: LIVRE_MAGIE + "#groupe=sous-famille-de-protection" },
           { nom: "Sous-famille d'armure", lien: LIVRE_MAGIE + "#groupe=sous-famille-d-armure" },

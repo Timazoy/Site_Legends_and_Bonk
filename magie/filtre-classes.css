@@ -1,0 +1,214 @@
+/* ==================================================================
+   FILTRE PAR CLASSE — habillage du bouton et de son panneau
+   Chargé par livre_magie.html seulement : le grimoire sanguinolent
+   n'a qu'une classe de lecteur, il n'a rien à filtrer.
+   Le parchemin, les bruns et l'or reprennent exactement ceux de la
+   barre de recherche (livre.css) : le bouton doit avoir l'air d'avoir
+   toujours été là.
+   ================================================================== */
+
+/* La barre de recherche accueille désormais un second occupant.
+   align-items: flex-start évite que le bouton ne s'étire à la hauteur
+   du panneau ouvert. */
+.recherche-sort {
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.filtre-classes {
+  position: relative;
+  flex: none;
+}
+
+/* --------- Le bouton --------- */
+.filtre-bouton {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: linear-gradient(180deg, #efe2bd, #e2d0a2);
+  border: 2px solid #6b501f;
+  border-radius: 3px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, .18), inset 0 0 14px rgba(90, 60, 20, .25);
+  font-family: "IM Fell English", serif;
+  font-style: italic;
+  color: #3b2a15;
+  font-size: 1.05rem;
+  line-height: 1.35;
+  padding: 6px 14px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.filtre-bouton:hover { border-color: #8a6a2a; }
+.filtre-bouton:focus-visible {
+  outline: none;
+  border-color: #b8912f;
+  box-shadow: 0 0 0 3px rgba(184, 145, 47, .35);
+}
+
+/* Filtre en cours : le bouton s'allume, pour qu'un livre amputé de la
+   moitié de ses pages ne puisse jamais passer pour un livre cassé. */
+.filtre-bouton.actif {
+  border-color: #b8912f;
+  background: linear-gradient(180deg, #f7ecc6, #e8d6a4);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, .18), inset 0 0 14px rgba(184, 145, 47, .45);
+}
+
+.filtre-icone {
+  font-style: normal;
+  color: #8a6c30;
+}
+
+.filtre-badge:empty { display: none; }
+
+.filtre-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  border-radius: 10px;
+  background: #6b501f;
+  color: #f3e6c2;
+  font-family: "IM Fell English", serif;
+  font-style: normal;
+  font-size: .82rem;
+}
+
+/* --------- Le panneau --------- */
+.filtre-panneau {
+  position: absolute;
+  top: calc(100% + 3px);
+  right: 0;
+  z-index: 60;
+  /* bordures et rembourrage COMPRIS dans la largeur : sans cela, les 36 px
+     de marge intérieure s'ajoutent aux 92vw et le panneau déborde de
+     l'écran par la gauche sur un téléphone. */
+  box-sizing: border-box;
+  width: min(290px, 86vw);
+  padding: 14px 16px 12px 16px;
+  background: linear-gradient(180deg, #efe2bd, #e2d0a2);
+  border: 2px solid #6b501f;
+  border-radius: 3px;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, .3);
+  text-align: center;
+}
+
+.filtre-panneau[hidden] { display: none; }
+
+.filtre-titre {
+  margin: 0 0 12px 0;
+  font-family: "IM Fell English", serif;
+  font-style: italic;
+  font-size: 1rem;
+  color: #6d5325;
+}
+
+/* Une liste, une classe par ligne : le portrait à gauche, le nom à sa
+   droite. Les noms ne se disputent plus la largeur — le plus long ne peut
+   pousser personne, il allonge sa ligne et c'est tout. */
+.filtre-grille {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* --------- Une ligne à cocher --------- */
+.filtre-classe {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 4px 8px;
+  border-radius: 3px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+}
+
+.filtre-portrait {
+  flex: none;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid #8a7148;
+  box-shadow: inset 0 0 8px rgba(60, 40, 12, .5);
+  transition: border-color .18s, box-shadow .18s;
+}
+
+.filtre-portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  /* éteint tant que la classe n'est pas retenue */
+  filter: grayscale(.85) brightness(.92);
+  opacity: .6;
+  transition: filter .18s, opacity .18s;
+}
+
+.filtre-nom {
+  font-family: "IM Fell English SC", serif;
+  font-size: 1.05rem;
+  line-height: 1.15;
+  color: #6d5325;
+  white-space: nowrap;
+  transition: color .18s;
+}
+
+.filtre-classe:hover { background: rgba(184, 145, 47, .22); }
+.filtre-classe:hover .filtre-portrait { border-color: #b8912f; }
+.filtre-classe:hover .filtre-portrait img { opacity: .85; }
+.filtre-classe:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(184, 145, 47, .55);
+}
+
+.filtre-classe.actif { background: rgba(184, 145, 47, .3); }
+
+.filtre-classe.actif .filtre-portrait {
+  border-color: #b8912f;
+  box-shadow: 0 0 0 2px rgba(184, 145, 47, .5), inset 0 0 6px rgba(60, 40, 12, .35);
+}
+
+.filtre-classe.actif .filtre-portrait img {
+  filter: none;
+  opacity: 1;
+}
+
+.filtre-classe.actif .filtre-nom {
+  color: #7c1f14;
+  font-weight: 700;
+}
+
+/* --------- Tout éteindre ---------
+   Caché tant qu'aucune classe n'est retenue : sans filtre, il n'a rien
+   à effacer et le panneau se réduit alors aux seuls portraits. */
+.filtre-effacer {
+  margin-top: 14px;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: "IM Fell English SC", serif;
+  font-size: .92rem;
+  color: #7c1f14;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.filtre-effacer:hover { color: #a3291b; }
+
+/* --------- Petits écrans ---------
+   Le champ de recherche fait 88vw à lui seul : il doit céder la place
+   au bouton plutôt que de le pousser hors de l'écran. La liste, elle,
+   n'a rien à changer : une classe par ligne tient partout. */
+@media (max-width: 600px) {
+  .recherche-sort-box { width: min(420px, 60vw); }
+  .filtre-bouton { font-size: .98rem; padding: 6px 11px; }
+  .filtre-panneau { width: min(290px, 92vw); }
+}
